@@ -7,6 +7,7 @@ use App\Models\Ad;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Feedback;
 use App\Models\Locality;
 use Illuminate\Http\Request;
 use Validator;
@@ -74,9 +75,15 @@ class AdsController extends Controller
      */
     public function show(Ad $ad)
     {
+        // Eager load the feedbacks relationship for the ad
+        $ad->load('feedbacks');
+
+        // Load countries with related cities and localities
         $countries = Country::with('cities.localities')->get();
+
         return view('frontend.postAd.show', compact('ad', 'countries'));
     }
+
 
     public function edit(Ad $ad)
     {

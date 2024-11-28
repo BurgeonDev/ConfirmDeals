@@ -7,30 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feedback extends Model
 {
+    protected $table = 'feedbacks'; // Explicitly define the table name
+
     use HasFactory;
 
     protected $fillable = [
         'ad_id',
-        'seller_id',
-        'buyer_id',
-        'seller_rating',
-        'buyer_comments',
-        'buyer_rating',
-        'seller_comments',
+        'name',
+        'email',
+        'comments',
     ];
 
     public function ad()
     {
         return $this->belongsTo(Ad::class);
-    }
-
-    public function seller()
-    {
-        return $this->belongsTo(User::class, 'seller_id');
-    }
-
-    public function buyer()
-    {
-        return $this->belongsTo(User::class, 'buyer_id');
     }
 }

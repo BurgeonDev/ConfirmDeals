@@ -89,7 +89,7 @@
             </div>
             <div class="item-details-blocks">
                 <div class="row">
-                    <div class="col-lg-8 col-md-7 col-12">
+                    {{-- <div class="col-lg-8 col-md-7 col-12">
                         <!-- Start Single Block -->
                         <div class="single-block description">
                             <h3>Description</h3>
@@ -149,12 +149,90 @@
                             </form>
                         </div>
                         <!-- End Single Block -->
+                    </div> --}}
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <!-- Start Single Block -->
+                        <div class="single-block description">
+                            <h3>Description</h3>
+                            <p>{{ $ad->description }}</p>
+                        </div>
+                        <!-- End Single Block -->
+
+                        <!-- Start Feedback Section -->
+                        <div class="single-block comments">
+                            <h3>Comments</h3>
+                            @if ($ad->feedbacks->isEmpty())
+                                <p>No feedback available for this ad.</p>
+                            @else
+                                @foreach ($ad->feedbacks as $feedback)
+                                    <div class="single-comment">
+
+                                        {{-- <div class="content">
+
+                                            <h4>{{ $feedback->name }}</h4>
+                                            <i class="fas fa-user"></i>
+                                            <p>{{ $feedback->email }}</p>
+                                            <span>{{ $feedback->created_at->format('d M, Y') }}</span>
+                                            <p>{{ $feedback->comments }}</p>
+                                        </div> --}}
+                                        <div class="content">
+
+                                            <h4 class="name-with-icon">{{ $feedback->name }}</h4>
+                                            <p>{{ $feedback->email }}</p>
+                                            <span>{{ $feedback->created_at->format('d M, Y') }}</span>
+                                            <p>{{ $feedback->comments }}</p>
+                                        </div>
+
+
+                                    </div>
+                                @endforeach
+                            @endif
+
+                        </div>
+
+                        <div class="single-block comment-form">
+                            <h3>Post a Comment</h3>
+                            <form action="{{ route('feedback.store', $ad->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="ad_id" value="{{ $ad->id }}">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-box form-group">
+                                            <input type="text" name="name" class="form-control form-control-custom"
+                                                placeholder="Your Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-box form-group">
+                                            <input type="email" name="email" class="form-control form-control-custom"
+                                                placeholder="Your Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-box form-group">
+                                            <textarea name="comments" class="form-control form-control-custom" placeholder="Your Comments" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="button">
+                                            <button type="submit" class="btn">Post Comment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- End Single Block -->
                     </div>
+
+
+
+
+                    {{-- ////////////////////////////////////////////// --}}
                     <div class="col-lg-4 col-md-5 col-12">
                         <div class="item-details-sidebar">
                             <!-- Start Single Block -->
                             <div class="single-block author">
-                                <h3>Author</h3>
+                                <h3>Seller</h3>
                                 <div class="content">
                                     <h3>{{ $ad->createdBy->name ?? 'Unknown' }}</h3>
                                     <h4>{{ $ad->createdBy->email ?? 'Unknown' }}</h4>

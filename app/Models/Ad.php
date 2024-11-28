@@ -75,4 +75,8 @@ class Ad extends Model
     {
         return $this->belongsTo(User::class, 'user_id'); // Assuming 'user_id' is the foreign key in the 'ads' table
     }
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'ad_id');
+    }
 }

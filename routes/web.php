@@ -57,7 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('bids/{bid}/reject', [BidController::class, 'reject'])->name('bids.reject');
 
     // Feedback Routes
-    Route::post('feedback/{ad}', [FeedbackController::class, 'store'])->name('feedback.store');
+    Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
 
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.userManagement');

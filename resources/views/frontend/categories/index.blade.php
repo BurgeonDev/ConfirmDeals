@@ -100,8 +100,9 @@
                                 </div>
                                 <div class="row" id="adsContainer">
                                     @foreach ($ads as $ad)
-                                        <div class="col-lg-4 col-md-6 col-12 ad-item" data-city="{{ $ad->city->name }}"
-                                            data-locality="{{ $ad->locality->name }}"
+                                        <div class="col-lg-4 col-md-6 col-12 ad-item"
+                                            data-city="{{ $ad->city?->name ?? 'N/A' }}"
+                                            data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
                                             data-category="{{ $ad->category_id }}">
                                             <div class="single-item-grid">
                                                 <div class="image">
@@ -109,8 +110,6 @@
                                                         <img style="width: 300px; height: 250px; object-fit: cover;"
                                                             src="{{ asset('storage/' . $ad->pictures[0]) }}"
                                                             alt="{{ $ad->title }}">
-
-
                                                     </a>
                                                     @if ($ad->is_featured)
                                                         <i class="cross-badge lni lni-bolt"></i>
@@ -120,12 +119,13 @@
                                                 </div>
                                                 <div class="content">
                                                     <a href="javascript:void(0)"
-                                                        class="tag">{{ $ad->category->name }}</a>
+                                                        class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
                                                     <h3 class="title">
                                                         <a href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
                                                     </h3>
                                                     <p class="location"><i class="lni lni-map-marker"></i>
-                                                        {{ $ad->city->name }}, {{ $ad->locality->name }}</p>
+                                                        {{ $ad->city?->name ?? 'N/A' }},
+                                                        {{ $ad->locality?->name ?? 'N/A' }}</p>
                                                     <ul class="info">
                                                         <li class="price">${{ number_format($ad->price, 2) }}</li>
                                                         <li class="like"><a href="javascript:void(0)"><i
@@ -135,8 +135,8 @@
                                             </div>
                                         </div>
                                     @endforeach
-
                                 </div>
+
                                 <!-- Pagination -->
                                 <div class="pagination left">
                                     {{ $ads->links() }}
