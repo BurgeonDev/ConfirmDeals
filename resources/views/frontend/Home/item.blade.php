@@ -16,7 +16,7 @@
         </div>
         <div class="single-head">
             <div class="row">
-                @foreach ($ads as $ad)
+                @foreach ($latestAds as $ad)
                     <!-- Loop through each ad -->
                     <div class="col-lg-4 col-md-6 col-12">
                         <!-- Start Single Grid -->
@@ -68,7 +68,7 @@
                                     </ul>
                                 </div>
                                 <div class="bottom-content">
-                                    <p class="price">Start From: <span>${{ number_format($ad->price, 2) }}</span></p>
+                                    <p class="price">Start From: <span>{{ number_format($ad->price, 2) }}</span></p>
                                     <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
                                 </div>
                             </div>
@@ -76,6 +76,10 @@
                         <!-- End Single Grid -->
                     </div>
                 @endforeach
+            </div>
+            <div class="button header-button"
+                style="display: flex; justify-content: center; align-items: center; padding-top:10px;">
+                <a href="{{ route('categories.cat') }}" class="btn">See All Products</a>
             </div>
         </div>
     </div>
