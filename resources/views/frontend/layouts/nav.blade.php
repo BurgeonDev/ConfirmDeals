@@ -35,9 +35,12 @@
                                      <a href="{{ route('contact.index') }}" aria-label="Toggle navigation">Contact
                                          Us</a>
                                  </li>
-                                 <li class="nav-item">
-                                     <a href="{{ route('dashboard') }}" aria-label="Toggle navigation">Dashboard</a>
-                                 </li>
+                                 @can('Manage Admin Dashbaord')
+                                     <li class="nav-item">
+                                         <a href="{{ route('dashboard') }}" aria-label="Toggle navigation">Dashboard</a>
+                                     </li>
+                                 @endcan
+
                              </ul>
                          </div>
                          <div class="login-button">
@@ -67,9 +70,12 @@
                                  @endauth
                              </ul>
                          </div>
-                         <div class="button header-button">
-                             <a href="{{ route('ads.create') }}" class="btn">Post an Ad</a>
-                         </div>
+                         @can('Post Ad')
+                             <div class="button header-button">
+                                 <a href="{{ route('ads.create') }}" class="btn">Post an Ad</a>
+                             </div>
+                         @endcan
+
                      </nav>
                  </div>
              </div>

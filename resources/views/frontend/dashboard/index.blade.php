@@ -33,14 +33,18 @@
                     </a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('ad.create') ? 'active' : '' }}" href="{{ route('ad.create') }}">
-                        <i class="lni lni-circle-plus"></i> Post An Ad
-                    </a>
+                    @can('Post Ad')
+                        <a class="{{ request()->routeIs('ad.create') ? 'active' : '' }}" href="{{ route('ad.create') }}">
+                            <i class="lni lni-circle-plus"></i> Post An Ad
+                        </a>
+                    @endcan
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('ad.index') ? 'active' : '' }}" href="{{ route('ad.index') }}">
-                        <i class="lni lni-circle-plus"></i> My Ads
-                    </a>
+                    @can('Manage Ad')
+                        <a class="{{ request()->routeIs('ad.index') ? 'active' : '' }}" href="{{ route('ad.index') }}">
+                            <i class="lni lni-circle-plus"></i> My Ads
+                        </a>
+                    @endcan
                 </li>
             </ul>
             <div class="button">

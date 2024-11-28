@@ -10,6 +10,9 @@ class CoinController extends Controller
     // List all coin packages available
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $coins = Coin::all();
         return view('admin.coins.index', compact('coins'));
     }
@@ -17,11 +20,17 @@ class CoinController extends Controller
     // Show the coin details (price ranges)
     public function show($id)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $coin = Coin::findOrFail($id);
         return view('admin.coins.show', compact('coin'));
     }
     public function edit($id)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $coin = Coin::findOrFail($id);
         return view('admin.coins.edit', compact('coin'));
     }
@@ -49,6 +58,9 @@ class CoinController extends Controller
     // Create a new coin package
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.coins.create');
     }
 

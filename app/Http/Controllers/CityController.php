@@ -10,12 +10,18 @@ class CityController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $cities = City::with('country')->paginate(10);
         return view('admin.cities.index', compact('cities'));
     }
 
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $countries = Country::all();
         return view('admin.cities.create', compact('countries'));
     }
@@ -34,6 +40,9 @@ class CityController extends Controller
 
     public function edit(City $city)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $countries = Country::all();
         return view('admin.cities.edit', compact('city', 'countries'));
     }

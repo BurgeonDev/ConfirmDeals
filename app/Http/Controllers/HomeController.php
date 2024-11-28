@@ -12,33 +12,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
-    // {
-    //     $countries = Country::all();
-    //     $cities = City::all();
-    //     $localities = Locality::all();
-    //     $ads = Ad::with('user')->get();
-    //     $latestAds = Ad::with('user')
-    //         ->orderBy('created_at', 'desc')
-    //         ->limit(3)
-    //         ->get();
-    //     $categories = Category::all();
-    //     $professions = Profession::all();
-    //     return view('frontend.home', compact(
-    //         'countries',
-    //         'cities',
-    //         'localities',
-    //         'ads',
-    //         'latestAds',
-    //         'categories',
-    //         'professions'
-    //     ));
-    // }
+
     public function index()
     {
+
         $countries = Country::all();
         $cities = City::all();
         $localities = Locality::all();

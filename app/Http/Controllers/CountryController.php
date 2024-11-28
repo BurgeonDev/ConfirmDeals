@@ -9,12 +9,18 @@ class CountryController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $countries = Country::paginate(10);
         return view('admin.countries.index', compact('countries'));
     }
 
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.countries.create');
     }
 
@@ -31,6 +37,9 @@ class CountryController extends Controller
 
     public function edit(Country $country)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.countries.edit', compact('country'));
     }
 

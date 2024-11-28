@@ -19,6 +19,9 @@ class AdsController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('Manage Ad')) {
+            abort(403, 'Unauthorized action.');
+        }
         // Load the category relationship with ads
         $ads = Ad::where('user_id', auth()->id())
             ->with('category') // Eager load the category relationship
@@ -33,6 +36,9 @@ class AdsController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('Post Ad')) {
+            abort(403, 'Unauthorized action.');
+        }
         $categories = Category::all();
         $countries = Country::with('cities.localities')->get(); // Load cities and their localities for each country
         return view('frontend.postAd.create', compact('countries', 'categories'));
@@ -88,6 +94,9 @@ class AdsController extends Controller
 
     public function edit(Ad $ad)
     {
+        if (!auth()->user()->can('Manage Ad')) {
+            abort(403, 'Unauthorized action.');
+        }
         $categories = Category::all();
         $countries = Country::with('cities.localities')->get();
         $oldPictures = $ad->pictures; // Assuming 'pictures' is a JSON or array of image paths
