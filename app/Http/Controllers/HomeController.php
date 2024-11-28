@@ -48,7 +48,7 @@ class HomeController extends Controller
         $serviceAds = $verifiedAds->where('type', 'service');
         $productAds = $verifiedAds->where('type', 'product');
 
-        $latestAds = Ad::with('user')->where('type', 'product')
+        $latestAds = Ad::with('user')->where('type', 'product')->where('is_verified', true)
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();

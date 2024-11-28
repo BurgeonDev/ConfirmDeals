@@ -17,10 +17,11 @@ class CategoryController extends Controller
     public function cat()
     {
         $categories = Category::all();
-        $ads = Ad::paginate(9);
+        $ads = Ad::where('is_verified', true)->paginate(9);
         $cities = City::all();
         return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
     }
+
 
     public function create()
     {
