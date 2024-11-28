@@ -12,7 +12,7 @@
 
                 </div>
                 <div class="table-responsive">
-                    <table id="staticDataTable" class="table table-hover">
+                    <table id="staticDataTables" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Role Name</th>

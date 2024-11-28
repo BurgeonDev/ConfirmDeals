@@ -13,10 +13,10 @@
                     <h4>Ads</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="staticDataTables">
                         <thead>
                             <tr>
-                                <th>#</th>
+
                                 <th>Picture</th>
                                 <th>Title</th>
                                 <th>Description</th>
@@ -31,7 +31,6 @@
                         <tbody>
                             @forelse ($ads as $ad)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
                                     <td>
                                         @if (!empty($ad->pictures) && is_array($ad->pictures))
                                             <img src="{{ asset('storage/' . $ad->pictures[0]) }}" alt="Ad Picture"
