@@ -76,13 +76,14 @@ class AdsController extends Controller
     public function show(Ad $ad)
     {
         // Eager load the feedbacks relationship for the ad
-        $ad->load('feedbacks');
+        $ad->load('feedbacks', 'city', 'locality');
 
         // Load countries with related cities and localities
         $countries = Country::with('cities.localities')->get();
 
         return view('frontend.postAd.show', compact('ad', 'countries'));
     }
+
 
 
     public function edit(Ad $ad)

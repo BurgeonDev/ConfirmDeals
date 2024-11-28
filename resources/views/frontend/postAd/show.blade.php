@@ -223,11 +223,6 @@
                         </div>
                         <!-- End Single Block -->
                     </div>
-
-
-
-
-                    {{-- ////////////////////////////////////////////// --}}
                     <div class="col-lg-4 col-md-5 col-12">
                         <div class="item-details-sidebar">
                             <!-- Start Single Block -->
@@ -238,6 +233,44 @@
                                     <h4>{{ $ad->createdBy->email ?? 'Unknown' }}</h4>
                                 </div>
                             </div>
+                            <div class="single-block">
+                                <h3>Location</h3>
+                                <div class="mapouter">
+                                    <div class="gmap_canvas">
+                                        @if ($ad->locality && $ad->locality->name)
+                                            <iframe width="100%" height="300" id="gmap_canvas"
+                                                src="https://maps.google.com/maps?q={{ $ad->locality->name }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                        @elseif ($ad->city)
+                                            <iframe width="100%" height="300" id="gmap_canvas"
+                                                src="https://maps.google.com/maps?q={{ $ad->city }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                        @else
+                                            <p>Location not available</p>
+                                        @endif
+
+                                        <a href="https://putlocker-is.org"></a><br>
+                                        <style>
+                                            .mapouter {
+                                                position: relative;
+                                                text-align: right;
+                                                height: 300px;
+                                                width: 100%;
+                                            }
+                                        </style>
+                                        <a href="https://www.embedgooglemap.net">google map code for website</a>
+                                        <style>
+                                            .gmap_canvas {
+                                                overflow: hidden;
+                                                background: none !important;
+                                                height: 300px;
+                                                width: 100%;
+                                            }
+                                        </style>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- End Single Block -->
                             <!-- Start Single Block -->
                             {{-- <div class="single-block contant-seller comment-form ">
