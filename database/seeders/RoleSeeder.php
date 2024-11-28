@@ -4,21 +4,15 @@ namespace Database\Seeders;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Contracts\Permission;
 
 class RoleSeeder extends Seeder
 {
     public function run()
     {
-        $roles = [
-            'SuperAdmin',
-            'Buyer',
-            'Seller',
-        ];
-
-        foreach ($roles as $role) {
-            Role::firstOrCreate(['name' => $role]);
-        }
-
-        echo "Roles seeded: " . implode(', ', $roles) . "\n";
+        // Create roles
+        $adminRole = Role::create(['name' => 'SuperAdmin']);
+        Role::create(['name' => 'Buyer']);
+        Role::create(['name' => 'Seller']);
     }
 }

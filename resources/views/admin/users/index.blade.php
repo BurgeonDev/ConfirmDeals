@@ -1,27 +1,27 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="mb-4 d-flex justify-content-between">
-                <h2 class="text-xl font-semibold text-gray-800">Professions</h2>
-                <a href="{{ route('professions.create') }}" class="btn btn-primary">Add Profession</a>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4>User Management</h4>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">User Management</h4>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped" id="staticDataTables">
+                <p class="card-description">List of all users and their roles</p>
+
+                <div class="table-responsive">
+                    <table id="staticDataTables" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>User</th>
+
                                 <th>Email</th>
                                 <th>Coins</th>
                                 <th>Status</th>
-                                <th>Role</th>
-                                <th>Assign Role</th>
+                                <th>Current Role</th>
+
+                                <th>Assign New Role</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,32 +41,30 @@
                                             </label>
                                         </form>
                                     </td>
+                                    <td>{{ $user->roles->pluck('name')->first() ?? 'No role assigned' }}</td>
                                     <td>
-                                        @foreach ($user->roles as $role)
-                                            <span class="btn badge bg-primary">{{ $role->name }}</span>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('admin.assignRole', $user->id) }}" method="POST">
+                                        <form method="POST" action="{{ route('admin.assignRole', $user->id) }}">
                                             @csrf
-                                            <div class="input-group">
-                                                <select name="role" class="form-select" required>
-                                                    <option value="">Select Role</option>
-                                                    @foreach ($roles as $role)
-                                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <button type="submit" class="btn btn-primary ms-2">Assign</button>
-                                            </div>
+
+                                            <select name="role" class="form-control-sm">
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->name }}"
+                                                        {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                                        {{ $role->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <button type="submit" class="btn btn-success btn-fw">Assign
+                                                Role</button>
                                         </form>
                                     </td>
 
                                 </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
+
             </div>
         </div>
     </div>

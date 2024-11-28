@@ -29,6 +29,7 @@ class User extends Authenticatable
         'profession_id',
         'provider_name',
         'provider_id',
+
     ];
 
     protected $hidden = [
