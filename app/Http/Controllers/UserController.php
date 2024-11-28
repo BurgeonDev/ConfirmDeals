@@ -11,34 +11,29 @@ class UserController extends Controller
 {
     public function index()
     {
-
-
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $users = User::all();
         $roles = Role::all();
         return view('admin.users.index', compact('users', 'roles'));
     }
-
     // Assign role to a user
     public function assignRole(Request $request, $userId)
     {
-        $user = User::find($userId);
-
-        // Convert role ID to role name
-        $role = Role::find($request->role);
-
-        if (!$role) {
-            return redirect()->back()->withErrors('The selected role does not exist.');
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
         }
-
-        $user->syncRoles($role->name); // Use role name, not ID
+        $user = User::find($userId);
+        $user->syncRoles($request->role);
         return redirect()->back()->with('success', 'Role assigned successfully');
     }
 
-
     public function createRole()
     {
-
-
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $permissions = Permission::all();
         return view('admin.roles.create', compact('permissions'));
     }
@@ -46,8 +41,6 @@ class UserController extends Controller
     // Store a new role
     public function storeRole(Request $request)
     {
-
-
         $request->validate([
             'name' => 'required|unique:roles,name',
             'permissions' => 'array',
@@ -67,7 +60,9 @@ class UserController extends Controller
     // Show all roles
     public function listRoles()
     {
-
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $roles = Role::all();
         return view('admin.roles.index', compact('roles'));
     }
@@ -75,8 +70,9 @@ class UserController extends Controller
     // Show the role editing form
     public function editRole($id)
     {
-
-
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $role = Role::findOrFail($id);
         $permissions = Permission::all(); // Load all permissions
         return view('admin.roles.edit', compact('role', 'permissions'));
@@ -85,8 +81,6 @@ class UserController extends Controller
     // Update the role
     public function updateRole(Request $request, $id)
     {
-
-
         $request->validate([
             'name' => 'required|string|max:255|unique:roles,name,' . $id,
             'permissions' => 'array',
@@ -108,10 +102,8 @@ class UserController extends Controller
     // Delete the role
     public function destroyRole($id)
     {
-
         $role = Role::findOrFail($id);
         $role->delete();
-
         return redirect()->route('admin.roles.index')->with('success', 'Role deleted successfully.');
     }
     public function toggleUserStatus($id)
@@ -119,7 +111,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->is_active = !$user->is_active;
         $user->save();
-
         return back()->with('success', 'User status updated successfully.');
     }
 }

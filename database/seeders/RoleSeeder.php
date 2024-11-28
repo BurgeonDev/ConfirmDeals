@@ -2,23 +2,33 @@
 
 namespace Database\Seeders;
 
-use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
     public function run()
     {
-        $roles = [
-            'SuperAdmin',
-            'Buyer',
-            'Seller',
+        // Create roles
+        $adminRole = Role::create(['name' => 'SuperAdmin']);
+        Role::create(['name' => 'Buyer']);
+        Role::create(['name' => 'Seller']);
+
+        // Define all permissions
+        $permissions = [
+            'Post Ad',
+            'Manage Admin Dashbaord',
+            'Manage Ad',
+
         ];
 
-        foreach ($roles as $role) {
-            Role::firstOrCreate(['name' => $role]);
+        // Create and assign permissions
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
-        echo "Roles seeded: " . implode(', ', $roles) . "\n";
+        // Assign all permissions to the Admin role
+        $adminRole->givePermissionTo($permissions);
     }
 }

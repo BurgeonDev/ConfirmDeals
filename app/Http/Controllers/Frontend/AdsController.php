@@ -7,6 +7,7 @@ use App\Models\Ad;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Feedback;
 use App\Models\Locality;
 use Illuminate\Http\Request;
 use Validator;
@@ -18,6 +19,9 @@ class AdsController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('Manage Ad')) {
+            abort(403, 'Unauthorized action.');
+        }
         // Load the category relationship with ads
         $ads = Ad::where('user_id', auth()->id())
             ->with('category') // Eager load the category relationship
@@ -32,6 +36,9 @@ class AdsController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('Post Ad')) {
+            abort(403, 'Unauthorized action.');
+        }
         $categories = Category::all();
         $countries = Country::with('cities.localities')->get(); // Load cities and their localities for each country
         return view('frontend.postAd.create', compact('countries', 'categories'));
@@ -45,7 +52,7 @@ class AdsController extends Controller
             'type' => 'required|in:service,product',
             'is_verified' => 'boolean',
             'pictures' => 'nullable|array',
-            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:2048',
+            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:4048',
             'price' => 'nullable|numeric|min:0',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
@@ -74,12 +81,22 @@ class AdsController extends Controller
      */
     public function show(Ad $ad)
     {
+        // Eager load the feedbacks relationship for the ad
+        $ad->load('feedbacks', 'city', 'locality');
+
+        // Load countries with related cities and localities
         $countries = Country::with('cities.localities')->get();
+
         return view('frontend.postAd.show', compact('ad', 'countries'));
     }
 
+
+
     public function edit(Ad $ad)
     {
+        if (!auth()->user()->can('Manage Ad')) {
+            abort(403, 'Unauthorized action.');
+        }
         $categories = Category::all();
         $countries = Country::with('cities.localities')->get();
         $oldPictures = $ad->pictures; // Assuming 'pictures' is a JSON or array of image paths

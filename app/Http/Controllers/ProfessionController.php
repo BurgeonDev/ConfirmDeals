@@ -9,6 +9,9 @@ class ProfessionController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $professions = Profession::all();
         return
             view('admin.professions.index', compact('professions'));
@@ -16,6 +19,9 @@ class ProfessionController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.professions.create'); // Return a form view if needed
     }
 
@@ -32,11 +38,17 @@ class ProfessionController extends Controller
 
     public function show(Profession $profession)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return response()->json($profession); // Optionally return as JSON for APIs
     }
 
     public function edit(Profession $profession)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.professions.edit', compact('profession')); // Return edit form view if needed
     }
 

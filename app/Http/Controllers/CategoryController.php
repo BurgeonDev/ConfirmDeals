@@ -4,24 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Category;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $categories = Category::paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
     public function cat()
     {
         $categories = Category::all();
-        $ads = Ad::all();
-        return view('frontend.categories.index', compact('categories', 'ads'));
+        $ads = Ad::where('is_verified', true)->paginate(9);
+        $cities = City::all();
+        return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
     }
+
 
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.categories.create');
     }
 
@@ -39,6 +48,9 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.categories.edit', compact('category'));
     }
 

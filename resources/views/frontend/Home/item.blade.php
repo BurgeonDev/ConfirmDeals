@@ -1,164 +1,86 @@
- <section class="items-grid section custom-padding">
-     <div class="container">
-         <div class="row">
-             <div class="col-12">
-                 <div class="section-title">
-                     <h2 class="wow fadeInUp" data-wow-delay=".4s"
-                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">Latest
-                         Products</h2>
-                     <p class="wow fadeInUp" data-wow-delay=".6s"
-                         style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">There are
-                         many variations of passages of Lorem
-                         Ipsum available, but the majority have suffered alteration in some form.</p>
-                 </div>
-             </div>
-         </div>
-         <div class="single-head">
-             <div class="row">
-                 <div class="col-lg-4 col-md-6 col-12">
-                     <!-- Start Single Grid -->
-                     <div class="single-grid wow fadeInUp" data-wow-delay=".2s"
-                         style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                         <div class="image">
-                             <a href="item-details.html" class="thumbnail"><img
-                                     src="{{ asset('frontend/assets/images/items-grid/img1.jpg') }}" alt="#"></a>
-                             <div class="author">
-                                 <div class="author-image">
-                                     <a href="javascript:void(0)"><img
-                                             src="{{ asset('frontend/assets/images/items-grid/author-1.jpg') }}"
-                                             alt="#">
-                                         <span>Smith jeko</span></a>
-                                 </div>
-                                 <p class="sale">For Sale</p>
-                             </div>
-                         </div>
-                         <div class="content">
-                             <div class="top-content">
-                                 <a href="javascript:void(0)" class="tag">Mobile Phones</a>
-                                 <h3 class="title">
-                                     <a href="item-details.html">Apple Iphone X</a>
-                                 </h3>
-                                 <p class="update-time">Last Updated: 1 hours ago</p>
-                                 <ul class="rating">
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><a href="javascript:void(0)">(35)</a></li>
-                                 </ul>
-                                 <ul class="info-list">
-                                     <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York,
-                                             US</a></li>
-                                     <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Feb 18,
-                                             2023</a></li>
-                                 </ul>
-                             </div>
-                             <div class="bottom-content">
-                                 <p class="price">Start From: <span>$200.00</span></p>
-                                 <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                             </div>
-                         </div>
-                     </div>
-                     <!-- End Single Grid -->
-                 </div>
-                 <div class="col-lg-4 col-md-6 col-12">
-                     <!-- Start Single Grid -->
-                     <div class="single-grid wow fadeInUp" data-wow-delay=".4s"
-                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-                         <div class="image">
-                             <a href="item-details.html" class="thumbnail"><img
-                                     src="{{ asset('frontend/assets/images/items-grid/img2.jpg') }}" alt="#"></a>
-                             <div class="author">
-                                 <div class="author-image">
-                                     <a href="javascript:void(0)"><img
-                                             src="{{ asset('frontend/assets/images/items-grid/author-2.jpg') }}"
-                                             alt="#">
-                                         <span>Alex Jui</span></a>
-                                 </div>
-                                 <p class="sale">For Sale</p>
-                             </div>
-                         </div>
-                         <div class="content">
-                             <div class="top-content">
-                                 <a href="javascript:void(0)" class="tag">Real Estate</a>
-                                 <h3 class="title">
-                                     <a href="item-details.html">Amazing Room for Rent</a>
-                                 </h3>
-                                 <p class="update-time">Last Updated: 2 hours ago</p>
-                                 <ul class="rating">
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><a href="javascript:void(0)">(20)</a></li>
-                                 </ul>
-                                 <ul class="info-list">
-                                     <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Dallas,
-                                             Washington</a></li>
-                                     <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Jan 7, 2023</a>
-                                     </li>
-                                 </ul>
-                             </div>
-                             <div class="bottom-content">
-                                 <p class="price">Start From: <span>$450.00</span></p>
-                                 <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                             </div>
-                         </div>
-                     </div>
-                     <!-- End Single Grid -->
-                 </div>
-                 <div class="col-lg-4 col-md-6 col-12">
-                     <!-- Start Single Grid -->
-                     <div class="single-grid wow fadeInUp" data-wow-delay=".6s"
-                         style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
-                         <div class="image">
-                             <a href="item-details.html" class="thumbnail"><img
-                                     src="{{ asset('frontend/assets/images/items-grid/img3.jpg') }}" alt="#"></a>
-                             <div class="author">
-                                 <div class="author-image">
-                                     <a href="javascript:void(0)"><img
-                                             src="{{ asset('frontend/assets/images/items-grid/author-3.jpg') }}"
-                                             alt="#">
-                                         <span>Devid Milan</span></a>
-                                 </div>
-                                 <p class="sale">For Sale</p>
-                             </div>
-                             <p class="item-position"><i class="lni lni-bolt"></i> Featured</p>
-                         </div>
-                         <div class="content">
-                             <div class="top-content">
-                                 <a href="javascript:void(0)" class="tag">Mobile Phones</a>
-                                 <h3 class="title">
-                                     <a href="item-details.html">Canon SX Powershot D-SLR</a>
-                                 </h3>
-                                 <p class="update-time">Last Updated: 3 hours ago</p>
-                                 <ul class="rating">
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><i class="lni lni-star-filled"></i></li>
-                                     <li><a href="javascript:void(0)">(55)</a></li>
-                                 </ul>
-                                 <ul class="info-list">
-                                     <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York,
-                                             US</a></li>
-                                     <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Mar 18,
-                                             2023</a></li>
-                                 </ul>
-                             </div>
-                             <div class="bottom-content">
-                                 <p class="price">Start From: <span>$700.00</span></p>
-                                 <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                             </div>
-                         </div>
-                     </div>
-                     <!-- End Single Grid -->
-                 </div>
+<section class="items-grid section custom-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s"
+                        style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">Latest
+                        Products</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s"
+                        style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Discover our
+                        latest arrivals! Browse through a wide variety of top-quality products carefully curated to meet
+                        your needs and preferences.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="single-head">
+            <div class="row">
+                @foreach ($latestAds as $ad)
+                    <!-- Loop through each ad -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Start Single Grid -->
+                        <div class="single-grid wow fadeInUp" data-wow-delay=".2s"
+                            style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                            <div class="image">
+                                <a href="{{ route('ad.show', $ad->id) }}" class="thumbnail">
+                                    <img style="width: 450px; height: 350px; object-fit: cover;"
+                                        src="{{ asset('storage/' . $ad->pictures[0]) }}" alt="{{ $ad->title }}">
+                                </a>
+                                <div class="author">
+                                    <div class="author-image">
+                                        <a href="javascript:void(0)">
+                                            @if ($ad->user && $ad->user->avatar)
+                                                <!-- Display user's avatar -->
+                                                <img src="{{ asset('storage/' . $ad->user->avatar) }}"
+                                                    alt="User Avatar">
+                                            @else
+                                                <!-- Fallback to font-awesome icon -->
+                                                <i class="fas fa-user-circle" style="font-size: 40px; color: #ccc;"></i>
+                                            @endif
+                                            <span>{{ $ad->user->name ?? 'Unknown' }}</span>
+                                        </a>
+                                    </div>
+                                    <p class="sale">For Sale</p>
+                                </div>
 
-             </div>
-         </div>
-     </div>
- </section>
+                            </div>
+                            <div class="content">
+                                <div class="top-content">
+                                    <a href="javascript:void(0)"
+                                        class="tag">{{ $ad->category->name ?? 'Uncategorized' }}</a>
+                                    <h3 class="title">
+                                        <a href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
+                                    </h3>
+                                    <p class="update-time">Last Updated: {{ $ad->updated_at->diffForHumans() }}</p>
+                                    <ul class="rating">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                        @endfor
+                                        <li><a href="javascript:void(0)">(35)</a></li>
+                                    </ul>
+                                    <ul class="info-list">
+                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i>
+                                                {{ $ad->city->name ?? 'Unknown' }},
+                                                {{ $ad->locality->name ?? 'Unknown' }}</a></li>
+                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i>
+                                                {{ $ad->created_at->format('M d, Y') }}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="bottom-content">
+                                    <p class="price">Start From: <span>{{ number_format($ad->price, 2) }}</span></p>
+                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Grid -->
+                    </div>
+                @endforeach
+            </div>
+            <div class="button header-button"
+                style="display: flex; justify-content: center; align-items: center; padding-top:10px;">
+                <a href="{{ route('categories.cat') }}" class="btn">See All Products</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -12,16 +12,24 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
+
         $countries = Country::all();
         $cities = City::all();
         $localities = Locality::all();
-        $ads = Ad::all();
-        // $disableAds = Ad::where('is_verified', '0')->all();
+        $verifiedAds = Ad::with('user')
+            ->where('is_verified', true)->limit(4)
+            ->get();
+        $serviceAds = $verifiedAds->where('type', 'service');
+        $productAds = $verifiedAds->where('type', 'product');
+
+        $latestAds = Ad::with('user')->where('type', 'product')->where('is_verified', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+
         $categories = Category::all();
         $professions = Profession::all();
 
@@ -29,12 +37,15 @@ class HomeController extends Controller
             'countries',
             'cities',
             'localities',
-            'ads',
-
+            'serviceAds',
+            'productAds',
+            'latestAds',
             'categories',
             'professions'
         ));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

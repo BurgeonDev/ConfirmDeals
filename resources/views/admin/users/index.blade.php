@@ -1,68 +1,70 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-header">
-                <h4>User Management</h4>
-            </div>
             <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">User Management</h4>
+                </div>
+                <p class="card-description">List of all users and their roles</p>
 
-
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Coins</th>
-                            <th>Status</th>
-                            <th>Roles</th>
-                            <th>Assign Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
+                <div class="table-responsive">
+                    <table id="staticDataTables" class="table table-hover">
+                        <thead>
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->coins }}</td>
-                                <td>
-                                    <form action="{{ route('admin.toggleUserStatus', $user->id) }}" method="POST">
-                                        @csrf
-                                        @method('PATCH')
-                                        <label class="form-switch">
-                                            <input type="checkbox" class="form-check-input" onchange="this.form.submit()"
-                                                {{ $user->is_active ? 'checked' : '' }}>
-                                        </label>
-                                    </form>
-                                </td>
-                                <td>
-                                    @foreach ($user->roles as $role)
-                                        <span class="btn badge bg-primary">{{ $role->name }}</span>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <form action="{{ route('admin.assignRole', $user->id) }}" method="POST">
-                                        @csrf
-                                        <div class="input-group">
-                                            <select name="role" class="form-select" required>
-                                                <option value="">Select Role</option>
+                                <th>ID</th>
+                                <th>User</th>
+
+                                <th>Email</th>
+                                <th>Coins</th>
+                                <th>Status</th>
+                                <th>Current Role</th>
+
+                                <th>Assign New Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->coins }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.toggleUserStatus', $user->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <label class="form-switch">
+                                                <input type="checkbox" class="form-check-input"
+                                                    onchange="this.form.submit()" {{ $user->is_active ? 'checked' : '' }}>
+                                            </label>
+                                        </form>
+                                    </td>
+                                    <td>{{ $user->roles->pluck('name')->first() ?? 'No role assigned' }}</td>
+                                    <td>
+                                        <form method="POST" action="{{ route('admin.assignRole', $user->id) }}">
+                                            @csrf
+
+                                            <select name="role" class="form-control-sm">
                                                 @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option value="{{ $role->name }}"
+                                                        {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                                        {{ $role->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            <button type="submit" class="btn btn-primary ms-2">Assign</button>
-                                        </div>
-                                    </form>
-                                </td>
+                                            <button type="submit" class="btn btn-success btn-fw">Assign
+                                                Role</button>
+                                        </form>
+                                    </td>
 
-                            </tr>
-                        @endforeach
-                    </tbody>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
-                </table>
             </div>
         </div>
     </div>

@@ -10,12 +10,18 @@ class LocalityController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $localities = Locality::with('city')->paginate(10);
         return view('admin.localities.index', compact('localities'));
     }
 
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $cities = City::all();
         return view('admin.localities.create', compact('cities'));
     }
@@ -34,6 +40,9 @@ class LocalityController extends Controller
 
     public function edit(Locality $locality)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $cities = City::all();
         return view('admin.localities.edit', compact('locality', 'cities'));
     }

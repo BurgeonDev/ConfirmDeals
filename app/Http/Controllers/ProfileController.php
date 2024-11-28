@@ -16,6 +16,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('profile.edit', [
             'user' => $request->user(),
         ]);

@@ -19,26 +19,25 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-latest-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-latest" type="button" role="tab" aria-controls="nav-latest"
-                            aria-selected="true">Latest Ads</button>
+                            aria-selected="true">Service Ads</button>
                         <button class="nav-link" id="nav-popular-tab" data-bs-toggle="tab" data-bs-target="#nav-popular"
-                            type="button" role="tab" aria-controls="nav-popular" aria-selected="false">Popular
+                            type="button" role="tab" aria-controls="nav-popular" aria-selected="false">Product
                             Ads</button>
-                        <button class="nav-link" id="nav-random-tab" data-bs-toggle="tab" data-bs-target="#nav-random"
-                            type="button" role="tab" aria-controls="nav-random" aria-selected="false">Random
-                            Ads</button>
+
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-latest" role="tabpanel"
                         aria-labelledby="nav-latest-tab">
                         <div class="row">
-                            @foreach ($ads as $ad)
+                            @foreach ($serviceAds as $ad)
                                 <div class="col-lg-3 col-md-4 col-12">
                                     <!-- Start Single Item -->
                                     <div class="single-item-grid">
                                         <div class="image">
                                             <a href="{{ route('ad.show', $ad->id) }}">
-                                                <img src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
+                                                <img style="width: 300px; height: 250px; object-fit: cover;"
+                                                    src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
                                             @if ($ad->is_verified)
@@ -77,443 +76,56 @@
                     </div>
                     <div class="tab-pane fade" id="nav-popular" role="tabpanel" aria-labelledby="nav-popular-tab">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-2.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Others</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Travel Kit</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i class="lni lni-map-marker">
-                                                </i>San Francisco</a></p>
-                                        <ul class="info">
-                                            <li class="price">$580.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-3.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Electronic</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Nikon DSLR Camera</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Alaska, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$560.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
+                            @foreach ($productAds as $ad)
+                                <div class="col-lg-3 col-md-4 col-12">
+                                    <!-- Start Single Item -->
+                                    <div class="single-item-grid">
+                                        <div class="image">
+                                            <a href="{{ route('ad.show', $ad->id) }}">
+                                                <img style="width: 300px; height: 250px; object-fit: cover;"
+                                                    src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
+                                                    alt="#">
+                                            </a>
+                                            @if ($ad->is_verified)
+                                                <i class="cross-badge lni lni-bolt"></i>
+                                            @endif
+                                            <span
+                                                class="flat-badge sale">{{ $ad->is_verified ? 'Verified' : 'Sale' }}</span>
+                                        </div>
+                                        <div class="content">
+                                            <a href="{{ route('ad.show', $ad->id) }}"
+                                                class="tag">{{ $ad->category->name }}</a>
+                                            <h3 class="title">
+                                                <a href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
+                                            </h3>
+                                            <p class="location">
+                                                <a href="{{ route('ad.show', $ad->id) }}">
+                                                    <i class="lni lni-map-marker"></i>
+                                                    {{ $ad->city->name ?? 'Unknown City' }},
+                                                    {{ $ad->country->name ?? 'Unknown Country' }}
+                                                </a>
+                                            </p>
+                                            <ul class="info">
+                                                <li class="price">PKR {{ number_format($ad->price, 2) }}</li>
+                                                <li class="like">
+                                                    <a href="{{ route('ad.show', $ad->id) }}">
+                                                        <i class="lni lni-heart"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-1.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Mobile</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Apple Iphone X</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Boston</a></p>
-                                        <ul class="info">
-                                            <li class="price">$890.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-4.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Furniture</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Poster Paint</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Las Vegas</a></p>
-                                        <ul class="info">
-                                            <li class="price">$85.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-7.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Electronic</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Cctv camera</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Delhi, India</a></p>
-                                        <ul class="info">
-                                            <li class="price">$350.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-8.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Mobile</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Samsung Glalaxy S8</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Delaware, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$299.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-5.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Furniture</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Official Metting Chair</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Alaska, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$750.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-6.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge rent">Rent</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Books &amp; Magazine</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Story Book</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>New York, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$120.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
+                            @endforeach
                         </div>
+
                     </div>
-                    <div class="tab-pane fade" id="nav-random" role="tabpanel" aria-labelledby="nav-random-tab">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-3.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Electronic</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Nikon DSLR Camera</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Alaska, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$560.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-4.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Furniture</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Poster Paint</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Las Vegas</a></p>
-                                        <ul class="info">
-                                            <li class="price">$85.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-5.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Furniture</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Official Metting Chair</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Alaska, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$750.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-1.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Mobile</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Apple Iphone X</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Boston</a></p>
-                                        <ul class="info">
-                                            <li class="price">$890.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-2.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Others</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Travel Kit</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>San Francisco</a></p>
-                                        <ul class="info">
-                                            <li class="price">$580.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-6.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge rent">Rent</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Books &amp; Magazine</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Story Book</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>New York, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$120.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-7.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Electronic</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Cctv camera</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Delhi, India</a></p>
-                                        <ul class="info">
-                                            <li class="price">$350.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-12">
-                                <!-- Start Single Item -->
-                                <div class="single-item-grid">
-                                    <div class="image">
-                                        <a href="item-details.html"><img src="assets/images/items-tab/item-8.jpg"
-                                                alt="#"></a>
-                                        <i class=" cross-badge lni lni-bolt"></i>
-                                        <span class="flat-badge sale">Sale</span>
-                                    </div>
-                                    <div class="content">
-                                        <a href="javascript:void(0)" class="tag">Mobile</a>
-                                        <h3 class="title">
-                                            <a href="item-details.html">Samsung Glalaxy S8</a>
-                                        </h3>
-                                        <p class="location"><a href="javascript:void(0)"><i
-                                                    class="lni lni-map-marker">
-                                                </i>Delaware, USA</a></p>
-                                        <ul class="info">
-                                            <li class="price">$299.00</li>
-                                            <li class="like"><a href="javascript:void(0)"><i
-                                                        class="lni lni-heart"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Item -->
-                            </div>
-                        </div>
+                    <div class="button header-button"
+                        style="display: flex; justify-content: center; align-items: center; padding-top:10px;">
+                        <a href="{{ route('categories.cat') }}" class="btn">See All Ads</a>
                     </div>
+
                 </div>
             </div>
         </div>

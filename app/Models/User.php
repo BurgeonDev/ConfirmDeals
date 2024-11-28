@@ -18,6 +18,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->assignRole('buyer');
+        });
+    }
     protected $fillable = [
         'name',
         'email',
@@ -29,6 +35,7 @@ class User extends Authenticatable
         'profession_id',
         'provider_name',
         'provider_id',
+
     ];
 
     protected $hidden = [

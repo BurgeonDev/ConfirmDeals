@@ -11,17 +11,10 @@ class PermissionSeeder extends Seeder
     {
         // Define permissions
         $permissions = [
-            'view users',
-            'create users',
-            'edit users',
-            'delete users',
-            'view roles',
-            'create roles',
-            'edit roles',
-            'delete roles',
-            'view permissions',
-            'assign roles',
-            'assign permissions'
+            'Post Ad',
+            'Manage Ad',
+            'Manage Admin Dashboard',
+
         ];
 
         // Create permissions

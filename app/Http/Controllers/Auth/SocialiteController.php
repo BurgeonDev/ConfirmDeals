@@ -37,7 +37,7 @@ class SocialiteController extends Controller
             // Log in the user
             Auth::login($user);
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('home');
         } catch (\Exception $e) {
             // return redirect()->route('login')->withErrors(['error' => 'Login failed!']);
             dd('somthing wronngn' . $e->getMessage());

@@ -10,7 +10,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="staticDataTables">
                         <thead>
                             <tr>
                                 <th>#</th>

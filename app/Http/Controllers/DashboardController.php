@@ -17,6 +17,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $countries = Country::count();
         $cities = City::count();
         $localities = Locality::count();

@@ -57,7 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('bids/{bid}/reject', [BidController::class, 'reject'])->name('bids.reject');
 
     // Feedback Routes
-    Route::post('feedback/{ad}', [FeedbackController::class, 'store'])->name('feedback.store');
+    Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
 
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.userManagement');
@@ -84,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::post('user//profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
     Route::delete('user//profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
 });
+
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
