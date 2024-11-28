@@ -70,13 +70,11 @@
                                  @endauth
                              </ul>
                          </div>
-                         @auth
-                             @if (auth()->user()->role === 'SuperAdmin' || auth()->user()->role === 'Seller')
-                                 <div class="button header-button">
-                                     <a href="{{ route('ads.create') }}" class="btn">Post an Ad</a>
-                                 </div>
-                             @endif
-                         @endauth
+
+                         <div class="button header-button">
+                             <a href="{{ route('ads.create') }}" class="btn">Post an Ad</a>
+                         </div>
+
 
 
                      </nav>
