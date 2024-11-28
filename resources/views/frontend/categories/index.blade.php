@@ -106,8 +106,11 @@
                                             <div class="single-item-grid">
                                                 <div class="image">
                                                     <a href="{{ route('ad.show', $ad->id) }}">
-                                                        <img src="{{ asset('storage/' . $ad->image) }}"
+                                                        <img style="width: 300px; height: 250px; object-fit: cover;"
+                                                            src="{{ asset('storage/' . $ad->pictures[0]) }}"
                                                             alt="{{ $ad->title }}">
+
+
                                                     </a>
                                                     @if ($ad->is_featured)
                                                         <i class="cross-badge lni lni-bolt"></i>

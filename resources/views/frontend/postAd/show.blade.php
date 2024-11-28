@@ -46,6 +46,7 @@
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-info">
                             <h2 class="title">{{ $ad->title }}</h2>
+
                             <p class="location"><i class="lni lni-map-marker"></i>
                                 <a href="javascript:void(0)">
 
@@ -53,11 +54,13 @@
                                     {{ $ad->city->name ?? 'City Not Found' }}
                                 </a>
                             </p>
+                            <h3 class="price">Pkr {{ $ad->price }}</h3>
 
-                            <h3 class="price">{{ $ad->price }}</h3>
                             <div class="list-info">
                                 <h4>Informations</h4>
                                 <ul>
+                                    <li><span>Type:</span>{{ $ad->type }}</li>
+                                    <li><span>Category:</span>{{ $ad->category->name }}</li>
                                     <li><span>Status:</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</li>
                                     <li><span>Created On:</span>{{ $ad->created_at }}</li>
                                     <li><span>Updated On:</span>{{ $ad->updated_at }}</li>
@@ -80,20 +83,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            {{-- <div class="social-share">
-                                <h4>Share Ad</h4>
-                                <ul>
-                                    <li><a href="javascript:void(0)" class="facebook"><i
-                                                class="lni lni-facebook-filled"></i></a></li>
-                                    <li><a href="javascript:void(0)" class="twitter"><i
-                                                class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="javascript:void(0)" class="google"><i class="lni lni-google"></i></a></li>
-                                    <li><a href="javascript:void(0)" class="linkedin"><i
-                                                class="lni lni-linkedin-original"></i></a></li>
-                                    <li><a href="javascript:void(0)" class="pinterest"><i class="lni lni-pinterest"></i></a>
-                                    </li>
-                                </ul>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -108,17 +97,6 @@
                                 {{ $ad->description }}
                             </p>
                         </div>
-                        <!-- End Single Block -->
-                        <!-- Start Single Block -->
-                        {{-- <div class="single-block tags">
-                            <h3>Tags</h3>
-                            <ul>
-                                <li><a href="javascript:void(0)">Bike</a></li>
-                                <li><a href="javascript:void(0)">Services</a></li>
-                                <li><a href="javascript:void(0)">Brand</a></li>
-                                <li><a href="javascript:void(0)">Popular</a></li>
-                            </ul>
-                        </div> --}}
                         <!-- End Single Block -->
                         <!-- Start Single Block -->
                         <div class="single-block comments">
@@ -178,11 +156,8 @@
                             <div class="single-block author">
                                 <h3>Author</h3>
                                 <div class="content">
-
                                     <h3>{{ $ad->createdBy->name ?? 'Unknown' }}</h3>
                                     <h4>{{ $ad->createdBy->email ?? 'Unknown' }}</h4>
-
-
                                 </div>
                             </div>
                             <!-- End Single Block -->

@@ -20,7 +20,8 @@ class HomeController extends Controller
         $countries = Country::all();
         $cities = City::all();
         $localities = Locality::all();
-        $ads = Ad::all();
+        $ads = Ad::with('user')->get();
+
         // $disableAds = Ad::where('is_verified', '0')->all();
         $categories = Category::all();
         $professions = Profession::all();

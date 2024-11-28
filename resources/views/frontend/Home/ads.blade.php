@@ -38,7 +38,8 @@
                                     <div class="single-item-grid">
                                         <div class="image">
                                             <a href="{{ route('ad.show', $ad->id) }}">
-                                                <img src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
+                                                <img style="width: 300px; height: 250px; object-fit: cover;"
+                                                    src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
                                             @if ($ad->is_verified)
