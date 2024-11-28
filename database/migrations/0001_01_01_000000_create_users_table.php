@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('profession_id')->nullable();
             $table->string('provider_name')->nullable();
             $table->string('provider_id')->nullable();
+
             $table->timestamps();
         });
 
