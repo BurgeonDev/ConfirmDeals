@@ -20,16 +20,28 @@
 
         <div class="dashboard-menu">
             <ul>
-                <li><a class="active" href="{{ route('dashboard.index') }}"><i class="lni lni-circle-plus"></i>
-                        Dashbaord</a></li>
-                <li><a class="active" href="{{ route('userProfile.edit') }}"><i class="lni lni-circle-plus"></i>
-                        Profile</a></li>
-                <li><a class="active" href="{{ route('ad.create') }}"><i class="lni lni-circle-plus"></i>
-                        Post An
-                        Ad</a></li>
-                <li><a class="active" href="{{ route('ad.index') }}"><i class="lni lni-circle-plus"></i>
-                        My Ads</a></li>
-
+                <li>
+                    <a class="{{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
+                        href="{{ route('dashboard.index') }}">
+                        <i class="lni lni-circle-plus"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('userProfile.edit') ? 'active' : '' }}"
+                        href="{{ route('userProfile.edit') }}">
+                        <i class="lni lni-circle-plus"></i> Profile
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('ad.create') ? 'active' : '' }}" href="{{ route('ad.create') }}">
+                        <i class="lni lni-circle-plus"></i> Post An Ad
+                    </a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('ad.index') ? 'active' : '' }}" href="{{ route('ad.index') }}">
+                        <i class="lni lni-circle-plus"></i> My Ads
+                    </a>
+                </li>
             </ul>
             <div class="button">
                 <a class="btn" href="{{ route('logout') }}"
@@ -41,6 +53,7 @@
                 </form>
             </div>
         </div>
+
     </div>
     <!-- End Dashboard Sidebar -->
 </div>
