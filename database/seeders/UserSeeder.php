@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'), // Replace with a secure password
             'is_active' => true,
             'is_email_verified' => true,
-            'coins' => 0,
+            'coins' => 10,
             'rating' => 0,
             'profession_id' => null, // If professions are not yet assigned
-            'role' => 'SuperAdmin', // Ensure the role field supports this value
+
         ]);
 
         // Optionally, if you're using Spatie Roles & Permissions
