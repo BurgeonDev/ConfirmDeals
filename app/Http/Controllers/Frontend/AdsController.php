@@ -46,7 +46,7 @@ class AdsController extends Controller
             'type' => 'required|in:service,product',
             'is_verified' => 'boolean',
             'pictures' => 'nullable|array',
-            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:2048',
+            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:4048',
             'price' => 'nullable|numeric|min:0',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
