@@ -25,9 +25,6 @@
                                      <a href="{{ route('categories.cat') }}"
                                          aria-label="Toggle navigation">Categories</a>
                                  </li>
-
-
-
                                  <li class="nav-item">
                                      <a href="{{ route('about') }}" aria-label="Toggle navigation">About Us</a>
                                  </li>
@@ -70,13 +67,9 @@
                                  @endauth
                              </ul>
                          </div>
-
                          <div class="button header-button">
                              <a href="{{ route('ads.create') }}" class="btn">Post an Ad</a>
                          </div>
-
-
-
                      </nav>
                  </div>
              </div>

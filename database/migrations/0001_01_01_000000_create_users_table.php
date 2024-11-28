@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('coins')->default(10);
             $table->float('rating')->nullable();
             $table->unsignedBigInteger('profession_id')->nullable();
-            $table->string('role')->default('Buyer');
             $table->string('provider_name')->nullable();
             $table->string('provider_id')->nullable();
             $table->timestamps();
