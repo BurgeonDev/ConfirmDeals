@@ -8,26 +8,31 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+
+
     public function run()
     {
-        // Create a default admin user
-        $admin = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'), // Replace with a secure password
-            'is_active' => true,
-            'is_email_verified' => true,
-            'coins' => 10,
-            'rating' => 0,
-            'profession_id' => null, // If professions are not yet assigned
+        // Create the first user (Admin with ID 1)
+        $adminUser = User::updateOrCreate(
+            ['id' => 1], // Ensure user with ID 1
+            [
+                'name' => 'Admin User',
+                'email' => 'admin@example.com',
+                'password' => bcrypt('password'),
+                'is_active' => true,
+                'is_email_verified' => true,
+                'coins' => 10,
+                'rating' => 0,
+                'profession_id' => null, // Hashed password
+            ]
+        );
 
-        ]);
-
-        // Optionally, if you're using Spatie Roles & Permissions
-        if (method_exists($admin, 'assignRole')) {
-            $admin->assignRole('SuperAdmin');
+        // Automatically assign the "Admin" role to user with ID 1
+        if ($adminUser) {
+            $adminUser->assignRole('SuperAdmin');
         }
 
-        echo "Admin user created: Email: admin@example.com, Password: password\n";
+        // Create additional random users
+        User::factory(5)->create();
     }
 }

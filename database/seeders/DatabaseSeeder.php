@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class, // Optional: Only if you're using Spatie
             UserSeeder::class,
-            PermissionSeeder::class,
+
             CategorySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
