@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Category;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,8 +17,9 @@ class CategoryController extends Controller
     public function cat()
     {
         $categories = Category::all();
-        $ads = Ad::all();
-        return view('frontend.categories.index', compact('categories', 'ads'));
+        $ads = Ad::paginate(9);
+        $cities = City::all();
+        return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
     }
 
     public function create()

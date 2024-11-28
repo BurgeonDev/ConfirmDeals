@@ -101,7 +101,7 @@
 
                                 <!-- End Activity Log -->
                             </div>
-                            <div class="col-lg-6 col-md-12 col-12">
+                            {{-- <div class="col-lg-6 col-md-12 col-12">
                                 <!-- Start Recent Items -->
                                 <div class="recent-items dashboard-block">
                                     <h3 class="block-title">Recent Ads</h3>
@@ -153,7 +153,7 @@
                                     </ul>
                                 </div>
                                 <!-- End Recent Items -->
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
