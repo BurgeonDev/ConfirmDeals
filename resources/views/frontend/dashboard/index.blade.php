@@ -2,7 +2,7 @@
     <!-- Start Dashboard Sidebar -->
     <div class="dashboard-sidebar">
         <div class="user-image">
-            <img src="{{ auth()->user()->profile_picture ? asset('storage/' . auth()->user()->profile_picture) : asset('frontend/assets/images/user/user.png') }}"
+            <img src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                 alt="User Image">
             <h3>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h3>
             <h6>

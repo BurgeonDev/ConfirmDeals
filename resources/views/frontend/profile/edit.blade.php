@@ -45,46 +45,83 @@
                                 <div class="post-ad-tab">
                                     <div class="step-one-content">
                                         <form method="post" action="{{ route('userProfile.update') }}"
-                                            class="default-form-style">
+                                            enctype="multipart/form-data" class="default-form-style">
                                             @csrf
                                             @method('post')
                                             <div class="row">
-                                                <!-- Name -->
+
+                                                <!-- Existing Profile Picture -->
+                                                <div class="mb-3 col-12">
+                                                    <div class="text-center form-group">
+                                                        <label for="current_profile_pic">Current Profile Picture</label>
+                                                        <div class="mb-2">
+                                                            <img src="{{ $user->profile_pic ? asset('storage/' . $user->profile_pic) : asset('default-profile-pic.png') }}"
+                                                                alt="Profile Picture" class="img-thumbnail"
+                                                                style="max-width: 150px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Profile Picture Upload -->
                                                 <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="first_name">First Name*</label>
-                                                        <input name="first_name" type="text" class="form-control"
-                                                            value="{{ old('first_name', $user->first_name) }}" required>
-                                                        @error('first_name')
+                                                    <div class="form-group upload-image">
+                                                        <label for="profile_pic">Upload New Profile Picture</label>
+                                                        <input name="profile_pic" type="file" class="form-control">
+                                                        @error('profile_pic')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <!-- First Name -->
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="first_name">First Name*</label>
+                                                            <input name="first_name" type="text" class="form-control"
+                                                                value="{{ old('first_name', $user->first_name) }}" required>
+                                                            @error('first_name')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
 
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="last_name">Last Name*</label>
-                                                        <input name="last_name" type="text" class="form-control"
-                                                            value="{{ old('last_name', $user->last_name) }}" required>
-                                                        @error('last_name')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                                    <!-- Last Name -->
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="last_name">Last Name*</label>
+                                                            <input name="last_name" type="text" class="form-control"
+                                                                value="{{ old('last_name', $user->last_name) }}" required>
+                                                            @error('last_name')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
-
-
-                                                <!-- Email -->
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="email">Email*</label>
-                                                        <input name="email" type="email" class="form-control"
-                                                            value="{{ old('email', $user->email) }}" required>
-                                                        @error('email')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
+                                                <div class="row">
+                                                    <!-- Email -->
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="email">Email*</label>
+                                                            <input name="email" type="email" class="form-control"
+                                                                value="{{ old('email', $user->email) }}" required>
+                                                            @error('email')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <!-- Phone Number -->
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="phone_number">Phone Number*</label>
+                                                            <input name="phone_number" type="tel" class="form-control"
+                                                                value="{{ old('phone_number', $user->phone_number ?? '') }}"
+                                                                required>
+                                                            @error('phone_number')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
-
                                                 <!-- Password -->
                                                 <div class="col-12">
                                                     <div class="form-group">
