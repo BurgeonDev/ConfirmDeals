@@ -3,7 +3,7 @@
     <div class="dashboard-sidebar">
         <div class="user-image">
 
-            <h4>{{ auth()->user()->name }}</h4>
+            <h4>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h4>
             <h6>
                 Status:
                 <span class="status-dot"

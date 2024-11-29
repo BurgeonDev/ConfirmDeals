@@ -3,9 +3,10 @@
 @section('content')
     <div class="col-md-12 grid-margin stretch-card">
         <!-- Profile Information Card -->
+
+
         <div class="card">
             <div class="card-body">
-
                 <div class="max-w-xl">
                     <section>
                         <div class="col-md-6 grid-margin stretch-card">
@@ -13,19 +14,27 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Update Profile Information</h4>
                                     <p class="card-description"> Update your name and email address. </p>
-
                                     <form method="post" action="{{ route('profile.update') }}" class="forms-sample">
                                         @csrf
                                         @method('patch')
 
                                         <!-- Name Input -->
                                         <div class="form-group">
-                                            <label for="name">{{ __('Name') }}</label>
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                value="{{ old('name', $user->name) }}" required autofocus
-                                                autocomplete="name" placeholder="Enter your name">
-                                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                                            <label for="first_name">{{ __('First Name') }}</label>
+                                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                                value="{{ old('first_name', $user->first_name) }}" required
+                                                placeholder="Enter your first name">
+                                            <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="last_name">{{ __('Last Name') }}</label>
+                                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                                value="{{ old('last_name', $user->last_name) }}" required
+                                                placeholder="Enter your last name">
+                                            <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
+                                        </div>
+
 
                                         <!-- Email Input -->
                                         <div class="form-group">
@@ -56,7 +65,8 @@
 
                                         <!-- Save Button -->
                                         <div class="form-group d-flex justify-content-between">
-                                            <button type="submit" class="btn btn-primary me-2">{{ __('Save') }}</button>
+                                            <button type="submit"
+                                                class="btn btn-primary me-2">{{ __('Save') }}</button>
 
                                             @if (session('status') === 'profile-updated')
                                                 <p x-data="{ show: true }" x-show="show" x-transition
@@ -76,7 +86,6 @@
     </div>
 
     <div class="col-md-12 grid-margin stretch-card">
-        <!-- Update Password Card -->
         <div class="card">
             <div class="card-body">
 

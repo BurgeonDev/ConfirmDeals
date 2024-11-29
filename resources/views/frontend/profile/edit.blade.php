@@ -39,14 +39,26 @@
                                                 <!-- Name -->
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="name">Name*</label>
-                                                        <input name="name" type="text" class="form-control"
-                                                            value="{{ old('name', $user->name) }}" required>
-                                                        @error('name')
+                                                        <label for="first_name">First Name*</label>
+                                                        <input name="first_name" type="text" class="form-control"
+                                                            value="{{ old('first_name', $user->first_name) }}" required>
+                                                        @error('first_name')
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
                                                 </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="last_name">Last Name*</label>
+                                                        <input name="last_name" type="text" class="form-control"
+                                                            value="{{ old('last_name', $user->last_name) }}" required>
+                                                        @error('last_name')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
 
                                                 <!-- Email -->
                                                 <div class="col-12">

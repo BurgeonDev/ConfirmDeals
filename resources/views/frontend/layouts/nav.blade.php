@@ -48,7 +48,7 @@
                                  @auth
                                      <li>
                                          <a href="{{ route('dashboard.index') }}"><i class="lni lni-user"></i>
-                                             {{ auth()->user()->name }}</a>
+                                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
                                      </li>
                                      <li>
                                          <a href="{{ route('logout') }}"

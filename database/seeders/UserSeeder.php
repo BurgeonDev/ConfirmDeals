@@ -16,7 +16,8 @@ class UserSeeder extends Seeder
         $adminUser = User::updateOrCreate(
             ['id' => 1], // Ensure user with ID 1
             [
-                'name' => 'Admin User',
+                'first_name' => 'Admin',
+                'last_name' => 'User',
                 'email' => 'admin@example.com',
                 'password' => bcrypt('password'),
                 'is_active' => true,
