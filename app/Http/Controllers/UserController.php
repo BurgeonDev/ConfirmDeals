@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 
+
 class UserController extends Controller
 {
     public function index()
@@ -26,6 +27,7 @@ class UserController extends Controller
         }
         $user = User::find($userId);
         $user->syncRoles($request->role);
+
         return redirect()->back()->with('success', 'Role assigned successfully');
     }
 
