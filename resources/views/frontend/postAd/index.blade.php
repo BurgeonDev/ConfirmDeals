@@ -24,13 +24,21 @@
                 @include('frontend.dashboard.index')
                 <div class="col-lg-9 col-md-12 col-12">
                     <div class="main-content">
-                        @if (session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
-                        @if (session('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
-                        @endif
+
                         <div class="mt-0 dashboard-block">
+                            @if (session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <h3 class="block-title">My Ads</h3>
 
                             <!-- Start Items Area -->

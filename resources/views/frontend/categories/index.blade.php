@@ -96,50 +96,125 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <h3 class="title" id="adsCount">Showing {{ $ads->count() }} ads</h3>
                                         </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <nav>
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                    <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#nav-grid" type="button" role="tab"
+                                                        aria-controls="nav-grid" aria-selected="true"><i
+                                                            class="lni lni-grid-alt"></i></button>
+                                                    <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#nav-list" type="button" role="tab"
+                                                        aria-controls="nav-list" aria-selected="false"><i
+                                                            class="lni lni-list"></i></button>
+                                                </div>
+                                            </nav>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row" id="adsContainer">
-                                    @foreach ($ads as $ad)
-                                        <div class="col-lg-4 col-md-6 col-12 ad-item"
-                                            data-city="{{ $ad->city?->name ?? 'N/A' }}"
-                                            data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
-                                            data-category="{{ $ad->category_id }}">
-                                            <div class="single-item-grid">
-                                                <div class="image">
-                                                    <a href="{{ route('ad.show', $ad->id) }}">
-                                                        <img style="width: 300px; height: 250px; object-fit: cover;"
-                                                            src="{{ asset('storage/' . $ad->pictures[0]) }}"
-                                                            alt="{{ $ad->title }}">
-                                                    </a>
-                                                    @if ($ad->is_featured)
-                                                        <i class="cross-badge lni lni-bolt"></i>
-                                                    @endif
-                                                    <span
-                                                        class="flat-badge {{ $ad->type }}">{{ ucfirst($ad->type) }}</span>
-                                                </div>
-                                                <div class="content">
-                                                    <a href="javascript:void(0)"
-                                                        class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
-                                                    <h3 class="title">
-                                                        <a href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
-                                                    </h3>
-                                                    <p class="location"><i class="lni lni-map-marker"></i>
-                                                        {{ $ad->city?->name ?? 'N/A' }},
-                                                        {{ $ad->locality?->name ?? 'N/A' }}</p>
-                                                    <ul class="info">
-                                                        <li class="price">${{ number_format($ad->price, 2) }}</li>
-                                                        <li class="like"><a href="javascript:void(0)"><i
-                                                                    class="lni lni-heart"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade active show" id="nav-grid" role="tabpanel"
+                                        aria-labelledby="nav-grid-tab">
+                                        <div class="row" id="adsContainer">
+                                            @foreach ($ads as $ad)
+                                                <div class="col-lg-4 col-md-6 col-12 ad-item"
+                                                    data-city="{{ $ad->city?->name ?? 'N/A' }}"
+                                                    data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
+                                                    data-category="{{ $ad->category_id }}">
+                                                    <div class="single-item-grid">
+                                                        <div class="image">
+                                                            <a href="{{ route('ad.show', $ad->id) }}">
+                                                                <img style="width: 100%; height: 250px; object-fit: cover;"
+                                                                    src="{{ asset('storage/' . $ad->pictures[0]) }}"
+                                                                    alt="{{ $ad->title }}">
+                                                            </a>
 
-                                <!-- Pagination -->
-                                <div class="pagination left">
-                                    {{ $ads->links() }}
+                                                            <span class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+                                                        </div>
+                                                        <div class="content">
+                                                            <a href="javascript:void(0)"
+                                                                class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
+                                                            <h3 class="title">
+                                                                <a
+                                                                    href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
+                                                            </h3>
+
+                                                            <p class="location"><a><i class="lni lni-map-marker"></i>
+                                                                    {{ $ad->city?->name ?? 'N/A' }},
+                                                                    {{ $ad->locality?->name ?? 'N/A' }}</a></p>
+                                                            <ul class="info">
+                                                                <li class="price">Pkr {{ number_format($ad->price, 2) }}
+                                                                </li>
+                                                                <li class="like"><a href="javascript:void(0)"><i
+                                                                            class="lni lni-heart"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <!-- Pagination -->
+                                        <div class="pagination left">
+                                            {{ $ads->links() }}
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-list" role="tabpanel"
+                                        aria-labelledby="nav-list-tab">
+                                        <div class="row" id="adsContainer">
+                                            @foreach ($ads as $ad)
+                                                <div class="col-lg-12 col-md-12 col-12 ad-item"
+                                                    data-city="{{ $ad->city?->name ?? 'N/A' }}"
+                                                    data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
+                                                    data-category="{{ $ad->category_id }}">
+                                                    <!-- Start Single Item -->
+                                                    <div class="single-item-grid">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-lg-5 col-md-7 col-12">
+                                                                <div class="image">
+                                                                    <a href="{{ route('ad.show', $ad->id) }}">
+                                                                        <img style="width: 100%; height: 250px; object-fit: cover;"
+                                                                            src="{{ asset('storage/' . $ad->pictures[0]) }}"
+                                                                            alt="{{ $ad->title }}">
+                                                                    </a>
+
+                                                                    <span
+                                                                        class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-7 col-md-5 col-12">
+                                                                <div class="content">
+                                                                    <a href="javascript:void(0)"
+                                                                        class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
+                                                                    <h3 class="title">
+                                                                        <a
+                                                                            href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
+                                                                    </h3>
+                                                                    <p class="location"><a><i
+                                                                                class="lni lni-map-marker"></i>
+                                                                            {{ $ad->city?->name ?? 'N/A' }},
+                                                                            {{ $ad->locality?->name ?? 'N/A' }}</a></p>
+                                                                    <ul class="info">
+                                                                        <li class="price">
+                                                                            Pkr {{ number_format($ad->price, 2) }}
+                                                                        </li>
+                                                                        <li class="like"><a href="javascript:void(0)"><i
+                                                                                    class="lni lni-heart"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Single Item -->
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <!-- Pagination -->
+                                        <div class="pagination left">
+                                            {{ $ads->links() }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,24 +223,6 @@
             </div>
         </div>
     </section>
-    <style>
-        .active {
-            font-weight: bold;
-            color: #007bff;
-        }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Check for the keyword in the URL query parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const keyword = urlParams.get("keyword");
-
-            // If a keyword is found, set the value of the search input field
-            if (keyword) {
-                document.getElementById("searchInput").value = decodeURIComponent(keyword);
-            }
-        });
-    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -265,6 +322,8 @@
             });
         });
     </script>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -297,6 +356,23 @@
                     element.classList.add("active"); // Add a class for styling
                 }
             });
+        });
+    </script>
+    <style>
+        .active {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Check for the keyword in the URL query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const keyword = urlParams.get("keyword");
+            // If a keyword is found, set the value of the search input field
+            if (keyword) {
+                document.getElementById("searchInput").value = decodeURIComponent(keyword);
+            }
         });
     </script>
 @endsection

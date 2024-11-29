@@ -229,7 +229,8 @@
                             <div class="single-block author">
                                 <h3>Seller</h3>
                                 <div class="content">
-                                    <h3>{{ $ad->createdBy->name ?? 'Unknown' }}</h3>
+                                    <h3>{{ $ad->createdBy->first_name ?? 'Unknown' }}
+                                        {{ $ad->createdBy->last_name ?? 'Unknown' }}</h3>
                                     <h4>{{ $ad->createdBy->email ?? 'Unknown' }}</h4>
                                 </div>
                             </div>

@@ -38,7 +38,8 @@
                                                 <!-- Fallback to font-awesome icon -->
                                                 <i class="fas fa-user-circle" style="font-size: 40px; color: #ccc;"></i>
                                             @endif
-                                            <span>{{ $ad->user->name ?? 'Unknown' }}</span>
+                                            <span>{{ $ad->user->first_name ?? 'Unknown' }}
+                                                {{ $ad->user->last_name ?? 'Unknown' }}</span>
                                         </a>
                                     </div>
                                     <p class="sale">For Sale</p>

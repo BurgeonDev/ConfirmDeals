@@ -27,6 +27,19 @@
                         @if (auth()->user()->coins >= 20)
                             <!-- Start Post Ad Block Area -->
                             <div class="mt-0 dashboard-block">
+                                @if (session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <h3 class="block-title">Post Ad</h3>
                                 <div class="inner-block">
                                     <div class="post-ad-tab">
@@ -204,18 +217,21 @@
                                 </div>
                                 <!-- End Post Ad Block Area -->
                             </div>
-                        @endif
-                        <div class="mt-0 dashboard-block">
-                            <h3 class="block-title">Post Ad</h3>
-                            <div class="inner-block">
-                                <div class="post-ad-tab">
-                                    <div class="step-one-content">
-                                        <p class="text-danger">You do not have enough coins to post an ad. Please earn or
-                                            purchase more coins.</p>
+                        @else
+                            <div class="mt-0 dashboard-block">
+                                <h3 class="block-title">Post Ad</h3>
+                                <div class="inner-block">
+                                    <div class="post-ad-tab">
+                                        <div class="step-one-content">
+                                            <p class="text-danger">You do not have enough coins to post an ad. Please earn
+                                                or
+                                                purchase more coins.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
+
 
                     </div>
                 </div>
