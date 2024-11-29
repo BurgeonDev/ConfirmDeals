@@ -46,8 +46,14 @@
                                     <x-input-error :messages="$errors->get('last_name')" />
                                 </div>
                             </div>
-                            <!-- Name -->
-
+                            <!-- phone -->
+                            <div class="form-group col-md-12">
+                                <label for="phone_number">Phone No</label>
+                                <input id="phone_number" name="phone_number" type="text"
+                                    value="{{ old('phone_number') }}" required autofocus autocomplete="phone_number"
+                                    class="form-control" placeholder="Phone Number">
+                                <x-input-error :messages="$errors->get('phone_number')" />
+                            </div>
                             <!-- Email Address -->
                             <div class="form-group">
                                 <label for="email">Email</label>
