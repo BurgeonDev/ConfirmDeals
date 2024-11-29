@@ -47,10 +47,8 @@ class UserProfileController extends Controller
             $path = $request->file('profile_pic')->store('profile_pics', 'public');
             $user->profile_pic = $path;
         }
-
         // Save the changes
         $user->save();
-
         return redirect()->route('userProfile.edit')->with('success', 'Profile updated successfully.');
     }
 
