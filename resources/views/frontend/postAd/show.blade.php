@@ -230,7 +230,7 @@
                                 <h3>Seller</h3>
                                 <div class="content">
                                     <h3>{{ $ad->createdBy->first_name ?? 'Unknown' }}
-                                        {{ $ad->createdBy->last_name ?? 'Unknown' }}</h3>
+                                        {{ $ad->createdBy->last_name }}</h3>
                                     <h4>{{ $ad->createdBy->email ?? 'Unknown' }}</h4>
                                 </div>
                             </div>

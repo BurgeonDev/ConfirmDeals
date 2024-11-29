@@ -30,16 +30,18 @@
                                 <div class="author">
                                     <div class="author-image">
                                         <a href="javascript:void(0)">
-                                            @if ($ad->user && $ad->user->avatar)
-                                                <!-- Display user's avatar -->
-                                                <img src="{{ asset('storage/' . $ad->user->avatar) }}"
-                                                    alt="User Avatar">
+                                            @if ($ad->user && $ad->user->profile_pic)
+                                                <!-- Display user's avatar if it exists -->
+                                                <img src="{{ asset('storage/' . $ad->user->profile_pic) }}"
+                                                    alt="User pic">
                                             @else
-                                                <!-- Fallback to font-awesome icon -->
-                                                <i class="fas fa-user-circle" style="font-size: 40px; color: #ccc;"></i>
+                                                <!-- Display default image if user has no avatar -->
+                                                <img src="{{ asset('frontend/assets/images/user/user.png') }}"
+                                                    alt="Default User Avatar">
                                             @endif
+
                                             <span>{{ $ad->user->first_name ?? 'Unknown' }}
-                                                {{ $ad->user->last_name ?? 'Unknown' }}</span>
+                                                {{ $ad->user->last_name }}</span>
                                         </a>
                                     </div>
                                     <p class="sale">For Sale</p>
