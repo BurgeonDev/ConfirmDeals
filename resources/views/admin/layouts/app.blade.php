@@ -24,12 +24,19 @@
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css" rel="stylesheet">
+
+    <!-- Toastr CSS for notifications -->
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!-- endinject -->
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+    <style>
+
+    </style>
+
 </head>
 
 
@@ -45,11 +52,18 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif --}}
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
                     @yield('content')
                 </div>
@@ -102,6 +116,36 @@
     <!-- DataTables Buttons Extension JS -->
     <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
+    <!-- Toastr JS for notifications -->
+
+    <script src="
+                                            https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js
+                                            "></script>
+    <!-- Toastr Configuration Script -->
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000"
+        }
+    </script>
+    <!-- Session-based Toastr Notification Scripts -->
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+        </script>
+    @elseif(Session::has('warning'))
+        <script>
+            toastr.warning("{{ Session::get('warning') }}");
+        </script>
+    @elseif(Session::has('error'))
+        <script>
+            toastr.error("{{ Session::get('error') }}");
+        </script>
+    @endif
+
 </body>
 
 </html>

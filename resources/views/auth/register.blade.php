@@ -30,14 +30,23 @@
                         <h4 class="title">Registration</h4 <!-- Registration Form -->
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-
-                            <!-- Name -->
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input id="name" name="name" type="text" value="{{ old('name') }}" required
-                                    autofocus autocomplete="name" class="form-control" placeholder="Name">
-                                <x-input-error :messages="$errors->get('name')" />
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="first_name">First Name</label>
+                                    <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}"
+                                        required autofocus autocomplete="first_name" class="form-control"
+                                        placeholder="First Name">
+                                    <x-input-error :messages="$errors->get('first_name')" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="last_name">Last Name</label>
+                                    <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}"
+                                        required autofocus autocomplete="last_name" class="form-control"
+                                        placeholder="Last Name">
+                                    <x-input-error :messages="$errors->get('last_name')" />
+                                </div>
                             </div>
+                            <!-- Name -->
 
                             <!-- Email Address -->
                             <div class="form-group">

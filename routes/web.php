@@ -82,8 +82,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
-    Route::post('user//profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
-    Route::delete('user//profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
+    Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
+    Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
 });
 
 

@@ -44,15 +44,9 @@
     @include('frontend.layouts.nav')
     <!-- End Header Area -->
 
-
     <!-- Start Dashboard Section -->
-
-
     @yield('content')
-
-
     <!-- End Dashboard Section -->
-
     <!-- Start Newsletter Area -->
     <div class="newsletter section">
         <div class="container">
@@ -80,17 +74,13 @@
         </div>
     </div>
     <!-- End Newsletter Area -->
-
     <!-- Start Footer Area -->
     @include('frontend.layouts.footer')
     <!--/ End Footer Area -->
-
-
     <!-- ========================= scroll-top ========================= -->
     <a href="{{ route('home') }}" class="scroll-top btn-hover" style="display: none;">
         <i class="lni lni-chevron-up"></i>
     </a>
-
     <!-- ========================= JS here ========================= -->
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>

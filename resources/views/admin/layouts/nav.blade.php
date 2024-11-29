@@ -20,7 +20,8 @@
     <div class="navbar-menu-wrapper d-flex align-items-top">
         <ul class="navbar-nav">
             <li class="nav-item fw-semibold d-none d-lg-block ms-0">
-                <h1 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ Auth::user()->name }}</span></h1>
+                <h1 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ Auth::user()->first_name }}
+                        {{ Auth::user()->last_name }}</span></h1>
                 {{-- <h3 class="welcome-sub-text">Your performance summary this week </h3> --}}
             </li>
         </ul>
@@ -53,9 +54,10 @@
             align-items: center;
             justify-content: center;
         ">
-                            <span>{{ strtoupper(Auth::user()->name[0]) }}</span>
+                            <span>{{ strtoupper(Auth::user()->first_name[0]) }}</span>
                         </div>
-                        <p class="mt-3 mb-1 fw-semibold">{{ Auth::user()->name }}</p>
+                        <p class="mt-3 mb-1 fw-semibold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                        </p>
                         <p class="mb-0 fw-light text-muted">{{ Auth::user()->email }}</p>
                     </div>
 
