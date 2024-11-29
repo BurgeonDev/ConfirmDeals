@@ -2,22 +2,19 @@
     <!-- Start Dashboard Sidebar -->
     <div class="dashboard-sidebar">
         <div class="user-image">
-
-            <h4>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h4>
+            <img src="{{ auth()->user()->profile_picture ? asset('storage/' . auth()->user()->profile_picture) : asset('frontend/assets/images/user/user.png') }}"
+                alt="User Image">
+            <h3>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h3>
             <h6>
                 Status:
                 <span class="status-dot"
-                    style="background-color: {{ auth()->user()->is_active == 1 ? 'green' : 'red' }};">
-                </span>
+                    style="background-color: {{ auth()->user()->is_active == 1 ? 'green' : 'red' }};"></span>
                 {{ auth()->user()->is_active == 1 ? 'Active' : 'Not Active' }}
             </h6>
             <h6>
                 Coins: <i style="color: goldenrod" class="fas fa-coins"></i> {{ auth()->user()->coins }}
             </h6>
         </div>
-
-
-
         <div class="dashboard-menu">
             <ul>
                 <li>
