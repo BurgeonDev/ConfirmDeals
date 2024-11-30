@@ -25,6 +25,19 @@
                     <div class="main-content">
                         <!-- Start Edit Ad Block Area -->
                         <div class="mt-0 dashboard-block">
+                            @if (session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <h3 class="block-title">Edit Ad</h3>
                             <div class="inner-block">
                                 <div class="post-ad-tab">

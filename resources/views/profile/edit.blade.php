@@ -14,10 +14,29 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Update Profile Information</h4>
                                     <p class="card-description"> Update your name and email address. </p>
-                                    <form method="post" action="{{ route('profile.update') }}" class="forms-sample">
+                                    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data"
+                                        class="forms-sample">
                                         @csrf
                                         @method('patch')
+                                        <!-- Existing Profile Picture -->
+                                        <div class="form-group">
+                                            <label for="profile_pic">{{ __('Profile Picture') }}</label><br>
+                                            @if ($user->profile_pic)
+                                                <img src="{{ asset('storage/' . $user->profile_pic) }}"
+                                                    alt="Profile Picture"
+                                                    style="width: 150px; height: 150px; object-fit: cover;">
+                                            @else
+                                                <p>No profile picture available.</p>
+                                            @endif
+                                        </div>
 
+                                        <!-- Upload New Profile Picture -->
+                                        <div class="form-group">
+                                            <label for="profile_pic">{{ __('Upload New Profile Picture') }}</label>
+                                            <input type="file" class="form-control" id="profile_pic" name="profile_pic"
+                                                accept="image/*">
+                                            <x-input-error class="mt-2" :messages="$errors->get('profile_pic')" />
+                                        </div>
                                         <!-- Name Input -->
                                         <div class="form-group">
                                             <label for="first_name">{{ __('First Name') }}</label>
@@ -33,6 +52,13 @@
                                                 value="{{ old('last_name', $user->last_name) }}" required
                                                 placeholder="Enter your last name">
                                             <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone_number">{{ __('Phone No') }}</label>
+                                            <input type="text" class="form-control" id="phone_number" name="phone_number"
+                                                value="{{ old('phone_number', $user->phone_number) }}" required
+                                                placeholder="Enter your last name">
+                                            <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
                                         </div>
 
 

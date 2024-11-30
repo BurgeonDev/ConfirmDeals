@@ -12,8 +12,8 @@ class RoleSeeder extends Seeder
     {
         // Create roles
         $adminRole = Role::create(['name' => 'SuperAdmin']);
-        Role::create(['name' => 'Buyer']);
-        Role::create(['name' => 'Seller']);
+        $userRole = Role::create(['name' => 'User']);
+
 
         // Define all permissions
         $permissions = [
@@ -30,5 +30,11 @@ class RoleSeeder extends Seeder
 
         // Assign all permissions to the Admin role
         $adminRole->givePermissionTo($permissions);
+
+        // Assign specific permissions to the User role
+        $userRole->givePermissionTo([
+            'Post Ad',
+            'Manage Ad',
+        ]);
     }
 }

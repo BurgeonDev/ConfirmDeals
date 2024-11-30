@@ -36,7 +36,7 @@
                                     <div class="single-item-grid">
                                         <div class="image">
                                             <a href="{{ route('ad.show', $ad->id) }}">
-                                                <img style="width: 300px; height: 250px; object-fit: cover;"
+                                                <img style="width: 100%; height: 250px; object-fit: cover;"
                                                     src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
@@ -82,7 +82,7 @@
                                     <div class="single-item-grid">
                                         <div class="image">
                                             <a href="{{ route('ad.show', $ad->id) }}">
-                                                <img style="width: 300px; height: 250px; object-fit: cover;"
+                                                <img style="width: 100%; height: 250px; object-fit: cover;"
                                                     src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>

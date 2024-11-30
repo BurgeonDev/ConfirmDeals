@@ -24,6 +24,8 @@ return new class extends Migration
             $table->unsignedBigInteger('profession_id')->nullable();
             $table->string('provider_name')->nullable();
             $table->string('provider_id')->nullable();
+            $table->string('profile_pic')->nullable();
+            $table->string('phone_number')->nullable();
 
             $table->timestamps();
         });
