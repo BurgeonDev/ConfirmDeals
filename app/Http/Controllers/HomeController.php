@@ -32,6 +32,25 @@ class HomeController extends Controller
 
         $categories = Category::all();
         $professions = Profession::all();
+        $categoryIcons = [
+            'Electronics' => 'fas fa-tv',                // TV for electronics
+            'Furniture' => 'fas fa-couch',               // Couch for furniture
+            'Books' => 'fas fa-book',                    // Book for books
+            'Clothing' => 'fas fa-tshirt',               // T-shirt for clothing
+            'Sports' => 'fas fa-tv',               // Football for sports
+            'Toys' => 'fas fa-puzzle-piece',             // Puzzle piece for toys
+            'Health & Beauty' => 'fas fa-stethoscope',      // Lipstick for health & beauty
+            'Automotive' => 'fas fa-car',                // Car for automotive
+            'Jewelry' => 'fas fa-gem',                   // Gem for jewelry
+            'Groceries' => 'fas fa-hamburger',           // Hamburger for groceries
+            'Home Appliances' => 'fas fa-blender',       // Blender for home appliances
+            'Music' => 'fas fa-music',                   // Music note for music
+            'Garden' => 'fas fa-leaf',                   // Leaf for garden
+            'Office Supplies' => 'fas fa-briefcase',     // Briefcase for office supplies
+            'Pet Supplies' => 'fas fa-paw',             // Paw print for pet supplies
+        ];
+
+
 
         return view('frontend.home', compact(
             'countries',
@@ -41,6 +60,7 @@ class HomeController extends Controller
             'productAds',
             'latestAds',
             'categories',
+            'categoryIcons',
             'professions'
         ));
     }
