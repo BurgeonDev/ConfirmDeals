@@ -63,7 +63,7 @@ class SocialiteController extends Controller
                     'email' => $socialUser->getEmail(),
                     'provider_id' => $socialUser->getId(),
                     'provider_name' => $provider,
-                    // 'avatar' => $socialUser->getAvatar(),
+                    'profile_pic' => $socialUser->getAvatar(),
                 ]
             );
 

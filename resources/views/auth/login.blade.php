@@ -70,9 +70,9 @@
                             </div>
                             <div class="socila-login">
                                 <ul>
-                                    {{-- <li><a href="{{ route('social.redirect', 'facebook') }}" class="facebook">
+                                    <li><a href="{{ route('social.redirect', 'facebook') }}" class="facebook">
                                             <i class="lni lni-facebook-original"></i>Login With Facebook
-                                        </a></li> --}}
+                                        </a></li>
                                     <li><a href="{{ route('social.redirect', 'google') }}" class="google">
                                             <i class="lni lni-google"></i>Login With Google
                                         </a></li>
