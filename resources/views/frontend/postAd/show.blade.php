@@ -109,7 +109,7 @@
                                 @foreach ($ad->feedbacks as $feedback)
                                     <div class="single-comment">
                                         <!-- Display user profile picture -->
-                                        <img src="{{ $feedback->user->profile_pic ?? asset('frontend/assets/images/user/user.png') }}"
+                                        <img src="{{ $feedback->user && $feedback->user->profile_pic ? asset('storage/' . $feedback->user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                                             alt="User Profile Picture" class="comment-profile-pic">
                                         <div class="content">
                                             <h4 class="name-with-icon">{{ $feedback->name }}</h4>
@@ -123,11 +123,16 @@
                         </div>
 
 
+
                         <div class="single-block comment-form">
                             <h3>Post a Comment</h3>
                             <form action="{{ route('feedback.store', $ad->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="ad_id" value="{{ $ad->id }}">
+
+                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                <!-- Store the authenticated user's ID -->
+
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-box form-group">
@@ -165,8 +170,8 @@
                             <div class="single-block author">
                                 <h3>Seller</h3>
                                 <div class="content">
-                                    <img src="{{ $ad->createdBy->profile_pic ?? asset('frontend/assets/images/user/user.png') }}"
-                                        alt="#">
+                                    <img src="{{ asset('storage/' . $ad->user->profile_pic) ?? asset('frontend/assets/images/user/user.png') }}"
+                                        alt="Seller">
 
                                     <h3>{{ $ad->createdBy->first_name ?? 'Unknown' }}
                                         {{ $ad->createdBy->last_name }}</h3>
@@ -184,7 +189,8 @@
                                         @elseif ($ad->city)
                                             <iframe width="100%" height="300" id="gmap_canvas"
                                                 src="https://maps.google.com/maps?q={{ $ad->city }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                                frameborder="0" scrolling="no" marginheight="0"
+                                                marginwidth="0"></iframe>
                                         @else
                                             <p>Location not available</p>
                                         @endif

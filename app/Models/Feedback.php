@@ -11,15 +11,16 @@ class Feedback extends Model
 
     use HasFactory;
 
-    protected $fillable = [
-        'ad_id',
-        'name',
-        'email',
-        'comments',
-    ];
+    // In the Feedback model
+    protected $fillable = ['ad_id', 'name', 'email', 'comments', 'user_id'];
+
 
     public function ad()
     {
         return $this->belongsTo(Ad::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

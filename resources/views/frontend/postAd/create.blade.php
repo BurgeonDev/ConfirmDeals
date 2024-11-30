@@ -223,9 +223,21 @@
                                 <div class="inner-block">
                                     <div class="post-ad-tab">
                                         <div class="step-one-content">
-                                            <p class="text-danger">You do not have enough coins to post an ad. Please earn
-                                                or
-                                                purchase more coins.</p>
+                                            <div class="single-list three">
+                                                <div class="list-icon" style="justify-content: center">
+
+                                                    <h5>
+
+                                                        <span class="text-danger">You do not have enough coins to post an
+                                                            ad.
+                                                            Please earn
+                                                            or
+                                                            purchase more coins.</span>
+                                                    </h5>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
