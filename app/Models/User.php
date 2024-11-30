@@ -21,13 +21,14 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::created(function ($user) {
-            $user->assignRole('buyer');
+            $user->assignRole('user');
         });
     }
     protected $fillable = [
         'first_name',
         'last_name',
         'email',
+        'phone_number',
         'password',
         'is_active',
         'is_email_verified',

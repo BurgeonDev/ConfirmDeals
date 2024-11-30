@@ -30,7 +30,7 @@ class AdSeeder extends Seeder
             'type' => 'service',
             'is_verified' => false,
             'pictures' => json_encode(['cleaning1.jpg']),
-            'price' => null,
+            'price' => 1000,
             'country_id' => 1,
             'city_id' => 2,
             'locality_id' => null,

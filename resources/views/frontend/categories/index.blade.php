@@ -79,7 +79,8 @@
                                         <a href="javascript:void(0)" class="category-filter"
                                             data-category="{{ $category->id }}">
                                             {{ $category->name }}
-                                            <span>{{ $category->ads->count() }}</span>
+                                            <span>{{ $category->ads->where('is_verified', 1)->count() }}</span>
+
                                         </a>
                                     </li>
                                 @endforeach
@@ -94,7 +95,9 @@
                                 <div class="category-grid-topbar">
                                     <div class="row align-items-center">
                                         <div class="col-lg-6 col-md-6 col-12">
-                                            <h3 class="title" id="adsCount">Showing {{ $ads->count() }} ads</h3>
+                                            <h3 class="title" id="adsCount">Showing
+                                                {{ $ads->where('is_verified', 1)->count() }} ads</h3>
+
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <nav>
