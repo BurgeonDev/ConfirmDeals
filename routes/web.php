@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
 });
 
-
+Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
