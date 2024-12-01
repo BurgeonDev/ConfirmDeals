@@ -20,6 +20,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FavoriteController;
 // Route to HomeController index for '/'
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', function () {
@@ -85,6 +86,11 @@ Route::middleware('auth')->group(function () {
     Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
     Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+});
+
 
 Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');

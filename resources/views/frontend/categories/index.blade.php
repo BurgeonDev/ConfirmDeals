@@ -148,8 +148,20 @@
                                                             <ul class="info">
                                                                 <li class="price">Pkr {{ number_format($ad->price, 2) }}
                                                                 </li>
-                                                                <li class="like"><a href="javascript:void(0)"><i
-                                                                            class="lni lni-heart"></i></a></li>
+
+                                                                <li class="like">
+                                                                    <form action="{{ route('favorites.toggle') }}"
+                                                                        method="POST" class="favorite-form">
+                                                                        @csrf
+                                                                        <input type="hidden" name="ad_id"
+                                                                            value="{{ $ad->id }}">
+                                                                        <button type="submit" class="favorite-button">
+                                                                            <i
+                                                                                class="lni lni-heart {{ $ad->isFavoritedBy(auth()->user()) ? 'active' : '' }}"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -202,8 +214,19 @@
                                                                         <li class="price">
                                                                             Pkr {{ number_format($ad->price, 2) }}
                                                                         </li>
-                                                                        <li class="like"><a href="javascript:void(0)"><i
-                                                                                    class="lni lni-heart"></i></a></li>
+                                                                        li class="like">
+                                                                        <form action="{{ route('favorites.toggle') }}"
+                                                                            method="POST" class="favorite-form">
+                                                                            @csrf
+                                                                            <input type="hidden" name="ad_id"
+                                                                                value="{{ $ad->id }}">
+                                                                            <button type="submit"
+                                                                                class="favorite-button">
+                                                                                <i
+                                                                                    class="lni lni-heart {{ $ad->isFavoritedBy(auth()->user()) ? 'active' : '' }}"></i>
+                                                                            </button>
+                                                                        </form>
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>

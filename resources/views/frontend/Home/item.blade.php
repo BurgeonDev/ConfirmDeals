@@ -72,7 +72,17 @@
                                 </div>
                                 <div class="bottom-content">
                                     <p class="price">Start From: <span>{{ number_format($ad->price, 2) }}</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
+                                    <li class="like">
+                                        <form action="{{ route('favorites.toggle') }}" method="POST"
+                                            class="favorite-form">
+                                            @csrf
+                                            <input type="hidden" name="ad_id" value="{{ $ad->id }}">
+                                            <button type="submit" class="favorite-button">
+                                                <i
+                                                    class="lni lni-heart {{ $ad->isFavoritedBy(auth()->user()) ? 'active' : '' }}"></i>
+                                            </button>
+                                        </form>
+                                    </li>
                                 </div>
                             </div>
                         </div>

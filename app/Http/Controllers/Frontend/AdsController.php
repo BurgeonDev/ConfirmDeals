@@ -94,6 +94,10 @@ class AdsController extends Controller
 
     public function edit(Ad $ad)
     {
+        // Check if the authenticated user is the owner of the ad
+        if (auth()->id() !== $ad->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
         if (!auth()->user()->can('Manage Ad')) {
             abort(403, 'Unauthorized action.');
         }

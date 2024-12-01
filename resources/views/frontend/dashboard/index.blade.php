@@ -43,6 +43,14 @@
                         </a>
                     @endcan
                 </li>
+                <li>
+
+                    <a class="{{ request()->routeIs('favorites.index') ? 'active' : '' }}"
+                        href="{{ route('favorites.index') }}">
+                        <i class="lni lni-heart"></i> Favourite ads
+                    </a>
+
+                </li>
             </ul>
             <div class="button">
                 <a class="btn" href="{{ route('logout') }}"
