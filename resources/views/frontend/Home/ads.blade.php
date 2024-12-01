@@ -108,7 +108,7 @@
                                             <ul class="info">
                                                 <li class="price">PKR {{ number_format($ad->price, 2) }}</li>
                                                 <li class="like">
-                                                    <a href="{{ route('ad.show', $ad->id) }}">
+                                                    <a href="">
                                                         <i class="lni lni-heart"></i>
                                                     </a>
                                                 </li>
