@@ -6539,6 +6539,39 @@ blockquote .shape {
     padding-left: 110px;
     margin-top: 40px;
 }
+/* Style for the list item */
+.like {
+    list-style: none;
+    display: inline-block;
+}
+
+/* Style for the form to remove default form styling */
+.favorite-form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+/* Style for the button to mimic an anchor link */
+.favorite-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    color: inherit; /* Matches the text color */
+}
+
+/* Style for the icon */
+.favorite-button .lni-heart {
+    font-size: 20px; /* Adjust as needed */
+    color: #999; /* Default color */
+    transition: color 0.3s ease;
+}
+
+.favorite-button .lni-heart.active {
+    color: #e74c3c; /* Active color (e.g., red) */
+}
 
 .item-details-blocks .single-block.comments .single-comment img {
     height: 80px;

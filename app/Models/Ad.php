@@ -79,4 +79,8 @@ class Ad extends Model
     {
         return $this->hasMany(Feedback::class, 'ad_id');
     }
+    public function isFavoritedBy($user)
+    {
+        return $user && $user->favorites()->where('ad_id', $this->id)->exists();
+    }
 }
