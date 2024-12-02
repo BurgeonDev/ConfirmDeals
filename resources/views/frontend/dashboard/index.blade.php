@@ -53,6 +53,13 @@
                 </li>
                 <li>
 
+                    <a class="{{ request()->routeIs('bids.myBids') ? 'active' : '' }}"
+                        href="{{ route('bids.myBids') }}">
+                        <i class="lni lni-heart"></i> My Bids
+                    </a>
+
+                </li>
+                <li>
                     <a class="{{ request()->routeIs('bids.index') ? 'active' : '' }}"
                         href="{{ route('bids.index') }}">
                         <i class="lni lni-bookmark"></i> Ad Bids
@@ -62,7 +69,6 @@
                             <i class="fas fa-bell" style="color: red"></i>
                         @endif
                     </a>
-
                 </li>
             </ul>
             <div class="button">

@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/bids/{bidId}/accept', [BidController::class, 'acceptBid'])->name('bids.accept');
         Route::post('/bids/{bidId}/reject', [BidController::class, 'rejectBid'])->name('bids.reject');
         Route::get('/bids', [BidController::class, 'showAllBids'])->name('bids.index');
+        Route::get('/my-bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
     });
 
     // Feedback Routes
