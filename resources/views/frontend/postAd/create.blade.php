@@ -114,6 +114,30 @@
                                                         </div>
                                                     </div>
 
+                                                    {{-- <!-- Price -->
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="price">Price</label>
+                                                            <input name="price" type="number" id="price"
+                                                                placeholder="Enter Price" value="{{ old('price') }}">
+                                                            @error('price')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Coins Needed -->
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="coins_needed">Coins Needed*</label>
+                                                            <input name="coins_needed" type="number" id="coins_needed"
+                                                                placeholder="Enter Coins Needed" required
+                                                                value="{{ old('coins_needed') }}">
+                                                            @error('coins_needed')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div> --}}
                                                     <!-- Price -->
                                                     <div class="col-6">
                                                         <div class="form-group">
@@ -138,7 +162,6 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
                                                     <!-- Country -->
                                                     <div class="col-6">
                                                         <div class="form-group">
@@ -194,13 +217,18 @@
                                                         <div class="form-group upload-image">
                                                             <label for="pictures">Upload Pictures</label>
                                                             <input type="file" id="pictures" name="pictures[]"
-                                                                multiple placeholder="Upload Image">
-                                                            <span>Max upload size: 2MB, Supported formats: JPG, PNG</span>
+                                                                multiple accept=".jpg,.jpeg,.png"
+                                                                placeholder="Upload Image"
+                                                                onchange="validateFileLimit(this)">
+                                                            <span>Can add multiple pictures. Supported formats: JPG, PNG
+                                                                (Max: 5)</span>
                                                             @error('pictures')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+
+
 
                                                     <!-- Submit Button -->
                                                     <div class="col-12">
@@ -306,6 +334,35 @@
                     }
                 }
             });
+        });
+    </script>
+
+    <script>
+        function validateFileLimit(input) {
+            if (input.files.length > 5) {
+                alert("You can upload a maximum of 5 pictures.");
+                input.value = ""; // Clear the selected files
+            }
+        }
+    </script>
+    <script>
+        document.getElementById('price').addEventListener('input', function() {
+            let price = parseFloat(this.value);
+            let coinsNeeded = 0;
+
+            if (price <= 1000) {
+                coinsNeeded = Math.ceil((price * 0.025) / 50);
+            } else if (price <= 3000) {
+                coinsNeeded = Math.ceil((price * 0.03) / 50);
+            } else if (price <= 5000) {
+                coinsNeeded = Math.ceil((price * 0.05) / 50);
+            } else if (price <= 10000) {
+                coinsNeeded = Math.ceil((price * 0.10) / 50);
+            } else {
+                coinsNeeded = Math.ceil((price * 0.15) / 50);
+            }
+
+            document.getElementById('coins_needed').value = coinsNeeded;
         });
     </script>
 @endsection

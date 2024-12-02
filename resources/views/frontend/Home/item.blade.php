@@ -71,7 +71,8 @@
                                     </ul>
                                 </div>
                                 <div class="bottom-content">
-                                    <p class="price">Start From: <span>{{ number_format($ad->price, 2) }}</span></p>
+                                    <p class="price">Start From: Pkr <span>{{ number_format($ad->price, 1) }}</span>
+                                    </p>
                                     <li class="like">
                                         <form action="{{ route('favorites.toggle') }}" method="POST"
                                             class="favorite-form">

@@ -16,7 +16,7 @@
                     <table class="table table-striped" id="staticDataTables">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Actions</th>
                             </tr>
@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach ($countries as $country)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $country->id }}</td>
                                     <td>{{ $country->name }}</td>
                                     <td>
                                         <a href="{{ route('countries.edit', $country->id) }}"

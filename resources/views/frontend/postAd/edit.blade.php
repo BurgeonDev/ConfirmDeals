@@ -165,7 +165,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- Old Pictures Section -->
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label>Existing Pictures</label>
                                                     <div class="row">
                                                         @if (!empty($oldPictures) && is_array($oldPictures))
@@ -189,6 +189,32 @@
                                                     <input type="file" id="pictures" name="pictures[]" multiple>
                                                     <small class="form-text text-muted">Max upload size: 2MB. Supported
                                                         formats: JPG, PNG.</small>
+                                                </div> --}}
+
+                                                <div class="col-12">
+                                                    <div class="form-group upload-image">
+                                                        <label for="pictures">Upload Pictures</label>
+                                                        <input type="file" id="pictures" name="pictures[]" multiple
+                                                            accept=".jpg,.jpeg,.png" placeholder="Upload Image"
+                                                            onchange="validateFileLimit(this)">
+                                                        <span>Can add multiple pictures. Supported formats: JPG, PNG (Max:
+                                                            5)</span>
+                                                        @error('pictures')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="uploaded-images">
+                                                        <label>Current Images:</label>
+                                                        <div class="row">
+                                                            @foreach ($ad->pictures as $picture)
+                                                                <div class="col-3">
+                                                                    <img src="{{ asset('storage/' . $picture) }}"
+                                                                        alt="Uploaded Image" class="mb-2 img-fluid">
+
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                 </div>
 
 
@@ -213,6 +239,15 @@
     <!-- Preload data for filtering -->
     <script>
         const data = @json($countries); // Convert PHP data to JSON
+    </script>
+
+    <script>
+        function validateFileLimit(input) {
+            if (input.files.length > 5) {
+                alert("You can upload a maximum of 5 pictures.");
+                input.value = ""; // Clear the selected files
+            }
+        }
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

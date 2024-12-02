@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Feedback;
 use App\Models\Locality;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class AdsController extends Controller
@@ -51,12 +52,12 @@ class AdsController extends Controller
             'description' => 'required|string',
             'type' => 'required|in:service,product',
             'is_verified' => 'boolean',
-            'pictures' => 'nullable|array',
-            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:4048',
-            'price' => 'nullable|numeric|min:0',
+            'pictures' => 'required|array|max:5',
+            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:8048',
+            'price' => 'required|numeric|min:0',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
-            'locality_id' => 'nullable|exists:localities,id',
+            'locality_id' => 'required|exists:localities,id',
             'coins_needed' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
 
@@ -110,43 +111,81 @@ class AdsController extends Controller
 
 
 
-    public function update(Request $request, $id)
-    {
-        // Find the ad by ID
-        $ad = Ad::findOrFail($id);
+    // public function update(Request $request, $id)
+    // {
+    //     // Find the ad by ID
+    //     $ad = Ad::findOrFail($id);
 
-        // Validate the input
+    //     // Validate the input
+    //     $validatedData = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'type' => 'required|in:service,product',
+    //         'is_verified' => 'boolean',
+    //         'pictures' => 'required|array|max:5',
+    //         'pictures.*' => 'file|mimes:jpg,jpeg,png|max:8048',
+    //         'price' => 'required|numeric|min:0',
+    //         'country_id' => 'required|exists:countries,id',
+    //         'city_id' => 'required|exists:cities,id',
+    //         'locality_id' => 'required|exists:localities,id',
+    //         'coins_needed' => 'required|integer|min:0',
+    //         'category_id' => 'required|exists:categories,id',
+    //     ]);
+
+    //     // Check if new pictures are uploaded
+    //     if ($request->hasFile('pictures')) {
+    //         // Store new pictures
+    //         $validatedData['pictures'] = array_map(
+    //             fn($file) => $file->store('ads', 'public'),
+    //             $request->file('pictures')
+    //         );
+    //     }
+
+    //     // Update the ad with the validated data
+    //     $ad->update($validatedData);
+
+    //     // Redirect or return a success response
+    //     return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
+    // }
+
+    public function update(Request $request, Ad $ad)
+    {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'type' => 'required|in:service,product',
             'is_verified' => 'boolean',
-            'pictures' => 'nullable|array',
-            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:2048',
-            'price' => 'nullable|numeric|min:0',
+            'pictures' => 'nullable|array|max:5',
+            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:8048',
+            'price' => 'required|numeric|min:0',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
-            'locality_id' => 'nullable|exists:localities,id',
+            'locality_id' => 'required|exists:localities,id',
             'coins_needed' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        // Check if new pictures are uploaded
+        // Handle uploaded files
         if ($request->hasFile('pictures')) {
-            // Store new pictures
             $validatedData['pictures'] = array_map(
                 fn($file) => $file->store('ads', 'public'),
                 $request->file('pictures')
             );
+
+            // Remove old pictures if new ones are uploaded
+            foreach ($ad->pictures as $oldPicture) {
+                Storage::disk('public')->delete($oldPicture);
+            }
+        } else {
+            // Retain old pictures if no new ones are uploaded
+            $validatedData['pictures'] = $ad->pictures;
         }
 
-        // Update the ad with the validated data
+        // Update the ad
         $ad->update($validatedData);
 
-        // Redirect or return a success response
         return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
     }
-
 
     public function destroy(Ad $ad)
     {

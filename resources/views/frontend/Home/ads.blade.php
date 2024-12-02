@@ -60,7 +60,7 @@
                                                 </a>
                                             </p>
                                             <ul class="info">
-                                                <li class="price">PKR {{ number_format($ad->price, 2) }}</li>
+                                                <li class="price">PKR {{ number_format($ad->price, 1) }}</li>
                                                 <li class="like">
                                                     <form action="{{ route('favorites.toggle') }}" method="POST"
                                                         class="favorite-form">
@@ -113,7 +113,7 @@
                                                 </a>
                                             </p>
                                             <ul class="info">
-                                                <li class="price">PKR {{ number_format($ad->price, 2) }}</li>
+                                                <li class="price">PKR {{ number_format($ad->price, 1) }}</li>
                                                 <li class="like">
                                                     <form action="{{ route('favorites.toggle') }}" method="POST"
                                                         class="favorite-form">
