@@ -13,7 +13,7 @@
                     <table class="table table-striped" id="staticDataTables">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Country</th>
                                 <th>Actions</th>
@@ -22,7 +22,7 @@
                         <tbody>
                             @foreach ($cities as $city)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $city->id }}</td>
                                     <td>{{ $city->name }}</td>
                                     <td>{{ $city->country->name }}</td>
                                     <td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Locality;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LocalityController extends Controller
 {
@@ -29,7 +30,7 @@ class LocalityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:localities,name,NULL,id,city_id,' . $request->city_id,
             'city_id' => 'required|exists:cities,id',
         ]);
 
@@ -37,6 +38,8 @@ class LocalityController extends Controller
 
         return redirect()->route('localities.index')->with('success', 'Locality created successfully!');
     }
+
+
 
     public function edit(Locality $locality)
     {
@@ -47,17 +50,22 @@ class LocalityController extends Controller
         return view('admin.localities.edit', compact('locality', 'cities'));
     }
 
-    public function update(Request $request, Locality $locality)
+    public function update(Request $request, $id)
     {
+        $locality = Locality::findOrFail($id);
+
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:localities,name,' . $locality->id . ',id,city_id,' . $request->city_id,
             'city_id' => 'required|exists:cities,id',
         ]);
 
+        // Update the locality with the validated data
         $locality->update($request->all());
 
         return redirect()->route('localities.index')->with('success', 'Locality updated successfully!');
     }
+
+
 
     public function destroy(Locality $locality)
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CityController extends Controller
 {
@@ -29,7 +30,7 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:cities,name',
             'country_id' => 'required|exists:countries,id',
         ]);
 
@@ -50,7 +51,12 @@ class CityController extends Controller
     public function update(Request $request, City $city)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('cities', 'name')->ignore($city->id),
+            ],
             'country_id' => 'required|exists:countries,id',
         ]);
 
@@ -58,6 +64,7 @@ class CityController extends Controller
 
         return redirect()->route('cities.index')->with('success', 'City updated successfully!');
     }
+
 
     public function destroy(City $city)
     {

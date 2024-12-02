@@ -16,7 +16,7 @@
                     <table class="table table-striped" id="staticDataTables">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Actions</th>
@@ -25,7 +25,7 @@
                         <tbody>
                             @foreach ($categories as $category)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->description }}</td>
                                     <td>
