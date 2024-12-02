@@ -29,6 +29,9 @@ Route::get('/about-us', function () {
 Route::get('/faq', function () {
     return view('frontend.faq.index');
 })->name('faq');
+Route::get('/pricing', function () {
+    return view('frontend.pricing.index');
+})->name('pricing');
 // Route to HomeController resource for '/home'
 Route::resource('/home', HomeController::class);
 

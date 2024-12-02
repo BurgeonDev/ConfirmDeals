@@ -214,18 +214,18 @@
                                                                         <li class="price">
                                                                             Pkr {{ number_format($ad->price, 2) }}
                                                                         </li>
-                                                                        li class="like">
-                                                                        <form action="{{ route('favorites.toggle') }}"
-                                                                            method="POST" class="favorite-form">
-                                                                            @csrf
-                                                                            <input type="hidden" name="ad_id"
-                                                                                value="{{ $ad->id }}">
-                                                                            <button type="submit"
-                                                                                class="favorite-button">
-                                                                                <i
-                                                                                    class="lni lni-heart {{ $ad->isFavoritedBy(auth()->user()) ? 'active' : '' }}"></i>
-                                                                            </button>
-                                                                        </form>
+                                                                        <li class="like">
+                                                                            <form action="{{ route('favorites.toggle') }}"
+                                                                                method="POST" class="favorite-form">
+                                                                                @csrf
+                                                                                <input type="hidden" name="ad_id"
+                                                                                    value="{{ $ad->id }}">
+                                                                                <button type="submit"
+                                                                                    class="favorite-button">
+                                                                                    <i
+                                                                                        class="lni lni-heart {{ $ad->isFavoritedBy(auth()->user()) ? 'active' : '' }}"></i>
+                                                                                </button>
+                                                                            </form>
                                                                         </li>
                                                                     </ul>
                                                                 </div>

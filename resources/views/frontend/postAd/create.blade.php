@@ -224,16 +224,21 @@
                                     <div class="post-ad-tab">
                                         <div class="step-one-content">
                                             <div class="single-list three">
-                                                <div class="list-icon" style="justify-content: center">
+                                                <div class="main-content">
+                                                    <div class="mt-0 dashboard-block close-content">
+                                                        <h2>Sorry <i class="lni lni-emoji-sad"></i></h2>
+                                                        <h4>You do not have enough coins to post an ad. Please earn or
+                                                            purchase more coins.</h4>
+                                                        <div class="button">
+                                                            <a href="{{ route('pricing') }}">
+                                                                <button type="submit" class="btn btn-danger">Buy
+                                                                    Coins <i style="color: goldenrod"
+                                                                        class="fas fa-coins"></i></button>
+                                                            </a>
 
-                                                    <h5>
 
-                                                        <span class="text-danger">You do not have enough coins to post an
-                                                            ad.
-                                                            Please earn
-                                                            or
-                                                            purchase more coins.</span>
-                                                    </h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
