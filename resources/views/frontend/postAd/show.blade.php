@@ -204,8 +204,9 @@
                             <div class="single-block author">
                                 <h3>Seller</h3>
                                 <div class="content">
-                                    <img src="{{ asset('storage/' . $ad->user->profile_pic) ?? asset('frontend/assets/images/user/user.png') }}"
+                                    <img src="{{ $ad->user->profile_pic ? asset('storage/' . $ad->user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                                         alt="Seller">
+
 
                                     <h3>{{ $ad->createdBy->first_name ?? 'Unknown' }}
                                         {{ $ad->createdBy->last_name }}</h3>

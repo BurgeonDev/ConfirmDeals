@@ -48,7 +48,9 @@
                                         @forelse ($bids as $bid)
                                             <div class="mb-4 shadow-sm card">
                                                 <div class="text-white card-header">
-                                                    <h4 style="color: #582fe0" class="mb-0">{{ $bid->ad->title }}</h4>
+                                                    <h4 style="color: #582fe0" class="mb-0"><a
+                                                            href="{{ route('ad.show', $bid->ad->id) }}">{{ $bid->ad->title }}</a>
+                                                    </h4>
                                                 </div>
                                                 <div class="card-body">
                                                     <div
