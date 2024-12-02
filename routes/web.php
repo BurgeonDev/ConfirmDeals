@@ -32,7 +32,9 @@ Route::get('/faq', function () {
 Route::get('/pricing', function () {
     return view('frontend.pricing.index');
 })->name('pricing');
-// Route to HomeController resource for '/home'
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+
+
 Route::resource('/home', HomeController::class);
 
 
@@ -84,7 +86,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 });
 

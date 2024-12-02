@@ -57,13 +57,14 @@
                     <div class="single-footer f-link">
                         <h3>Quick Links</h3>
                         <ul>
-                            <li><a href="javascript:void(0)">About Us</a></li>
-                            <li><a href="javascript:void(0)">How It's Works</a></li>
-                            <li><a href="javascript:void(0)">Login</a></li>
-                            <li><a href="javascript:void(0)">Signup</a></li>
-                            <li><a href="javascript:void(0)">Help &amp; Support</a></li>
+                            <li><a href="{{ route('about') }}">About Us</a></li>
+                            <li><a href="{{ route('home') }}">How It's Works</a></li>
+                            <li><a href="{{ route('faq') }}">FAQ</a></li>
+                            <li><a href="{{ route('pricing') }}">Pricing</a></li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
                         </ul>
                     </div>
+
                     <!-- End Single Widget -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
