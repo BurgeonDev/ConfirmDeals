@@ -44,7 +44,7 @@
                              </ul>
                          </div>
                          <div class="login-button">
-                             <ul>
+                             {{-- <ul>
                                  @auth
                                      <li>
                                          <a href="{{ route('dashboard.index') }}"><i class="lni lni-user"></i>
@@ -68,7 +68,42 @@
                                          <a href="{{ route('register') }}"><i class="lni lni-user"></i> Register</a>
                                      </li>
                                  @endauth
+                             </ul> --}}
+                             <ul>
+                                 @auth
+                                     <li>
+                                         <a href="{{ route('dashboard.index') }}">
+                                             <i class="lni lni-user"></i>
+                                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                                             @if (auth()->user()->ads()->whereHas('bids', function ($query) {
+                                                         $query->where('status', 'pending');
+                                                     })->count() > 0)
+                                                 <i class="fas fa-bell" style="color: red"></i>
+                                             @endif
+
+                                         </a>
+                                     </li>
+                                     <li>
+                                         <a href="{{ route('logout') }}"
+                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                             <i class="lni lni-exit"></i> Logout
+                                         </a>
+                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                             style="display: none;">
+                                             @csrf
+                                         </form>
+                                     </li>
+                                 @else
+                                     <li>
+                                         <a href="{{ route('login') }}"><i class="lni lni-enter"></i> Login</a>
+                                     </li>
+                                     <li>
+                                         <a href="{{ route('register') }}"><i class="lni lni-user"></i> Register</a>
+                                     </li>
+                                 @endauth
                              </ul>
+
+
                          </div>
                          @can('Post Ad')
                              <div class="button header-button">

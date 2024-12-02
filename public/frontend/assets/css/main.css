@@ -6568,6 +6568,16 @@ blockquote .shape {
     color: #999; /* Default color */
     transition: color 0.3s ease;
 }
+/* .notification-badge {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    font-size: 12px;
+    vertical-align: top;
+    margin-left: 5px;
+} */
 
 .favorite-button .lni-heart.active {
     color: #e74c3c; /* Active color (e.g., red) */

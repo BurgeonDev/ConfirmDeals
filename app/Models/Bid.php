@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
 {
-    use HasFactory;
+    protected $fillable = ['user_id', 'ad_id', 'offer', 'status'];
 
-    protected $fillable = ['buyer_id', 'ad_id', 'offer', 'is_accepted'];
-
-    public function ad()
+    public function ads()
     {
         return $this->belongsTo(Ad::class);
     }
 
-    public function buyer()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'buyer_id');
+        return $this->belongsTo(User::class, 'user_id',);
+    }
+    public function ad()
+    {
+        return $this->belongsTo(Ad::class);
     }
 }

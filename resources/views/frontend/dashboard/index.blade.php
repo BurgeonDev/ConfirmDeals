@@ -20,13 +20,13 @@
                 <li>
                     <a class="{{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
                         href="{{ route('dashboard.index') }}">
-                        <i class="lni lni-circle-plus"></i> Dashboard
+                        <i class="lni lni-dashboard"></i> Dashboard
                     </a>
                 </li>
                 <li>
                     <a class="{{ request()->routeIs('userProfile.edit') ? 'active' : '' }}"
                         href="{{ route('userProfile.edit') }}">
-                        <i class="lni lni-circle-plus"></i> Profile
+                        <i class="lni lni-pencil-alt"></i> Profile
                     </a>
                 </li>
                 <li>
@@ -39,7 +39,7 @@
                 <li>
                     @can('Manage Ad')
                         <a class="{{ request()->routeIs('ad.index') ? 'active' : '' }}" href="{{ route('ad.index') }}">
-                            <i class="lni lni-circle-plus"></i> My Ads
+                            <i class="lni lni-bolt-alt"></i> My Ads
                         </a>
                     @endcan
                 </li>
@@ -50,6 +50,25 @@
                         <i class="lni lni-heart"></i> Favourite ads
                     </a>
 
+                </li>
+                <li>
+
+                    <a class="{{ request()->routeIs('bids.myBids') ? 'active' : '' }}"
+                        href="{{ route('bids.myBids') }}">
+                        <i class="lni lni-heart"></i> My Bids
+                    </a>
+
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('bids.index') ? 'active' : '' }}"
+                        href="{{ route('bids.index') }}">
+                        <i class="lni lni-bookmark"></i> Ad Bids
+                        @if (auth()->user()->ads()->whereHas('bids', function ($query) {
+                                    $query->where('status', 'pending');
+                                })->count() > 0)
+                            <i class="fas fa-bell" style="color: red"></i>
+                        @endif
+                    </a>
                 </li>
             </ul>
             <div class="button">

@@ -76,4 +76,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Favorite::class);
     }
+    public function bid()
+    {
+        return $this->hasMany(Bid::class)->where('status', 'pending');
+    }
 }
