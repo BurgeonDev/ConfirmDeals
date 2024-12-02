@@ -5,42 +5,68 @@ namespace App\Http\Controllers;
 use App\Models\Bid;
 use App\Models\Ad;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
 {
-    use AuthorizesRequests;
-    public function store(Request $request)
+    public function placeBid(Request $request, $adId)
     {
+        $ad = Ad::findOrFail($adId);
+        $user = auth()->user();
+
+        // Validate the bid
         $request->validate([
-            'ad_id' => 'required|exists:ads,id',
-            'offer' => 'required|numeric|min:0.01',
+            'offer' => 'required|numeric|min:' . (($ad->bids()->max('offer') ?? 0) + 1),
         ]);
 
-        $bid = Bid::create([
-            'buyer_id' => auth()->id(),
-            'ad_id' => $request->ad_id,
-            'offer' => $request->offer,
-        ]);
+        // Create the bid
+        $bid = new Bid();
+        $bid->user_id = $user->id;
+        $bid->ad_id = $adId;
+        $bid->offer = $request->offer;
+        $bid->status = 'pending'; // Default status
+        $bid->save();
 
-        return redirect()->route('ads.show', $request->ad_id)->with('success', 'Your bid has been placed.');
+        return redirect()->route('ad.show', $adId)->with('success', 'Bid placed successfully!');
     }
 
-    public function accept(Bid $bid)
+    public function acceptBid($bidId)
     {
-        $this->authorize('accept-bid', $bid); // Ensure only the seller can accept the bid
+        $bid = Bid::findOrFail($bidId);
 
-        $bid->update(['is_accepted' => true]);
 
-        return redirect()->route('ads.show', $bid->ad_id)->with('success', 'Bid accepted.');
+
+        // Reject all other bids for the ad
+        Bid::where('ad_id', $bid->ad_id)->update(['status' => 'rejected']);
+
+        // Accept the selected bid
+        $bid->status = 'accepted';
+        $bid->save();
+
+        return redirect()->back()->with('success', 'Bid accepted successfully!');
     }
 
-    public function reject(Bid $bid)
+    public function rejectBid($bidId)
     {
-        $this->authorize('reject-bid', $bid); // Ensure only the seller can reject the bid
+        $bid = Bid::findOrFail($bidId);
 
-        $bid->update(['is_accepted' => false]);
+        // Ensure the user is authorized to reject bids
 
-        return redirect()->route('ads.show', $bid->ad_id)->with('success', 'Bid rejected.');
+
+        // Reject the bid
+        $bid->status = 'rejected';
+        $bid->save();
+
+        return redirect()->back()->with('success', 'Bid rejected successfully!');
+    }
+
+    public function showAllBids()
+    {
+        $user = Auth::user();
+
+        // Retrieve all ads with their bids
+        $ads = $user->ads()->with('bids.user')->get();
+
+        return view('frontend.bids.index', compact('ads'));
     }
 }

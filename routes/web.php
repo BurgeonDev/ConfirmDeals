@@ -53,9 +53,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Bid Routes
-    Route::post('bids', [BidController::class, 'store'])->name('bids.store');
-    Route::post('bids/{bid}/accept', [BidController::class, 'accept'])->name('bids.accept');
-    Route::post('bids/{bid}/reject', [BidController::class, 'reject'])->name('bids.reject');
+    Route::middleware('auth')->group(function () {
+        Route::post('/bids/{adId}/place', [BidController::class, 'placeBid'])->name('bids.place');
+        Route::post('/bids/{bidId}/accept', [BidController::class, 'acceptBid'])->name('bids.accept');
+        Route::post('/bids/{bidId}/reject', [BidController::class, 'rejectBid'])->name('bids.reject');
+        Route::get('/bids', [BidController::class, 'showAllBids'])->name('bids.index');
+    });
 
     // Feedback Routes
     Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');

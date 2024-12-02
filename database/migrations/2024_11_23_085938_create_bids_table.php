@@ -10,10 +10,10 @@ class CreateBidsTable extends Migration
     {
         Schema::create('bids', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('buyer_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('ad_id')->constrained('ads')->onDelete('cascade');
-            $table->decimal('offer', 10, 2);
-            $table->boolean('is_accepted')->default(false); // Seller acceptance
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // User making the bid
+            $table->foreignId('ad_id')->constrained()->onDelete('cascade');   // Ad that the bid is placed on
+            $table->decimal('offer', 10, 2); // Amount offered by the user
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

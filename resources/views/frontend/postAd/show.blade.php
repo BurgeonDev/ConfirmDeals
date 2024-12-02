@@ -33,15 +33,9 @@
                                         <span>No Picture</span>
                                     @endif
                                 </div>
-                                {{-- <div class="images">
-                                    <img src="assets/images/item-details/image1.jpg" class="img" alt="#">
-                                    <img src="assets/images/item-details/image2.jpg" class="img" alt="#">
-                                    <img src="assets/images/item-details/image3.jpg" class="img" alt="#">
-                                    <img src="assets/images/item-details/image4.jpg" class="img" alt="#">
-                                    <img src="assets/images/item-details/image5.jpg" class="img" alt="#">
-                                </div> --}}
                             </main>
                         </div>
+
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-info">
@@ -55,7 +49,42 @@
                                 </a>
                             </p>
                             <h3 class="price">Pkr {{ $ad->price }}</h3>
+                            <div class="single-block comments">
+                                <!-- Alerts Section -->
+                                @if (session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
 
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <form action="{{ route('bids.place', $ad->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-8 d-flex align-items-center">
+                                            <div class="me-2 button"> <button type="submit" class="btn">Place
+                                                    Bid</button>
+                                            </div>
+                                            <div class="button me-2" style="flex-grow: 1;">
+
+                                                <input style="height: 52px;" type="number" name="offer"
+                                                    class="form-control form-control-custom" placeholder="Enter bid amount"
+                                                    required>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="list-info">
                                 <h4>Informations</h4>
                                 <ul>
@@ -66,9 +95,11 @@
                                     <li><span>Updated On:</span>{{ $ad->updated_at }}</li>
 
                                 </ul>
+
                             </div>
                             <div class="contact-info">
                                 <ul>
+
                                     <li>
                                         <a href="tel:{{ $ad->createdBy->phone_number ?? '' }}" class="call">
                                             <i class="lni lni-phone-set"></i>
@@ -79,14 +110,17 @@
                                     <li>
                                         <a href="mailto:{{ $ad->createdBy->email ?? 'example@gmail.com' }}" class="mail">
                                             <i class="lni lni-envelope"></i>
-                                            {{-- {{ $ad->createdBy->email ?? 'No Email Provided' }} --}}
                                         </a>
+
                                     </li>
                                 </ul>
                             </div>
 
                         </div>
+
                     </div>
+                    <!-- End Single Block -->
+
                 </div>
             </div>
             <div class="item-details-blocks">
@@ -185,7 +219,8 @@
                                         @if ($ad->locality && $ad->locality->name)
                                             <iframe width="100%" height="300" id="gmap_canvas"
                                                 src="https://maps.google.com/maps?q={{ $ad->locality->name }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                                frameborder="0" scrolling="no" marginheight="0"
+                                                marginwidth="0"></iframe>
                                         @elseif ($ad->city)
                                             <iframe width="100%" height="300" id="gmap_canvas"
                                                 src="https://maps.google.com/maps?q={{ $ad->city }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
@@ -217,39 +252,9 @@
                                 </div>
                             </div>
 
+
                             <!-- End Single Block -->
-                            <!-- Start Single Block -->
-                            {{-- <div class="single-block contant-seller comment-form ">
-                                <h3>Contact Seller</h3>
-                                <form action="#" method="POST">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-box form-group">
-                                                <input type="text" name="name"
-                                                    class="form-control form-control-custom" placeholder="Your Name">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-box form-group">
-                                                <input type="email" name="email"
-                                                    class="form-control form-control-custom" placeholder="Your Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-box form-group">
-                                                <textarea name="#" class="form-control form-control-custom" placeholder="Your Message"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="button">
-                                                <button type="submit" class="btn">Send Message</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- End Single Block -->
-                           --}}
+
                         </div>
                     </div>
                 </div>

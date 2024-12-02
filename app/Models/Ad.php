@@ -83,4 +83,8 @@ class Ad extends Model
     {
         return $user && $user->favorites()->where('ad_id', $this->id)->exists();
     }
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
 }
