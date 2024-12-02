@@ -61,7 +61,7 @@
                             <li><a href="{{ route('home') }}">How It's Works</a></li>
                             <li><a href="{{ route('faq') }}">FAQ</a></li>
                             <li><a href="{{ route('pricing') }}">Pricing</a></li>
-                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                            <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                         </ul>
                     </div>
 

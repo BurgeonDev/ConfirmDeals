@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-images">
-                            <main id="gallery">
+                            {{-- <main id="gallery">
                                 <div class="main-img">
                                     @if (!empty($ad->pictures) && is_array($ad->pictures))
                                         <img src="{{ asset('storage/' . $ad->pictures[0]) }}" alt="Ad Picture"
@@ -33,7 +33,26 @@
                                         <span>No Picture</span>
                                     @endif
                                 </div>
+                            </main> --}}
+                            <main id="gallery">
+                                <div class="main-img">
+                                    @if (!empty($ad->pictures) && is_array($ad->pictures))
+                                        <img src="{{ asset('storage/' . $ad->pictures[0]) }}" id="current"
+                                            alt="Main Picture" class="img-thumbnail" style="width: 750px; height: 500px;">
+                                    @else
+                                        <span>No Picture</span>
+                                    @endif
+                                </div>
+                                <div class="images">
+                                    @if (!empty($ad->pictures) && is_array($ad->pictures))
+                                        @foreach ($ad->pictures as $picture)
+                                            <img src="{{ asset('storage/' . $picture) }}" class="img"
+                                                alt="Thumbnail Picture">
+                                        @endforeach
+                                    @endif
+                                </div>
                             </main>
+
                         </div>
 
                     </div>

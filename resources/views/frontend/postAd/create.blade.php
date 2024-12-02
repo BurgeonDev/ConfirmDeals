@@ -217,13 +217,18 @@
                                                         <div class="form-group upload-image">
                                                             <label for="pictures">Upload Pictures</label>
                                                             <input type="file" id="pictures" name="pictures[]"
-                                                                multiple placeholder="Upload Image">
-                                                            <span>Max upload size: 2MB, Supported formats: JPG, PNG</span>
+                                                                multiple accept=".jpg,.jpeg,.png"
+                                                                placeholder="Upload Image"
+                                                                onchange="validateFileLimit(this)">
+                                                            <span>Can add multiple pictures. Supported formats: JPG, PNG
+                                                                (Max: 5)</span>
                                                             @error('pictures')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+
+
 
                                                     <!-- Submit Button -->
                                                     <div class="col-12">
@@ -330,6 +335,15 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function validateFileLimit(input) {
+            if (input.files.length > 5) {
+                alert("You can upload a maximum of 5 pictures.");
+                input.value = ""; // Clear the selected files
+            }
+        }
     </script>
     <script>
         document.getElementById('price').addEventListener('input', function() {
