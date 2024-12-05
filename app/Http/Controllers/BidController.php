@@ -16,7 +16,7 @@ class BidController extends Controller
 
         // Validate the bid
         $request->validate([
-            'offer' => 'required|numeric|min:' . (($ad->bids()->max('offer') ?? 0) + 1),
+            'offer' => 'required|numeric', // Removed the dynamic minimum offer condition
         ]);
 
         // Create the bid
@@ -29,6 +29,7 @@ class BidController extends Controller
 
         return redirect()->route('ad.show', $adId)->with('success', 'Bid placed successfully!');
     }
+
 
     public function acceptBid($bidId)
     {
