@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('ads', AdController::class);
     Route::resource('user/ad', AdsController::class);
     Route::resource('user/dashboard', FrontendDashboardController::class);
+    Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
 
 
 
@@ -101,7 +102,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 });
-Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
 
 
 Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
