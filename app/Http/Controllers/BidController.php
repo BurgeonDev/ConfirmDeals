@@ -92,7 +92,7 @@ class BidController extends Controller
         $user = Auth::user();
 
         // Retrieve all bids made by the user, with the ad details
-        $bids = Bid::where('user_id', $user->id)->with('ad')->get();
+        $bids = Bid::where('user_id', $user->id)->with('ad')->paginate(5);
 
         return view('frontend.bids.myBids', compact('bids'));
     }

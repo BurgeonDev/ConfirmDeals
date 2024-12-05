@@ -21,11 +21,11 @@ class Ad extends Model
         });
 
         // Optionally, if you want to set the user_id when updating as well
-        static::updating(function ($ad) {
-            if (Auth::check()) {
-                $ad->user_id = Auth::id(); // Update the user_id if necessary
-            }
-        });
+        // static::updating(function ($ad) {
+        //     if (Auth::check()) {
+        //         $ad->user_id = Auth::id(); // Update the user_id if necessary
+        //     }
+        // });
     }
     protected $fillable = [
         'title',

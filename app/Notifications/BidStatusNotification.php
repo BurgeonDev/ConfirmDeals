@@ -29,14 +29,16 @@ class BidStatusNotification extends Notification
             'bid_id' => $this->bid->id,
             'ad_id' => $this->bid->ad_id,
             'status' => $this->status,
+            'url' => route('bids.myBids', $this->bid->id), // Ensure this route exists
         ];
     }
+
 
     public function toMail($notifiable)
     {
         return (new MailMessage)
             ->line('Your bid on the ad "' . $this->bid->ad->title . '" has been ' . $this->status . '.')
-            // ->action('View Your Bid', route('bid.show', $this->bid->id))
+            ->action('View Your Bid', route('bids.myBids', $this->bid->id))
             ->line('Thank you for using our application!');
     }
 }

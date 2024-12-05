@@ -26,7 +26,7 @@ class AdsController extends Controller
         // Load the category relationship with ads
         $ads = Ad::where('user_id', auth()->id())
             ->with('category') // Eager load the category relationship
-            ->get();
+            ->paginate(10);
 
         return view('frontend.postAd.index', compact('ads'));
     }

@@ -48,7 +48,8 @@
                                         @forelse ($bids as $bid)
                                             <div class="mb-4 shadow-sm card">
                                                 <div class="text-white card-header">
-                                                    <h4 style="color: #582fe0" class="mb-0"><a
+                                                    <h4 style="color: #582fe0" class="mb-0">
+                                                        <a
                                                             href="{{ route('ad.show', $bid->ad->id) }}">{{ $bid->ad->title }}</a>
                                                     </h4>
                                                 </div>
@@ -57,7 +58,7 @@
                                                         class="p-3 mb-3 border rounded bid-item d-flex justify-content-between align-items-center">
                                                         <!-- Left Section: Bid Details -->
                                                         <div class="bid-details">
-                                                            <p class="mb-1"><strong>Offer:</strong> ${{ $bid->offer }}
+                                                            <p class="mb-1"><strong>Offer:</strong> {{ $bid->offer }}
                                                             </p>
                                                             <p class="mb-1"><strong>Status:</strong>
                                                                 @if ($bid->status === 'accepted')
@@ -75,7 +76,36 @@
                                         @empty
                                             <p class="text-muted">You have not placed any bids yet.</p>
                                         @endforelse
+
+                                        <!-- Custom Pagination -->
+                                        <div style="justify-content: center" class="pagination center">
+                                            <ul class="pagination-list">
+                                                @if ($bids->onFirstPage())
+                                                    <li class="disabled"><a href="javascript:void(0)"><i
+                                                                class="lni lni-chevron-left"></i></a></li>
+                                                @else
+                                                    <li><a href="{{ $bids->previousPageUrl() }}"><i
+                                                                class="lni lni-chevron-left"></i></a></li>
+                                                @endif
+
+                                                @foreach ($bids->getUrlRange(1, $bids->lastPage()) as $page => $url)
+                                                    <li class="{{ $bids->currentPage() == $page ? 'active' : '' }}">
+                                                        <a href="{{ $url }}">{{ $page }}</a>
+                                                    </li>
+                                                @endforeach
+
+                                                @if ($bids->hasMorePages())
+                                                    <li><a href="{{ $bids->nextPageUrl() }}"><i
+                                                                class="lni lni-chevron-right"></i></a></li>
+                                                @else
+                                                    <li class="disabled"><a href="javascript:void(0)"><i
+                                                                class="lni lni-chevron-right"></i></a></li>
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
+
+
                                     <!-- End Items Area -->
 
                                 </div>

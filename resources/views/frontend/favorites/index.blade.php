@@ -100,7 +100,6 @@
                                             <div class="col-lg-2 col-md-2 col-12 align-right">
                                                 <ul class="action-btn">
                                                     <li>
-                                                        <!-- Toggle Favorite Button -->
                                                         <form action="{{ route('favorites.toggle') }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="ad_id"
@@ -114,7 +113,6 @@
                                                     </li>
                                                 </ul>
                                             </div>
-
                                         </div>
                                     </div>
                                 @empty
@@ -122,11 +120,52 @@
                                 @endforelse
                                 <!-- End Single List -->
                             </div>
-                            <!-- End Items Area -->
+
+                            <!-- Pagination -->
+                            <div style="justify-content: center" class="pagination center">
+                                <ul class="pagination-list">
+                                    @if ($favorites->onFirstPage())
+                                        <li class="disabled">
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ $favorites->previousPageUrl() }}">
+                                                <i class="lni lni-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @foreach ($favorites->getUrlRange(1, $favorites->lastPage()) as $page => $url)
+                                        <li class="{{ $favorites->currentPage() == $page ? 'active' : '' }}">
+                                            <a href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+
+                                    @if ($favorites->hasMorePages())
+                                        <li>
+                                            <a href="{{ $favorites->nextPageUrl() }}">
+                                                <i class="lni lni-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="disabled">
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <!-- End Pagination -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
 @endsection
