@@ -44,9 +44,9 @@ class AdsController extends Controller
         $countries = Country::with('cities.localities')->get(); // Load cities and their localities for each country
         return view('frontend.postAd.create', compact('countries', 'categories'));
     }
-
     public function store(Request $request)
     {
+        // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -60,9 +60,19 @@ class AdsController extends Controller
             'locality_id' => 'required|exists:localities,id',
             'coins_needed' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-
         ]);
 
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user has enough coins
+        if ($user->coins < $validatedData['coins_needed']) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['coins_needed' => 'You do not have enough coins to post this ad.']);
+        }
+
+        // Handle picture uploads
         if ($request->hasFile('pictures')) {
             $validatedData['pictures'] = array_map(
                 fn($file) => $file->store('ads', 'public'),
@@ -70,10 +80,13 @@ class AdsController extends Controller
             );
         }
 
+        // Create the ad
         Ad::create($validatedData);
 
+        // Redirect to the ads index page with a success message
         return redirect()->route('ad.index')->with('success', 'Ad created successfully!');
     }
+
 
 
 
@@ -111,42 +124,6 @@ class AdsController extends Controller
 
 
 
-    // public function update(Request $request, $id)
-    // {
-    //     // Find the ad by ID
-    //     $ad = Ad::findOrFail($id);
-
-    //     // Validate the input
-    //     $validatedData = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'type' => 'required|in:service,product',
-    //         'is_verified' => 'boolean',
-    //         'pictures' => 'required|array|max:5',
-    //         'pictures.*' => 'file|mimes:jpg,jpeg,png|max:8048',
-    //         'price' => 'required|numeric|min:0',
-    //         'country_id' => 'required|exists:countries,id',
-    //         'city_id' => 'required|exists:cities,id',
-    //         'locality_id' => 'required|exists:localities,id',
-    //         'coins_needed' => 'required|integer|min:0',
-    //         'category_id' => 'required|exists:categories,id',
-    //     ]);
-
-    //     // Check if new pictures are uploaded
-    //     if ($request->hasFile('pictures')) {
-    //         // Store new pictures
-    //         $validatedData['pictures'] = array_map(
-    //             fn($file) => $file->store('ads', 'public'),
-    //             $request->file('pictures')
-    //         );
-    //     }
-
-    //     // Update the ad with the validated data
-    //     $ad->update($validatedData);
-
-    //     // Redirect or return a success response
-    //     return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
-    // }
 
     public function update(Request $request, Ad $ad)
     {
@@ -164,6 +141,16 @@ class AdsController extends Controller
             'coins_needed' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
         ]);
+
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user has enough coins for the update
+        if ($user->coins < $validatedData['coins_needed']) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['coins_needed' => 'You do not have enough coins to update this ad.']);
+        }
 
         // Handle uploaded files
         if ($request->hasFile('pictures')) {
@@ -186,6 +173,7 @@ class AdsController extends Controller
 
         return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
     }
+
 
     public function destroy(Ad $ad)
     {

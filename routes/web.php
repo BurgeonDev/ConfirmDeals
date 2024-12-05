@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
     Route::patch('/ads/{ad}/toggle-verified', [AdController::class, 'toggleVerifiedStatus'])->name('ads.toggleVerifiedStatus');
+    Route::post('/validate-coins', [AdController::class, 'validateCoins'])->name('validate.coins');
 
 
 
