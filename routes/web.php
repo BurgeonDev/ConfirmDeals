@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('user/ad', AdsController::class);
     Route::resource('user/dashboard', FrontendDashboardController::class);
     Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
+    Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
 
 
 

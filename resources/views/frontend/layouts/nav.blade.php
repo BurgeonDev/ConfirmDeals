@@ -51,7 +51,7 @@
                                      <li>
                                          <a>
 
-                                             <div class="notification-icon">
+                                             {{-- <div class="notification-icon">
                                                  <i class="lni lni-alarm" id="notificationIcon"></i>
                                                  @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
                                                      <span
@@ -74,6 +74,44 @@
                                                                      </span>
                                                                  </div>
                                                              @endforeach
+                                                         </div>
+                                                     </div>
+                                                 @else
+                                                     <div class="notification-dropdown" id="notificationDropdown"
+                                                         style="display: none;">
+                                                         <p>No new notifications</p>
+                                                     </div>
+                                                 @endif
+                                             </div> --}}
+                                             <div class="notification-icon">
+                                                 <i class="lni lni-alarm" id="notificationIcon"></i>
+                                                 @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
+                                                     <span class="notification-count"
+                                                         style="height: 15px; width: 15px; font-size: 10px; text-align: left;">
+                                                         {{ auth()->user()->unreadNotifications->count() }}
+                                                     </span>
+                                                     <div class="notification-dropdown" id="notificationDropdown"
+                                                         style="display: none;">
+                                                         <div class="notification-content">
+                                                             <button
+                                                                 style="margin-bottom: 10px; background-color: #282570; color: white; border: none; padding: 5px 10px; font-size: 0.6em; border-radius: 4px; cursor: pointer;"
+                                                                 onmouseover="this.style.backgroundColor='#0056b3';"
+                                                                 onmouseout="this.style.backgroundColor='#007bff';"
+                                                                 onclick="location.href='{{ route('notifications.markAllRead') }}'">
+                                                                 Mark All as Read
+                                                             </button>
+                                                             @foreach (auth()->user()->unreadNotifications as $notification)
+                                                                 <div style="margin-bottom: 10px;">
+                                                                     <a
+                                                                         href="{{ route('notification.read', $notification->id) }}">
+                                                                         {{ $notification->data['message'] }}
+                                                                     </a>
+                                                                     <span style="font-size: 0.9em; color: #888;">
+                                                                         {{ $notification->created_at->diffForHumans() }}
+                                                                     </span>
+                                                                 </div>
+                                                             @endforeach
+
                                                          </div>
                                                      </div>
                                                  @else
