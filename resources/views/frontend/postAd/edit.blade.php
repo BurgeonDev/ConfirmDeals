@@ -54,6 +54,9 @@
                                                         <input name="title" type="text" id="title"
                                                             value="{{ old('title', $ad->title) }}"
                                                             placeholder="Enter Ad Title" required>
+                                                        @error('title')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <!-- Description -->
@@ -61,6 +64,9 @@
                                                     <div class="form-group">
                                                         <label for="description">Ad Description*</label>
                                                         <textarea name="description" id="description" placeholder="Enter Ad Description" required>{{ old('description', $ad->description) }}</textarea>
+                                                        @error('description')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <!-- Category -->
@@ -108,6 +114,9 @@
                                                         <input name="price" type="number" id="price"
                                                             value="{{ old('price', $ad->price) }}"
                                                             placeholder="Enter Price">
+                                                        @error('price')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <!-- Coins Needed -->
@@ -116,7 +125,13 @@
                                                         <label for="coins_needed">Coins Needed*</label>
                                                         <input name="coins_needed" type="number" id="coins_needed"
                                                             value="{{ old('coins_needed', $ad->coins_needed) }}"
-                                                            placeholder="Enter Coins Needed" required>
+                                                            placeholder="Enter Coins Needed" readonly required>
+
+                                                        <div id="liveError" class="text-danger">
+                                                            @error('coins_needed')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Country -->
@@ -165,31 +180,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- Old Pictures Section -->
-                                                {{-- <div class="form-group">
-                                                    <label>Existing Pictures</label>
-                                                    <div class="row">
-                                                        @if (!empty($oldPictures) && is_array($oldPictures))
-                                                            @foreach ($oldPictures as $picture)
-                                                                <div class="mb-2 col-4">
-                                                                    <img src="{{ asset('storage/' . $picture) }}"
-                                                                        alt="Ad Picture" class="img-thumbnail"
-                                                                        style="width: 100%; height: auto;">
-                                                                </div>
-                                                            @endforeach
-                                                        @else
-                                                            <p>No pictures uploaded yet.</p>
-                                                        @endif
 
-                                                    </div>
-                                                </div>
-
-                                                <!-- File Upload -->
-                                                <div class="form-group">
-                                                    <label for="pictures">Upload New Pictures</label>
-                                                    <input type="file" id="pictures" name="pictures[]" multiple>
-                                                    <small class="form-text text-muted">Max upload size: 2MB. Supported
-                                                        formats: JPG, PNG.</small>
-                                                </div> --}}
 
                                                 <div class="col-12">
                                                     <div class="form-group upload-image">
@@ -197,7 +188,8 @@
                                                         <input type="file" id="pictures" name="pictures[]" multiple
                                                             accept=".jpg,.jpeg,.png" placeholder="Upload Image"
                                                             onchange="validateFileLimit(this)">
-                                                        <span>Can add multiple pictures. Supported formats: JPG, PNG (Max:
+                                                        <span>Can add multiple pictures. Supported formats: JPG, PNG
+                                                            (Max:
                                                             5)</span>
                                                         @error('pictures')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -296,6 +288,68 @@
                     }
                 }
             });
+        });
+    </script>
+    <script>
+        document.getElementById('price').addEventListener('input', function() {
+            let price = parseFloat(this.value);
+            let coinsNeeded = 0;
+
+            if (price <= 1000) {
+                coinsNeeded = Math.ceil((price * 0.025) / 50);
+            } else if (price <= 3000) {
+                coinsNeeded = Math.ceil((price * 0.03) / 50);
+            } else if (price <= 5000) {
+                coinsNeeded = Math.ceil((price * 0.05) / 50);
+            } else if (price <= 10000) {
+                coinsNeeded = Math.ceil((price * 0.10) / 50);
+            } else {
+                coinsNeeded = Math.ceil((price * 0.15) / 50);
+            }
+
+            document.getElementById('coins_needed').value = coinsNeeded;
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceInput = document.getElementById('price');
+            const coinsNeededInput = document.getElementById('coins_needed');
+            const liveErrorDiv = document.getElementById('liveError');
+
+            // Update coins_needed dynamically based on price
+            priceInput.addEventListener('input', function() {
+                const price = parseFloat(priceInput.value) || 0;
+
+                // Calculate coins needed (example: 10 coins per price unit)
+                const coinsNeeded = Math.ceil(price / 10); // Adjust logic as needed
+                coinsNeededInput.value = coinsNeeded;
+
+                // Validate user's coin balance
+                validateUserCoins(coinsNeeded);
+            });
+
+            // Function to validate user's coin balance via AJAX
+            function validateUserCoins(coinsNeeded) {
+                fetch('{{ route('validate.coins') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            coins_needed: coinsNeeded
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.valid) {
+                            liveErrorDiv.textContent = data.message;
+                        } else {
+                            liveErrorDiv.textContent = '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
     </script>
 @endsection

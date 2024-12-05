@@ -24,16 +24,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-images">
-                            {{-- <main id="gallery">
-                                <div class="main-img">
-                                    @if (!empty($ad->pictures) && is_array($ad->pictures))
-                                        <img src="{{ asset('storage/' . $ad->pictures[0]) }}" alt="Ad Picture"
-                                            class="img-thumbnail" style="width: 750px; height: 450px;">
-                                    @else
-                                        <span>No Picture</span>
-                                    @endif
-                                </div>
-                            </main> --}}
+
                             <main id="gallery">
                                 <div class="main-img">
                                     @if (!empty($ad->pictures) && is_array($ad->pictures))
@@ -83,27 +74,36 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <form action="{{ route('bids.place', $ad->id) }}" method="POST">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-8 d-flex align-items-center">
-                                            <div class="me-2 button"> <button type="submit" class="btn">Place
-                                                    Bid</button>
+
+                                @php
+                                    $user = auth()->user();
+                                @endphp
+
+                                @if ($user->coins >= $ad->coins_needed)
+                                    <!-- Bid Form -->
+                                    <form action="{{ route('bids.place', $ad->id) }}" method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-8 d-flex align-items-center">
+                                                <div class="me-2 button">
+                                                    <button type="submit" class="btn">Place Bid</button>
+                                                </div>
+                                                <div class="button me-2" style="flex-grow: 1;">
+                                                    <input style="height: 52px;" type="number" name="offer"
+                                                        class="form-control form-control-custom"
+                                                        placeholder="Enter bid amount" required>
+                                                </div>
                                             </div>
-                                            <div class="button me-2" style="flex-grow: 1;">
-
-                                                <input style="height: 52px;" type="number" name="offer"
-                                                    class="form-control form-control-custom" placeholder="Enter bid amount"
-                                                    required>
-
-
-                                            </div>
-
-
                                         </div>
+                                    </form>
+                                @else
+                                    <!-- Not Enough Coins Message -->
+                                    <div class="mt-3 alert alert-danger">
+                                        You don't have enough coins to bid on this ad.
                                     </div>
-                                </form>
+                                @endif
                             </div>
+
                             <div class="list-info">
                                 <h4>Informations</h4>
                                 <ul>

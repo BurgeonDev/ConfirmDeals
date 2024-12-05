@@ -132,4 +132,18 @@ class AdController extends Controller
         $ad->delete();
         return redirect()->route('ads.index')->with('success', 'Ad deleted successfully!');
     }
+    public function validateCoins(Request $request)
+    {
+        $user = auth()->user();
+        $coinsNeeded = $request->coins_needed;
+
+        if ($user->coins < $coinsNeeded) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'You do not have enough coins to post this ad.'
+            ]);
+        }
+
+        return response()->json(['valid' => true]);
+    }
 }

@@ -21,6 +21,8 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\NotificationController;
+
 // Route to HomeController index for '/'
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', function () {
@@ -83,6 +85,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
     Route::patch('/ads/{ad}/toggle-verified', [AdController::class, 'toggleVerifiedStatus'])->name('ads.toggleVerifiedStatus');
+    Route::post('/validate-coins', [AdController::class, 'validateCoins'])->name('validate.coins');
 
 
 
@@ -98,6 +101,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 });
+Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
 
 
 Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');

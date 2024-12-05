@@ -143,10 +143,8 @@
                                                         <div class="form-group">
                                                             <label for="price">Price</label>
                                                             <input name="price" type="number" id="price"
-                                                                placeholder="Enter Price" value="{{ old('price') }}">
-                                                            @error('price')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
+                                                                placeholder="Enter Price">
+                                                            <span class="text-danger" id="priceError"></span>
                                                         </div>
                                                     </div>
 
@@ -154,14 +152,19 @@
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="coins_needed">Coins Needed*</label>
+
                                                             <input name="coins_needed" type="number" id="coins_needed"
-                                                                placeholder="Enter Coins Needed" required
-                                                                value="{{ old('coins_needed') }}">
+                                                                readonly>
+                                                            <div id="liveError" class="text-danger">
+                                                            </div>
                                                             @error('coins_needed')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
+
                                                     </div>
+
+
                                                     <!-- Country -->
                                                     <div class="col-6">
                                                         <div class="form-group">
@@ -363,6 +366,48 @@
             }
 
             document.getElementById('coins_needed').value = coinsNeeded;
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceInput = document.getElementById('price');
+            const coinsNeededInput = document.getElementById('coins_needed');
+            const liveErrorDiv = document.getElementById('liveError');
+
+            // Update coins_needed dynamically based on price
+            priceInput.addEventListener('input', function() {
+                const price = parseFloat(priceInput.value) || 0;
+
+                // Calculate coins needed (example: 10 coins per price unit)
+                const coinsNeeded = Math.ceil(price / 10); // Adjust logic as needed
+                coinsNeededInput.value = coinsNeeded;
+
+                // Validate user's coin balance
+                validateUserCoins(coinsNeeded);
+            });
+
+            // Function to validate user's coin balance via AJAX
+            function validateUserCoins(coinsNeeded) {
+                fetch('{{ route('validate.coins') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            coins_needed: coinsNeeded
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.valid) {
+                            liveErrorDiv.textContent = data.message;
+                        } else {
+                            liveErrorDiv.textContent = '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
     </script>
 @endsection
