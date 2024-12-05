@@ -14,6 +14,11 @@ class BidController extends Controller
         $ad = Ad::findOrFail($adId);
         $user = auth()->user();
 
+        // Check if the user has enough coins
+        if ($user->coins < $ad->coins_needed) {
+            return redirect()->back()
+                ->withErrors(['You do not have enough coins to bid on this ad.']);
+        }
         // Validate the bid
         $request->validate([
             'offer' => 'required|numeric', // Removed the dynamic minimum offer condition
