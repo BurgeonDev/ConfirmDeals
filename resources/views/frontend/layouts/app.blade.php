@@ -66,13 +66,48 @@
 
         .notification-dropdown a {
             display: block;
-            padding: 5px 0;
+
             color: #333;
             text-decoration: none;
         }
 
         .notification-dropdown a:hover {
             background-color: #f5f5f5;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            /* Adjust based on your layout */
+            top: 100%;
+            /* Position below the triggering element */
+            right: 0;
+            /* Align to the right */
+            width: 300px;
+            /* Set a fixed width */
+            max-height: 200px;
+            /* Limit the height of the dropdown */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+            background-color: #fff;
+            /* Background color */
+            border: 1px solid #ccc;
+            /* Border for visibility */
+            border-radius: 4px;
+            /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow */
+            z-index: 1000;
+            /* Ensure it appears above other elements */
+            padding: 10px;
+            /* Add padding */
+        }
+
+        .notification-content {
+            display: flex;
+            flex-direction: column;
+            /* Arrange notifications vertically */
+            gap: 10px;
+            /* Add spacing between notifications */
         }
     </style>
 </head>

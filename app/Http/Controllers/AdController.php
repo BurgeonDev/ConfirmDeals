@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Locality;
 use Illuminate\Http\Request;
+use App\Notifications\AdApprovedNotification;
 
 class AdController extends Controller
 {
@@ -21,10 +22,15 @@ class AdController extends Controller
     }
     public function toggleVerifiedStatus(Ad $ad)
     {
-        $ad->update(['is_verified' => !$ad->is_verified]);
-
+        $ad->is_verified = !$ad->is_verified;
+        $ad->save();
+        if ($ad->is_verified) {
+            $adOwner = $ad->user; // Retrieve the owner of the ad
+            $adOwner->notify(new AdApprovedNotification($ad));
+        }
         return redirect()->back()->with('success', 'Ad verification status updated successfully!');
     }
+
 
 
     public function create()
