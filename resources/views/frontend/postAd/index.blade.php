@@ -136,7 +136,7 @@
                                 <!-- End Single List -->
 
                                 <!-- Pagination -->
-                                <div class="pagination left">
+                                <div style="justify-content: center" class="pagination left">
                                     <ul class="pagination-list">
                                         @if ($ads->onFirstPage())
                                             <li class="disabled"><a href="javascript:void(0)"><i

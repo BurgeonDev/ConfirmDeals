@@ -34,7 +34,7 @@ class FavoriteController extends Controller
     }
     public function index()
     {
-        $favorites = Favorite::with('ad.category')->where('user_id', Auth::id())->get();
+        $favorites = Favorite::with('ad.category')->where('user_id', Auth::id())->paginate(10);
 
 
         return view('frontend.favorites.index', compact('favorites'));

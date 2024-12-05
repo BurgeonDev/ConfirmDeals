@@ -78,7 +78,7 @@
                                         @endforelse
 
                                         <!-- Custom Pagination -->
-                                        <div class="pagination left">
+                                        <div style="justify-content: center" class="pagination center">
                                             <ul class="pagination-list">
                                                 @if ($bids->onFirstPage())
                                                     <li class="disabled"><a href="javascript:void(0)"><i
