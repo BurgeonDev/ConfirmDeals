@@ -16,6 +16,14 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}" />
@@ -81,7 +89,25 @@
     <a href="{{ route('home') }}" class="scroll-top btn-hover" style="display: none;">
         <i class="lni lni-chevron-up"></i>
     </a>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTables').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "columnDefs": [{
+                    "targets": [1], // Column index to make numeric if needed
+                    "type": "num"
+                }]
+            });
+        });
+    </script>
+
     <!-- ========================= JS here ========================= -->
+
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/tiny-slider.js') }}"></script>
