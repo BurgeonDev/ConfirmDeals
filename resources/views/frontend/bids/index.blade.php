@@ -89,9 +89,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-                                                <!-- Modal -->
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="bidsModal-{{ $ad->id }}" tabindex="-1"
                                                     aria-labelledby="bidsModalLabel-{{ $ad->id }}"

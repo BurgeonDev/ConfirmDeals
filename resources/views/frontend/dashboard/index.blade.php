@@ -63,11 +63,7 @@
                     <a class="{{ request()->routeIs('bids.index') ? 'active' : '' }}"
                         href="{{ route('bids.index') }}">
                         <i class="lni lni-bookmark"></i> Ad Bids
-                        @if (auth()->user()->ads()->whereHas('bids', function ($query) {
-                                    $query->where('status', 'pending');
-                                })->count() > 0)
-                            <i class="fas fa-bell" style="color: red"></i>
-                        @endif
+
                     </a>
                 </li>
             </ul>

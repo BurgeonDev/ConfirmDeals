@@ -78,9 +78,8 @@
                                              @if (auth()->user()->ads()->whereHas('bids', function ($query) {
                                                          $query->where('status', 'pending');
                                                      })->count() > 0)
-                                                 <i class="fas fa-bell" style="color: red"></i>
+                                                 <i class="lni lni-alarm"></i>
                                              @endif
-
                                          </a>
                                      </li>
                                      <li>
