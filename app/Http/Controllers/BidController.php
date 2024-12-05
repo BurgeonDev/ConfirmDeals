@@ -6,6 +6,9 @@ use App\Models\Bid;
 use App\Models\Ad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\BidReceivedNotification;
+use App\Notifications\BidStatusNotification;
+
 
 class BidController extends Controller
 {
@@ -31,7 +34,12 @@ class BidController extends Controller
         $bid->offer = $request->offer;
         $bid->status = 'pending'; // Default status
         $bid->save();
+        // Assume $bid is the bid object
+        $ad = $bid->ad; // Retrieve the ad associated with the bid
+        $adOwner = $ad->user; // Assuming the ad has a user relation
 
+        // Notify the ad owner
+        $adOwner->notify(new BidReceivedNotification($ad));
         return redirect()->route('ad.show', $adId)->with('success', 'Bid placed successfully!');
     }
 
@@ -39,15 +47,18 @@ class BidController extends Controller
     public function acceptBid($bidId)
     {
         $bid = Bid::findOrFail($bidId);
-
-
+        $adOwner = $bid->ad->user; // User B (ad owner)
+        $bidder = $bid->user; // User A (the bidder)
 
         // Reject all other bids for the ad
-        Bid::where('ad_id', $bid->ad_id)->update(['status' => 'rejected']);
+        Bid::where('ad_id', $bid->ad_id)->where('id', '!=', $bid->id)->update(['status' => 'rejected']);
 
         // Accept the selected bid
         $bid->status = 'accepted';
         $bid->save();
+
+        // Notify User A (the bidder) about the accepted bid
+        $bidder->notify(new BidStatusNotification($bid, 'accepted'));
 
         return redirect()->back()->with('success', 'Bid accepted successfully!');
     }
@@ -55,13 +66,14 @@ class BidController extends Controller
     public function rejectBid($bidId)
     {
         $bid = Bid::findOrFail($bidId);
-
-        // Ensure the user is authorized to reject bids
-
+        $bidder = $bid->user; // User A (the bidder)
 
         // Reject the bid
         $bid->status = 'rejected';
         $bid->save();
+
+        // Notify User A (the bidder) about the rejected bid
+        $bidder->notify(new BidStatusNotification($bid, 'rejected'));
 
         return redirect()->back()->with('success', 'Bid rejected successfully!');
     }

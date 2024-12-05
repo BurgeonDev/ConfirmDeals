@@ -44,42 +44,81 @@
                              </ul>
                          </div>
                          <div class="login-button">
-                             {{-- <ul>
-                                 @auth
-                                     <li>
-                                         <a href="{{ route('dashboard.index') }}"><i class="lni lni-user"></i>
-                                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
-                                     </li>
-                                     <li>
-                                         <a href="{{ route('logout') }}"
-                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                             <i class="lni lni-exit"></i> Logout
-                                         </a>
-                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                             style="display: none;">
-                                             @csrf
-                                         </form>
-                                     </li>
-                                 @else
-                                     <li>
-                                         <a href="{{ route('login') }}"><i class="lni lni-enter"></i> Login</a>
-                                     </li>
-                                     <li>
-                                         <a href="{{ route('register') }}"><i class="lni lni-user"></i> Register</a>
-                                     </li>
-                                 @endauth
-                             </ul> --}}
+
                              <ul>
                                  @auth
+                                     <!-- Notification icon and dropdown -->
+                                     <li>
+                                         <a>
+                                             {{-- <div class="notification-icon">
+                                                 <i class="lni lni-alarm" id="notificationIcon"></i>
+                                                 @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
+                                                     <span
+                                                         style="height: 15px; width: 15px; font-size: 10px; text-align: left;"
+                                                         class="notification-count">
+                                                         {{ auth()->user()->unreadNotifications->count() }}
+                                                     </span>
+                                                     <div class="notification-dropdown" id="notificationDropdown"
+                                                         style="display: none;">
+                                                         @foreach (auth()->user()->unreadNotifications as $notification)
+                                                             <div style="margin-bottom: 10px;">
+                                                                 <a
+                                                                     href="{{ route('notification.read', $notification->id) }}">
+                                                                     {{ $notification->data['message'] }}
+                                                                 </a>
+
+                                                                 <span style="font-size: 0.9em; color: #888;">
+                                                                     {{ $notification->created_at->diffForHumans() }}
+                                                                 </span>
+                                                             </div>
+                                                         @endforeach
+                                                     </div>
+                                                 @else
+                                                     <div class="notification-dropdown" id="notificationDropdown"
+                                                         style="display: none;">
+                                                         <p>No new notifications</p>
+                                                     </div>
+                                                 @endif
+                                             </div> --}}
+                                             <div class="notification-icon">
+                                                 <i class="lni lni-alarm" id="notificationIcon"></i>
+                                                 @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
+                                                     <span
+                                                         style="height: 15px; width: 15px; font-size: 10px; text-align: left;"
+                                                         class="notification-count">
+                                                         {{ auth()->user()->unreadNotifications->count() }}
+                                                     </span>
+                                                     <div class="notification-dropdown" id="notificationDropdown"
+                                                         style="display: none;">
+                                                         @foreach (auth()->user()->unreadNotifications as $notification)
+                                                             <div style="margin-bottom: 10px;">
+                                                                 <a
+                                                                     href="{{ route('notification.read', $notification->id) }}">
+                                                                     {{ $notification->data['message'] }}
+                                                                 </a>
+                                                                 <br>
+                                                                 <span style="font-size: 0.9em; color: #888;">
+                                                                     {{ $notification->created_at->diffForHumans() }}
+                                                                 </span>
+                                                             </div>
+                                                         @endforeach
+                                                     </div>
+                                                 @else
+                                                     <div class="notification-dropdown" id="notificationDropdown"
+                                                         style="display: none;">
+                                                         <p>No new notifications</p>
+                                                     </div>
+                                                 @endif
+                                             </div>
+
+                                         </a>
+                                     </li>
                                      <li>
                                          <a href="{{ route('dashboard.index') }}">
                                              <i class="lni lni-user"></i>
                                              {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
-                                             @if (auth()->user()->ads()->whereHas('bids', function ($query) {
-                                                         $query->where('status', 'pending');
-                                                     })->count() > 0)
-                                                 <i class="lni lni-alarm"></i>
-                                             @endif
+
+
                                          </a>
                                      </li>
                                      <li>

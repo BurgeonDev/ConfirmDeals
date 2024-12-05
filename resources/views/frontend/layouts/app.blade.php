@@ -32,7 +32,49 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}" />
+    <style>
+        .notification-icon {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
 
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #582fe0;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 5px;
+            font-size: 12px;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .notification-dropdown a {
+            display: block;
+            padding: 5px 0;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .notification-dropdown a:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 
 <body>
@@ -105,8 +147,22 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var icon = document.getElementById('notificationIcon');
+            var dropdown = document.getElementById('notificationDropdown');
 
+            icon.addEventListener('click', function() {
+                if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            });
+        });
+    </script>
     <!-- ========================= JS here ========================= -->
+
 
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
