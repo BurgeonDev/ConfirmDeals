@@ -102,10 +102,13 @@
                                                              </button>
                                                              @foreach (auth()->user()->unreadNotifications as $notification)
                                                                  <div style="margin-bottom: 10px;">
-                                                                     <a
-                                                                         href="{{ route('notification.read', $notification->id) }}">
+                                                                     @if (isset($notification->data['url']))
+                                                                         <a href="{{ $notification->data['url'] }}">
+                                                                             {{ $notification->data['message'] }}
+                                                                         </a>
+                                                                     @else
                                                                          {{ $notification->data['message'] }}
-                                                                     </a>
+                                                                     @endif
                                                                      <span style="font-size: 0.9em; color: #888;">
                                                                          {{ $notification->created_at->diffForHumans() }}
                                                                      </span>

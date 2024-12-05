@@ -25,6 +25,7 @@ class AdApprovedNotification extends Notification
         return [
             'message' => 'Your ad "' . $this->ad->title . '" has been approved and is now visible to the public.',
             'ad_id' => $this->ad->id,
+            'url' => route('ad.show', $this->ad->id),
         ];
     }
 

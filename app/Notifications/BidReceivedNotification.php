@@ -25,6 +25,7 @@ class BidReceivedNotification extends Notification
         return new DatabaseMessage([
             'message' => 'You have received a new bid on your ad: ' . $this->ad->title,
             'ad_id' => $this->ad->id,
+            'url' => route('bids.index', $this->ad->id),
             'user_id' => auth()->id()
         ]);
     }
