@@ -96,9 +96,7 @@
                                                 <p>{{ $ad->type }}</p>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-12">
-                                                <p>
-                                                    {{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}
-                                                </p>
+                                                <p>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</p>
                                             </div>
 
                                             <div class="col-lg-2 col-md-2 col-12 align-right">
@@ -136,6 +134,35 @@
                                     <p>No ads available.</p>
                                 @endforelse
                                 <!-- End Single List -->
+
+                                <!-- Pagination -->
+                                <div class="pagination left">
+                                    <ul class="pagination-list">
+                                        @if ($ads->onFirstPage())
+                                            <li class="disabled"><a href="javascript:void(0)"><i
+                                                        class="lni lni-chevron-left"></i></a></li>
+                                        @else
+                                            <li><a href="{{ $ads->previousPageUrl() }}"><i
+                                                        class="lni lni-chevron-left"></i></a></li>
+                                        @endif
+
+                                        @foreach ($ads->getUrlRange(1, $ads->lastPage()) as $page => $url)
+                                            <li class="{{ $ads->currentPage() == $page ? 'active' : '' }}">
+                                                <a href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        @endforeach
+
+                                        @if ($ads->hasMorePages())
+                                            <li><a href="{{ $ads->nextPageUrl() }}"><i
+                                                        class="lni lni-chevron-right"></i></a></li>
+                                        @else
+                                            <li class="disabled"><a href="javascript:void(0)"><i
+                                                        class="lni lni-chevron-right"></i></a></li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <!-- End Pagination -->
+
                             </div>
                             <!-- End Items Area -->
                         </div>
@@ -144,4 +171,5 @@
             </div>
         </div>
     </section>
+
 @endsection
