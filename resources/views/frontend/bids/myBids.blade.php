@@ -18,6 +18,182 @@
         </div>
     </div>
 
+    {{-- <section class="dashboard section">
+        <div class="container">
+            <div class="row">
+                @include('frontend.dashboard.index')
+                <div class="col-lg-9 col-md-12 col-12">
+                    <div class="main-content">
+                        <div class="mt-0 dashboard-block">
+                            <h4 class="my-4 text-center">My Bids</h4>
+                            <!-- Tab Navigation -->
+                            <ul class="nav nav-tabs justify-content-center border-bottom-0" id="myBidsTabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="px-4 py-2 nav-link active fw-bold rounded-top" id="pending-tab"
+                                        data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending"
+                                        aria-selected="true" style="color: #5830e0">
+                                        Pending
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-4 py-2 nav-link fw-bold rounded-top" id="accepted-tab" data-bs-toggle="tab"
+                                        href="#accepted" role="tab" aria-controls="accepted" aria-selected="false"
+                                        style="color: #5830e0">
+                                        Accepted
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-4 py-2 nav-link fw-bold rounded-top" id="rejected-tab" data-bs-toggle="tab"
+                                        href="#rejected" role="tab" aria-controls="rejected" aria-selected="false"
+                                        style="color: #5830e0">
+                                        Rejected
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab Content -->
+                            <div class="p-4 border tab-content bg-light rounded-bottom" id="myBidsTabsContent">
+                                <!-- Pending Bids -->
+                                <div class="tab-pane fade show active" id="pending" role="tabpanel"
+                                    aria-labelledby="pending-tab">
+                                    @forelse ($pendingBids as $bid)
+                                        <div class="my-3 shadow-sm card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <a href="{{ route('ad.show', $bid->ad->id) }}"
+                                                        class="text-decoration-none"
+                                                        style="color: #5830e0">{{ $bid->ad->title }}</a>
+                                                </h5>
+                                                <p class="card-text"><strong>Offer:</strong> {{ $bid->offer }}</p>
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="text-center">No pending bids found.</p>
+                                    @endforelse
+                                    <div style="justify-content:center" class="pagination center">
+                                        <ul class="pagination-list">
+                                            @if ($pendingBids->onFirstPage())
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @else
+                                                <li><a href="{{ $pendingBids->previousPageUrl() }}"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @endif
+
+                                            @foreach ($pendingBids->getUrlRange(1, $pendingBids->lastPage()) as $page => $url)
+                                                <li class="{{ $pendingBids->currentPage() == $page ? 'active' : '' }}">
+                                                    <a href="{{ $url }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            @if ($pendingBids->hasMorePages())
+                                                <li><a href="{{ $pendingBids->nextPageUrl() }}"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @else
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Accepted Bids -->
+                                <div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                                    @forelse ($acceptedBids as $bid)
+                                        <div class="my-3 shadow-sm card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <a href="{{ route('ad.show', $bid->ad->id) }}"
+                                                        class="text-decoration-none"
+                                                        style="color: #5830e0">{{ $bid->ad->title }}</a>
+                                                </h5>
+                                                <p class="card-text"><strong>Offer:</strong> {{ $bid->offer }}</p>
+                                                <span class="badge bg-success">Accepted</span>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="text-center">No accepted bids found.</p>
+                                    @endforelse
+                                    <div style="justify-content:center" class="pagination center">
+                                        <ul class="pagination-list">
+                                            @if ($acceptedBids->onFirstPage())
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @else
+                                                <li><a href="{{ $acceptedBids->previousPageUrl() }}"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @endif
+
+                                            @foreach ($acceptedBids->getUrlRange(1, $acceptedBids->lastPage()) as $page => $url)
+                                                <li class="{{ $acceptedBids->currentPage() == $page ? 'active' : '' }}">
+                                                    <a href="{{ $url }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            @if ($acceptedBids->hasMorePages())
+                                                <li><a href="{{ $acceptedBids->nextPageUrl() }}"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @else
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Rejected Bids -->
+                                <div class="tab-pane fade" id="rejected" role="tabpanel"
+                                    aria-labelledby="rejected-tab">
+                                    @forelse ($rejectedBids as $bid)
+                                        <div class="my-3 shadow-sm card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <a href="{{ route('ad.show', $bid->ad->id) }}"
+                                                        class="text-decoration-none"
+                                                        style="color: #5830e0">{{ $bid->ad->title }}</a>
+                                                </h5>
+                                                <p class="card-text"><strong>Offer:</strong> {{ $bid->offer }}</p>
+                                                <span class="badge bg-danger">Rejected</span>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="text-center">No rejected bids found.</p>
+                                    @endforelse
+                                    <div style="justify-content:center" class="pagination center">
+                                        <ul class="pagination-list">
+                                            @if ($rejectedBids->onFirstPage())
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @else
+                                                <li><a href="{{ $rejectedBids->previousPageUrl() }}"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @endif
+
+                                            @foreach ($rejectedBids->getUrlRange(1, $rejectedBids->lastPage()) as $page => $url)
+                                                <li class="{{ $rejectedBids->currentPage() == $page ? 'active' : '' }}">
+                                                    <a href="{{ $url }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            @if ($rejectedBids->hasMorePages())
+                                                <li><a href="{{ $rejectedBids->nextPageUrl() }}"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @else
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section> --}}
+
+
     <section class="dashboard section">
         <div class="container">
             <div class="row">
@@ -25,92 +201,215 @@
                 <div class="col-lg-9 col-md-12 col-12">
                     <div class="main-content">
                         <div class="mt-0 dashboard-block">
+                            <h4 class="my-4 text-center">My Bids</h4>
+                            <!-- Tab Navigation -->
+                            <ul class="nav nav-tabs justify-content-center border-bottom-0" id="myBidsTabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="px-4 py-2 nav-link active fw-bold rounded-top" id="pending-tab"
+                                        data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending"
+                                        aria-selected="true" style="color: #5830e0">
+                                        Pending
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-4 py-2 nav-link fw-bold rounded-top" id="accepted-tab" data-bs-toggle="tab"
+                                        href="#accepted" role="tab" aria-controls="accepted" aria-selected="false"
+                                        style="color: #5830e0">
+                                        Accepted
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="px-4 py-2 nav-link fw-bold rounded-top" id="rejected-tab" data-bs-toggle="tab"
+                                        href="#rejected" role="tab" aria-controls="rejected" aria-selected="false"
+                                        style="color: #5830e0">
+                                        Rejected
+                                    </a>
+                                </li>
+                            </ul>
 
-                            @if (session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
+                            <!-- Tab Content -->
+                            <div class="p-4 border tab-content bg-light rounded-bottom" id="myBidsTabsContent">
+                                <!-- Pending Bids -->
+                                <div class="tab-pane fade show active" id="pending" role="tabpanel"
+                                    aria-labelledby="pending-tab">
+                                    @forelse ($pendingBids as $bid)
+                                        <div class="my-3 shadow-sm card">
+                                            <div class="card-body d-flex align-items-center justify-content-between">
+                                                <!-- Ad Image -->
+                                                @if (!empty($bid->ad->pictures) && is_array($bid->ad->pictures))
+                                                    <img src="{{ asset('storage/' . $bid->ad->pictures[0]) }}"
+                                                        alt="Ad Picture" class="img-thumbnail"
+                                                        style="width: 75px; height: 75px;">
+                                                @else
+                                                    <span>No Picture</span>
+                                                @endif
 
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            <h3 class="block-title">My Bids on Other Ads</h3>
-                            <div class="inner-block">
-                                <div class="post-ad-tab">
-
-                                    <!-- Start Items Area -->
-                                    <div class="mt-4 bids-container">
-                                        @forelse ($bids as $bid)
-                                            <div class="mb-4 shadow-sm card">
-                                                <div class="text-white card-header">
-                                                    <h4 style="color: #582fe0" class="mb-0">
-                                                        <a
-                                                            href="{{ route('ad.show', $bid->ad->id) }}">{{ $bid->ad->title }}</a>
-                                                    </h4>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div
-                                                        class="p-3 mb-3 border rounded bid-item d-flex justify-content-between align-items-center">
-                                                        <!-- Left Section: Bid Details -->
-                                                        <div class="bid-details">
-                                                            <p class="mb-1"><strong>Offer:</strong> {{ $bid->offer }}
-                                                            </p>
-                                                            <p class="mb-1"><strong>Status:</strong>
-                                                                @if ($bid->status === 'accepted')
-                                                                    <span class="badge bg-success">Accepted</span>
-                                                                @elseif ($bid->status === 'rejected')
-                                                                    <span class="badge bg-danger">Rejected</span>
-                                                                @else
-                                                                    <span class="badge bg-warning text-dark">Pending</span>
-                                                                @endif
-                                                            </p>
-                                                        </div>
+                                                <!-- Bid Details -->
+                                                <div class="d-flex flex-column flex-grow-1 ms-3">
+                                                    <h5 class="mb-1">
+                                                        <a href="{{ route('ad.show', $bid->ad->id) }}"
+                                                            class="text-decoration-none"
+                                                            style="color: #5830e0">{{ $bid->ad->title }}</a>
+                                                    </h5>
+                                                    <div class="d-flex justify-content-between">
+                                                        <p class="mb-0"><strong>Offer:</strong> {{ $bid->offer }}</p>
+                                                        <p class="mb-0"><strong>Date:</strong>
+                                                            {{ $bid->created_at->format('d M Y') }}</p>
+                                                        <p class="mb-0"><strong>Status:</strong> <span
+                                                                class="badge bg-warning text-dark">Pending</span></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @empty
-                                            <p class="text-muted">You have not placed any bids yet.</p>
-                                        @endforelse
-
-                                        <!-- Custom Pagination -->
-                                        <div style="justify-content: center" class="pagination center">
-                                            <ul class="pagination-list">
-                                                @if ($bids->onFirstPage())
-                                                    <li class="disabled"><a href="javascript:void(0)"><i
-                                                                class="lni lni-chevron-left"></i></a></li>
-                                                @else
-                                                    <li><a href="{{ $bids->previousPageUrl() }}"><i
-                                                                class="lni lni-chevron-left"></i></a></li>
-                                                @endif
-
-                                                @foreach ($bids->getUrlRange(1, $bids->lastPage()) as $page => $url)
-                                                    <li class="{{ $bids->currentPage() == $page ? 'active' : '' }}">
-                                                        <a href="{{ $url }}">{{ $page }}</a>
-                                                    </li>
-                                                @endforeach
-
-                                                @if ($bids->hasMorePages())
-                                                    <li><a href="{{ $bids->nextPageUrl() }}"><i
-                                                                class="lni lni-chevron-right"></i></a></li>
-                                                @else
-                                                    <li class="disabled"><a href="javascript:void(0)"><i
-                                                                class="lni lni-chevron-right"></i></a></li>
-                                                @endif
-                                            </ul>
                                         </div>
+                                    @empty
+                                        <p class="text-center">No pending bids found.</p>
+                                    @endforelse
+                                    <div style="justify-content:center" class="pagination center">
+                                        <ul class="pagination-list">
+                                            @if ($pendingBids->onFirstPage())
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @else
+                                                <li><a href="{{ $pendingBids->previousPageUrl() }}"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @endif
+
+                                            @foreach ($pendingBids->getUrlRange(1, $pendingBids->lastPage()) as $page => $url)
+                                                <li class="{{ $pendingBids->currentPage() == $page ? 'active' : '' }}">
+                                                    <a href="{{ $url }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            @if ($pendingBids->hasMorePages())
+                                                <li><a href="{{ $pendingBids->nextPageUrl() }}"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @else
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @endif
+                                        </ul>
                                     </div>
+                                </div>
 
+                                <!-- Accepted Bids -->
+                                <div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
+                                    @forelse ($acceptedBids as $bid)
+                                        <div class="my-3 shadow-sm card">
+                                            <div class="card-body d-flex align-items-center justify-content-between">
+                                                @if (!empty($bid->ad->pictures) && is_array($bid->ad->pictures))
+                                                    <img src="{{ asset('storage/' . $bid->ad->pictures[0]) }}"
+                                                        alt="Ad Picture" class="img-thumbnail"
+                                                        style="width: 75px; height: 75px;">
+                                                @else
+                                                    <span>No Picture</span>
+                                                @endif
 
-                                    <!-- End Items Area -->
+                                                <div class="d-flex flex-column flex-grow-1 ms-3">
+                                                    <h5 class="mb-1">
+                                                        <a href="{{ route('ad.show', $bid->ad->id) }}"
+                                                            class="text-decoration-none"
+                                                            style="color: #5830e0">{{ $bid->ad->title }}</a>
+                                                    </h5>
+                                                    <div class="d-flex justify-content-between">
+                                                        <p class="mb-0"><strong>Offer:</strong> {{ $bid->offer }}</p>
+                                                        <p class="mb-0"><strong>Date:</strong>
+                                                            {{ $bid->created_at->format('d M Y') }}</p>
+                                                        <p class="mb-0"><strong>Status:</strong> <span
+                                                                class="badge bg-success">Accepted</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="text-center">No accepted bids found.</p>
+                                    @endforelse
+                                    <div style="justify-content:center" class="pagination center">
+                                        <ul class="pagination-list">
+                                            @if ($acceptedBids->onFirstPage())
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @else
+                                                <li><a href="{{ $acceptedBids->previousPageUrl() }}"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @endif
 
+                                            @foreach ($acceptedBids->getUrlRange(1, $acceptedBids->lastPage()) as $page => $url)
+                                                <li class="{{ $acceptedBids->currentPage() == $page ? 'active' : '' }}">
+                                                    <a href="{{ $url }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            @if ($acceptedBids->hasMorePages())
+                                                <li><a href="{{ $acceptedBids->nextPageUrl() }}"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @else
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Rejected Bids -->
+                                <div class="tab-pane fade" id="rejected" role="tabpanel"
+                                    aria-labelledby="rejected-tab">
+                                    @forelse ($rejectedBids as $bid)
+                                        <div class="my-3 shadow-sm card">
+                                            <div class="card-body d-flex align-items-center justify-content-between">
+                                                @if (!empty($bid->ad->pictures) && is_array($bid->ad->pictures))
+                                                    <img src="{{ asset('storage/' . $bid->ad->pictures[0]) }}"
+                                                        alt="Ad Picture" class="img-thumbnail"
+                                                        style="width: 75px; height: 75px;">
+                                                @else
+                                                    <span>No Picture</span>
+                                                @endif
+
+                                                <div class="d-flex flex-column flex-grow-1 ms-3">
+                                                    <h5 class="mb-1">
+                                                        <a href="{{ route('ad.show', $bid->ad->id) }}"
+                                                            class="text-decoration-none"
+                                                            style="color: #5830e0">{{ $bid->ad->title }}</a>
+                                                    </h5>
+                                                    <div class="d-flex justify-content-between">
+                                                        <p class="mb-0"><strong>Offer:</strong> {{ $bid->offer }}</p>
+                                                        <p class="mb-0"><strong>Date:</strong>
+                                                            {{ $bid->created_at->format('d M Y') }}</p>
+                                                        <p class="mb-0"><strong>Status:</strong> <span
+                                                                class="badge bg-danger">Rejected</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <p class="text-center">No rejected bids found.</p>
+                                    @endforelse
+                                    <div style="justify-content:center" class="pagination center">
+                                        <ul class="pagination-list">
+                                            @if ($rejectedBids->onFirstPage())
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @else
+                                                <li><a href="{{ $rejectedBids->previousPageUrl() }}"><i
+                                                            class="lni lni-chevron-left"></i></a></li>
+                                            @endif
+
+                                            @foreach ($rejectedBids->getUrlRange(1, $rejectedBids->lastPage()) as $page => $url)
+                                                <li class="{{ $rejectedBids->currentPage() == $page ? 'active' : '' }}">
+                                                    <a href="{{ $url }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            @if ($rejectedBids->hasMorePages())
+                                                <li><a href="{{ $rejectedBids->nextPageUrl() }}"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @else
+                                                <li class="disabled"><a href="javascript:void(0)"><i
+                                                            class="lni lni-chevron-right"></i></a></li>
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

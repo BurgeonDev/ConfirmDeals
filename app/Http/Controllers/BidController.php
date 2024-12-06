@@ -87,13 +87,35 @@ class BidController extends Controller
 
         return view('frontend.bids.index', compact('ads'));
     }
+    // public function showMyBids()
+    // {
+    //     $user = Auth::user();
+
+    //     // Retrieve all bids made by the user, with the ad details
+    //     $bids = Bid::where('user_id', $user->id)->with('ad')->paginate(5);
+
+    //     return view('frontend.bids.myBids', compact('bids'));
+    // }
     public function showMyBids()
     {
         $user = Auth::user();
 
-        // Retrieve all bids made by the user, with the ad details
-        $bids = Bid::where('user_id', $user->id)->with('ad')->paginate(5);
+        // Retrieve user bids categorized by status
+        $pendingBids = Bid::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->with('ad')
+            ->paginate(5, ['*'], 'pending_page');
 
-        return view('frontend.bids.myBids', compact('bids'));
+        $acceptedBids = Bid::where('user_id', $user->id)
+            ->where('status', 'accepted')
+            ->with('ad')
+            ->paginate(5, ['*'], 'accepted_page');
+
+        $rejectedBids = Bid::where('user_id', $user->id)
+            ->where('status', 'rejected')
+            ->with('ad')
+            ->paginate(5, ['*'], 'rejected_page');
+
+        return view('frontend.bids.myBids', compact('pendingBids', 'acceptedBids', 'rejectedBids'));
     }
 }
