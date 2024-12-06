@@ -21,6 +21,6 @@ class ContactController extends Controller
         ]);
         Mail::to('najaf2961@gmail.com')->send(new ContactUs($data));
         // dd('send');
-        return redirect()->back()->with('success', 'Message Send');
+        return view('frontend.contact.success');
     }
 }

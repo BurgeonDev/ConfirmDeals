@@ -102,6 +102,7 @@
                                         You don't have enough coins to bid on this ad.
                                     </div>
                                 @endif
+
                             </div>
 
                             <div class="list-info">
@@ -112,10 +113,56 @@
                                     <li><span>Status:</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</li>
                                     <li><span>Created On:</span>{{ $ad->created_at }}</li>
                                     <li><span>Updated On:</span>{{ $ad->updated_at }}</li>
+                                    <li><span>Report Ad:</span> <button type="button" class="btn btn-danger btn-sm"
+                                            style="border-radius:70%;" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                            <i class="lni lni-flag"></i>
+
+                                        </button> </li>
 
                                 </ul>
 
                             </div>
+
+                            <!-- Report Modal -->
+                            <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="reportModalLabel">Report Ad</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="{{ route('report.store') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <input type="hidden" name="ad_id" value="{{ $ad->id }}">
+                                                <div class="mb-3">
+                                                    <label for="reason" class="form-label">Reason</label>
+                                                    <select name="reason" id="reason" class="form-select" required>
+                                                        <option value="">Select a reason</option>
+                                                        <option value="Spam">Spam</option>
+                                                        <option value="Inappropriate Content">Inappropriate Content</option>
+                                                        <option value="Fraud or Scam">Fraud or Scam</option>
+                                                        <option value="Others">Others</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="description" class="form-label">Description</label>
+                                                    <textarea name="description" id="description" class="form-control" placeholder="Provide additional details (optional)"
+                                                        rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Submit Report</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="contact-info">
                                 <ul>
 
@@ -127,11 +174,13 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="mailto:{{ $ad->createdBy->email ?? 'example@gmail.com' }}" class="mail">
+                                        <a href="mailto:{{ $ad->createdBy->email ?? 'example@gmail.com' }}"
+                                            class="mail">
                                             <i class="lni lni-envelope"></i>
                                         </a>
 
                                     </li>
+
                                 </ul>
                             </div>
 
