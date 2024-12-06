@@ -73,6 +73,12 @@
                   <span class="menu-title">Ads</span>
               </a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.reports.index') }}">
+                  <i class="mdi mdi-newspaper menu-icon"></i>
+                  <span class="menu-title">Reported Ads</span>
+              </a>
+          </li>
 
 
       </ul>

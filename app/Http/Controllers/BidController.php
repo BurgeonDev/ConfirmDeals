@@ -40,7 +40,8 @@ class BidController extends Controller
 
         // Notify the ad owner
         $adOwner->notify(new BidReceivedNotification($ad));
-        return redirect()->route('ad.show', $adId)->with('success', 'Bid placed successfully!');
+        // return redirect()->route('ad.show', $adId)->with('success', 'Bid placed successfully!');
+        return view('frontend.bids.success');
     }
 
 
@@ -87,15 +88,7 @@ class BidController extends Controller
 
         return view('frontend.bids.index', compact('ads'));
     }
-    // public function showMyBids()
-    // {
-    //     $user = Auth::user();
 
-    //     // Retrieve all bids made by the user, with the ad details
-    //     $bids = Bid::where('user_id', $user->id)->with('ad')->paginate(5);
-
-    //     return view('frontend.bids.myBids', compact('bids'));
-    // }
     public function showMyBids()
     {
         $user = Auth::user();

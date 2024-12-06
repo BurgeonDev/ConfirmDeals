@@ -84,7 +84,8 @@ class AdsController extends Controller
         Ad::create($validatedData);
 
         // Redirect to the ads index page with a success message
-        return redirect()->route('ad.index')->with('success', 'Ad created successfully!');
+        // return redirect()->route('ad.index')->with('success', 'Ad created successfully!');
+        return view('frontend.postAd.success');
     }
 
 

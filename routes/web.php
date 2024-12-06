@@ -22,6 +22,7 @@ use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardContro
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReportController;
 
 // Route to HomeController index for '/'
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -72,6 +73,12 @@ Route::middleware('auth')->group(function () {
 
     // Feedback Routes
     Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+        Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
+        Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
+    });
 
 
 
