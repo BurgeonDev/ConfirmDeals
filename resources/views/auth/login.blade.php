@@ -30,7 +30,7 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
-                                <label for="email">Username or Email</label>
+                                <label for="email">Email</label>
                                 <input id="email" name="email" type="email" class="form-control"
                                     value="{{ old('email') }}" required autofocus placeholder="Enter your email">
                                 @error('email')
