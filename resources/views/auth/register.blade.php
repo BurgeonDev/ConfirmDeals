@@ -82,7 +82,47 @@
                                 </div>
                                 <x-input-error :messages="$errors->get('profession')" />
                             </div>
+                            <div class="row">
+                                <!-- Country -->
+                                <div class="form-group col-md-4">
+                                    <label for="country_id">Country*</label>
+                                    <select name="country_id" id="country_id" class="form-control" required>
+                                        <option value="">Select Country</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}"
+                                                {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                                {{ $country->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('country_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <!-- City -->
+                                <div class="form-group col-md-4">
+                                    <label for="city_id">City*</label>
+                                    <select name="city_id" id="city_id" class="form-control" required>
+                                        <option value="">Select City</option>
+                                        <!-- Optionally load old value dynamically if available -->
+                                    </select>
+                                    @error('city_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <!-- Locality -->
+                                <div class="form-group col-md-4">
+                                    <label for="locality_id">Locality</label>
+                                    <select name="locality_id" id="locality_id" class="form-control">
+                                        <option value="">Select Locality</option>
+                                        <!-- Optionally load old value dynamically if available -->
+                                    </select>
+                                    @error('locality_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
+                            </div>
                             <!-- Password -->
                             <div class="form-group">
                                 <label for="password">Password</label>
@@ -102,7 +142,8 @@
                             <!-- Terms & Conditions -->
                             <div class="check-and-pass">
                                 <div class="form-check">
-                                    <input id="terms" name="terms" type="checkbox" class="form-check-input" required>
+                                    <input id="terms" name="terms" type="checkbox" class="form-check-input"
+                                        required>
                                     <label for="terms" class="form-check-label">
                                         Agree to our <a href="javascript:void(0)">Terms and Conditions</a>
                                     </label>
@@ -124,4 +165,53 @@
             </div>
         </div>
     </section>
+    <script>
+        const data = @json($countries); // Convert PHP data to JSON
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const countrySelect = document.getElementById('country_id');
+            const citySelect = document.getElementById('city_id');
+            const localitySelect = document.getElementById('locality_id');
+
+            // Fetch cities on country change
+            countrySelect.addEventListener('change', function() {
+                const countryId = this.value;
+
+                citySelect.innerHTML = '<option value="">Select City</option>';
+                localitySelect.innerHTML = '<option value="">Select Locality</option>';
+
+                if (countryId) {
+                    fetch(`/get-cities/${countryId}`)
+                        .then(response => response.json())
+                        .then(cities => {
+                            cities.forEach(city => {
+                                const option = new Option(city.name, city.id);
+                                citySelect.add(option);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching cities:', error));
+                }
+            });
+
+            // Fetch localities on city change
+            citySelect.addEventListener('change', function() {
+                const cityId = this.value;
+
+                localitySelect.innerHTML = '<option value="">Select Locality</option>';
+
+                if (cityId) {
+                    fetch(`/get-localities/${cityId}`)
+                        .then(response => response.json())
+                        .then(localities => {
+                            localities.forEach(locality => {
+                                const option = new Option(locality.name, locality.id);
+                                localitySelect.add(option);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching localities:', error));
+                }
+            });
+        });
+    </script>
 @endsection

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Locality;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,16 +13,28 @@ use App\Models\User;
 
 class UserProfileController extends Controller
 {
-    // Show the user profile edit form
     public function edit()
     {
-        $professions = Profession::all(); // Fetch all professions
+        $professions = Profession::all();
+        $countries = Country::with('cities.localities')->get();
+
         return view('frontend.profile.edit', [
             'user' => Auth::user(),
             'professions' => $professions,
+            'countries' => $countries,
         ]);
     }
+    public function getCities($countryId)
+    {
+        $cities = City::where('country_id', $countryId)->get();
+        return response()->json($cities);
+    }
 
+    public function getLocalities($cityId)
+    {
+        $localities = Locality::where('city_id', $cityId)->get();
+        return response()->json($localities);
+    }
 
     public function update(Request $request)
     {
@@ -33,7 +48,10 @@ class UserProfileController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'phone_number' => ['required', 'regex:/^[0-9\-\(\)\/\+\s]*$/', 'max:15'],
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8048',
-            'profession_id' => 'required|exists:professions,id', // Ensure a valid profession is selected
+            'profession_id' => 'required|exists:professions,id',
+            'locality_id' => 'required|exists:localities,id',
+            'country_id' => 'required|exists:countries,id',
+            'city_id' => 'required|exists:cities,id',
         ]);
 
         // Update the user's data
@@ -41,7 +59,10 @@ class UserProfileController extends Controller
         $user->last_name = $request->last_name;
         $user->phone_number = $request->phone_number;
         $user->email = $request->email;
-        $user->profession_id = $request->profession_id; // Save selected profession
+        $user->profession_id = $request->profession_id;
+        $user->locality_id = $request->locality_id;
+        $user->city_id = $request->city_id;
+        $user->country_id = $request->country_id;
 
         // If a password is provided, hash and update it
         if ($request->filled('password')) {
@@ -61,6 +82,8 @@ class UserProfileController extends Controller
         return redirect()->route('userProfile.edit')->with('success', 'Profile updated successfully.');
     }
 
+
+
     // public function update(Request $request)
     // {
     //     $user = Auth::user();
@@ -73,13 +96,15 @@ class UserProfileController extends Controller
     //         'password' => 'nullable|string|min:8|confirmed',
     //         'phone_number' => ['required', 'regex:/^[0-9\-\(\)\/\+\s]*$/', 'max:15'],
     //         'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8048',
+    //         'profession_id' => 'required|exists:professions,id', // Ensure a valid profession is selected
     //     ]);
 
-    //     // Update the user's name and email
+    //     // Update the user's data
     //     $user->first_name = $request->first_name;
     //     $user->last_name = $request->last_name;
     //     $user->phone_number = $request->phone_number;
     //     $user->email = $request->email;
+    //     $user->profession_id = $request->profession_id; // Save selected profession
 
     //     // If a password is provided, hash and update it
     //     if ($request->filled('password')) {
@@ -92,10 +117,14 @@ class UserProfileController extends Controller
     //         $path = $request->file('profile_pic')->store('profile_pics', 'public');
     //         $user->profile_pic = $path;
     //     }
+
     //     // Save the changes
     //     $user->save();
+
     //     return redirect()->route('userProfile.edit')->with('success', 'Profile updated successfully.');
     // }
+
+
 
 
     // Delete the user's account

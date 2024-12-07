@@ -110,6 +110,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 });
+Route::get('/get-cities/{countryId}', [UserProfileController::class, 'getCities'])->name('getCities');
+Route::get('/get-localities/{cityId}', [UserProfileController::class, 'getLocalities'])->name('getLocalities');
 
 
 Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');

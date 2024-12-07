@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             LocalitySeeder::class,
             AdSeeder::class,
+            ProfessionsSeeder::class,
         ]);
     }
 }
