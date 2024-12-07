@@ -276,9 +276,11 @@
                                         alt="Seller">
 
 
-                                    <h3>{{ $ad->createdBy->first_name ?? 'Unknown' }}
-                                        {{ $ad->createdBy->last_name }}</h3>
-                                    <h4>{{ $ad->createdBy->email ?? 'Unknown' }}</h4>
+                                    <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
+                                        {{ $ad->createdBy->last_name }}</h4>
+                                    <span>
+                                        {{ $ad->createdBy->created_at ? 'Member since ' . \Carbon\Carbon::parse($ad->createdBy->created_at)->format('F Y') : 'Unknown' }}
+                                    </span>
                                 </div>
                             </div>
                             <div class="single-block">
