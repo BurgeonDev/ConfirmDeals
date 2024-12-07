@@ -122,6 +122,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <!-- Profession Selector -->
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="profession_id">Profession*</label>
+                                                            <select name="profession_id" id="profession_id"
+                                                                class="form-control" required>
+                                                                <option value="" disabled selected>Select your
+                                                                    profession</option>
+                                                                @foreach ($professions as $profession)
+                                                                    <option value="{{ $profession->id }}"
+                                                                        {{ old('profession_id', $user->profession_id) == $profession->id ? 'selected' : '' }}>
+                                                                        {{ $profession->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('profession_id')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Password -->
                                                 <div class="col-12">
                                                     <div class="form-group">

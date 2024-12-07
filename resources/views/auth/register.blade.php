@@ -27,7 +27,8 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
                     <div class="form-head">
-                        <h4 class="title">Registration</h4 <!-- Registration Form -->
+                        <h4 class="title">Registration</h4>
+                        <!-- Registration Form -->
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row">
@@ -46,6 +47,7 @@
                                     <x-input-error :messages="$errors->get('last_name')" />
                                 </div>
                             </div>
+
                             <!-- phone -->
                             <div class="form-group col-md-12">
                                 <label for="phone_number">Phone No</label>
@@ -54,12 +56,31 @@
                                     class="form-control" placeholder="Phone Number">
                                 <x-input-error :messages="$errors->get('phone_number')" />
                             </div>
+
                             <!-- Email Address -->
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
                                     autocomplete="email" class="form-control" placeholder="Email">
                                 <x-input-error :messages="$errors->get('email')" />
+                            </div>
+
+                            <!-- Profession -->
+                            <div class="form-group">
+                                <label for="profession">Profession</label>
+                                <div class="selector-head">
+
+                                    <select id="profession" name="profession" class="form-control" required>
+                                        <option value="">Select Profession</option>
+                                        @foreach ($professions as $profession)
+                                            <option value="{{ $profession->id }}"
+                                                {{ old('profession') == $profession->id ? 'selected' : '' }}>
+                                                {{ $profession->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <x-input-error :messages="$errors->get('profession')" />
                             </div>
 
                             <!-- Password -->
