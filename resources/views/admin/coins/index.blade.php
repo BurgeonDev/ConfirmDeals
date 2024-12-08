@@ -19,8 +19,8 @@
                     <h4>Coins</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-bordered" id="staticDataTables">
-                        <thead class="thead-dark">
+                    <table class="table table-striped " id="staticDataTables">
+                        <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Price (PKR)</th>
