@@ -2,30 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ad;
 use Illuminate\Http\Request;
 use App\Models\Feedback;
-use App\Models\Ad;
+
 
 class FeedbackController extends Controller
 {
+    // public function create($adId)
+    // {
+    //     $ad = Ad::findOrFail($adId);
+    //     return view('feedback.create', compact('ad'));
+    // }
+
     public function store(Request $request, $adId)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'comments' => 'required|string|max:1000',
-            'user_id' => 'required|exists:users,id', // Ensure the user ID is valid and exists
+        // Validate the input
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:255',
         ]);
 
-        Feedback::create([
-            'ad_id' => $adId,
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'comments' => $validated['comments'],
-            'user_id' => $validated['user_id'], // Store the user ID
-        ]);
+        // Check if the ad exists
+        $ad = Ad::findOrFail($adId);
+
+        // Create a new feedback record
+        $feedback = new Feedback();
+        $feedback->user_id = auth()->id();
+        $feedback->ad_id = $adId;
+        $feedback->rating = $request->input('rating');
+        $feedback->comment = $request->input('comment');
+        $feedback->save();
 
         return redirect()->route('ad.show', $adId)
-            ->with('success', 'Your comment has been posted successfully.');
+            ->with('success', 'Feedback submitted successfully!');
     }
 }

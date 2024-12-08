@@ -232,6 +232,22 @@
 
                                     <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
                                         {{ $ad->createdBy->last_name }}</h4>
+                                    <div class="user-rating">
+
+                                        <div class="rating">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($averageRating >= $i)
+                                                    <i class="fa fa-star text-warning"></i> {{-- Filled Star --}}
+                                                @elseif ($averageRating >= $i - 0.5)
+                                                    <i class="fa fa-star-half-alt text-warning"></i> {{-- Half Star --}}
+                                                @else
+                                                    <i class="fa fa-star text-muted"></i> {{-- Empty Star --}}
+                                                @endif
+                                            @endfor
+                                            <span>({{ number_format($averageRating, 1) }})</span>
+                                        </div>
+                                    </div>
+
                                     <span>
                                         {{ $ad->createdBy->created_at ? 'Member since ' . \Carbon\Carbon::parse($ad->createdBy->created_at)->format('F Y') : 'Unknown' }}
                                     </span>
@@ -285,6 +301,7 @@
             </div>
         </div>
     </section>
+
     <script type="text/javascript">
         const current = document.getElementById("current");
         const opacity = 0.6;

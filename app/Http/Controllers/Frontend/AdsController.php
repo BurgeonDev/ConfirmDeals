@@ -101,8 +101,13 @@ class AdsController extends Controller
 
         // Load countries with related cities and localities
         $countries = Country::with('cities.localities')->get();
+        $user = $ad->user; // Get the ad owner (User model)
 
-        return view('frontend.postAd.show', compact('ad', 'countries'));
+        // Calculate the average rating for all ads owned by this user
+        $averageRating = $user->ads()
+            ->join('feedbacks', 'ads.id', '=', 'feedbacks.ad_id')
+            ->avg('feedbacks.rating');
+        return view('frontend.postAd.show', compact('ad', 'countries', 'averageRating'));
     }
 
 
