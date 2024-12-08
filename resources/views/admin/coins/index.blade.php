@@ -5,7 +5,7 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="mb-4 d-flex justify-content-between align-items-center">
                 <h2 class="text-xl font-semibold text-gray-800">Coins Management</h2>
-                <a href="{{ route('coins.create') }}" class="btn btn-primary">Add New Coin</a>
+
             </div>
 
             @if (session('success'))
@@ -22,29 +22,29 @@
                     <table class="table table-striped " id="staticDataTables">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Price (PKR)</th>
-                                <th>Equivalence</th>
+
+                                <th style="text-align: left;">Price (PKR)</th>
+                                <th style="text-align: left;">Equivalence</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($coins as $coin)
                                 <tr>
-                                    <td>{{ $coin->id }}</td>
-                                    <td>{{ $coin->price_in_pkr }}</td>
-                                    <td>{{ $coin->equivalence }}</td>
+
+                                    <td style="text-align: left;">{{ $coin->price_in_pkr }}</td>
+                                    <td style="text-align: left;">{{ $coin->equivalence }} coin</td>
                                     <td>
 
                                         <a href="{{ route('coins.edit', $coin->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('coins.destroy', $coin->id) }}" method="POST"
+                                        {{-- <form action="{{ route('coins.destroy', $coin->id) }}" method="POST"
                                             class="d-inline"
                                             onsubmit="return confirm('Are you sure you want to delete this coin?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                 </tr>
                             @endforeach

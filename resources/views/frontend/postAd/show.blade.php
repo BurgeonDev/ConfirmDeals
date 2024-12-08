@@ -108,11 +108,18 @@
                             <div class="list-info">
                                 <h4>Informations</h4>
                                 <ul>
+                                    <li><span>Coins:</span>{{ $ad->coins_needed }}</li>
                                     <li><span>Type:</span>{{ $ad->type }}</li>
                                     <li><span>Category:</span>{{ $ad->category->name }}</li>
+
                                     <li><span>Status:</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</li>
-                                    <li><span>Created On:</span>{{ $ad->created_at }}</li>
-                                    <li><span>Updated On:</span>{{ $ad->updated_at }}</li>
+                                    <li><span>Created
+                                            On:</span>{{ \Carbon\Carbon::parse($ad->created_at)->format('F j, Y ') }}
+                                    </li>
+                                    <li><span>Updated
+                                            On:</span>{{ \Carbon\Carbon::parse($ad->updated_at)->format('F j, Y ') }}
+                                    </li>
+
                                     <li><button type="button" class="btn btn-sm"
                                             style="background-color:none; border-color:none; color:#232323;"
                                             data-bs-toggle="modal" data-bs-target="#reportModal">

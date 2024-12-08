@@ -23,7 +23,7 @@
                         <div class="mb-3 form-group">
                             <label for="equivalence" class="form-label">Equivalence</label>
                             <input type="number" class="form-control" id="equivalence" name="equivalence"
-                                value="{{ old('equivalence', $coin->equivalence) }}" required>
+                                value="{{ old('equivalence', $coin->equivalence) }}" required readonly>
                         </div>
 
                         <div class="d-flex justify-content-between">
