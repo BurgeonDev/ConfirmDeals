@@ -58,7 +58,8 @@
                                     {{ $ad->city->name ?? 'City Not Found' }}
                                 </a>
                             </p>
-                            <h3 class="price">Pkr {{ $ad->price }}</h3>
+                            <h3 class="price">Pkr {{ number_format($ad->price) }}</h3>
+
 
                             <div class="single-block comments">
                                 <!-- Alerts Section -->
