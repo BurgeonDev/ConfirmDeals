@@ -19,7 +19,7 @@ class AdController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
-        $ads = Ad::with(['user', 'category'])->all();
+        $ads = Ad::with(['user', 'category'])->get();
         return view('admin.ads.index', compact('ads'));
     }
     public function toggleVerifiedStatus(Ad $ad)

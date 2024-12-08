@@ -22,7 +22,7 @@
         <div class="container">
             <div class="top-area">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 col-12">
+                    <div class="col-lg-7 col-md-12 col-12">
                         <div class="product-images">
 
                             <main id="gallery">
@@ -47,7 +47,7 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-6 col-md-12 col-12">
+                    <div class="col-lg-5 col-md-12 col-12">
                         <div class="product-info">
                             <h2 class="title">{{ $ad->title }}</h2>
 
@@ -59,6 +59,7 @@
                                 </a>
                             </p>
                             <h3 class="price">Pkr {{ $ad->price }}</h3>
+
                             <div class="single-block comments">
                                 <!-- Alerts Section -->
                                 @if (session('success'))
@@ -86,7 +87,7 @@
                                         <div class="row">
                                             <div class="col-md-8 d-flex align-items-center">
                                                 <div class="me-2 button">
-                                                    <button type="submit" class="btn">Place Bid</button>
+                                                    <button type="submit" class="btn">Bid</button>
                                                 </div>
                                                 <div class="button me-2" style="flex-grow: 1;">
                                                     <input style="height: 52px;" type="number" name="offer"
@@ -106,26 +107,35 @@
                             </div>
 
                             <div class="list-info">
+                                <h4>Coins</h4>
+                                <ul>
+                                    <div class="row">
+                                        <li class="col-md-4"><span>Coins Required:</span> {{ $ad->coins_needed }}</li>
+                                        <li class="col-md-4"><span>Available Coins:</span> {{ auth()->user()->coins }}</li>
+                                    </div>
+
+
+                                </ul>
                                 <h4>Informations</h4>
                                 <ul>
-                                    <li><span>Coins:</span>{{ $ad->coins_needed }}</li>
+
                                     <li><span>Type:</span>{{ $ad->type }}</li>
                                     <li><span>Category:</span>{{ $ad->category->name }}</li>
-
                                     <li><span>Status:</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</li>
                                     <li><span>Created
                                             On:</span>{{ \Carbon\Carbon::parse($ad->created_at)->format('F j, Y ') }}
                                     </li>
                                     <li><span>Updated
                                             On:</span>{{ \Carbon\Carbon::parse($ad->updated_at)->format('F j, Y ') }}
-                                    </li>
-
-                                    <li><button type="button" class="btn btn-sm"
+                                        <button type="button" class="btn btn-sm"
                                             style="background-color:none; border-color:none; color:#232323;"
                                             data-bs-toggle="modal" data-bs-target="#reportModal">
                                             <i class="lni lni-flag"></i><span>Report this Ad</span>
 
-                                        </button> </li>
+                                        </button>
+                                    </li>
+
+
 
                                 </ul>
 

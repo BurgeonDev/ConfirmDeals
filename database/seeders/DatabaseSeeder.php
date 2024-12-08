@@ -9,9 +9,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            RoleSeeder::class, // Optional: Only if you're using Spatie
+            RoleSeeder::class,
+            CoinsTableSeeder::class,
             UserSeeder::class,
-
             CategorySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
