@@ -106,6 +106,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
     Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
     Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
+
+    Route::get('/profile/{user}', [UserProfileController::class, 'publicProfile'])->name('profile.public');
 });
 Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');

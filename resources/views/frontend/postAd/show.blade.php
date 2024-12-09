@@ -230,8 +230,10 @@
                                         alt="Seller">
 
 
-                                    <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
-                                        {{ $ad->createdBy->last_name }}</h4>
+                                    <a href="{{ route('profile.public', $ad->createdBy->id) }}">
+                                        <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
+                                            {{ $ad->createdBy->last_name }}</h4>
+                                    </a>
                                     <div class="user-rating">
 
                                         <div class="rating">
