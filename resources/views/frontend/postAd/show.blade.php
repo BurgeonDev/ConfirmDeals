@@ -113,7 +113,9 @@
                                     <div class="row">
                                         <li class="col-md-4"><span>Coins Required:</span> {{ $ad->coins_needed }}</li>
                                         <li class="col-md-4"><span>Available Coins:</span> {{ auth()->user()->coins }}</li>
+                                        <li class="col-md-4"><span>No. of Bids:</span> {{ $ad->bids->count() }}</li>
                                     </div>
+
 
 
                                 </ul>

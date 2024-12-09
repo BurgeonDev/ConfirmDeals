@@ -11,13 +11,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             CoinsTableSeeder::class,
-            UserSeeder::class,
+            ProfessionsSeeder::class,
+
             CategorySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
             LocalitySeeder::class,
+            UserSeeder::class,
             AdSeeder::class,
-            ProfessionsSeeder::class,
+
         ]);
     }
 }

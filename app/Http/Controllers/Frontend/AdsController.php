@@ -41,7 +41,7 @@ class AdsController extends Controller
             abort(403, 'Unauthorized action.');
         }
         $categories = Category::all();
-        $countries = Country::with('cities.localities')->get(); // Load cities and their localities for each country
+        $countries = Country::with('cities.localities')->get();
         return view('frontend.postAd.create', compact('countries', 'categories'));
     }
     public function store(Request $request)

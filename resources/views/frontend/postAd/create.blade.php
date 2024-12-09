@@ -114,30 +114,6 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <!-- Price -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="price">Price</label>
-                                                            <input name="price" type="number" id="price"
-                                                                placeholder="Enter Price" value="{{ old('price') }}">
-                                                            @error('price')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Coins Needed -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="coins_needed">Coins Needed*</label>
-                                                            <input name="coins_needed" type="number" id="coins_needed"
-                                                                placeholder="Enter Coins Needed" required
-                                                                value="{{ old('coins_needed') }}">
-                                                            @error('coins_needed')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div> --}}
                                                 <!-- Price -->
                                                 <div class="col-6">
                                                     <div class="form-group">

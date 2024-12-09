@@ -192,6 +192,7 @@
                                                     </div>
                                                 </div>
 
+
                                                 <!-- Password -->
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -292,4 +293,5 @@
             });
         });
     </script>
+
 @endsection
