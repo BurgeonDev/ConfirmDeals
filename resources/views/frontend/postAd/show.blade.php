@@ -239,11 +239,11 @@
                                         <div class="rating">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($averageRating >= $i)
-                                                    <i class="fa fa-star text-warning"></i> {{-- Filled Star --}}
+                                                    <i class="fa fa-star text-warning"></i>
                                                 @elseif ($averageRating >= $i - 0.5)
-                                                    <i class="fa fa-star-half-alt text-warning"></i> {{-- Half Star --}}
+                                                    <i class="fa fa-star-half-alt text-warning"></i>
                                                 @else
-                                                    <i class="fa fa-star text-muted"></i> {{-- Empty Star --}}
+                                                    <i class="fa fa-star text-muted"></i>
                                                 @endif
                                             @endfor
                                             <span>({{ number_format($averageRating, 1) }})</span>

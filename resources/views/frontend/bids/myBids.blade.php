@@ -246,7 +246,7 @@
                                                             <div class="mb-3">
                                                                 <label for="comment-{{ $bid->id }}"
                                                                     class="form-label">Comments</label>
-                                                                <textarea class="form-control" id="comment-{{ $bid->id }}" name="comment" rows="3"></textarea>
+                                                                <textarea class="form-control" id="comment-{{ $bid->id }}" name="comment" rows="3" required></textarea>
                                                             </div>
                                                             <button type="submit" class="btn btn-primary">Submit
                                                                 Feedback</button>
