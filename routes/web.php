@@ -24,6 +24,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 
+
 // Route to HomeController index for '/'
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', function () {
@@ -94,8 +95,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
     Route::patch('/ads/{ad}/toggle-verified', [AdController::class, 'toggleVerifiedStatus'])->name('ads.toggleVerifiedStatus');
-    Route::post('/validate-coins', [AdController::class, 'validateCoins'])->name('validate.coins');
 
+    Route::get('/get-coin-price-and-balance', [AdController::class, 'getCoinPriceAndBalance']);
 
 
     Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
@@ -105,16 +106,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
     Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
     Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
+
+    Route::get('/profile/{user}', [UserProfileController::class, 'publicProfile'])->name('profile.public');
 });
 Route::middleware(['auth'])->group(function () {
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 });
+Route::get('/get-cities/{countryId}', [UserProfileController::class, 'getCities'])->name('getCities');
+Route::get('/get-localities/{cityId}', [UserProfileController::class, 'getLocalities'])->name('getLocalities');
 
 
 Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
+
+
+
 
 
 require __DIR__ . '/auth.php';

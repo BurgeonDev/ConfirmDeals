@@ -24,7 +24,11 @@ class UserSeeder extends Seeder
                 'is_email_verified' => true,
                 'coins' => 10,
                 'rating' => 0,
-                'profession_id' => null, // Hashed password
+                'phone_number' => '234-2342-563',
+                'profession_id' => 1,
+                'country_id' => 1,
+                'city_id' => 1,
+                'locality_id' => 1,
             ]
         );
 

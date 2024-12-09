@@ -292,64 +292,41 @@
     </script>
     <script>
         document.getElementById('price').addEventListener('input', function() {
-            let price = parseFloat(this.value);
-            let coinsNeeded = 0;
-
-            if (price <= 1000) {
-                coinsNeeded = Math.ceil((price * 0.025) / 50);
-            } else if (price <= 3000) {
-                coinsNeeded = Math.ceil((price * 0.03) / 50);
-            } else if (price <= 5000) {
-                coinsNeeded = Math.ceil((price * 0.05) / 50);
-            } else if (price <= 10000) {
-                coinsNeeded = Math.ceil((price * 0.10) / 50);
-            } else {
-                coinsNeeded = Math.ceil((price * 0.15) / 50);
-            }
-
-            document.getElementById('coins_needed').value = coinsNeeded;
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const priceInput = document.getElementById('price');
+            const price = parseFloat(this.value);
             const coinsNeededInput = document.getElementById('coins_needed');
-            const liveErrorDiv = document.getElementById('liveError');
+            const liveError = document.getElementById('liveError');
 
-            // Update coins_needed dynamically based on price
-            priceInput.addEventListener('input', function() {
-                const price = parseFloat(priceInput.value) || 0;
-
-                // Calculate coins needed (example: 10 coins per price unit)
-                const coinsNeeded = Math.ceil(price / 10); // Adjust logic as needed
-                coinsNeededInput.value = coinsNeeded;
-
-                // Validate user's coin balance
-                validateUserCoins(coinsNeeded);
-            });
-
-            // Function to validate user's coin balance via AJAX
-            function validateUserCoins(coinsNeeded) {
-                fetch('{{ route('validate.coins') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            coins_needed: coinsNeeded
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.valid) {
-                            liveErrorDiv.textContent = data.message;
-                        } else {
-                            liveErrorDiv.textContent = '';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+            if (!price || price <= 0) {
+                coinsNeededInput.value = '';
+                liveError.textContent = 'Enter a valid price.';
+                return;
             }
+
+            // Fetch the PKR price of 1 coin and user's coin balance
+            fetch('/get-coin-price-and-balance')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        liveError.textContent = data.error;
+                        coinsNeededInput.value = '';
+                    } else {
+                        liveError.textContent = '';
+                        // Calculate coins needed
+                        const coinsNeeded = Math.ceil(price / data.price_in_pkr);
+                        coinsNeededInput.value = coinsNeeded;
+
+                        // Check if the user has enough coins
+                        if (data.user_balance < coinsNeeded) {
+                            liveError.textContent =
+                                `You do not have enough coins. You need ${coinsNeeded} coins, but only have ${data.user_balance}.`;
+                        } else {
+                            liveError.textContent = '';
+                        }
+                    }
+                })
+                .catch(() => {
+                    liveError.textContent = 'Error fetching coin price or user balance. Please try again.';
+                });
         });
     </script>
 @endsection

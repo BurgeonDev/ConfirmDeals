@@ -10,16 +10,11 @@ class CreateFeedbackTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ad_id');
-            $table->unsignedBigInteger('user_id'); // Add user_id column
-            $table->string('name');
-            $table->string('email');
-            $table->text('comments');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ad_id')->constrained()->onDelete('cascade');
+            $table->integer('rating')->default(0); // Rating (1-5 scale)
+            $table->text('comment')->nullable(); // User comment
             $table->timestamps();
-
-            // Set up foreign key constraints
-            $table->foreign('ad_id')->references('id')->on('ads')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Foreign key for user_id
         });
     }
 

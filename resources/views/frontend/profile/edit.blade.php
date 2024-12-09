@@ -122,6 +122,77 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <!-- Profession Selector -->
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="profession_id">Profession*</label>
+                                                            <select name="profession_id" id="profession_id"
+                                                                class="form-control" required>
+                                                                <option value="" disabled selected>Select your
+                                                                    profession</option>
+                                                                @foreach ($professions as $profession)
+                                                                    <option value="{{ $profession->id }}"
+                                                                        {{ old('profession_id', $user->profession_id) == $profession->id ? 'selected' : '' }}>
+                                                                        {{ $profession->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('profession_id')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Country -->
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="country_id">Country*</label>
+                                                        <select name="country_id" id="country_id" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select Country</option>
+                                                            @foreach ($countries as $country)
+                                                                <option value="{{ $country->id }}"
+                                                                    {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                                                    {{ $country->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('country_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- City -->
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="city_id">City*</label>
+                                                        <select name="city_id" id="city_id" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select City</option>
+                                                        </select>
+                                                        @error('city_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Locality -->
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="locality_id">Locality</label>
+                                                        <select name="locality_id" id="locality_id"
+                                                            class="user-chosen-select">
+                                                            <option value="">Select Locality</option>
+                                                        </select>
+                                                        @error('locality_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+
                                                 <!-- Password -->
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -173,4 +244,54 @@
                 </div>
             </div>
     </section>
+    <script>
+        const data = @json($countries); // Convert PHP data to JSON
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const countrySelect = document.getElementById('country_id');
+            const citySelect = document.getElementById('city_id');
+            const localitySelect = document.getElementById('locality_id');
+
+            // Fetch cities on country change
+            countrySelect.addEventListener('change', function() {
+                const countryId = this.value;
+
+                citySelect.innerHTML = '<option value="">Select City</option>';
+                localitySelect.innerHTML = '<option value="">Select Locality</option>';
+
+                if (countryId) {
+                    fetch(`/get-cities/${countryId}`)
+                        .then(response => response.json())
+                        .then(cities => {
+                            cities.forEach(city => {
+                                const option = new Option(city.name, city.id);
+                                citySelect.add(option);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching cities:', error));
+                }
+            });
+
+            // Fetch localities on city change
+            citySelect.addEventListener('change', function() {
+                const cityId = this.value;
+
+                localitySelect.innerHTML = '<option value="">Select Locality</option>';
+
+                if (cityId) {
+                    fetch(`/get-localities/${cityId}`)
+                        .then(response => response.json())
+                        .then(localities => {
+                            localities.forEach(locality => {
+                                const option = new Option(locality.name, locality.id);
+                                localitySelect.add(option);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching localities:', error));
+                }
+            });
+        });
+    </script>
+
 @endsection

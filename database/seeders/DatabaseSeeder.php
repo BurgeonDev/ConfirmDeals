@@ -9,14 +9,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            RoleSeeder::class, // Optional: Only if you're using Spatie
-            UserSeeder::class,
+            RoleSeeder::class,
+            CoinsTableSeeder::class,
+            ProfessionsSeeder::class,
 
             CategorySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
             LocalitySeeder::class,
+            UserSeeder::class,
             AdSeeder::class,
+
         ]);
     }
 }

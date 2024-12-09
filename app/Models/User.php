@@ -37,6 +37,9 @@ class User extends Authenticatable
         'profession_id',
         'provider_name',
         'provider_id',
+        'country_id',
+        'city_id',
+        'locality_id',
 
     ];
 

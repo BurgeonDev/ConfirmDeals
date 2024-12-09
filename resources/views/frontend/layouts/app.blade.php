@@ -75,6 +75,8 @@
             background-color: #f5f5f5;
         }
 
+
+
         .notification-dropdown {
             position: absolute;
             /* Adjust based on your layout */

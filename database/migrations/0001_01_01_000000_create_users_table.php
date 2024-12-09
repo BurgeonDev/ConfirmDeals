@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('provider_id')->nullable();
             $table->string('profile_pic')->nullable();
             $table->string('phone_number')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('locality_id')->nullable();
 
             $table->timestamps();
         });

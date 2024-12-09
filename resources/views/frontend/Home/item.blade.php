@@ -29,7 +29,7 @@
                                 </a>
                                 <div class="author">
                                     <div class="author-image">
-                                        <a href="javascript:void(0)">
+                                        <a href="{{ route('profile.public', $ad->createdBy->id) }}">
                                             @if ($ad->user && $ad->user->profile_pic)
                                                 <!-- Display user's avatar if it exists -->
                                                 <img src="{{ asset('storage/' . $ad->user->profile_pic) }}"
@@ -56,12 +56,12 @@
                                         <a href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
                                     </h3>
                                     <p class="update-time">Last Updated: {{ $ad->updated_at->diffForHumans() }}</p>
-                                    <ul class="rating">
+                                    {{-- <ul class="rating">
                                         @for ($i = 0; $i < 5; $i++)
                                             <li><i class="lni lni-star-filled"></i></li>
                                         @endfor
                                         <li><a href="javascript:void(0)">(35)</a></li>
-                                    </ul>
+                                    </ul> --}}
                                     <ul class="info-list">
                                         <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i>
                                                 {{ $ad->city->name ?? 'Unknown' }},
@@ -71,7 +71,7 @@
                                     </ul>
                                 </div>
                                 <div class="bottom-content">
-                                    <p class="price">Start From: Pkr <span>{{ number_format($ad->price, 1) }}</span>
+                                    <p class="price">Start From: <span>Pkr {{ number_format($ad->price) }}</span>
                                     </p>
                                     <li class="like">
                                         <form action="{{ route('favorites.toggle') }}" method="POST"

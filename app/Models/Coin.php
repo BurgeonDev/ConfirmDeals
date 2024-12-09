@@ -9,11 +9,23 @@ class Coin extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['count', 'from_price', 'to_price'];
+    protected $fillable = [
+        'price_in_pkr',
+        'equivalence',
+        'created_by',
+        'updated_by',
+    ];
 
-    // Example: A method to get the coin price based on the range
-    public function getPriceRangeAttribute()
+    /**
+     * Relationships
+     */
+    public function creator()
     {
-        return "{$this->from_price} - {$this->to_price}";
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

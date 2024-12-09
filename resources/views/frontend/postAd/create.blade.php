@@ -24,231 +24,206 @@
                 @include('frontend.dashboard.index')
                 <div class="col-lg-9 col-md-8 col-12">
                     <div class="main-content">
-                        @if (auth()->user()->coins >= 20)
-                            <!-- Start Post Ad Block Area -->
-                            <div class="mt-0 dashboard-block">
-                                @if (session('success'))
-                                    <div class="alert alert-success">{{ session('success') }}</div>
-                                @endif
+                        {{-- @if (auth()->user()->coins >= 20) --}}
+                        <!-- Start Post Ad Block Area -->
+                        <div class="mt-0 dashboard-block">
+                            @if (session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
 
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                <h3 class="block-title">Post Ad</h3>
-                                <div class="inner-block">
-                                    <div class="post-ad-tab">
-                                        <div class="step-one-content">
-                                            <!-- Start Post Ad Content -->
-                                            <form class="default-form-style" method="post" action="{{ route('ad.store') }}"
-                                                enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row">
-                                                    <!-- Title -->
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="title">Ad Title*</label>
-                                                            <input name="title" type="text" id="title"
-                                                                placeholder="Enter Ad Title" required
-                                                                value="{{ old('title') }}">
-                                                            @error('title')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Description -->
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="description">Ad Description*</label>
-                                                            <textarea name="description" id="description" placeholder="Enter Ad Description" required>{{ old('description') }}</textarea>
-                                                            @error('description')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <!-- Category -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="category_id">Category*</label>
-                                                            <select name="category_id" id="category_id"
-                                                                class="user-chosen-select" required>
-                                                                <option value="">Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->id }}"
-                                                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                                                        {{ $category->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('category_id')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Type -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="type">Ad Type*</label>
-                                                            <select name="type" id="type" class="user-chosen-select"
-                                                                required>
-                                                                <option value="">Select Ad Type</option>
-                                                                <option value="service"
-                                                                    {{ old('type') == 'service' ? 'selected' : '' }}>
-                                                                    Service
-                                                                </option>
-                                                                <option value="product"
-                                                                    {{ old('type') == 'product' ? 'selected' : '' }}>
-                                                                    Product
-                                                                </option>
-                                                            </select>
-                                                            @error('type')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    {{-- <!-- Price -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="price">Price</label>
-                                                            <input name="price" type="number" id="price"
-                                                                placeholder="Enter Price" value="{{ old('price') }}">
-                                                            @error('price')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Coins Needed -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="coins_needed">Coins Needed*</label>
-                                                            <input name="coins_needed" type="number" id="coins_needed"
-                                                                placeholder="Enter Coins Needed" required
-                                                                value="{{ old('coins_needed') }}">
-                                                            @error('coins_needed')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div> --}}
-                                                    <!-- Price -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="price">Price</label>
-                                                            <input name="price" type="number" id="price"
-                                                                placeholder="Enter Price">
-                                                            <span class="text-danger" id="priceError"></span>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Coins Needed -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="coins_needed">Coins Needed*</label>
-
-                                                            <input name="coins_needed" type="number" id="coins_needed"
-                                                                readonly>
-                                                            <div id="liveError" class="text-danger">
-                                                            </div>
-                                                            @error('coins_needed')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-
-                                                    </div>
-
-
-                                                    <!-- Country -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="country_id">Country*</label>
-                                                            <select name="country_id" id="country_id"
-                                                                class="user-chosen-select" required>
-                                                                <option value="">Select Country</option>
-                                                                @foreach ($countries as $country)
-                                                                    <option value="{{ $country->id }}"
-                                                                        {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                                                        {{ $country->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('country_id')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- City -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="city_id">City*</label>
-                                                            <select name="city_id" id="city_id" class="user-chosen-select"
-                                                                required>
-                                                                <option value="">Select City</option>
-                                                                <!-- Optionally load old value dynamically if available -->
-                                                            </select>
-                                                            @error('city_id')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Locality -->
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="locality_id">Locality</label>
-                                                            <select name="locality_id" id="locality_id"
-                                                                class="user-chosen-select">
-                                                                <option value="">Select Locality</option>
-                                                                <!-- Optionally load old value dynamically if available -->
-                                                            </select>
-                                                            @error('locality_id')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Pictures -->
-                                                    <div class="col-12">
-                                                        <div class="form-group upload-image">
-                                                            <label for="pictures">Upload Pictures</label>
-                                                            <input type="file" id="pictures" name="pictures[]"
-                                                                multiple accept=".jpg,.jpeg,.png"
-                                                                placeholder="Upload Image"
-                                                                onchange="validateFileLimit(this)">
-                                                            <span>Can add multiple pictures. Supported formats: JPG, PNG
-                                                                (Max: 5)</span>
-                                                            @error('pictures')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <!-- Submit Button -->
-                                                    <div class="col-12">
-                                                        <div class="mb-0 form-group button">
-                                                            <button type="submit" class="btn">Post Ad</button>
-                                                        </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <h3 class="block-title">Post Ad</h3>
+                            <div class="inner-block">
+                                <div class="post-ad-tab">
+                                    <div class="step-one-content">
+                                        <!-- Start Post Ad Content -->
+                                        <form class="default-form-style" method="post" action="{{ route('ad.store') }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row">
+                                                <!-- Title -->
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="title">Ad Title*</label>
+                                                        <input name="title" type="text" id="title"
+                                                            placeholder="Enter Ad Title" required
+                                                            value="{{ old('title') }}">
+                                                        @error('title')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                            </form>
 
-                                            <!-- End Post Ad Content -->
-                                        </div>
+                                                <!-- Description -->
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="description">Ad Description*</label>
+                                                        <textarea name="description" id="description" placeholder="Enter Ad Description" required>{{ old('description') }}</textarea>
+                                                        @error('description')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <!-- Category -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="category_id">Category*</label>
+                                                        <select name="category_id" id="category_id"
+                                                            class="user-chosen-select" required>
+                                                            <option value="">Select Category</option>
+                                                            @foreach ($categories as $category)
+                                                                <option value="{{ $category->id }}"
+                                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                                    {{ $category->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('category_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Type -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="type">Ad Type*</label>
+                                                        <select name="type" id="type" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select Ad Type</option>
+                                                            <option value="service"
+                                                                {{ old('type') == 'service' ? 'selected' : '' }}>
+                                                                Service
+                                                            </option>
+                                                            <option value="product"
+                                                                {{ old('type') == 'product' ? 'selected' : '' }}>
+                                                                Product
+                                                            </option>
+                                                        </select>
+                                                        @error('type')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Price -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="price">Price</label>
+                                                        <input name="price" type="number" id="price"
+                                                            placeholder="Enter Price">
+                                                        <span class="text-danger" id="priceError"></span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Coins Needed -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="coins_needed">Coins Needed*</label>
+
+                                                        <input name="coins_needed" type="number" id="coins_needed"
+                                                            readonly>
+                                                        <div id="liveError" class="text-danger">
+                                                        </div>
+                                                        @error('coins_needed')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Country -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="country_id">Country*</label>
+                                                        <select name="country_id" id="country_id" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select Country</option>
+                                                            @foreach ($countries as $country)
+                                                                <option value="{{ $country->id }}"
+                                                                    {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                                                    {{ $country->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('country_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- City -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="city_id">City*</label>
+                                                        <select name="city_id" id="city_id" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select City</option>
+                                                            <!-- Optionally load old value dynamically if available -->
+                                                        </select>
+                                                        @error('city_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Locality -->
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="locality_id">Locality</label>
+                                                        <select name="locality_id" id="locality_id"
+                                                            class="user-chosen-select">
+                                                            <option value="">Select Locality</option>
+                                                            <!-- Optionally load old value dynamically if available -->
+                                                        </select>
+                                                        @error('locality_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Pictures -->
+                                                <div class="col-12">
+                                                    <div class="form-group upload-image">
+                                                        <label for="pictures">Upload Pictures</label>
+                                                        <input type="file" id="pictures" name="pictures[]" multiple
+                                                            accept=".jpg,.jpeg,.png" placeholder="Upload Image"
+                                                            onchange="validateFileLimit(this)">
+                                                        <span>Can add multiple pictures. Supported formats: JPG, PNG
+                                                            (Max: 5)</span>
+                                                        @error('pictures')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!-- Submit Button -->
+                                                <div class="col-12">
+                                                    <div class="mb-0 form-group button">
+                                                        <button type="submit" class="btn">Post Ad</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <!-- End Post Ad Content -->
                                     </div>
                                 </div>
-                                <!-- End Post Ad Block Area -->
                             </div>
-                        @else
+                            <!-- End Post Ad Block Area -->
+                        </div>
+                        {{-- @else
                             <div class="mt-0 dashboard-block">
                                 <h3 class="block-title">Post Ad</h3>
                                 <div class="inner-block">
@@ -278,7 +253,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
 
 
                     </div>
@@ -350,64 +325,41 @@
     </script>
     <script>
         document.getElementById('price').addEventListener('input', function() {
-            let price = parseFloat(this.value);
-            let coinsNeeded = 0;
-
-            if (price <= 1000) {
-                coinsNeeded = Math.ceil((price * 0.025) / 50);
-            } else if (price <= 3000) {
-                coinsNeeded = Math.ceil((price * 0.03) / 50);
-            } else if (price <= 5000) {
-                coinsNeeded = Math.ceil((price * 0.05) / 50);
-            } else if (price <= 10000) {
-                coinsNeeded = Math.ceil((price * 0.10) / 50);
-            } else {
-                coinsNeeded = Math.ceil((price * 0.15) / 50);
-            }
-
-            document.getElementById('coins_needed').value = coinsNeeded;
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const priceInput = document.getElementById('price');
+            const price = parseFloat(this.value);
             const coinsNeededInput = document.getElementById('coins_needed');
-            const liveErrorDiv = document.getElementById('liveError');
+            const liveError = document.getElementById('liveError');
 
-            // Update coins_needed dynamically based on price
-            priceInput.addEventListener('input', function() {
-                const price = parseFloat(priceInput.value) || 0;
-
-                // Calculate coins needed (example: 10 coins per price unit)
-                const coinsNeeded = Math.ceil(price / 10); // Adjust logic as needed
-                coinsNeededInput.value = coinsNeeded;
-
-                // Validate user's coin balance
-                validateUserCoins(coinsNeeded);
-            });
-
-            // Function to validate user's coin balance via AJAX
-            function validateUserCoins(coinsNeeded) {
-                fetch('{{ route('validate.coins') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            coins_needed: coinsNeeded
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.valid) {
-                            liveErrorDiv.textContent = data.message;
-                        } else {
-                            liveErrorDiv.textContent = '';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+            if (!price || price <= 0) {
+                coinsNeededInput.value = '';
+                liveError.textContent = 'Enter a valid price.';
+                return;
             }
+
+            // Fetch the PKR price of 1 coin and user's coin balance
+            fetch('/get-coin-price-and-balance')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        liveError.textContent = data.error;
+                        coinsNeededInput.value = '';
+                    } else {
+                        liveError.textContent = '';
+                        // Calculate coins needed
+                        const coinsNeeded = Math.ceil(price / data.price_in_pkr);
+                        coinsNeededInput.value = coinsNeeded;
+
+                        // Check if the user has enough coins
+                        if (data.user_balance < coinsNeeded) {
+                            liveError.textContent =
+                                `You do not have enough coins. You need ${coinsNeeded} coins, but only have ${data.user_balance}.`;
+                        } else {
+                            liveError.textContent = '';
+                        }
+                    }
+                })
+                .catch(() => {
+                    liveError.textContent = 'Error fetching coin price or user balance. Please try again.';
+                });
         });
     </script>
 @endsection

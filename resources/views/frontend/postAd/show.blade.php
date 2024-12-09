@@ -22,7 +22,7 @@
         <div class="container">
             <div class="top-area">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 col-12">
+                    <div class="col-lg-7 col-md-12 col-12">
                         <div class="product-images">
 
                             <main id="gallery">
@@ -47,7 +47,7 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-6 col-md-12 col-12">
+                    <div class="col-lg-5 col-md-12 col-12">
                         <div class="product-info">
                             <h2 class="title">{{ $ad->title }}</h2>
 
@@ -58,7 +58,9 @@
                                     {{ $ad->city->name ?? 'City Not Found' }}
                                 </a>
                             </p>
-                            <h3 class="price">Pkr {{ $ad->price }}</h3>
+                            <h3 class="price">Pkr {{ number_format($ad->price) }}</h3>
+
+
                             <div class="single-block comments">
                                 <!-- Alerts Section -->
                                 @if (session('success'))
@@ -86,7 +88,7 @@
                                         <div class="row">
                                             <div class="col-md-8 d-flex align-items-center">
                                                 <div class="me-2 button">
-                                                    <button type="submit" class="btn">Place Bid</button>
+                                                    <button type="submit" class="btn">Bid</button>
                                                 </div>
                                                 <div class="button me-2" style="flex-grow: 1;">
                                                     <input style="height: 52px;" type="number" name="offer"
@@ -106,18 +108,37 @@
                             </div>
 
                             <div class="list-info">
+                                <h4>Coins</h4>
+                                <ul>
+                                    <div class="row">
+                                        <li class="col-md-4"><span>Coins Required:</span> {{ $ad->coins_needed }}</li>
+                                        <li class="col-md-4"><span>Available Coins:</span> {{ auth()->user()->coins }}</li>
+                                        <li class="col-md-4"><span>No. of Bids:</span> {{ $ad->bids->count() }}</li>
+                                    </div>
+
+
+
+                                </ul>
                                 <h4>Informations</h4>
                                 <ul>
+
                                     <li><span>Type:</span>{{ $ad->type }}</li>
                                     <li><span>Category:</span>{{ $ad->category->name }}</li>
                                     <li><span>Status:</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</li>
-                                    <li><span>Created On:</span>{{ $ad->created_at }}</li>
-                                    <li><span>Updated On:</span>{{ $ad->updated_at }}</li>
-                                    <li><span>Report Ad:</span> <button type="button" class="btn btn-danger btn-sm"
-                                            style="border-radius:70%;" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                            <i class="lni lni-flag"></i>
+                                    <li><span>Created
+                                            On:</span>{{ \Carbon\Carbon::parse($ad->created_at)->format('F j, Y ') }}
+                                    </li>
+                                    <li><span>Updated
+                                            On:</span>{{ \Carbon\Carbon::parse($ad->updated_at)->format('F j, Y ') }}
+                                        <button type="button" class="btn btn-sm"
+                                            style="background-color:none; border-color:none; color:#232323;"
+                                            data-bs-toggle="modal" data-bs-target="#reportModal">
+                                            <i class="lni lni-flag"></i><span>Report this Ad</span>
 
-                                        </button> </li>
+                                        </button>
+                                    </li>
+
+
 
                                 </ul>
 
@@ -149,21 +170,21 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="description" class="form-label">Description</label>
-                                                    <textarea name="description" id="description" class="form-control" placeholder="Provide additional details (optional)"
-                                                        rows="4"></textarea>
+                                                    <textarea name="description" id="description" class="form-control" placeholder="Provide additional details"
+                                                        rows="4" required></textarea>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit Report</button>
+                                            <div class="modal-footer button">
+
+                                                <button type="submit" class="btn">Submit
+                                                    Report</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="contact-info">
+                            {{-- <div class="contact-info">
                                 <ul>
 
                                     <li>
@@ -182,7 +203,7 @@
                                     </li>
 
                                 </ul>
-                            </div>
+                            </div> --}}
 
                         </div>
 
@@ -200,71 +221,6 @@
                             <h3>Description</h3>
                             <p>{{ $ad->description }}</p>
                         </div>
-                        <!-- End Single Block -->
-
-                        <!-- Start Feedback Section -->
-                        <div class="single-block comments">
-                            <h3>Comments</h3>
-                            @if ($ad->feedbacks->isEmpty())
-                                <p>No feedback available for this ad.</p>
-                            @else
-                                @foreach ($ad->feedbacks as $feedback)
-                                    <div class="single-comment">
-                                        <!-- Display user profile picture -->
-                                        <img src="{{ $feedback->user && $feedback->user->profile_pic ? asset('storage/' . $feedback->user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
-                                            alt="User Profile Picture" class="comment-profile-pic">
-                                        <div class="content">
-                                            <h4 class="name-with-icon">{{ $feedback->name }}</h4>
-                                            <p>{{ $feedback->email }}</p>
-                                            <span>{{ $feedback->created_at->format('d M, Y') }}</span>
-                                            <p>{{ $feedback->comments }}</p>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
-
-
-
-                        <div class="single-block comment-form">
-                            <h3>Post a Comment</h3>
-                            <form action="{{ route('feedback.store', $ad->id) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="ad_id" value="{{ $ad->id }}">
-
-                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                <!-- Store the authenticated user's ID -->
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-box form-group">
-                                            <input type="text" name="name" class="form-control form-control-custom"
-                                                value="{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}"
-                                                placeholder="Your Name" required readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-box form-group">
-                                            <input type="email" name="email" class="form-control form-control-custom"
-                                                value="{{ auth()->user()->email }}" placeholder="Your Email" required
-                                                readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <div class="form-box form-group">
-                                            <textarea name="comments" class="form-control form-control-custom" placeholder="Your Comments" required></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="button">
-                                            <button type="submit" class="btn">Post Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- End Single Block -->
                     </div>
                     <div class="col-lg-4 col-md-5 col-12">
                         <div class="item-details-sidebar">
@@ -276,52 +232,32 @@
                                         alt="Seller">
 
 
-                                    <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
-                                        {{ $ad->createdBy->last_name }}</h4>
+                                    <a href="{{ route('profile.public', $ad->createdBy->id) }}">
+                                        <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
+                                            {{ $ad->createdBy->last_name }}</h4>
+                                    </a>
+                                    <div class="user-rating">
+
+                                        <div class="rating">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($averageRating >= $i)
+                                                    <i class="fa fa-star text-warning"></i>
+                                                @elseif ($averageRating >= $i - 0.5)
+                                                    <i class="fa fa-star-half-alt text-warning"></i>
+                                                @else
+                                                    <i class="fa fa-star text-muted"></i>
+                                                @endif
+                                            @endfor
+                                            <span>({{ number_format($averageRating, 1) }})</span>
+                                        </div>
+                                    </div>
+
                                     <span>
                                         {{ $ad->createdBy->created_at ? 'Member since ' . \Carbon\Carbon::parse($ad->createdBy->created_at)->format('F Y') : 'Unknown' }}
                                     </span>
                                 </div>
                             </div>
-                            <div class="single-block">
-                                <h3>Location</h3>
-                                <div class="mapouter">
-                                    <div class="gmap_canvas">
-                                        @if ($ad->locality && $ad->locality->name)
-                                            <iframe width="100%" height="300" id="gmap_canvas"
-                                                src="https://maps.google.com/maps?q={{ $ad->locality->name }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                                frameborder="0" scrolling="no" marginheight="0"
-                                                marginwidth="0"></iframe>
-                                        @elseif ($ad->city)
-                                            <iframe width="100%" height="300" id="gmap_canvas"
-                                                src="https://maps.google.com/maps?q={{ $ad->city }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                                frameborder="0" scrolling="no" marginheight="0"
-                                                marginwidth="0"></iframe>
-                                        @else
-                                            <p>Location not available</p>
-                                        @endif
 
-                                        <a href="https://putlocker-is.org"></a><br>
-                                        <style>
-                                            .mapouter {
-                                                position: relative;
-                                                text-align: right;
-                                                height: 300px;
-                                                width: 100%;
-                                            }
-                                        </style>
-                                        <a href="https://www.embedgooglemap.net">google map code for website</a>
-                                        <style>
-                                            .gmap_canvas {
-                                                overflow: hidden;
-                                                background: none !important;
-                                                height: 300px;
-                                                width: 100%;
-                                            }
-                                        </style>
-                                    </div>
-                                </div>
-                            </div>
 
 
                             <!-- End Single Block -->
@@ -329,9 +265,47 @@
                         </div>
                     </div>
                 </div>
+                <div class="single-block">
+                    <h3>Location</h3>
+                    <div class="mapoute col-lg-12">
+                        <div class="gmap_canvas">
+                            @if ($ad->locality && $ad->locality->name)
+                                <iframe width="100%" height="300" id="gmap_canvas"
+                                    src="https://maps.google.com/maps?q={{ $ad->locality->name }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                            @elseif ($ad->city)
+                                <iframe width="100%" height="300" id="gmap_canvas"
+                                    src="https://maps.google.com/maps?q={{ $ad->city }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                            @else
+                                <p>Location not available</p>
+                            @endif
+
+                            <a href="https://putlocker-is.org"></a><br>
+                            <style>
+                                .mapouter {
+                                    position: relative;
+                                    text-align: right;
+                                    height: 300px;
+                                    width: 100%;
+                                }
+                            </style>
+                            <a href="https://www.embedgooglemap.net">google map code for website</a>
+                            <style>
+                                .gmap_canvas {
+                                    overflow: hidden;
+                                    background: none !important;
+                                    height: 300px;
+                                    width: 100%;
+                                }
+                            </style>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
     <script type="text/javascript">
         const current = document.getElementById("current");
         const opacity = 0.6;
