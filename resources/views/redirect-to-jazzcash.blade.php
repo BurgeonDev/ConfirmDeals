@@ -12,7 +12,7 @@
 <script>
     setTimeout(function() {
         document.forms['redirect-to-payment-gateway'].submit();
-    }, 100000);
+    }, 1000);
 </script>
 
 {{-- ... --}}
