@@ -22,6 +22,7 @@ use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardContro
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 
 
@@ -122,6 +123,10 @@ Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
 
+
+
+Route::post('/initiate-payment', [PaymentController::class, 'initiatePayment'])->name('initiatePayment');
+Route::post('/payment-success', [PaymentController::class, 'handleResponse']);
 
 
 

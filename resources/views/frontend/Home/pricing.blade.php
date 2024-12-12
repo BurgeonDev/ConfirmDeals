@@ -20,9 +20,9 @@
                      <!-- Table Head -->
                      <div class="table-head">
                          <div class="price">
-                             <h2 class="amount">PKR 0</h2>
+                             <h2 class="amount">PKR 10</h2>
                          </div>
-                         <h4 class="title">Free</h4>
+                         <h4 class="title">Basic</h4>
                      </div>
                      <!-- End Table Head -->
                      <!-- Table List -->
@@ -30,15 +30,22 @@
                          <li><strong> Coins: <i style="color: goldenrod" class="fas fa-coins"></i></strong> 10</li>
                          <li><strong>Listings:</strong> 1 ad posting</li>
                          <li><strong>Access Level:</strong> Basic access to the platform</li>
-                         <li><strong>Visibility:</strong> Standard visibility in the listings</li>
+                         <li><strong>Visibility:</strong> Standard visibility in the listings Section</li>
                          <li><strong>Limitations:</strong> No promotional tools, single ad posting, basic category ads
                          </li>
                      </ul>
                      <!-- End Table List -->
                      <!-- Table Bottom -->
                      <div class="button">
-                         <a class="btn" href="javascript:void(0)">Select Plan</a>
+
+                         <form action="{{ route('initiatePayment') }}" method="POST">
+                             @csrf
+                             <input type="hidden" name="amount" value="10">
+                             <button style="border:none" type="submit"><a class="btn">Buy Now</a></button>
+                         </form>
+
                      </div>
+
                      <!-- End Table Bottom -->
                  </div>
                  <!-- End Single Table-->
@@ -63,12 +70,16 @@
                          <li><strong>Visibility:</strong> Higher visibility than Free plan</li>
                          <li><strong>Promotional Tools:</strong> Basic promotional tools to attract views</li>
                          <li><strong>Audience Reach:</strong> Optimized to reach a broader audience</li>
-                         <li><strong>Limitations:</strong> Non-featured ads</li>
+
                      </ul>
                      <!-- End Table List -->
                      <!-- Table Bottom -->
                      <div class="button">
-                         <a class="btn" href="javascript:void(0)">Select Plan</a>
+                         <form action="{{ route('initiatePayment') }}" method="POST">
+                             @csrf
+                             <input type="hidden" name="amount" value="500">
+                             <button style="border:none" type="submit"><a class="btn">Buy Now</a></button>
+                         </form>
                      </div>
                      <!-- End Table Bottom -->
                  </div>
@@ -94,12 +105,16 @@
                          <li><strong>Visibility:</strong> Maximum visibility and exposure</li>
                          <li><strong>Promotional Tools:</strong> Advanced tools to boost your ads</li>
                          <li><strong>Featured Ads:</strong> Your ads appear at the top of the listings</li>
-                         <li><strong>Audience Reach:</strong> Maximum audience engagement</li>
+
                      </ul>
                      <!-- End Table List -->
                      <!-- Table Bottom -->
                      <div class="button">
-                         <a class="btn" href="javascript:void(0)">Select Plan</a>
+                         <form action="{{ route('initiatePayment') }}" method="POST">
+                             @csrf
+                             <input type="hidden" name="amount" value="1000">
+                             <button style="border:none" type="submit"><a class="btn">Buy Now</a></button>
+                         </form>
                      </div>
                      <!-- End Table Bottom -->
                  </div>
