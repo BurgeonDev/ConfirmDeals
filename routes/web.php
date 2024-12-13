@@ -20,6 +20,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Frontend\DashboardController as FrontendDashboardController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EasypayController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
@@ -123,11 +124,21 @@ Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
 
-
-
+////////////////////
+Route::get('/paymentsway', function () {
+    return view('frontend.pricing.paymentway');
+})->name('paymentsway');
+//////////////////jazzcash
 Route::post('/initiate-payment', [PaymentController::class, 'initiatePayment'])->name('initiatePayment');
 Route::post('/payment-success', [PaymentController::class, 'handleResponse']);
-
+//////////////////easypay
+Route::get('/checkout', [EasypayController::class, 'checkoutIndex'])->name('checkout.index');
+Route::post('/checkout/process', [EasypayController::class, 'checkout'])->name('checkout.process');
+Route::post('/checkout/{uid}/{transactionId}/{mobileNo}/confirm', [EasypayController::class, 'checkoutConfirm'])->name('checkout.confirm');
+Route::get('/checkout/{uid}/{transactionId}/{mobileNo}/success', [EasypayController::class, 'checkoutSuccess'])->name('checkout.success');
+Route::get('/checkout/fail', function () {
+    return 'Transaction Failed';
+})->name('checkout.fail');
 
 
 require __DIR__ . '/auth.php';

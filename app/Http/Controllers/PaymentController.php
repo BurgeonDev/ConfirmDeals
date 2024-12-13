@@ -17,7 +17,7 @@ class PaymentController extends Controller
 
         Log::info('Payment Data to JazzCash:', $data); // Log data before sending to gateway
 
-        return view('redirect-to-jazzcash', ['data' => $data]);
+        return view('payment.jazzcash.redirect-to-jazzcash', ['data' => $data]);
     }
 
     public function handleResponse(Request $request)

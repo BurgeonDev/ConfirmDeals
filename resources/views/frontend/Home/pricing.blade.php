@@ -37,13 +37,8 @@
                      <!-- End Table List -->
                      <!-- Table Bottom -->
                      <div class="button">
-
-                         <form action="{{ route('initiatePayment') }}" method="POST">
-                             @csrf
-                             <input type="hidden" name="amount" value="10">
-                             <button style="border:none" type="submit"><a class="btn">Buy Now</a></button>
-                         </form>
-
+                         <button style="border:none" type="submit"><a href="{{ route('paymentsway') }}"
+                                 class="btn">Buy Now</a></button>
                      </div>
 
                      <!-- End Table Bottom -->
@@ -75,11 +70,9 @@
                      <!-- End Table List -->
                      <!-- Table Bottom -->
                      <div class="button">
-                         <form action="{{ route('initiatePayment') }}" method="POST">
-                             @csrf
-                             <input type="hidden" name="amount" value="500">
-                             <button style="border:none" type="submit"><a class="btn">Buy Now</a></button>
-                         </form>
+                         <button style="border:none" type="submit"><a href="{{ route('paymentsway') }}"
+                                 class="btn">Buy Now</a></button>
+
                      </div>
                      <!-- End Table Bottom -->
                  </div>
@@ -110,17 +103,13 @@
                      <!-- End Table List -->
                      <!-- Table Bottom -->
                      <div class="button">
-                         <form action="{{ route('initiatePayment') }}" method="POST">
-                             @csrf
-                             <input type="hidden" name="amount" value="1000">
-                             <button style="border:none" type="submit"><a class="btn">Buy Now</a></button>
-                         </form>
+                         <button style="border:none" type="submit"><a href="{{ route('paymentsway') }}"
+                                 class="btn">Buy Now</a></button>
+                         <!-- End Table Bottom -->
                      </div>
-                     <!-- End Table Bottom -->
+                     <!-- End Single Table-->
                  </div>
-                 <!-- End Single Table-->
-             </div>
 
+             </div>
          </div>
-     </div>
  </section>
