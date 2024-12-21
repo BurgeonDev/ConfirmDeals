@@ -131,7 +131,6 @@
                                                                     src="{{ asset('storage/' . $ad->pictures[0]) }}"
                                                                     alt="{{ $ad->title }}">
                                                             </a>
-
                                                             <span class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
                                                         </div>
                                                         <div class="content">
@@ -141,14 +140,12 @@
                                                                 <a
                                                                     href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
                                                             </h3>
-
                                                             <p class="location"><a><i class="lni lni-map-marker"></i>
                                                                     {{ $ad->city?->name ?? 'N/A' }},
                                                                     {{ $ad->locality?->name ?? 'N/A' }}</a></p>
                                                             <ul class="info">
                                                                 <li class="price">Pkr {{ number_format($ad->price, 2) }}
                                                                 </li>
-
                                                                 <li class="like">
                                                                     <form action="{{ route('favorites.toggle') }}"
                                                                         method="POST" class="favorite-form">
@@ -161,7 +158,6 @@
                                                                         </button>
                                                                     </form>
                                                                 </li>
-
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -169,12 +165,46 @@
                                             @endforeach
                                         </div>
 
-                                        <!-- Pagination -->
-                                        <div class="pagination left">
-                                            {{ $ads->links() }}
-                                        </div>
+                                        <!-- Custom Pagination -->
+                                        <div style="justify-content: center" class="pagination center">
+                                            <ul class="pagination-list">
+                                                @if ($ads->onFirstPage())
+                                                    <li class="disabled">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="lni lni-chevron-left"></i>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a href="{{ $ads->previousPageUrl() }}">
+                                                            <i class="lni lni-chevron-left"></i>
+                                                        </a>
+                                                    </li>
+                                                @endif
 
+                                                @foreach ($ads->getUrlRange(1, $ads->lastPage()) as $page => $url)
+                                                    <li class="{{ $ads->currentPage() == $page ? 'active' : '' }}">
+                                                        <a href="{{ $url }}">{{ $page }}</a>
+                                                    </li>
+                                                @endforeach
+
+                                                @if ($ads->hasMorePages())
+                                                    <li>
+                                                        <a href="{{ $ads->nextPageUrl() }}">
+                                                            <i class="lni lni-chevron-right"></i>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li class="disabled">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="lni lni-chevron-right"></i>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
+
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
                                         aria-labelledby="nav-list-tab">
                                         <div class="row" id="adsContainer">
@@ -193,7 +223,6 @@
                                                                             src="{{ asset('storage/' . $ad->pictures[0]) }}"
                                                                             alt="{{ $ad->title }}">
                                                                     </a>
-
                                                                     <span
                                                                         class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
                                                                 </div>
@@ -237,10 +266,45 @@
                                             @endforeach
                                         </div>
                                         <!-- Pagination -->
-                                        <div class="pagination left">
-                                            {{ $ads->links() }}
+                                        <div style="justify-content: center" class="pagination center">
+                                            <ul class="pagination-list">
+                                                @if ($ads->onFirstPage())
+                                                    <li class="disabled">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="lni lni-chevron-left"></i>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a href="{{ $ads->previousPageUrl() }}">
+                                                            <i class="lni lni-chevron-left"></i>
+                                                        </a>
+                                                    </li>
+                                                @endif
+
+                                                @foreach ($ads->getUrlRange(1, $ads->lastPage()) as $page => $url)
+                                                    <li class="{{ $ads->currentPage() == $page ? 'active' : '' }}">
+                                                        <a href="{{ $url }}">{{ $page }}</a>
+                                                    </li>
+                                                @endforeach
+
+                                                @if ($ads->hasMorePages())
+                                                    <li>
+                                                        <a href="{{ $ads->nextPageUrl() }}">
+                                                            <i class="lni lni-chevron-right"></i>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li class="disabled">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="lni lni-chevron-right"></i>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
