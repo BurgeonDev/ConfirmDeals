@@ -31,7 +31,7 @@
                             <img src="{{ $user->profile_pic ? asset('storage/' . $user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                                 alt="User Image" class="mb-3 rounded-circle img-thumbnail"
                                 style="width: 150px; height: 150px;">
-                            <h2 class="h4 text-dark">{{ $user->name }}</h2>
+                            <h2 class="h4 text-dark">{{ $user->first_name }} {{ $user->last_name }}</h2>
                             <div class="mt-2 rating">
                                 @if ($averageRating)
                                     @for ($i = 1; $i <= 5; $i++)
