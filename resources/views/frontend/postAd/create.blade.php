@@ -40,7 +40,8 @@
                                     </ul>
                                 </div>
                             @endif
-                            <h3 class="block-title">Post Ad</h3>
+                            {{-- <h3 class="block-title">Post Ad</h3> --}}
+                            <h3 class="block-title">{{ __('messages.post_ad') }}</h3>
                             <div class="inner-block">
                                 <div class="post-ad-tab">
                                     <div class="step-one-content">
@@ -52,9 +53,9 @@
                                                 <!-- Title -->
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="title">Ad Title*</label>
+                                                        <label for="title">{{ __('messages.ad_title') }}</label>
                                                         <input name="title" type="text" id="title"
-                                                            placeholder="Enter Ad Title" required
+                                                            placeholder="{{ __('messages.enter_ad_title') }}" required
                                                             value="{{ old('title') }}">
                                                         @error('title')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -65,20 +66,22 @@
                                                 <!-- Description -->
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="description">Ad Description*</label>
-                                                        <textarea name="description" id="description" placeholder="Enter Ad Description" required>{{ old('description') }}</textarea>
+                                                        <label for="description">{{ __('messages.ad_description') }}</label>
+                                                        <textarea name="description" id="description" placeholder="{{ __('messages.enter_ad_description') }}" required>{{ old('description') }}</textarea>
                                                         @error('description')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
+
                                                 <!-- Category -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="category_id">Category*</label>
+                                                        <label for="category_id">{{ __('messages.category') }}</label>
                                                         <select name="category_id" id="category_id"
                                                             class="user-chosen-select" required>
-                                                            <option value="">Select Category</option>
+                                                            <option value="">{{ __('messages.select_category') }}
+                                                            </option>
                                                             @foreach ($categories as $category)
                                                                 <option value="{{ $category->id }}"
                                                                     {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -92,20 +95,21 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Type -->
+                                                <!-- Ad Type -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="type">Ad Type*</label>
+                                                        <label for="type">{{ __('messages.ad_type') }}</label>
                                                         <select name="type" id="type" class="user-chosen-select"
                                                             required>
-                                                            <option value="">Select Ad Type</option>
+                                                            <option value="">{{ __('messages.select_ad_type') }}
+                                                            </option>
                                                             <option value="service"
                                                                 {{ old('type') == 'service' ? 'selected' : '' }}>
-                                                                Service
+                                                                {{ __('service') }}
                                                             </option>
                                                             <option value="product"
                                                                 {{ old('type') == 'product' ? 'selected' : '' }}>
-                                                                Product
+                                                                {{ __('product') }}
                                                             </option>
                                                         </select>
                                                         @error('type')
@@ -117,9 +121,9 @@
                                                 <!-- Price -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="price">Price</label>
+                                                        <label for="price">{{ __('messages.price') }}</label>
                                                         <input name="price" type="number" id="price"
-                                                            placeholder="Enter Price">
+                                                            placeholder="{{ __('messages.enter_price') }}">
                                                         <span class="text-danger" id="priceError"></span>
                                                     </div>
                                                 </div>
@@ -127,27 +131,24 @@
                                                 <!-- Coins Needed -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="coins_needed">Coins Needed*</label>
-
+                                                        <label for="coins_needed">{{ __('messages.coins_needed') }}</label>
                                                         <input name="coins_needed" type="number" id="coins_needed"
                                                             readonly>
-                                                        <div id="liveError" class="text-danger">
-                                                        </div>
+                                                        <div id="liveError" class="text-danger"></div>
                                                         @error('coins_needed')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
-
                                                 </div>
-
 
                                                 <!-- Country -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="country_id">Country*</label>
+                                                        <label for="country_id">{{ __('messages.country') }}</label>
                                                         <select name="country_id" id="country_id" class="user-chosen-select"
                                                             required>
-                                                            <option value="">Select Country</option>
+                                                            <option value="">{{ __('messages.select_country') }}
+                                                            </option>
                                                             @foreach ($countries as $country)
                                                                 <option value="{{ $country->id }}"
                                                                     {{ old('country_id') == $country->id ? 'selected' : '' }}>
@@ -164,11 +165,11 @@
                                                 <!-- City -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="city_id">City*</label>
+                                                        <label for="city_id">{{ __('messages.city') }}</label>
                                                         <select name="city_id" id="city_id" class="user-chosen-select"
                                                             required>
-                                                            <option value="">Select City</option>
-                                                            <!-- Optionally load old value dynamically if available -->
+                                                            <option value="">{{ __('messages.select_city') }}
+                                                            </option>
                                                         </select>
                                                         @error('city_id')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -179,11 +180,11 @@
                                                 <!-- Locality -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="locality_id">Locality</label>
+                                                        <label for="locality_id">{{ __('messages.locality') }}</label>
                                                         <select name="locality_id" id="locality_id"
                                                             class="user-chosen-select">
-                                                            <option value="">Select Locality</option>
-                                                            <!-- Optionally load old value dynamically if available -->
+                                                            <option value="">{{ __('messages.select_locality') }}
+                                                            </option>
                                                         </select>
                                                         @error('locality_id')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -191,71 +192,35 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Pictures -->
+                                                <!-- Upload Pictures -->
                                                 <div class="col-12">
                                                     <div class="form-group upload-image">
-                                                        <label for="pictures">Upload Pictures</label>
+                                                        <label for="pictures">{{ __('messages.upload_pictures') }}</label>
                                                         <input type="file" id="pictures" name="pictures[]" multiple
-                                                            accept=".jpg,.jpeg,.png" placeholder="Upload Image"
+                                                            accept=".jpg,.jpeg,.png"
+                                                            placeholder="{{ __('messages.upload_image') }}"
                                                             onchange="validateFileLimit(this)">
-                                                        <span>Can add multiple pictures. Supported formats: JPG, PNG
-                                                            (Max: 5)</span>
+                                                        <span>{{ __('messages.multiple_pictures_info') }}</span>
                                                         @error('pictures')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
 
-
-
                                                 <!-- Submit Button -->
                                                 <div class="col-12">
                                                     <div class="mb-0 form-group button">
-                                                        <button type="submit" class="btn">Post Ad</button>
+                                                        <button type="submit"
+                                                            class="btn">{{ __('messages.post_ad_button') }}</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
-
-                                        <!-- End Post Ad Content -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Post Ad Block Area -->
+
                         </div>
-                        {{-- @else
-                            <div class="mt-0 dashboard-block">
-                                <h3 class="block-title">Post Ad</h3>
-                                <div class="inner-block">
-                                    <div class="post-ad-tab">
-                                        <div class="step-one-content">
-                                            <div class="single-list three">
-                                                <div class="main-content">
-                                                    <div class="mt-0 dashboard-block close-content">
-                                                        <h2>Sorry <i class="lni lni-emoji-sad"></i></h2>
-                                                        <h4>You do not have enough coins to post an ad. Please earn or
-                                                            purchase more coins.</h4>
-                                                        <div class="button">
-                                                            <a href="{{ route('pricing') }}">
-                                                                <button type="submit" class="btn btn-danger">Buy
-                                                                    Coins <i style="color: goldenrod"
-                                                                        class="fas fa-coins"></i></button>
-                                                            </a>
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif --}}
-
-
                     </div>
                 </div>
             </div>

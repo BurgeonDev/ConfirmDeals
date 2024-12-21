@@ -38,7 +38,8 @@
                                     </ul>
                                 </div>
                             @endif
-                            <h3 class="block-title">My Favorite Ads</h3>
+                            <h3 class="block-title">@lang('messages.my_favorite_ads')</h3>
+
 
                             <!-- Start Items Area -->
                             <div class="my-items">
@@ -46,21 +47,22 @@
                                 <div class="item-list-title">
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-4 col-12">
-                                            <p>Ad Title</p>
+                                            <p>@lang('messages.ad_title')</p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-12">
-                                            <p>Category</p>
+                                            <p>@lang('messages.category')</p>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-12">
-                                            <p>Type</p>
+                                            <p>@lang('messages.type')</p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-12">
-                                            <p>Status</p>
+                                            <p>@lang('messages.status')</p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-12 align-right">
-                                            <p>Action</p>
+                                            <p>@lang('messages.action')</p>
                                         </div>
                                     </div>
+
                                 </div>
                                 <!-- End List Title -->
 

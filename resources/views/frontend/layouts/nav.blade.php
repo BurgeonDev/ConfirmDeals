@@ -50,39 +50,6 @@
                                      <!-- Notification icon and dropdown -->
                                      <li>
                                          <a>
-
-                                             {{-- <div class="notification-icon">
-                                                 <i class="lni lni-alarm" id="notificationIcon"></i>
-                                                 @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
-                                                     <span
-                                                         style="height: 15px; width: 15px; font-size: 10px; text-align: left;"
-                                                         class="notification-count">
-                                                         {{ auth()->user()->unreadNotifications->count() }}
-                                                     </span>
-                                                     <div class="notification-dropdown" id="notificationDropdown"
-                                                         style="display: none;">
-                                                         <div class="notification-content">
-                                                             @foreach (auth()->user()->unreadNotifications as $notification)
-                                                                 <div style="margin-bottom: 10px;">
-                                                                     <a
-                                                                         href="{{ route('notification.read', $notification->id) }}">
-                                                                         {{ $notification->data['message'] }}
-                                                                     </a>
-
-                                                                     <span style="font-size: 0.9em; color: #888;">
-                                                                         {{ $notification->created_at->diffForHumans() }}
-                                                                     </span>
-                                                                 </div>
-                                                             @endforeach
-                                                         </div>
-                                                     </div>
-                                                 @else
-                                                     <div class="notification-dropdown" id="notificationDropdown"
-                                                         style="display: none;">
-                                                         <p>No new notifications</p>
-                                                     </div>
-                                                 @endif
-                                             </div> --}}
                                              <div class="notification-icon">
                                                  <i class="lni lni-alarm" id="notificationIcon"></i>
                                                  @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
@@ -153,15 +120,20 @@
                                          <a href="{{ route('register') }}"><i class="lni lni-user"></i> Register</a>
                                      </li>
                                  @endauth
+                                 @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                     <li>
+                                         <a
+                                             href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                             {{ $properties['native'] }}
+                                         </a>
+                                     </li>
+                                 @endforeach
                              </ul>
 
 
+
                          </div>
-                         @can('Post Ad')
-                             <div class="button header-button">
-                                 <a href="{{ route('ads.create') }}" class="btn">Post an Ad</a>
-                             </div>
-                         @endcan
+
 
                      </nav>
                  </div>

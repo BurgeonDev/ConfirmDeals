@@ -38,7 +38,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <h3 class="block-title">Edit Ad</h3>
+                            <h3 class="block-title">@lang('messages.edit_ad')</h3>
                             <div class="inner-block">
                                 <div class="post-ad-tab">
                                     <div class="step-one-content">
@@ -50,32 +50,34 @@
                                                 <!-- Title -->
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="title">Ad Title*</label>
+                                                        <label for="title">@lang('messages.ad_title')*</label>
                                                         <input name="title" type="text" id="title"
                                                             value="{{ old('title', $ad->title) }}"
-                                                            placeholder="Enter Ad Title" required>
+                                                            placeholder="@lang('messages.enter_ad_title')" required>
                                                         @error('title')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
+
                                                 <!-- Description -->
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="description">Ad Description*</label>
-                                                        <textarea name="description" id="description" placeholder="Enter Ad Description" required>{{ old('description', $ad->description) }}</textarea>
+                                                        <label for="description">@lang('messages.ad_description')*</label>
+                                                        <textarea name="description" id="description" placeholder="@lang('messages.enter_ad_description')" required>{{ old('description', $ad->description) }}</textarea>
                                                         @error('description')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
+
                                                 <!-- Category -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="category_id">Category*</label>
+                                                        <label for="category_id">@lang('messages.category')*</label>
                                                         <select name="category_id" id="category_id"
                                                             class="user-chosen-select" required>
-                                                            <option value="">Select Category</option>
+                                                            <option value="">@lang('messages.select_category')</option>
                                                             @foreach ($categories as $category)
                                                                 <option value="{{ $category->id }}"
                                                                     {{ old('category_id', $ad->category_id) == $category->id ? 'selected' : '' }}>
@@ -92,41 +94,40 @@
                                                 <!-- Type -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="type">Ad Type*</label>
+                                                        <label for="type">@lang('messages.ad_type')*</label>
                                                         <select name="type" id="type" class="user-chosen-select"
                                                             required>
-                                                            <option value="">Select Ad Type</option>
+                                                            <option value="">@lang('messages.select_ad_type')</option>
                                                             <option value="service"
                                                                 {{ old('type', $ad->type) == 'service' ? 'selected' : '' }}>
-                                                                Service
-                                                            </option>
+                                                                @lang('messages.service')</option>
                                                             <option value="product"
                                                                 {{ old('type', $ad->type) == 'product' ? 'selected' : '' }}>
-                                                                Product
-                                                            </option>
+                                                                @lang('messages.product')</option>
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <!-- Price -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="price">Price</label>
+                                                        <label for="price">@lang('messages.price')</label>
                                                         <input name="price" type="number" id="price"
                                                             value="{{ old('price', $ad->price) }}"
-                                                            placeholder="Enter Price">
+                                                            placeholder="@lang('messages.enter_price')">
                                                         @error('price')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
+
                                                 <!-- Coins Needed -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="coins_needed">Coins Needed*</label>
+                                                        <label for="coins_needed">@lang('messages.coins_needed')*</label>
                                                         <input name="coins_needed" type="number" id="coins_needed"
                                                             value="{{ old('coins_needed', $ad->coins_needed) }}"
-                                                            placeholder="Enter Coins Needed" readonly required>
-
+                                                            placeholder="@lang('messages.enter_coins_needed')" readonly required>
                                                         <div id="liveError" class="text-danger">
                                                             @error('coins_needed')
                                                                 <span class="text-danger">{{ $message }}</span>
@@ -134,86 +135,87 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- Country -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="country_id">Country*</label>
+                                                        <label for="country_id">@lang('messages.country')*</label>
                                                         <select name="country_id" id="country_id" class="user-chosen-select"
                                                             required>
-                                                            <option value="">Select Country</option>
+                                                            <option value="">@lang('messages.select_country')</option>
                                                             @foreach ($countries as $country)
                                                                 <option value="{{ $country->id }}"
                                                                     {{ old('country_id', $ad->country_id) == $country->id ? 'selected' : '' }}>
-                                                                    {{ $country->name }}</option>
+                                                                    {{ $country->name }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <!-- City -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="city_id">City*</label>
+                                                        <label for="city_id">@lang('messages.city')*</label>
                                                         <select name="city_id" id="city_id" class="user-chosen-select"
                                                             required>
-                                                            <option value="">Select City</option>
+                                                            <option value="">@lang('messages.select_city')</option>
                                                             @foreach ($ad->country->cities ?? [] as $city)
                                                                 <option value="{{ $city->id }}"
                                                                     {{ old('city_id', $ad->city_id) == $city->id ? 'selected' : '' }}>
-                                                                    {{ $city->name }}</option>
+                                                                    {{ $city->name }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <!-- Locality -->
                                                 <div class="col-6">
                                                     <div class="form-group">
-                                                        <label for="locality_id">Locality</label>
+                                                        <label for="locality_id">@lang('messages.locality')</label>
                                                         <select name="locality_id" id="locality_id"
                                                             class="user-chosen-select">
-                                                            <option value="">Select Locality</option>
+                                                            <option value="">@lang('messages.select_locality')</option>
                                                             @foreach ($ad->city->localities ?? [] as $locality)
                                                                 <option value="{{ $locality->id }}"
                                                                     {{ old('locality_id', $ad->locality_id) == $locality->id ? 'selected' : '' }}>
-                                                                    {{ $locality->name }}</option>
+                                                                    {{ $locality->name }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
+
                                                 <!-- Old Pictures Section -->
-
-
                                                 <div class="col-12">
                                                     <div class="form-group upload-image">
-                                                        <label for="pictures">Upload Pictures</label>
+                                                        <label for="pictures">@lang('messages.upload_pictures')</label>
                                                         <input type="file" id="pictures" name="pictures[]" multiple
-                                                            accept=".jpg,.jpeg,.png" placeholder="Upload Image"
+                                                            accept=".jpg,.jpeg,.png" placeholder="@lang('messages.upload_image')"
                                                             onchange="validateFileLimit(this)">
-                                                        <span>Can add multiple pictures. Supported formats: JPG, PNG
-                                                            (Max:
-                                                            5)</span>
+                                                        <span>@lang('messages.upload_multiple_pictures_info')</span>
                                                         @error('pictures')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                     <div class="uploaded-images">
-                                                        <label>Current Images:</label>
+                                                        <label>@lang('messages.current_images'):</label>
                                                         <div class="row">
                                                             @foreach ($ad->pictures as $picture)
                                                                 <div class="col-3">
                                                                     <img src="{{ asset('storage/' . $picture) }}"
                                                                         alt="Uploaded Image" class="mb-2 img-fluid">
-
                                                                 </div>
                                                             @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
 
-
                                                 <!-- Submit Button -->
                                                 <div class="col-12">
                                                     <div class="mb-0 form-group button">
-                                                        <button type="submit" class="btn">Update Ad</button>
+                                                        <button type="submit" class="btn">@lang('messages.update_ad')</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,6 +223,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <!-- End Edit Ad Block Area -->
                     </div>

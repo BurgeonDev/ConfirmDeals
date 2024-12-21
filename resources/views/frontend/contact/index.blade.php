@@ -32,27 +32,27 @@
                     <div class="col-lg-5 col-12">
                         <div class="single-head">
                             <div class="contant-inner-title">
-                                <h2>Our Contacts &amp; Location</h2>
-                                <p>Get in touch with us for any inquiries or support.</p>
+                                <h2>@lang('messages.our_contacts_location')</h2>
+                                <p>@lang('messages.contact_inquiries')</p>
                             </div>
                             <div class="single-info">
-                                <h3>Opening hours</h3>
+                                <h3>@lang('messages.opening_hours')</h3>
                                 <ul>
-                                    <li>Daily: 9.30 AM–6.00 PM</li>
-                                    <li>Sunday &amp; Holidays: Closed</li>
+                                    <li>@lang('messages.daily_hours')</li>
+                                    <li>@lang('messages.sunday_closed')</li>
                                 </ul>
                             </div>
                             <div class="single-info">
-                                <h3>Contact info</h3>
+                                <h3>@lang('messages.contact_info')</h3>
                                 <ul>
-                                    <li>77408 Satterfield Motorway Suite</li>
-                                    <li>469 New Antonetta, BC K3L6P6</li>
-                                    <li><a href="mailto:confirmdeals@gmail.com">confirmdeals@gmail.com</a></li>
-                                    <li><a href="tel:(617) 495-9400-326">(617) 495-9400-326</a></li>
+                                    <li>@lang('messages.address')</li>
+                                    <li>@lang('messages.city_zip')</li>
+                                    <li><a href="mailto:@lang('messages.email_address')">@lang('messages.email_address')</a></li>
+                                    <li><a href="tel:@lang('messages.phone_number')">@lang('messages.phone_number')</a></li>
                                 </ul>
                             </div>
                             <div class="single-info contact-social">
-                                <h3>Social contact</h3>
+                                <h3>@lang('messages.social_contact')</h3>
                                 <ul>
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-original"></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
@@ -62,23 +62,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-12">
 
+                    <div class="col-lg-7 col-12">
                         <div class="form-main">
                             <div class="form-title">
-                                <h2>Get in Touch</h2>
-                                <p>We value your feedback and are here to assist you with any questions, concerns, or
-                                    suggestions about using our platform for buying and selling services or products. Please
-                                    reach out to us below</p>
+                                <h2>@lang('messages.get_in_touch')</h2>
+                                <p>@lang('messages.contact_description')</p>
                             </div>
                             <form class="form" action="{{ route('contact.send') }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-
-                                            <input name="name" type="text" id="name" placeholder="Your Name"
-                                                value="{{ old('name') }}" required>
+                                            <input name="name" type="text" id="name"
+                                                placeholder="@lang('messages.your_name')" value="{{ old('name') }}" required>
                                             @error('name')
                                                 <span style="color: red;">{{ $message }}</span>
                                             @enderror
@@ -86,9 +83,8 @@
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-
-                                            <input name="email" type="email" id="email" placeholder="Your Email"
-                                                value="{{ old('email') }}" required>
+                                            <input name="email" type="email" id="email"
+                                                placeholder="@lang('messages.your_email')" value="{{ old('email') }}" required>
                                             @error('email')
                                                 <span style="color: red;">{{ $message }}</span>
                                             @enderror
@@ -96,8 +92,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group message">
-
-                                            <textarea name="message" id="message" placeholder="Your Message" required>{{ old('message') }}</textarea>
+                                            <textarea name="message" id="message" placeholder="@lang('messages.your_message')" required>{{ old('message') }}</textarea>
                                             @error('message')
                                                 <span style="color: red;">{{ $message }}</span>
                                             @enderror
@@ -105,13 +100,14 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group button">
-                                            <button type="submit" class="btn">Submit Message</button>
+                                            <button type="submit" class="btn">@lang('messages.submit_message')</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
