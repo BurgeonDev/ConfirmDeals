@@ -53,44 +53,7 @@
                 </div>
 
                 <!-- Ads List -->
-                {{-- <div class="col-lg-8 col-md-7 col-12">
-                    <div class="border-0 shadow-sm card">
-                        <div class="card-body">
-                            <h3 class="mb-4">{{ $user->first_name }} {{ $user->last_name }}'s Ads</h3>
-                            @forelse ($ads as $ad)
-                                <div class="pb-3 mb-4 ad-card border-bottom">
-                                    <!-- Ad Picture -->
 
-                                    <!-- Ad Details -->
-                                    <a href="{{ route('ad.show', $ad->id) }}">
-                                        <h4 class="h5 fw-bold" style="color: #582fe0">{{ $ad->title }}</h4>
-                                    </a>
-
-                                    <h5 class="mt-3 h6 text-dark">Feedbacks:</h5>
-                                    <ul class="list-unstyled">
-                                        @forelse ($ad->feedbacks as $feedback)
-                                            <li class="mb-3">
-                                                <strong class="text-primary">{{ $feedback->user->first_name }}
-                                                    {{ $feedback->user->last_name }}</strong>:<br>
-                                                <span class="text-muted small">Rated
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        <i
-                                                            class="fas fa-star {{ $i <= $feedback->rating ? 'text-warning' : 'text-muted' }}"></i>
-                                                    @endfor
-                                                </span>
-                                                <p class="mb-1 text-muted">{{ $feedback->comment }}</p>
-                                            </li>
-                                        @empty
-                                            <p class="text-muted">No feedback yet for this ad.</p>
-                                        @endforelse
-                                    </ul>
-                                </div>
-                            @empty
-                                <p class="text-muted">No ads posted yet.</p>
-                            @endforelse
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="border-0 shadow-sm card">
                         <div class="card-body">
