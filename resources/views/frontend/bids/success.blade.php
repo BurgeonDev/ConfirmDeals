@@ -44,18 +44,18 @@
             <div class="d-table-cell">
                 <div class="container">
                     <div class="success-content">
-                        <h1>Congratulations!</h1>
-                        <h2>Your Bid Has Been Placed Successfully</h2>
-                        <p>Thank you for placing your bid. We will notify you about the updates soon.</p>
+                        <h1>@lang('messages.congratulations')</h1>
+                        <h2>@lang('messages.bid_placed_successfully')</h2>
+                        <p>@lang('messages.bid_thank_you')</p>
                         <div class="button">
-                            <a href="{{ route('home') }}" class="btn">Go To Home</a>
+                            <a href="{{ route('home') }}" class="btn">@lang('messages.go_to_home')</a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+
     <!-- End Error Area -->
 
     <!-- ========================= JS here ========================= -->

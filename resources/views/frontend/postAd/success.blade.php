@@ -44,14 +44,14 @@
             <div class="d-table-cell">
                 <div class="container">
                     <div class="success-content">
-                        <h1>Congratulations!</h1>
-                        <h2>Your Ad Has Been Posted Successfully</h2>
-                        <p>Thank you for posting your ad. Please wait for ConfirmDeals approval and publicity
-                            confirmation. We will notify you soon.</p>
+                        <h1>@lang('message.congratulations')</h1>
+                        <h2>@lang('message.ad_posted_success')</h2>
+                        <p>@lang('message.thank_you_message')</p>
                         <div class="button">
-                            <a href="{{ route('home') }}" class="btn">Go To Home</a>
+                            <a href="{{ route('home') }}" class="btn">@lang('message.go_home')</a>
                         </div>
                     </div>
+
 
                 </div>
             </div>

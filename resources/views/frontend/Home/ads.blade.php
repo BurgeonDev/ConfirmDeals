@@ -4,13 +4,15 @@
             <div class="col-12">
                 <div class="section-title">
                     <h2 class="wow fadeInUp" data-wow-delay=".4s"
-                        style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">Trending Ads
+                        style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                        @lang('messages.trending_ads_title')
                     </h2>
                     <p class="wow fadeInUp" data-wow-delay=".6s"
-                        style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Discover the Power
-                        of Trending Ads – Stay Ahead of the Curve with the Latest, Most Engaging Ads that Capture
-                        Attention and Drive Results!</p>
+                        style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                        @lang('messages.trending_ads_description')
+                    </p>
                 </div>
+
             </div>
         </div>
         <div class="row">

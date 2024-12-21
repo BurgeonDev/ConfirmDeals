@@ -115,64 +115,6 @@
                                 </div>
 
                                 <!-- Accepted Bids -->
-                                {{-- <div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
-                                    @forelse ($acceptedBids as $bid)
-                                        <div class="my-3 shadow-sm card">
-                                            <div class="card-body d-flex align-items-center justify-content-between">
-                                                @if (!empty($bid->ad->pictures) && is_array($bid->ad->pictures))
-                                                    <img src="{{ asset('storage/' . $bid->ad->pictures[0]) }}"
-                                                        alt="Ad Picture" class="img-thumbnail"
-                                                        style="width: 75px; height: 75px;">
-                                                @else
-                                                    <span>No Picture</span>
-                                                @endif
-
-                                                <div class="d-flex flex-column flex-grow-1 ms-3">
-                                                    <h5 class="mb-1">
-                                                        <a href="{{ route('ad.show', $bid->ad->id) }}"
-                                                            class="text-decoration-none"
-                                                            style="color: #5830e0">{{ $bid->ad->title }}</a>
-                                                    </h5>
-                                                    <div class="d-flex justify-content-between">
-                                                        <p class="mb-0"><strong>Offer:</strong> {{ $bid->offer }}</p>
-                                                        <p class="mb-0"><strong>Date:</strong>
-                                                            {{ $bid->created_at->format('d M Y') }}</p>
-                                                        <p class="mb-0"><strong>Status:</strong> <span
-                                                                class="badge bg-success">Accepted</span></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @empty
-                                        <p class="text-center">No accepted bids found.</p>
-                                    @endforelse
-                                    <div style="justify-content:center" class="pagination center">
-                                        <ul class="pagination-list">
-                                            @if ($acceptedBids->onFirstPage())
-                                                <li class="disabled"><a href="javascript:void(0)"><i
-                                                            class="lni lni-chevron-left"></i></a></li>
-                                            @else
-                                                <li><a href="{{ $acceptedBids->previousPageUrl() }}"><i
-                                                            class="lni lni-chevron-left"></i></a></li>
-                                            @endif
-
-                                            @foreach ($acceptedBids->getUrlRange(1, $acceptedBids->lastPage()) as $page => $url)
-                                                <li class="{{ $acceptedBids->currentPage() == $page ? 'active' : '' }}">
-                                                    <a href="{{ $url }}">{{ $page }}</a>
-                                                </li>
-                                            @endforeach
-
-                                            @if ($acceptedBids->hasMorePages())
-                                                <li><a href="{{ $acceptedBids->nextPageUrl() }}"><i
-                                                            class="lni lni-chevron-right"></i></a></li>
-                                            @else
-                                                <li class="disabled"><a href="javascript:void(0)"><i
-                                                            class="lni lni-chevron-right"></i></a></li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </div> --}}
-                                <!-- Accepted Bids -->
                                 <div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
                                     @forelse ($acceptedBids as $bid)
                                         <div class="my-3 shadow-sm card">

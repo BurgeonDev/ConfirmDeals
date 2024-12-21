@@ -33,18 +33,18 @@
                     <div class="content-right wow fadeInRight" data-wow-delay=".5s"
                         style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
                         <!-- Heading -->
-                        <span class="sub-heading">About</span>
+                        <span class="sub-heading">@lang('messages.about')</span>
                         <h2>
-                            About Our Company</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius mod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi aliquip ex ea commodo consequat.</p>
-                        <h3>What We Do</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius mod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                            {{-- <h1>@lang('messages.welcome')</h1> --}}
+                            @lang('messages.about_our_company')
+                        </h2>
+                        <p>@lang('messages.about_description')</p>
+                        <h3>@lang('messages.what_we_do')</h3>
+                        <p>@lang('messages.what_we_do_description')</p>
                         <!-- End Heading -->
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
