@@ -14,6 +14,7 @@ class CreateFeedbackTable extends Migration
             $table->foreignId('ad_id')->constrained()->onDelete('cascade');
             $table->integer('rating')->default(0); // Rating (1-5 scale)
             $table->text('comment')->nullable(); // User comment
+            $table->text('response')->nullable(); /////////owner response
             $table->timestamps();
         });
     }

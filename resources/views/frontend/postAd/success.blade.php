@@ -44,11 +44,11 @@
             <div class="d-table-cell">
                 <div class="container">
                     <div class="success-content">
-                        <h1>@lang('message.congratulations')</h1>
-                        <h2>@lang('message.ad_posted_success')</h2>
-                        <p>@lang('message.thank_you_message')</p>
+                        <h1>@lang('messages.congratulations')</h1>
+                        <h2>@lang('messages.ad_posted_success')</h2>
+                        <p>@lang('messages.thank_you_message')</p>
                         <div class="button">
-                            <a href="{{ route('home') }}" class="btn">@lang('message.go_home')</a>
+                            <a href="{{ route('home') }}" class="btn">@lang('messages.go_home')</a>
                         </div>
                     </div>
 
