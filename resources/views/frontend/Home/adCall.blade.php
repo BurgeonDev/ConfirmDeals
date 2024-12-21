@@ -14,7 +14,7 @@
                          </p>
                          <div class="button wow fadeInUp" data-wow-delay=".8s"
                              style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
-                             <a href="{{ route('ads.create') }}" class="btn">@lang('messages.post_ad_btn')</a>
+                             <a href="{{ route('ad.create') }}" class="btn">@lang('messages.post_ad_btn')</a>
                          </div>
                      </div>
 

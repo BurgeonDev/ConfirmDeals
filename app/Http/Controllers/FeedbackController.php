@@ -9,11 +9,7 @@ use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
-    // public function create($adId)
-    // {
-    //     $ad = Ad::findOrFail($adId);
-    //     return view('feedback.create', compact('ad'));
-    // }
+
 
     public function store(Request $request, $adId)
     {
@@ -36,5 +32,15 @@ class FeedbackController extends Controller
 
         return redirect()->route('ad.show', $adId)
             ->with('success', 'Feedback submitted successfully!');
+    }
+    public function storeResponse(Request $request, $feedbackId)
+    {
+
+        $request->validate([
+            'response' => 'required|string|max:255',
+        ]);
+        $feedback = Feedback::findOrFail($feedbackId);
+        $feedback->update(['response' => $request->response]);
+        return redirect()->back()->with('success', 'Response submitted successfully.');
     }
 }

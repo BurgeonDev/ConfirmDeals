@@ -12,7 +12,7 @@ class Feedback extends Model
     use HasFactory;
 
     // In the Feedback model
-    protected $fillable = ['user_id', 'ad_id', 'rating', 'comment'];
+    protected $fillable = ['user_id', 'ad_id', 'rating', 'comment', 'response'];
 
 
     public function ad()

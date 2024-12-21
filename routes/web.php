@@ -83,6 +83,7 @@ Route::group([
 
         // Feedback Routes
         Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+        Route::post('/feedback/{feedback}/response', [FeedbackController::class, 'storeResponse'])->name('feedback.response');
 
         Route::middleware(['auth'])->group(function () {
             Route::post('/report', [ReportController::class, 'store'])->name('report.store');
