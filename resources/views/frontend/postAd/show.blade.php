@@ -31,7 +31,7 @@
                                         <img src="{{ asset('storage/' . $ad->pictures[0]) }}" id="current"
                                             alt="Main Picture" class="img-thumbnail" style="width: 750px; height: 500px;">
                                     @else
-                                        <span>No Picture</span>
+                                        <span>@lang('messages.no_picture')</span>
                                     @endif
                                 </div>
                                 <div class="images">
@@ -88,12 +88,12 @@
                                         <div class="row">
                                             <div class="col-md-8 d-flex align-items-center">
                                                 <div class="me-2 button">
-                                                    <button type="submit" class="btn">Bid</button>
+                                                    <button type="submit" class="btn">@lang('messages.bid')</button>
                                                 </div>
                                                 <div class="button me-2" style="flex-grow: 1;">
                                                     <input style="height: 52px;" type="number" name="offer"
                                                         class="form-control form-control-custom"
-                                                        placeholder="Enter bid amount" required>
+                                                        placeholder="@lang('messages.enter_bid_amount')" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,9 +111,10 @@
                                 <h4>Coins</h4>
                                 <ul>
                                     <div class="row">
-                                        <li class="col-md-4"><span>Coins Required:</span> {{ $ad->coins_needed }}</li>
-                                        <li class="col-md-4"><span>Available Coins:</span> {{ auth()->user()->coins }}</li>
-                                        <li class="col-md-4"><span>No. of Bids:</span> {{ $ad->bids->count() }}</li>
+                                        <li class="col-md-4"><span>@lang('messages.coins_required')</span> {{ $ad->coins_needed }}</li>
+                                        <li class="col-md-4"><span>@lang('messages.available_coins')</span> {{ auth()->user()->coins }}
+                                        </li>
+                                        <li class="col-md-4"><span>@lang('messages.no_of_bids')</span> {{ $ad->bids->count() }}</li>
                                     </div>
 
 
@@ -122,18 +123,17 @@
                                 <h4>Informations</h4>
                                 <ul>
 
-                                    <li><span>Type:</span>{{ $ad->type }}</li>
-                                    <li><span>Category:</span>{{ $ad->category->name }}</li>
-                                    <li><span>Status:</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</li>
-                                    <li><span>Created
-                                            On:</span>{{ \Carbon\Carbon::parse($ad->created_at)->format('F j, Y ') }}
+                                    <li><span>@lang('messages.type'):</span>{{ $ad->type }}</li>
+                                    <li><span>@lang('messages.category'):</span>{{ $ad->category->name }}</li>
+                                    <li><span>@lang('messages.status'):</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}
                                     </li>
-                                    <li><span>Updated
-                                            On:</span>{{ \Carbon\Carbon::parse($ad->updated_at)->format('F j, Y ') }}
+                                    <li><span>@lang('messages.created_on')</span>{{ \Carbon\Carbon::parse($ad->created_at)->format('F j, Y ') }}
+                                    </li>
+                                    <li><span>@lang('messages.updated_on')</span>{{ \Carbon\Carbon::parse($ad->updated_at)->format('F j, Y ') }}
                                         <button type="button" class="btn btn-sm"
                                             style="background-color:none; border-color:none; color:#232323;"
                                             data-bs-toggle="modal" data-bs-target="#reportModal">
-                                            <i class="lni lni-flag"></i><span>Report this Ad</span>
+                                            <i class="lni lni-flag"></i><span>@lang('messages.report_this_ad')</span>
 
                                         </button>
                                     </li>
@@ -183,28 +183,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- <div class="contact-info">
-                                <ul>
-
-                                    <li>
-                                        <a href="tel:{{ $ad->createdBy->phone_number ?? '' }}" class="call">
-                                            <i class="lni lni-phone-set"></i>
-                                            {{ $ad->createdBy->phone_number ?? 'No Phone Number' }}
-                                            <span>Call &amp; Get more info</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="mailto:{{ $ad->createdBy->email ?? 'example@gmail.com' }}"
-                                            class="mail">
-                                            <i class="lni lni-envelope"></i>
-                                        </a>
-
-                                    </li>
-
-                                </ul>
-                            </div> --}}
-
                         </div>
 
                     </div>
@@ -218,7 +196,7 @@
                     <div class="col-lg-8 col-md-7 col-12">
                         <!-- Start Single Block -->
                         <div class="single-block description">
-                            <h3>Description</h3>
+                            <h3>@lang('messages.description')</h3>
                             <p>{{ $ad->description }}</p>
                         </div>
                     </div>
@@ -226,7 +204,7 @@
                         <div class="item-details-sidebar">
                             <!-- Start Single Block -->
                             <div class="single-block author">
-                                <h3>Seller</h3>
+                                <h3>@lang('messages.seller')</h3>
                                 <div class="content">
                                     <img src="{{ $ad->user->profile_pic ? asset('storage/' . $ad->user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                                         alt="Seller">
@@ -266,7 +244,7 @@
                     </div>
                 </div>
                 <div class="single-block">
-                    <h3>Location</h3>
+                    <h3>@lang('messages.location')</h3>
                     <div class="mapoute col-lg-12">
                         <div class="gmap_canvas">
                             @if ($ad->locality && $ad->locality->name)

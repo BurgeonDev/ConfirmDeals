@@ -119,6 +119,30 @@ return [
     /////////trending ad
     'trending_ads_title' => 'ٹرینڈنگ اشتہارات',
     'trending_ads_description' => 'ٹرینڈنگ اشتہارات کی طاقت کو دریافت کریں – تازہ ترین، سب سے دلچسپ اشتہارات کے ساتھ اسٹریٹجی میں آگے رہیں جو توجہ کو گرفت میں لاتے ہیں اور نتائج کی تحریک کرتے ہیں!',
-
-
+    ////////////////////////show ad
+    'no_picture' => 'کوئی تصویر نہیں',
+    'locality_not_found' => 'مقام نہیں ملا',
+    'city_not_found' => 'شہر نہیں ملا',
+    'bid' => 'بولی',
+    'enter_bid_amount' => 'بولی کی رقم درج کریں',
+    'not_enough_coins' => 'آپ کے پاس اس اشتہار پر بولی لگانے کے لیے کافی سکے نہیں ہیں۔',
+    'coins_required' => 'ضروری سکے:',
+    'available_coins' => 'دستیاب سکے:',
+    'no_of_bids' => 'بولیوں کی تعداد:',
+    'verified' => 'تصدیق شدہ',
+    'not_verified' => 'غیر تصدیق شدہ',
+    'created_on' => 'تخلیق شدہ:',
+    'updated_on' => 'تازہ ترین:',
+    'report_this_ad' => 'اس اشتہار کی اطلاع دیں',
+    'report_ad' => 'اشتہار رپورٹ کریں',
+    'reason' => 'وجہ',
+    'select_reason' => 'وجہ منتخب کریں',
+    'spam' => 'اسپام',
+    'inappropriate_content' => 'نامناسب مواد',
+    'fraud_or_scam' => 'دھوکہ یا اسکام',
+    'others' => 'دیگر',
+    'description' => 'تفصیل',
+    'submit_report' => 'رپورٹ جمع کروائیں',
+    'seller' => 'بیچنے والا',
+    'location' => 'مقام',
 ];

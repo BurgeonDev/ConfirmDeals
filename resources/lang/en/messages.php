@@ -121,6 +121,31 @@ return [
     ////////////////trending ad
     'trending_ads_title' => 'Trending Ads',
     'trending_ads_description' => 'Discover the Power of Trending Ads – Stay Ahead of the Curve with the Latest, Most Engaging Ads that Capture Attention and Drive Results!',
-
+    //////////////////show ad
+    'no_picture' => 'No Picture',
+    'locality_not_found' => 'Locality Not Found',
+    'city_not_found' => 'City Not Found',
+    'bid' => 'Bid',
+    'enter_bid_amount' => 'Enter bid amount',
+    'not_enough_coins' => "You don't have enough coins to bid on this ad.",
+    'coins_required' => 'Coins Required:',
+    'available_coins' => 'Available Coins:',
+    'no_of_bids' => 'No. of Bids:',
+    'verified' => 'Verified',
+    'not_verified' => 'Not Verified',
+    'created_on' => 'Created On:',
+    'updated_on' => 'Updated On:',
+    'report_this_ad' => 'Report this Ad',
+    'report_ad' => 'Report Ad',
+    'reason' => 'Reason',
+    'select_reason' => 'Select a reason',
+    'spam' => 'Spam',
+    'inappropriate_content' => 'Inappropriate Content',
+    'fraud_or_scam' => 'Fraud or Scam',
+    'others' => 'Others',
+    'description' => 'Description',
+    'submit_report' => 'Submit Report',
+    'seller' => 'Seller',
+    'location' => 'Location',
 
 ];
