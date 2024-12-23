@@ -26,6 +26,10 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\NewsletterAdminController;
+use App\Http\Controllers\EasypaisaController;
+use App\Http\Controllers\JazzCashController;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -131,21 +135,22 @@ Route::group([
     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
+    ////////////////newletter
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/newsletters', [NewsletterAdminController::class, 'index'])->name('admin.newsletters.index');
+    Route::delete('/newsletters/{id}', [NewsletterAdminController::class, 'destroy'])->name('admin.newsletters.destroy');
+    Route::post('/newsletters/send', [NewsletterAdminController::class, 'sendNewsletter'])->name('admin.newsletters.send');
 
-    ////////////////////
-    Route::get('/paymentsway', function () {
-        return view('frontend.pricing.paymentway');
+    ////////////////////payments
+    Route::get('/paymentsway', function (Illuminate\Http\Request $request) {
+        $price = $request->input('price');
+        $packageName = $request->input('packageName');
+
+        return view('frontend.pricing.paymentway', compact('price', 'packageName'));
     })->name('paymentsway');
-    //////////////////jazzcash
-    Route::post('/initiate-payment', [PaymentController::class, 'initiatePayment'])->name('initiatePayment');
-    Route::post('/payment-success', [PaymentController::class, 'handleResponse']);
-    //////////////////easypay
-    Route::get('/checkout', [EasypayController::class, 'checkoutIndex'])->name('checkout.index');
-    Route::post('/checkout/process', [EasypayController::class, 'checkout'])->name('checkout.process');
-    Route::post('/checkout/{uid}/{transactionId}/{mobileNo}/confirm', [EasypayController::class, 'checkoutConfirm'])->name('checkout.confirm');
-    Route::get('/checkout/{uid}/{transactionId}/{mobileNo}/success', [EasypayController::class, 'checkoutSuccess'])->name('checkout.success');
-    Route::get('/checkout/fail', function () {
-        return 'Transaction Failed';
-    })->name('checkout.fail');
+    Route::post('/jazzcash', [JazzCashController::class, 'processPayment'])->name('jazzcash');
+    Route::get('/jazzcash/callback', [JazzCashController::class, 'handleCallback'])->name('jazzcash.callback');
+    Route::post('/easypaisa', [EasypaisaController::class, 'makePayment'])->name('easypaisa');
+    Route::post('/easypaisa/callback', [EasypaisaController::class, 'easypasahandleCallback'])->name('easypaisa.callback');
 });
 require __DIR__ . '/auth.php';

@@ -143,7 +143,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Country -->
+                                                {{-- <!-- Country -->
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="country_id">@lang('messages.country')</label>
@@ -189,6 +189,65 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
+                                                </div> --}}
+                                                <!-- Country -->
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="country_id">@lang('messages.country')</label>
+                                                        <select name="country_id" id="country_id" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select Country</option>
+                                                            @foreach ($countries as $country)
+                                                                <option value="{{ $country->id }}"
+                                                                    {{ old('country_id', $user->country_id) == $country->id ? 'selected' : '' }}>
+                                                                    {{ $country->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('country_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- City -->
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="city_id">@lang('messages.city')</label>
+                                                        <select name="city_id" id="city_id" class="user-chosen-select"
+                                                            required>
+                                                            <option value="">Select City</option>
+                                                            @foreach ($cities as $city)
+                                                                <option value="{{ $city->id }}"
+                                                                    {{ old('city_id', $user->city_id) == $city->id ? 'selected' : '' }}>
+                                                                    {{ $city->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('city_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Locality -->
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="locality_id">@lang('messages.locality')</label>
+                                                        <select name="locality_id" id="locality_id"
+                                                            class="user-chosen-select">
+                                                            <option value="">Select Locality</option>
+                                                            @foreach ($localities as $locality)
+                                                                <option value="{{ $locality->id }}"
+                                                                    {{ old('locality_id', $user->locality_id) == $locality->id ? 'selected' : '' }}>
+                                                                    {{ $locality->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('locality_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
 
                                                 <!-- Password -->
@@ -228,7 +287,7 @@
                         </div>
                     </div>
                     <div class="main-content">
-                        <div class="mt-0 dashboard-block close-content">
+                        <div class="mt-3 dashboard-block close-content">
                             <h2>@lang('messages.delete_account')</h2>
                             <h4>@lang('messages.are_you_sure_delete')</h4>
                             <div class="button">

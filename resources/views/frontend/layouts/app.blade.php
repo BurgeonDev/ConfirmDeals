@@ -146,16 +146,63 @@
                             <p>We don't send spam so don't worry.</p>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-12">
+
+                    {{-- <div class="col-lg-6 col-md-6 col-12">
                         <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
-                                <div class="button">
-                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
+                            <form action="{{ route('newsletter.subscribe') }}" method="POST" class="newsletter-form">
+                                @csrf
+                                <input type="email" name="email" placeholder="Your email address" required>
+                                <div class="button"><button class="btn" type="submit">Subscribe<span
+                                            class="dir-part"></span></button>
                                 </div>
                             </form>
                         </div>
+                    </div> --}}
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form">
+                            @if (auth()->check())
+                                <!-- Check if the user is subscribed -->
+                                @php
+                                    $userEmail = auth()->user()->email;
+                                    $isSubscribed = \App\Models\Newsletter::where('email', $userEmail)->exists();
+                                @endphp
+
+                                @if ($isSubscribed)
+                                    <!-- Show 'Subscribed' message -->
+                                    <div class="subscribed-message"
+                                        style="text-align: center; padding: 20px; border: 2px solid #6f42c1; border-radius: 8px; background-color: #f9f9f9;">
+                                        <h3 style="color: #5830e0">🎉 You're already subscribed!</h3>
+                                        <p style="color: #555;">Thank you for staying connected with us.</p>
+                                    </div>
+                                @else
+                                    <!-- Show the email form -->
+                                    <form action="{{ route('newsletter.subscribe') }}" method="POST"
+                                        class="newsletter-form">
+                                        @csrf
+                                        <input type="email" name="email" value="{{ auth()->user()->email }}"
+                                            placeholder="Your email address" required readonly>
+                                        <div class="button">
+                                            <button class="btn" type="submit">Subscribe<span
+                                                    class="dir-part"></span></button>
+                                        </div>
+                                    </form>
+                                @endif
+                            @else
+                                <!-- Show the email form for non-authenticated users -->
+                                <form action="{{ route('newsletter.subscribe') }}" method="POST"
+                                    class="newsletter-form">
+                                    @csrf
+                                    <input type="email" name="email" placeholder="Your email address" required>
+                                    <div class="button">
+                                        <button class="btn" type="submit">Subscribe<span
+                                                class="dir-part"></span></button>
+                                    </div>
+                                </form>
+                            @endif
+                        </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

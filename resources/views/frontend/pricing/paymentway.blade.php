@@ -26,15 +26,24 @@
                         <h1>Choose Payment Method</h1>
                         <h2>Select one of the payment options below to proceed.</h2>
 
+                        <h1>Payment Details</h1>
+
+
                         <div class="mt-4 button">
-                            <form action="{{ route('initiatePayment') }}" method="POST">
+                            <form action="{{ route('jazzcash') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="amount" value="100">
+                                <input type="hidden" name="amount" value="{{$price}}">
+                                <input type="hidden" name="packageName" value="{{ $packageName }}" >
                                 <button style="border:none" type="submit"><a class="btn">Pay with JazzCash</a></button>
                             </form>
                         </div>
                         <div class="mt-4 button">
-                            <a href="{{ route('checkout.index') }}" class="btn">Pay with Easypaisa</a>
+                            <form action="{{ route('easypaisa') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="amount" value="{{$price}}">
+                                <input type="hidden" name="packageName" value="{{ $packageName }}" >
+                                <button style="border:none" type="submit"><a class="btn">Pay with Easypaisa</a></button>
+                            </form>
                         </div>
                     </div>
 
