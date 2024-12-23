@@ -26,6 +26,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\NewsletterAdminController;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -131,6 +133,11 @@ Route::group([
     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
+    ////////////////newletter
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/newsletters', [NewsletterAdminController::class, 'index'])->name('admin.newsletters.index');
+    Route::delete('/newsletters/{id}', [NewsletterAdminController::class, 'destroy'])->name('admin.newsletters.destroy');
+    Route::post('/newsletters/send', [NewsletterAdminController::class, 'sendNewsletter'])->name('admin.newsletters.send');
 
     ////////////////////
     Route::get('/paymentsway', function () {
