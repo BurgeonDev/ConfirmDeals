@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/jazzcash/payment', // Exempt this route
+        '/jazzcash/payment',
+        '/jazzcash/callback'
     ];
 }

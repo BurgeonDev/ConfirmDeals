@@ -36,10 +36,17 @@
                      </ul>
                      <!-- End Table List -->
                      <!-- Table Bottom -->
-                     <div class="button">
-                         <button style="border:none" type="submit"><a href="{{ route('paymentsway') }}"
-                                 class="btn">Buy Now</a></button>
-                     </div>
+                     <form action="{{ route('paymentsway') }}">
+                         @csrf
+                         <input type="hidden" name="price" value="10">
+                         <input type="hidden" name="packageName" value="basic">
+
+
+                         <div class="button">
+                             <button style="border:none" class="btn" type="submit"> Buy Now</button>
+
+                         </div>
+                     </form>
 
                      <!-- End Table Bottom -->
                  </div>
@@ -69,11 +76,17 @@
                      </ul>
                      <!-- End Table List -->
                      <!-- Table Bottom -->
-                     <div class="button">
-                         <button style="border:none" type="submit"><a href="{{ route('paymentsway') }}"
-                                 class="btn">Buy Now</a></button>
+                     <form action="{{ route('paymentsway') }}">
+                         @csrf
+                         <input type="hidden" name="price" value="500">
+                         <input type="hidden" name="packageName" value="standard">
 
-                     </div>
+
+                         <div class="button">
+                             <button style="border:none" class="btn" type="submit"> Buy Now</button>
+
+                         </div>
+                     </form>
                      <!-- End Table Bottom -->
                  </div>
                  <!-- End Single Table-->
@@ -102,11 +115,18 @@
                      </ul>
                      <!-- End Table List -->
                      <!-- Table Bottom -->
-                     <div class="button">
-                         <button style="border:none" type="submit"><a href="{{ route('paymentsway') }}"
-                                 class="btn">Buy Now</a></button>
-                         <!-- End Table Bottom -->
-                     </div>
+                     <form action="{{ route('paymentsway') }}">
+                         @csrf
+                         <input type="hidden" name="price" value="1000">
+                         <input type="hidden" name="packageName" value="premium">
+
+
+                         <div class="button">
+                             <button style="border:none" class="btn" type="submit"> Buy Now</button>
+
+                         </div>
+                     </form>
+
                      <!-- End Single Table-->
                  </div>
 
