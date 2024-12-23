@@ -15,13 +15,18 @@ class UserProfileController extends Controller
 {
     public function edit()
     {
+        $user = auth()->user();
         $professions = Profession::all();
         $countries = Country::with('cities.localities')->get();
-
+        $cities = City::where('country_id', $user->country_id)->get();
+        $localities = Locality::where('city_id', $user->city_id)->get();
         return view('frontend.profile.edit', [
             'user' => Auth::user(),
             'professions' => $professions,
             'countries' => $countries,
+            'cities' => $cities,
+            'localities' => $localities
+
         ]);
     }
     public function getCities($countryId)
