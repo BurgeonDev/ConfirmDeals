@@ -46,15 +46,7 @@ Route::group([
         return view('frontend.pricing.index');
     })->name('pricing');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-
-
     Route::resource('/home', HomeController::class);
-
-
-
-
-
-
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -70,33 +62,17 @@ Route::group([
         Route::resource('user/dashboard', FrontendDashboardController::class);
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
-
-
-
-        // Routes: web.php
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-        // Bid Routes
-        Route::middleware('auth')->group(function () {
-            Route::post('/bids/{adId}/place', [BidController::class, 'placeBid'])->name('bids.place');
-            Route::post('/bids/{bidId}/accept', [BidController::class, 'acceptBid'])->name('bids.accept');
-            Route::post('/bids/{bidId}/reject', [BidController::class, 'rejectBid'])->name('bids.reject');
-            Route::get('/bids', [BidController::class, 'showAllBids'])->name('bids.index');
-            Route::get('/my-bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
-        });
-
-        // Feedback Routes
+        Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+        Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
+        Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
+        Route::post('/bids/{adId}/place', [BidController::class, 'placeBid'])->name('bids.place');
+        Route::post('/bids/{bidId}/accept', [BidController::class, 'acceptBid'])->name('bids.accept');
+        Route::post('/bids/{bidId}/reject', [BidController::class, 'rejectBid'])->name('bids.reject');
+        Route::get('/bids', [BidController::class, 'showAllBids'])->name('bids.index');
+        Route::get('/my-bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
         Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
         Route::post('/feedback/{feedback}/response', [FeedbackController::class, 'storeResponse'])->name('feedback.response');
-
-        Route::middleware(['auth'])->group(function () {
-            Route::post('/report', [ReportController::class, 'store'])->name('report.store');
-            Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
-            Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
-        });
-
-
-
         Route::get('/admin/users', [UserController::class, 'index'])->name('admin.userManagement');
         Route::post('/admin/users/{id}/assign-role', [UserController::class, 'assignRole'])->name('admin.assignRole');
         Route::get('/admin/roles/create', [UserController::class, 'createRole'])->name('admin.roles.create');
@@ -106,27 +82,34 @@ Route::group([
         Route::patch('/admin/roles/{id}', [UserController::class, 'updateRole'])->name('admin.roles.update');
         Route::delete('/admin/roles/{id}', [UserController::class, 'destroyRole'])->name('admin.roles.destroy');
         Route::patch('/admin/users/{id}/toggle', [UserController::class, 'toggleUserStatus'])->name('admin.toggleUserStatus');
-
         Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
         Route::patch('/ads/{ad}/toggle-verified', [AdController::class, 'toggleVerifiedStatus'])->name('ads.toggleVerifiedStatus');
-
         Route::get('/get-coin-price-and-balance', [AdController::class, 'getCoinPriceAndBalance']);
-
-
         Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
-    });
-
-    Route::middleware('auth')->group(function () {
         Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
         Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
         Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
-
         Route::get('/profile/{user}', [UserProfileController::class, 'publicProfile'])->name('profile.public');
-    });
-    Route::middleware(['auth'])->group(function () {
         Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
         Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+        ////////////////newletter
+        Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+        Route::get('/newsletters', [NewsletterAdminController::class, 'index'])->name('admin.newsletters.index');
+        Route::delete('/newsletters/{id}', [NewsletterAdminController::class, 'destroy'])->name('admin.newsletters.destroy');
+        Route::post('/newsletters/send', [NewsletterAdminController::class, 'sendNewsletter'])->name('admin.newsletters.send');
+        ////////////////////payments
+        Route::get('/paymentsway', function (Illuminate\Http\Request $request) {
+            $price = $request->input('price');
+            $packageName = $request->input('packageName');
+
+            return view('frontend.pricing.paymentway', compact('price', 'packageName'));
+        })->name('paymentsway');
+        Route::post('/jazzcash', [JazzCashController::class, 'processPayment'])->name('jazzcash');
+        Route::get('/jazzcash/callback', [JazzCashController::class, 'handleCallback'])->name('jazzcash.callback');
+        Route::post('/easypaisa', [EasypaisaController::class, 'makePayment'])->name('easypaisa');
+        Route::post('/easypaisa/callback', [EasypaisaController::class, 'easypasahandleCallback'])->name('easypaisa.callback');
     });
+
     Route::get('/get-cities/{countryId}', [UserProfileController::class, 'getCities'])->name('getCities');
     Route::get('/get-localities/{cityId}', [UserProfileController::class, 'getLocalities'])->name('getLocalities');
 
@@ -134,23 +117,5 @@ Route::group([
     Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
-
-    ////////////////newletter
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-    Route::get('/newsletters', [NewsletterAdminController::class, 'index'])->name('admin.newsletters.index');
-    Route::delete('/newsletters/{id}', [NewsletterAdminController::class, 'destroy'])->name('admin.newsletters.destroy');
-    Route::post('/newsletters/send', [NewsletterAdminController::class, 'sendNewsletter'])->name('admin.newsletters.send');
-
-    ////////////////////payments
-    Route::get('/paymentsway', function (Illuminate\Http\Request $request) {
-        $price = $request->input('price');
-        $packageName = $request->input('packageName');
-
-        return view('frontend.pricing.paymentway', compact('price', 'packageName'));
-    })->name('paymentsway');
-    Route::post('/jazzcash', [JazzCashController::class, 'processPayment'])->name('jazzcash');
-    Route::get('/jazzcash/callback', [JazzCashController::class, 'handleCallback'])->name('jazzcash.callback');
-    Route::post('/easypaisa', [EasypaisaController::class, 'makePayment'])->name('easypaisa');
-    Route::post('/easypaisa/callback', [EasypaisaController::class, 'easypasahandleCallback'])->name('easypaisa.callback');
 });
 require __DIR__ . '/auth.php';

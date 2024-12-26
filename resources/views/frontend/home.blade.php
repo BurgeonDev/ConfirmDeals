@@ -5,31 +5,31 @@
     <!-- End Hero Area -->
 
     <!-- Start Categories Area -->
-    @include('frontend.Home.category')
+    @include('frontend.home.category')
     <!-- /End Categories Area -->
 
     <!-- Start Items Grid Area -->
-    @include('frontend.Home.item')
+    @include('frontend.home.item')
     <!-- /End Items Grid Area -->
 
     <!-- Start Why Choose Area -->
-    @include('frontend.Home.whyUs')
+    @include('frontend.home.whyUs')
     <!-- /End Why Choose Area -->
 
 
     <!-- Start Call Action Area/ post ad -->
-    @include('frontend.Home.adCall')
+    @include('frontend.home.adCall')
     <!-- End Call Action Area -->
 
     <!-- Start Ads Area -->
-    @include('frontend.Home.ads')
+    @include('frontend.home.ads')
     <!-- End Items Tab Area -->
 
     <!-- Start Pricing Table Area -->
-    @include('frontend.Home.pricing')
+    @include('frontend.home.pricing')
     <!--/ End Pricing Table Area -->
 
     <!-- Start How Works Area -->
-    @include('frontend.Home.howWork')
+    @include('frontend.home.howWork')
     <!-- End How Works Area -->
 @endsection
