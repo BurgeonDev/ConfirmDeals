@@ -169,7 +169,7 @@
 
                                 @if ($isSubscribed)
                                     <!-- Show 'Subscribed' message -->
-                                    <div class="subscribed-message">
+                                    <div class="subscribed-message" style="text-align: center;">
                                         <h3 style="color: #ffffff">🎉 You're already subscribed!</h3>
                                         <p style="color: #ffffff;">Thank you for staying connected with us.</p>
                                     </div>
