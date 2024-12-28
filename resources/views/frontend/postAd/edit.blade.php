@@ -137,7 +137,7 @@
                                                 </div>
 
                                                 <!-- Country -->
-                                                <div class="col-6">
+                                                <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="country_id">@lang('messages.country')*</label>
                                                         <select name="country_id" id="country_id" class="user-chosen-select"
@@ -154,7 +154,7 @@
                                                 </div>
 
                                                 <!-- City -->
-                                                <div class="col-6">
+                                                <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="city_id">@lang('messages.city')*</label>
                                                         <select name="city_id" id="city_id" class="user-chosen-select"
@@ -171,7 +171,7 @@
                                                 </div>
 
                                                 <!-- Locality -->
-                                                <div class="col-6">
+                                                <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="locality_id">@lang('messages.locality')</label>
                                                         <select name="locality_id" id="locality_id"
