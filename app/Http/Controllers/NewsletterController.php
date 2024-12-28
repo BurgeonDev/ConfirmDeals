@@ -9,6 +9,7 @@ class NewsletterController extends Controller
 {
     public function subscribe(Request $request)
     {
+
         $request->validate([
             'email' => 'required|email|unique:newsletters,email',
         ]);
