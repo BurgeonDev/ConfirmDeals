@@ -169,10 +169,9 @@
 
                                 @if ($isSubscribed)
                                     <!-- Show 'Subscribed' message -->
-                                    <div class="subscribed-message"
-                                        style="text-align: center; padding: 20px; border: 2px solid #6f42c1; border-radius: 8px; background-color: #f9f9f9;">
-                                        <h3 style="color: #5830e0">🎉 You're already subscribed!</h3>
-                                        <p style="color: #555;">Thank you for staying connected with us.</p>
+                                    <div class="subscribed-message">
+                                        <h3 style="color: #ffffff">🎉 You're already subscribed!</h3>
+                                        <p style="color: #ffffff;">Thank you for staying connected with us.</p>
                                     </div>
                                 @else
                                     <!-- Show the email form -->
