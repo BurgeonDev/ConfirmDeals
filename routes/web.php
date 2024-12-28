@@ -115,6 +115,7 @@ Route::group([
 
 
     Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
+    Route::get('/adss', [CategoryController::class, 'cat'])->name('categories.indexx');
     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 });

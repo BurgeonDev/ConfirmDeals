@@ -79,4 +79,32 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
+    public function indexx(Request $request)
+    {
+        // Get all categories and cities for dropdowns
+        $categories = Category::all();
+        $cities = City::all();
+
+        // Start the query to filter ads
+        $query = Ad::where('is_verified', true);
+
+        // Apply filters based on the request parameters
+        if ($request->has('keyword') && $request->keyword) {
+            $query->where('title', 'like', '%' . $request->keyword . '%');
+        }
+
+        if ($request->has('category') && $request->category !== 'none') {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->has('city') && $request->city !== 'none') {
+            $query->where('city', $request->city);
+        }
+
+        // Paginate the results
+        $ads = $query->paginate(30);
+
+        // Return the view with the necessary data
+        return view('frontend.categories.index', compact('ads', 'categories', 'cities'));
+    }
 }
