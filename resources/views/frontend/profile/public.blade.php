@@ -59,7 +59,7 @@
                         <div class="card-body">
                             <h3 class="mb-4">{{ $user->first_name }} {{ $user->last_name }}'s Ads</h3>
                             @forelse ($ads as $ad)
-                                <div class="pb-3 mb-4 ad-card border-bottom">
+                                <div class="pb-3 mb-4 border-bottom">
                                     <!-- Ad Details -->
                                     <a href="{{ route('ad.show', $ad->id) }}">
                                         <h4 class="h5 fw-bold" style="color: #582fe0">{{ $ad->title }}</h4>
