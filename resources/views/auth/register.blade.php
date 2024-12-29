@@ -33,60 +33,61 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    {{-- <label for="first_name">First Name</label> --}}
                                     <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}"
                                         required autofocus autocomplete="first_name" class="form-control"
                                         placeholder="First Name">
-                                    <x-input-error :messages="$errors->get('first_name')" />
+                                    @if ($errors->has('first_name'))
+                                        <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-6">
-                                    {{-- <label for="last_name">Last Name</label> --}}
                                     <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}"
                                         required autofocus autocomplete="last_name" class="form-control"
                                         placeholder="Last Name">
-                                    <x-input-error :messages="$errors->get('last_name')" />
+                                    @if ($errors->has('last_name'))
+                                        <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                    @endif
                                 </div>
                             </div>
 
-                            <!-- phone -->
+                            <!-- Phone -->
                             <div class="form-group col-md-12">
-                                {{-- <label for="phone_number">Phone No</label> --}}
                                 <input id="phone_number" name="phone_number" type="text"
                                     value="{{ old('phone_number') }}" required autofocus autocomplete="phone_number"
                                     class="form-control" placeholder="Phone Number">
-                                <x-input-error :messages="$errors->get('phone_number')" />
+                                @if ($errors->has('phone_number'))
+                                    <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                                @endif
                             </div>
 
                             <!-- Email Address -->
                             <div class="form-group">
-                                {{-- <label for="email">Email</label> --}}
                                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
                                     autocomplete="email" class="form-control" placeholder="Email">
-                                <x-input-error :messages="$errors->get('email')" />
+                                @if ($errors->has('email'))
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
                             </div>
 
                             <!-- Profession -->
                             <div class="form-group">
-                                {{-- <label for="profession">Profession</label> --}}
-                                <div class="selector-head">
-
-                                    <select id="profession" name="profession" class="form-control" required>
-
-                                        <option value="">Select Profession</option>
-                                        @foreach ($professions as $profession)
-                                            <option value="{{ $profession->id }}"
-                                                {{ old('profession') == $profession->id ? 'selected' : '' }}>
-                                                {{ $profession->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <x-input-error :messages="$errors->get('profession')" />
+                                <select id="profession" name="profession" class="form-control" required>
+                                    <option value="">Select Profession</option>
+                                    @foreach ($professions as $profession)
+                                        <option value="{{ $profession->id }}"
+                                            {{ old('profession') == $profession->id ? 'selected' : '' }}>
+                                            {{ $profession->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('profession'))
+                                    <span class="text-danger">{{ $errors->first('profession') }}</span>
+                                @endif
                             </div>
+
                             <div class="row">
                                 <!-- Country -->
                                 <div class="form-group col-md-4">
-                                    {{-- <label for="country_id">Country*</label> --}}
                                     <select name="country_id" id="country_id" class="form-control" required>
                                         <option value="">Select Country</option>
                                         @foreach ($countries as $country)
@@ -96,27 +97,45 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('country_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    @if ($errors->has('country_id'))
+                                        <span class="text-danger">{{ $errors->first('country_id') }}</span>
+                                    @endif
                                 </div>
+
                                 <!-- City -->
                                 <div class="form-group col-md-4">
-                                    {{-- <label for="city_id">City*</label> --}}
                                     <select name="city_id" id="city_id" class="form-control" required>
                                         <option value="">Select City</option>
-                                        <!-- Optionally load old value dynamically if available -->
+                                        @if (old('country_id'))
+                                            @foreach ($cities as $city)
+                                                @if ($city->country_id == old('country_id'))
+                                                    <option value="{{ $city->id }}"
+                                                        {{ old('city_id') == $city->id ? 'selected' : '' }}>
+                                                        {{ $city->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                     @error('city_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <!-- Locality -->
                                 <div class="form-group col-md-4">
-                                    {{-- <label for="locality_id">Locality</label> --}}
                                     <select name="locality_id" id="locality_id" class="form-control">
                                         <option value="">Select Locality</option>
-                                        <!-- Optionally load old value dynamically if available -->
+                                        @if (old('city_id'))
+                                            @foreach ($localities as $locality)
+                                                @if ($locality->city_id == old('city_id'))
+                                                    <option value="{{ $locality->id }}"
+                                                        {{ old('locality_id') == $locality->id ? 'selected' : '' }}>
+                                                        {{ $locality->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                     @error('locality_id')
                                         <span class="text-danger">{{ $message }}</span>
@@ -124,26 +143,30 @@
                                 </div>
 
                             </div>
+
                             <!-- Password -->
                             <div class="form-group">
-                                {{-- <label for="password">Password</label> --}}
                                 <input id="password" name="password" type="password" required autocomplete="new-password"
                                     class="form-control" placeholder="Password">
-                                <x-input-error :messages="$errors->get('password')" />
+                                @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
                             </div>
 
                             <!-- Confirm Password -->
                             <div class="form-group">
-                                {{-- <label for="password_confirmation">Confirm Password</label> --}}
                                 <input id="password_confirmation" name="password_confirmation" type="password" required
                                     autocomplete="new-password" class="form-control" placeholder="Confirm Password">
-                                <x-input-error :messages="$errors->get('password_confirmation')" />
+                                @if ($errors->has('password_confirmation'))
+                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                                @endif
                             </div>
 
                             <!-- Terms & Conditions -->
                             <div class="check-and-pass">
                                 <div class="form-check">
-                                    <input id="terms" name="terms" type="checkbox" class="form-check-input" required>
+                                    <input id="terms" name="terms" type="checkbox" class="form-check-input"
+                                        required>
                                     <label for="terms" class="form-check-label">
                                         Agree to our <a href="javascript:void(0)">Terms and Conditions</a>
                                     </label>
@@ -160,6 +183,7 @@
                                 Already have an account? <a href="{{ route('login') }}">Login Now</a>
                             </p>
                         </form>
+
                     </div>
                 </div>
             </div>
