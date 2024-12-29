@@ -3766,6 +3766,15 @@ blockquote .shape {
     padding: 0px 15px;
     padding-right: 50px;
 }
+.category-sidebar .single-widget.search input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    color: #081828;
+    padding: 0px 15px;
+    /* padding-right: 10px; */
+}
 
 .category-sidebar .single-widget.search form button {
     height: 40px;
