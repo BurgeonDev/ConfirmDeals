@@ -38,7 +38,7 @@
                                     @if (!empty($ad->pictures) && is_array($ad->pictures))
                                         @foreach ($ad->pictures as $picture)
                                             <img src="{{ asset('storage/' . $picture) }}" class="img"
-                                                alt="Thumbnail Picture">
+                                                style="max-height: 100px; max-width:120px;" alt="Thumbnail Picture">
                                         @endforeach
                                     @endif
                                 </div>
