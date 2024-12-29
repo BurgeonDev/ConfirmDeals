@@ -29,6 +29,9 @@ class ReportController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $reports = Report::with(['ad', 'user'])->latest()->get();
         return view('admin.reports.index', compact('reports'));
     }

@@ -79,4 +79,43 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
+    public function catt(Request $request)
+    {
+        $categories = Category::all();
+        $cities = City::all();
+
+        $ads = Ad::query()->where('is_verified', true);
+
+        // Search filter
+        if ($request->filled('search')) {
+            $ads->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // Location filter
+        if ($request->filled('city')) {
+            $ads->whereHas('city', function ($query) use ($request) {
+                $query->where('name', $request->city);
+            });
+
+            if ($request->filled('locality')) {
+                $ads->whereHas('locality', function ($query) use ($request) {
+                    $query->where('name', $request->locality);
+                });
+            }
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $ads->where('category_id', $request->category);
+        }
+
+        // Price range filter
+        if ($request->filled('price_min') && $request->filled('price_max')) {
+            $ads->whereBetween('price', [$request->price_min, $request->price_max]);
+        }
+
+        $ads = $ads->paginate(30);
+
+        return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
+    }
 }
