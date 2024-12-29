@@ -10,12 +10,18 @@ class CoinController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $coins = Coin::all();
         return view('admin.coins.index', compact('coins'));
     }
 
     public function create()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.coins.create');
     }
 
@@ -42,6 +48,9 @@ class CoinController extends Controller
 
     public function edit(Coin $coin)
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.coins.edit', compact('coin'));
     }
 
