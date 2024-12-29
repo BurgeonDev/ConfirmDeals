@@ -32,86 +32,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}" />
-    <style>
-        .notification-icon {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
 
-        .notification-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: #582fe0;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 5px;
-            font-size: 12px;
-        }
-
-        .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 350px;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-            /* Hidden by default */
-        }
-
-        .notification-dropdown a {
-            display: block;
-
-            color: #333;
-            text-decoration: none;
-        }
-
-        .notification-dropdown a:hover {
-            background-color: #f5f5f5;
-        }
-
-
-
-        .notification-dropdown {
-            position: absolute;
-            /* Adjust based on your layout */
-            top: 100%;
-            /* Position below the triggering element */
-            right: 0;
-            /* Align to the right */
-            width: 300px;
-            /* Set a fixed width */
-            max-height: 200px;
-            /* Limit the height of the dropdown */
-            overflow-y: auto;
-            /* Enable vertical scrolling */
-            background-color: #fff;
-            /* Background color */
-            border: 1px solid #ccc;
-            /* Border for visibility */
-            border-radius: 4px;
-            /* Rounded corners */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            /* Subtle shadow */
-            z-index: 1000;
-            /* Ensure it appears above other elements */
-            padding: 10px;
-            /* Add padding */
-        }
-
-        .notification-content {
-            display: flex;
-            flex-direction: column;
-            /* Arrange notifications vertically */
-            gap: 10px;
-            /* Add spacing between notifications */
-        }
-    </style>
 </head>
 
 <body>
@@ -147,17 +68,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form">
-                            <form action="{{ route('newsletter.subscribe') }}" method="POST" class="newsletter-form">
-                                @csrf
-                                <input type="email" name="email" placeholder="Your email address" required>
-                                <div class="button"><button class="btn" type="submit">Subscribe<span
-                                            class="dir-part"></span></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div> --}}
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form">
                             @if (auth()->check())
