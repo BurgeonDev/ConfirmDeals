@@ -13,10 +13,10 @@
                              Sell Everything From Used Cars To Mobile Phones And <br>Computers,
                              Or Search For Property, Jobs And More.</p>
                      </div>
-                     <!-- End Search Form -->
-                     <!-- Start Search Form -->
+
+
                      <!-- Updated Search Form -->
-                     <div class="search-form wow fadeInUp" data-wow-delay=".7s"
+                     {{-- <div class="search-form wow fadeInUp" data-wow-delay=".7s"
                          style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
                          <div class="row">
                              <div class="p-0 col-lg-4 col-md-4 col-12">
@@ -54,6 +54,59 @@
                                  </div>
                              </div>
                          </div>
+                     </div> --}}
+                     <!-- Updated Search Form -->
+                     <div class="search-form wow fadeInUp" data-wow-delay=".7s"
+                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+
+                         <form method="GET" action="{{ route('categoriess') }}" class="row">
+                             <div class="p-0 col-lg-4 col-md-4 col-12">
+                                 <div class="search-input">
+                                     <label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
+
+                                     <input type="text" name="search" id="keyword" placeholder="Product keyword"
+                                         value="{{ request('search') }}">
+                                 </div>
+                             </div>
+
+                             <div class="p-0 col-lg-3 col-md-3 col-12">
+                                 <div class="search-input">
+                                     <label for="category"><i class="lni lni-grid-alt theme-color"></i></label>
+                                     <select name="category" id="category">
+                                         <option value="none" selected="" disabled="">Categories</option>
+                                         @foreach ($categories as $category)
+                                             <option value="{{ $category->id }}"
+                                                 {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                 {{ $category->name }}
+                                             </option>
+                                         @endforeach
+                                     </select>
+                                 </div>
+                             </div>
+
+                             <div class="p-0 col-lg-3 col-md-3 col-12">
+                                 <div class="search-input">
+                                     <label for="city"><i class="lni lni-map-marker theme-color"></i></label>
+                                     <select name="city" id="city">
+                                         <option value="none" selected="" disabled="">Locations</option>
+                                         @foreach ($cities as $city)
+                                             <option value="{{ $city->name }}"
+                                                 {{ request('city') == $city->name ? 'selected' : '' }}>
+                                                 {{ $city->name }}
+                                             </option>
+                                         @endforeach
+                                     </select>
+                                 </div>
+                             </div>
+
+                             <div class="p-0 col-lg-2 col-md-2 col-12">
+                                 <div class="search-btn button">
+                                     <button type="submit" class="btn">
+                                         <i class="lni lni-search-alt"></i> Search
+                                     </button>
+                                 </div>
+                             </div>
+                         </form>
                      </div>
 
                      <!-- End Search Form -->
@@ -62,34 +115,3 @@
          </div>
      </div>
  </section>
- <script>
-     document.addEventListener("DOMContentLoaded", () => {
-         const searchButton = document.getElementById("searchButton");
-         searchButton.addEventListener("click", () => {
-             const keyword = document.getElementById("keyword").value;
-             const category = document.getElementById("category").value;
-             const city = document.getElementById("city").value;
-
-             // Construct the URL with query parameters
-             let url = "/category"; // Replace this with your category page URL
-             const params = [];
-
-             if (keyword) {
-                 params.push(`keyword=${encodeURIComponent(keyword)}`);
-             }
-             if (category && category !== "none") {
-                 params.push(`category=${encodeURIComponent(category)}`);
-             }
-             if (city && city !== "none") {
-                 params.push(`city=${encodeURIComponent(city)}`);
-             }
-
-             if (params.length > 0) {
-                 url += '?' + params.join('&');
-             }
-
-             // Redirect to the new URL with query parameters
-             window.location.href = url;
-         });
-     });
- </script>
