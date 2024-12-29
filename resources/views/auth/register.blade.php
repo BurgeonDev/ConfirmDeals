@@ -33,14 +33,14 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="first_name">First Name</label>
+                                    {{-- <label for="first_name">First Name</label> --}}
                                     <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}"
                                         required autofocus autocomplete="first_name" class="form-control"
                                         placeholder="First Name">
                                     <x-input-error :messages="$errors->get('first_name')" />
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="last_name">Last Name</label>
+                                    {{-- <label for="last_name">Last Name</label> --}}
                                     <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}"
                                         required autofocus autocomplete="last_name" class="form-control"
                                         placeholder="Last Name">
@@ -50,7 +50,7 @@
 
                             <!-- phone -->
                             <div class="form-group col-md-12">
-                                <label for="phone_number">Phone No</label>
+                                {{-- <label for="phone_number">Phone No</label> --}}
                                 <input id="phone_number" name="phone_number" type="text"
                                     value="{{ old('phone_number') }}" required autofocus autocomplete="phone_number"
                                     class="form-control" placeholder="Phone Number">
@@ -59,7 +59,7 @@
 
                             <!-- Email Address -->
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                {{-- <label for="email">Email</label> --}}
                                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
                                     autocomplete="email" class="form-control" placeholder="Email">
                                 <x-input-error :messages="$errors->get('email')" />
@@ -67,10 +67,11 @@
 
                             <!-- Profession -->
                             <div class="form-group">
-                                <label for="profession">Profession</label>
+                                {{-- <label for="profession">Profession</label> --}}
                                 <div class="selector-head">
 
                                     <select id="profession" name="profession" class="form-control" required>
+
                                         <option value="">Select Profession</option>
                                         @foreach ($professions as $profession)
                                             <option value="{{ $profession->id }}"
@@ -85,7 +86,7 @@
                             <div class="row">
                                 <!-- Country -->
                                 <div class="form-group col-md-4">
-                                    <label for="country_id">Country*</label>
+                                    {{-- <label for="country_id">Country*</label> --}}
                                     <select name="country_id" id="country_id" class="form-control" required>
                                         <option value="">Select Country</option>
                                         @foreach ($countries as $country)
@@ -101,7 +102,7 @@
                                 </div>
                                 <!-- City -->
                                 <div class="form-group col-md-4">
-                                    <label for="city_id">City*</label>
+                                    {{-- <label for="city_id">City*</label> --}}
                                     <select name="city_id" id="city_id" class="form-control" required>
                                         <option value="">Select City</option>
                                         <!-- Optionally load old value dynamically if available -->
@@ -112,7 +113,7 @@
                                 </div>
                                 <!-- Locality -->
                                 <div class="form-group col-md-4">
-                                    <label for="locality_id">Locality</label>
+                                    {{-- <label for="locality_id">Locality</label> --}}
                                     <select name="locality_id" id="locality_id" class="form-control">
                                         <option value="">Select Locality</option>
                                         <!-- Optionally load old value dynamically if available -->
@@ -125,7 +126,7 @@
                             </div>
                             <!-- Password -->
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                {{-- <label for="password">Password</label> --}}
                                 <input id="password" name="password" type="password" required autocomplete="new-password"
                                     class="form-control" placeholder="Password">
                                 <x-input-error :messages="$errors->get('password')" />
@@ -133,7 +134,7 @@
 
                             <!-- Confirm Password -->
                             <div class="form-group">
-                                <label for="password_confirmation">Confirm Password</label>
+                                {{-- <label for="password_confirmation">Confirm Password</label> --}}
                                 <input id="password_confirmation" name="password_confirmation" type="password" required
                                     autocomplete="new-password" class="form-control" placeholder="Confirm Password">
                                 <x-input-error :messages="$errors->get('password_confirmation')" />
@@ -142,8 +143,7 @@
                             <!-- Terms & Conditions -->
                             <div class="check-and-pass">
                                 <div class="form-check">
-                                    <input id="terms" name="terms" type="checkbox" class="form-check-input"
-                                        required>
+                                    <input id="terms" name="terms" type="checkbox" class="form-check-input" required>
                                     <label for="terms" class="form-check-label">
                                         Agree to our <a href="javascript:void(0)">Terms and Conditions</a>
                                     </label>

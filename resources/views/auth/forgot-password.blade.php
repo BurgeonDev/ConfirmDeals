@@ -35,7 +35,7 @@
 
                             <!-- Email Address -->
                             <div class="form-group">
-                                <label for="email">Email Address</label>
+
                                 <input id="email" type="email" name="email" class="form-control form-control-lg"
                                     value="{{ old('email') }}" required autofocus placeholder="Enter your email">
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
