@@ -12,6 +12,9 @@ class NewsletterAdminController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
         $subscribers = Newsletter::all();
         return view('admin.newsletters.index', compact('subscribers'));
     }
