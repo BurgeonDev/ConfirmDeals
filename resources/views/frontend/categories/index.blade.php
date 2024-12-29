@@ -22,70 +22,146 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-12">
                     <div class="category-sidebar">
-                        <!-- Search Widget -->
+
+                        <!-- Search -->
+
                         <div class="single-widget search">
                             <h3>Search Ads</h3>
-                            <form id="searchForm" action="javascript:void(0)">
-                                <input type="text" id="searchInput" placeholder="Search Here...">
+                            <form method="GET" action="{{ route('categoriess') }}">
+                                <input type="text" name="search" placeholder="Search Here..."
+                                    value="{{ request('search') }}">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </form>
                         </div>
+                        <!-- Location Filter -->
                         <div class="single-widget">
                             <h3>Filter by Location</h3>
-                            <ul class="list">
-                                <li>
-                                    <a href="javascript:void(0)" class="location-filter" data-city="all"
-                                        data-locality="all">
-                                        All Locations
-                                    </a>
-                                </li>
-                                @foreach ($cities as $city)
-                                    <li class="city-item">
-                                        <a href="javascript:void(0)" class="city-toggle" data-city="{{ $city->name }}">
-                                            {{ $city->name }}
+                            <form method="GET" action="{{ route('categoriess') }}" id="location-filter-form">
+                                <!-- Hidden Inputs for Filters -->
+                                <input type="hidden" name="city" id="city-input" value="{{ request('city') }}">
+                                <input type="hidden" name="locality" id="locality-input" value="{{ request('locality') }}">
+
+                                <!-- City Filter -->
+                                <ul class="list city-list">
+                                    <!-- All Cities -->
+                                    <li>
+                                        <a href="javascript:void(0)"
+                                            class="city-filter {{ request('city') == '' ? 'active' : '' }}"
+                                            onclick="submitFilter('all', 'all')"
+                                            style="text-decoration: none; color: {{ request('city') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == '' ? 'bold' : 'normal' }};">
+                                            All Locations
                                         </a>
-                                        <ul class="list locality-list" style="display: none;">
-                                            <li>
-                                                <a href="javascript:void(0)" class="location-filter"
-                                                    data-city="{{ $city->name }}" data-locality="all">
-                                                    All {{ $city->name }}
-                                                </a>
-                                            </li>
-                                            @foreach ($city->localities as $locality)
+                                    </li>
+
+                                    <!-- Individual Cities -->
+                                    @foreach ($cities as $city)
+                                        <li class="city-item">
+                                            <a href="javascript:void(0)"
+                                                class="city-filter {{ request('city') == $city->name && request('locality') == '' ? 'active' : '' }}"
+                                                onclick="toggleLocalityList('{{ $city->name }}')"
+                                                style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};">
+                                                {{ $city->name }}
+                                            </a>
+                                            <!-- Localities under each city -->
+                                            <ul class="list locality-list" id="locality-{{ $city->name }}"
+                                                style="display: {{ request('city') == $city->name ? 'block' : 'none' }};">
                                                 <li>
-                                                    <a href="javascript:void(0)" class="location-filter"
-                                                        data-city="{{ $city->name }}"
-                                                        data-locality="{{ $locality->name }}">
-                                                        {{ $locality->name }}
+                                                    <a href="javascript:void(0)"
+                                                        class="locality-filter {{ request('city') == $city->name && request('locality') == '' ? 'active' : '' }}"
+                                                        onclick="submitFilter('{{ $city->name }}', 'all')"
+                                                        style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};">
+                                                        All {{ $city->name }}
                                                     </a>
                                                 </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
+                                                @foreach ($city->localities as $locality)
+                                                    <li>
+                                                        <a href="javascript:void(0)"
+                                                            class="locality-filter {{ request('locality') == $locality->name ? 'active' : '' }}"
+                                                            onclick="submitFilter('{{ $city->name }}', '{{ $locality->name }}')"
+                                                            style="text-decoration: none; color: {{ request('locality') == $locality->name ? '#6610f2' : '#000' }}; font-weight: {{ request('locality') == $locality->name ? 'bold' : 'normal' }};">
+                                                            {{ $locality->name }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </form>
                         </div>
-                        <!-- Category Widget -->
+
+                        <!-- Category Filter -->
+
                         <div class="single-widget">
                             <h3>All Categories</h3>
+                            <form id="categoryForm" method="GET" action="{{ route('categoriess') }}">
+                                <input type="hidden" name="category" id="categoryInput" value="{{ request('category') }}">
+                            </form>
                             <ul class="list">
                                 <li>
-                                    <a href="javascript:void(0)" class="category-filter" data-category="all">
-                                        All <span>{{ $ads->count() }}</span>
+                                    <a href="javascript:void(0)"
+                                        class="category-filter {{ request('category') == '' ? 'active' : '' }}"
+                                        data-category=""
+                                        style="text-decoration: none; color: {{ request('category') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('category') == '' ? 'bold' : 'normal' }};">
+                                        All Categories
                                     </a>
                                 </li>
                                 @foreach ($categories as $category)
                                     <li>
-                                        <a href="javascript:void(0)" class="category-filter"
-                                            data-category="{{ $category->id }}">
+                                        <a href="javascript:void(0)"
+                                            class="category-filter {{ request('category') == $category->id ? 'active' : '' }}"
+                                            data-category="{{ $category->id }}"
+                                            style="text-decoration: none; color: {{ request('category') == $category->id ? '#6610f2' : '#000' }}; font-weight: {{ request('category') == $category->id ? 'bold' : 'normal' }};">
                                             {{ $category->name }}
                                             <span>{{ $category->ads->where('is_verified', 1)->count() }}</span>
-
                                         </a>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
+                        <div class="single-widget search">
+                            <h3>Price Range</h3>
+                            <form method="GET" action="{{ route('categoriess') }}" id="price-range-form">
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <!-- Minimum Price Input -->
+                                    <input type="number" name="price_min" id="price-min-input" min="0"
+                                        value="{{ request('price_min') }}" placeholder="Min Price"
+                                        style="width: 100px; padding: 5px; text-align: center;"
+                                        onchange="updatePriceRange()">
+                                    <span>to</span>
+
+                                    <!-- Maximum Price Input -->
+                                    <input type="number" name="price_max" id="price-max-input" min="0"
+                                        value="{{ request('price_max') }}" placeholder="Max Price"
+                                        style="width: 100px; padding: 5px; text-align: center;"
+                                        onchange="updatePriceRange()">
+                                </div>
+                            </form>
+                        </div>
+
+                        <script>
+                            function updatePriceRange() {
+                                var minValue = document.getElementById('price-min-input').value;
+                                var maxValue = document.getElementById('price-max-input').value;
+
+                                // Ensure the values are within the defined range
+                                minValue = Math.max(minValue, 0); // Prevent going below 0
+                                maxValue = Math.max(maxValue, 0); // Prevent going below 0
+
+                                // Update the form values dynamically
+                                document.getElementById('price-min-input').value = minValue;
+                                document.getElementById('price-max-input').value = maxValue;
+
+                                // Automatically submit the form to apply the filter
+                                document.getElementById('price-range-form').submit();
+                            }
+                        </script>
+
+
+
+
+
+
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-8 col-12">
@@ -102,9 +178,9 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                    <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#nav-grid" type="button" role="tab"
-                                                        aria-controls="nav-grid" aria-selected="true"><i
+                                                    <button class="nav-link active" id="nav-grid-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#nav-grid" type="button"
+                                                        role="tab" aria-controls="nav-grid" aria-selected="true"><i
                                                             class="lni lni-grid-alt"></i></button>
                                                     <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
                                                         data-bs-target="#nav-list" type="button" role="tab"
@@ -315,154 +391,39 @@
     </section>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const adsContainer = document.getElementById("adsContainer");
-            const adsCount = document.getElementById("adsCount");
-
-            // Filter by Search
-            const searchInput = document.getElementById("searchInput");
-            searchInput.addEventListener("keyup", () => {
-                const searchTerm = searchInput.value.toLowerCase();
-                const ads = document.querySelectorAll(".ad-item");
-
-                let visibleAds = 0;
-
-                ads.forEach(ad => {
-                    const title = ad.querySelector(".title a").textContent.toLowerCase();
-                    if (title.includes(searchTerm)) {
-                        ad.style.display = "block";
-                        visibleAds++;
-                    } else {
-                        ad.style.display = "none";
-                    }
-                });
-
-                adsCount.textContent = `Showing ${visibleAds} ads`;
-            });
-            // Toggle visibility of locality lists under each city
-            document.querySelectorAll(".city-toggle").forEach(cityToggle => {
-                cityToggle.addEventListener("click", () => {
-                    const localityList = cityToggle.nextElementSibling;
-
-                    if (localityList.style.display === "none") {
-                        localityList.style.display = "block"; // Show localities
-                    } else {
-                        localityList.style.display = "none"; // Hide localities
-                    }
-                });
-            });
-            // Filter by Category
-            document.querySelectorAll(".category-filter").forEach(categoryFilter => {
-                categoryFilter.addEventListener("click", () => {
-                    const category = categoryFilter.getAttribute("data-category");
-                    const ads = document.querySelectorAll(".ad-item");
-
-                    // Highlight active category
-                    document.querySelectorAll(".category-filter").forEach(item => {
-                        item.classList.remove("active");
-                    });
-                    categoryFilter.classList.add("active");
-
-                    let visibleAds = 0;
-
-                    ads.forEach(ad => {
-                        if (category === "all" || ad.getAttribute("data-category") ===
-                            category) {
-                            ad.style.display = "block";
-                            visibleAds++;
-                        } else {
-                            ad.style.display = "none";
-                        }
-                    });
-
-                    adsCount.textContent = `Showing ${visibleAds} ads`;
-                });
-            });
-            // Filter by Location
-            document.querySelectorAll(".location-filter").forEach(locationFilter => {
-                locationFilter.addEventListener("click", () => {
-                    const selectedCity = locationFilter.getAttribute("data-city");
-                    const selectedLocality = locationFilter.getAttribute("data-locality");
-                    const ads = document.querySelectorAll(".ad-item");
-
-                    // Highlight active location
-                    document.querySelectorAll(".location-filter").forEach(item => {
-                        item.classList.remove("active");
-                    });
-                    locationFilter.classList.add("active");
-
-                    let visibleAds = 0;
-
-                    ads.forEach(ad => {
-                        const adCity = ad.getAttribute("data-city");
-                        const adLocality = ad.getAttribute("data-locality");
-
-                        if (
-                            (selectedCity === "all" || adCity === selectedCity) &&
-                            (selectedLocality === "all" || adLocality === selectedLocality)
-                        ) {
-                            ad.style.display = "block";
-                            visibleAds++;
-                        } else {
-                            ad.style.display = "none";
-                        }
-                    });
-                    adsCount.textContent = `Showing ${visibleAds} ads`;
-                });
+        document.querySelectorAll('.category-filter').forEach(item => {
+            item.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                document.getElementById('categoryInput').value = category;
+                document.getElementById('categoryForm').submit();
             });
         });
     </script>
-
-
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const keyword = urlParams.get("keyword");
-            const selectedCategory = urlParams.get("category");
-            const selectedCity = urlParams.get("city");
-            const selectedLocality = urlParams.get("locality");
+        // Function to show/hide localities under a city
+        function toggleLocalityList(cityName) {
+            // Hide all locality lists
+            document.querySelectorAll('.locality-list').forEach(function(list) {
+                list.style.display = 'none';
+            });
 
-            // Set the keyword input field if present
-            if (keyword) {
-                document.getElementById("searchInput").value = decodeURIComponent(keyword);
+            // Show the clicked city's locality list
+            const localityList = document.getElementById('locality-' + cityName);
+            if (localityList) {
+                localityList.style.display = 'block';
             }
 
-            // Set the active state for category filters
-            document.querySelectorAll(".category-filter").forEach((element) => {
-                if (element.getAttribute("data-category") === selectedCategory) {
-                    element.classList.add("active"); // Add a class for styling
-                }
-            });
-
-            // Set the active state for location filters
-            document.querySelectorAll(".location-filter").forEach((element) => {
-                const city = element.getAttribute("data-city");
-                const locality = element.getAttribute("data-locality");
-
-                if (
-                    (city === selectedCity || city === "all") &&
-                    (locality === selectedLocality || locality === "all")
-                ) {
-                    element.classList.add("active"); // Add a class for styling
-                }
-            });
-        });
-    </script>
-    <style>
-        .active {
-            font-weight: bold;
-            color: #007bff;
+            // Set the city input and reset locality input, then submit
+            document.getElementById('city-input').value = cityName === 'all' ? '' : cityName;
+            document.getElementById('locality-input').value = '';
+            document.getElementById('location-filter-form').submit();
         }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Check for the keyword in the URL query parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const keyword = urlParams.get("keyword");
-            // If a keyword is found, set the value of the search input field
-            if (keyword) {
-                document.getElementById("searchInput").value = decodeURIComponent(keyword);
-            }
-        });
+
+        // Function to submit filter directly
+        function submitFilter(city, locality) {
+            document.getElementById('city-input').value = city === 'all' ? '' : city;
+            document.getElementById('locality-input').value = locality === 'all' ? '' : locality;
+            document.getElementById('location-filter-form').submit();
+        }
     </script>
 @endsection
