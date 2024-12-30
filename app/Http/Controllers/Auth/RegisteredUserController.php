@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Country;
+use App\Models\Locality;
 use App\Models\Profession;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -22,8 +24,10 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         $professions = Profession::all();
-        $countries = Country::with('cities.localities')->get();
-        return view('auth.register', compact('professions', 'countries'));
+        $countries = Country::all();
+        $cities = City::all(); // Or filter based on old('country_id')
+        $localities = Locality::all();
+        return view('auth.register', compact('professions', 'countries', 'cities', 'localities'));
     }
 
     /**

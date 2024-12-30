@@ -30,7 +30,7 @@
                                     value="{{ request('search') }}">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                         </div>
-                        <!-- Location Filter -->
+                        {{-- <!-- Location Filter -->
                         <div class="single-widget">
                             <h3>Filter by Location</h3>
                             <input type="hidden" name="city" id="city-input" value="{{ request('city') }}">
@@ -59,7 +59,7 @@
                                                 <a href="javascript:void(0)"
                                                     class="locality-filter {{ request('locality') == '' ? 'active' : '' }}"
                                                     onclick="submitFilter('{{ $city->name }}', 'all')"
-                                                    style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};">
+                                                    style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};padding-left:10px;">
                                                     All {{ $city->name }}
                                                 </a>
                                             </li>
@@ -68,7 +68,47 @@
                                                     <a href="javascript:void(0)"
                                                         class="locality-filter {{ request('locality') == $locality->name ? 'active' : '' }}"
                                                         onclick="submitFilter('{{ $city->name }}', '{{ $locality->name }}')"
-                                                        style="text-decoration: none; color: {{ request('locality') == $locality->name ? '#6610f2' : '#000' }}; font-weight: {{ request('locality') == $locality->name ? 'bold' : 'normal' }};">
+                                                        style="text-decoration: none; color: {{ request('locality') == $locality->name ? '#6610f2' : '#000' }}; font-weight: {{ request('locality') == $locality->name ? 'bold' : 'normal' }}; padding-left:10px;">
+                                                        {{ $locality->name }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div> --}}
+                        <!-- Location Filter -->
+                        <div class="single-widget">
+                            <h3>Filter by Location</h3>
+                            <input type="hidden" name="city" id="city-input" value="{{ request('city') }}">
+                            <input type="hidden" name="locality" id="locality-input" value="{{ request('locality') }}">
+
+                            <ul class="list city-list">
+                                <li>
+                                    <a href="javascript:void(0)"
+                                        class="city-filter {{ request('city') == '' ? 'active' : '' }}"
+                                        onclick="submitFilter('all', 'all')"
+                                        style="text-decoration: none; color: {{ request('city') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == '' ? 'bold' : 'normal' }};">
+                                        All Locations
+                                    </a>
+                                </li>
+                                @foreach ($cities as $city)
+                                    <li class="city-item">
+                                        <a href="javascript:void(0)"
+                                            class="city-filter {{ request('city') == $city->name ? 'active' : '' }}"
+                                            onclick="toggleLocalityList('{{ $city->name }}')"
+                                            style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};">
+                                            {{ $city->name }}
+                                        </a>
+                                        <ul class="list locality-list" id="locality-{{ $city->name }}"
+                                            style="display: {{ request('city') == $city->name ? 'block' : 'none' }};">
+                                            @foreach ($city->localities as $locality)
+                                                <li>
+                                                    <a href="javascript:void(0)"
+                                                        class="locality-filter {{ request('locality') == $locality->name ? 'active' : '' }}"
+                                                        onclick="submitFilter('{{ $city->name }}', '{{ $locality->name }}')"
+                                                        style="text-decoration: none; color: {{ request('locality') == $locality->name ? '#6610f2' : '#000' }}; font-weight: {{ request('locality') == $locality->name ? 'bold' : 'normal' }}; padding-left:10px;">
                                                         {{ $locality->name }}
                                                     </a>
                                                 </li>
@@ -169,10 +209,14 @@
                                                         <div class="content">
                                                             <a href="javascript:void(0)"
                                                                 class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
-                                                            <h3 class="title">
-                                                                <a
-                                                                    href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
+                                                            <h3
+                                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; width: 100%;">
+                                                                <a href="{{ route('ad.show', $ad->id) }}"
+                                                                    style="text-decoration: none; color: inherit;">
+                                                                    {{ $ad->title }}
+                                                                </a>
                                                             </h3>
+
                                                             <p class="location"><a><i class="lni lni-map-marker"></i>
                                                                     {{ $ad->city?->name ?? 'N/A' }},
                                                                     {{ $ad->locality?->name ?? 'N/A' }}</a></p>
