@@ -19,11 +19,14 @@ class HomeController extends Controller
         $countries = Country::all();
         $cities = City::all();
         $localities = Locality::all();
-        $verifiedAds = Ad::with('user')
-            ->where('is_verified', true)->limit(8)
+
+        $serviceAds = Ad::with('user')
+            ->where('is_verified', true)->where('type', 'service')->limit(4)
             ->get();
-        $serviceAds = $verifiedAds->where('type', 'service');
-        $productAds = $verifiedAds->where('type', 'product');
+        $productAds =
+            Ad::with('user')
+            ->where('is_verified', true)->where('type', 'product')->limit(4)
+            ->get();
 
         $latestAds = Ad::with('user')->where('type', 'product')->where('is_verified', true)
             ->orderBy('created_at', 'desc')
@@ -33,22 +36,32 @@ class HomeController extends Controller
         $categories = Category::all();
         $professions = Profession::all();
         $categoryIcons = [
-            'Electronics' => 'fas fa-tv',                // TV for electronics
-            'Furniture' => 'fas fa-couch',               // Couch for furniture
-            'Books' => 'fas fa-book',                    // Book for books
-            'Clothing' => 'fas fa-tshirt',               // T-shirt for clothing
-            'Sports' => 'fas fa-tv',               // Football for sports
-            'Toys' => 'fas fa-puzzle-piece',             // Puzzle piece for toys
-            'Health & Beauty' => 'fas fa-stethoscope',      // Lipstick for health & beauty
-            'Automotive' => 'fas fa-car',                // Car for automotive
-            'Jewelry' => 'fas fa-gem',                   // Gem for jewelry
-            'Groceries' => 'fas fa-hamburger',           // Hamburger for groceries
-            'Home Appliances' => 'fas fa-blender',       // Blender for home appliances
-            'Music' => 'fas fa-music',                   // Music note for music
-            'Garden' => 'fas fa-leaf',                   // Leaf for garden
-            'Office Supplies' => 'fas fa-briefcase',     // Briefcase for office supplies
-            'Pet Supplies' => 'fas fa-paw',             // Paw print for pet supplies
+            'Electronics' => 'fas fa-tv',                   // TV for electronics
+            'Furniture' => 'fas fa-couch',                 // Couch for furniture
+            'Books' => 'fas fa-book',                      // Book for books
+            'Clothing' => 'fas fa-tshirt',                 // T-shirt for clothing
+            'Sports' => 'fas fa-football-ball',            // Football for sports
+            'Toys' => 'fas fa-puzzle-piece',               // Puzzle piece for toys
+            'Health & Beauty' => 'fas fa-stethoscope',     // Stethoscope for health & beauty
+            'Automotive' => 'fas fa-car',                  // Car for automotive
+            'Jewelry' => 'fas fa-gem',                     // Gem for jewelry
+            'Groceries' => 'fas fa-shopping-basket',       // Shopping basket for groceries
+            'Home Appliances' => 'fas fa-blender',         // Blender for home appliances
+            'Music' => 'fas fa-music',                     // Music note for music
+            'Garden' => 'fas fa-leaf',                     // Leaf for garden
+            'Office Supplies' => 'fas fa-briefcase',       // Briefcase for office supplies
+            'Pet Supplies' => 'fas fa-paw',                // Paw print for pet supplies
+            'Tools & Hardware' => 'fas fa-wrench',         // Wrench for tools & hardware
+            'Toys & Games' => 'fas fa-gamepad',            // Gamepad for toys & games
+            'Art & Crafts' => 'fas fa-paint-brush',        // Paintbrush for art & crafts
+            'Travel & Luggage' => 'fas fa-suitcase-rolling', // Suitcase for travel & luggage
+            'Baby Products' => 'fas fa-baby-carriage',     // Baby carriage for baby products
+            'Watches' => 'fas fa-clock',                   // Clock for watches
+            'Footwear' => 'fas fa-shoe-prints',            // Shoe prints for footwear
+            'Gaming' => 'fas fa-gamepad',                  // Gamepad for gaming
+            'Other' => 'fas fa-ellipsis-h',                // Ellipsis for other categories
         ];
+
 
 
 
