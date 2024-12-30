@@ -20,7 +20,7 @@ class HomeController extends Controller
         $cities = City::all();
         $localities = Locality::all();
         $verifiedAds = Ad::with('user')
-            ->where('is_verified', true)->limit(4)
+            ->where('is_verified', true)->limit(8)
             ->get();
         $serviceAds = $verifiedAds->where('type', 'service');
         $productAds = $verifiedAds->where('type', 'product');
