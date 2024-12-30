@@ -12,6 +12,7 @@ use App\Models\Locality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
+use Illuminate\Support\Facades\Log;
 
 class AdsController extends Controller
 {
@@ -39,14 +40,9 @@ class AdsController extends Controller
         if (!auth()->user()->can('Post Ad')) {
             abort(403, 'Unauthorized action.');
         }
-
-        // Fetch all categories
         $categories = Category::all();
-
-        // Fetch countries with cities and localities
         $countries = Country::with('cities.localities')->get();
         $localities = Locality::all();
-        // Prepare cities for the view (flatten the cities collection)
         $cities = $countries->pluck('cities')->flatten();
 
         return view('frontend.postAd.create', compact('countries', 'categories', 'cities', 'localities'));
@@ -54,14 +50,14 @@ class AdsController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'type' => 'required|in:service,product',
             'is_verified' => 'boolean',
             'pictures' => 'required|array|max:5',
-            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12048',
+            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12288',
             'price' => 'required|numeric|min:0',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
@@ -70,17 +66,16 @@ class AdsController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        // Get the authenticated user
+
         $user = auth()->user();
 
-        // Check if the user has enough coins
+
         if ($user->coins < $validatedData['coins_needed']) {
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['coins_needed' => 'You do not have enough coins to post this ad.']);
         }
 
-        // Handle picture uploads
         if ($request->hasFile('pictures')) {
             $validatedData['pictures'] = array_map(
                 fn($file) => $file->store('ads', 'public'),
@@ -88,11 +83,8 @@ class AdsController extends Controller
             );
         }
 
-        // Create the ad
-        Ad::create($validatedData);
 
-        // Redirect to the ads index page with a success message
-        // return redirect()->route('ad.index')->with('success', 'Ad created successfully!');
+        Ad::create($validatedData);
         return view('frontend.postAd.success');
     }
 
@@ -102,6 +94,12 @@ class AdsController extends Controller
     /**
      * Display the specified resource.
      */
+
+
+
+
+
+
     public function show(Ad $ad)
     {
         // Eager load the feedbacks relationship for the ad
