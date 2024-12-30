@@ -44,7 +44,7 @@ class Ad extends Model
 
     protected $casts = [
         'is_verified' => 'boolean',
-        'pictures' => 'array', // Automatically cast JSON to array
+        'pictures' => 'array',
     ];
 
     public function user()
@@ -73,7 +73,7 @@ class Ad extends Model
     }
     public function createdBy()
     {
-        return $this->belongsTo(User::class, 'user_id'); // Assuming 'user_id' is the foreign key in the 'ads' table
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function feedbacks()
     {
