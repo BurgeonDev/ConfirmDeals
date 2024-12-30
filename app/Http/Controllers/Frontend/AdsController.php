@@ -34,16 +34,24 @@ class AdsController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     */
-    public function create()
+     */ public function create()
     {
         if (!auth()->user()->can('Post Ad')) {
             abort(403, 'Unauthorized action.');
         }
+
+        // Fetch all categories
         $categories = Category::all();
+
+        // Fetch countries with cities and localities
         $countries = Country::with('cities.localities')->get();
-        return view('frontend.postAd.create', compact('countries', 'categories'));
+        $localities = Locality::all();
+        // Prepare cities for the view (flatten the cities collection)
+        $cities = $countries->pluck('cities')->flatten();
+
+        return view('frontend.postAd.create', compact('countries', 'categories', 'cities', 'localities'));
     }
+
     public function store(Request $request)
     {
         // Validate the request data

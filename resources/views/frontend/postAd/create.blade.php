@@ -123,7 +123,8 @@
                                                     <div class="form-group">
                                                         <label for="price">{{ __('messages.price') }}</label>
                                                         <input name="price" type="number" id="price"
-                                                            placeholder="{{ __('messages.enter_price') }}">
+                                                            placeholder="{{ __('messages.enter_price') }}"
+                                                            value="{{ old('price') }}">
                                                         <span class="text-danger" id="priceError"></span>
                                                     </div>
                                                 </div>
@@ -132,8 +133,8 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label for="coins_needed">{{ __('messages.coins_needed') }}</label>
-                                                        <input name="coins_needed" type="number" id="coins_needed"
-                                                            readonly>
+                                                        <input name="coins_needed" type="number" id="coins_needed" readonly
+                                                            value="{{ old('coins_needed') }}">
                                                         <div id="liveError" class="text-danger"></div>
                                                         @error('coins_needed')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -170,6 +171,12 @@
                                                             required>
                                                             <option value="">{{ __('messages.select_city') }}
                                                             </option>
+                                                            @foreach ($cities as $city)
+                                                                <option value="{{ $city->id }}"
+                                                                    {{ old('city_id') == $city->id ? 'selected' : '' }}>
+                                                                    {{ $city->name }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
                                                         @error('city_id')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -185,12 +192,19 @@
                                                             class="user-chosen-select">
                                                             <option value="">{{ __('messages.select_locality') }}
                                                             </option>
+                                                            @foreach ($localities as $locality)
+                                                                <option value="{{ $locality->id }}"
+                                                                    {{ old('locality_id') == $locality->id ? 'selected' : '' }}>
+                                                                    {{ $locality->name }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
                                                         @error('locality_id')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
+
 
                                                 <!-- Upload Pictures -->
                                                 <div class="col-12">
