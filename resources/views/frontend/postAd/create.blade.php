@@ -123,12 +123,14 @@
                                                         <!-- Hidden input for unchecked state -->
                                                         <input type="hidden" name="is_featured" value="0">
                                                         <input type="checkbox" name="is_featured" id="is_featured"
-                                                            value="1" {{ old('is_featured') ? 'checked' : '' }}>
+                                                            value="1"
+                                                            {{ old('is_featured', isset($ad) && $ad->is_featured ? true : false) ? 'checked' : '' }}>
                                                         @error('is_featured')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
+
 
 
                                                 <!-- Price -->

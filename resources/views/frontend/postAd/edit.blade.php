@@ -121,6 +121,7 @@
                                                     </div>
                                                 </div>
 
+
                                                 <!-- Price -->
                                                 <div class="col-6">
                                                     <div class="form-group">
