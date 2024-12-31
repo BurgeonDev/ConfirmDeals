@@ -30,54 +30,7 @@
                                     value="{{ request('search') }}">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                         </div>
-                        {{-- <!-- Location Filter -->
-                        <div class="single-widget">
-                            <h3>Filter by Location</h3>
-                            <input type="hidden" name="city" id="city-input" value="{{ request('city') }}">
-                            <input type="hidden" name="locality" id="locality-input" value="{{ request('locality') }}">
 
-                            <ul class="list city-list">
-                                <li>
-                                    <a href="javascript:void(0)"
-                                        class="city-filter {{ request('city') == '' ? 'active' : '' }}"
-                                        onclick="submitFilter('all', 'all')"
-                                        style="text-decoration: none; color: {{ request('city') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == '' ? 'bold' : 'normal' }};">
-                                        All Locations
-                                    </a>
-                                </li>
-                                @foreach ($cities as $city)
-                                    <li class="city-item">
-                                        <a href="javascript:void(0)"
-                                            class="city-filter {{ request('city') == $city->name ? 'active' : '' }}"
-                                            onclick="toggleLocalityList('{{ $city->name }}')"
-                                            style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};">
-                                            {{ $city->name }}
-                                        </a>
-                                        <ul class="list locality-list" id="locality-{{ $city->name }}"
-                                            style="display: {{ request('city') == $city->name ? 'block' : 'none' }};">
-                                            <li>
-                                                <a href="javascript:void(0)"
-                                                    class="locality-filter {{ request('locality') == '' ? 'active' : '' }}"
-                                                    onclick="submitFilter('{{ $city->name }}', 'all')"
-                                                    style="text-decoration: none; color: {{ request('city') == $city->name && request('locality') == '' ? '#6610f2' : '#000' }}; font-weight: {{ request('city') == $city->name && request('locality') == '' ? 'bold' : 'normal' }};padding-left:10px;">
-                                                    All {{ $city->name }}
-                                                </a>
-                                            </li>
-                                            @foreach ($city->localities as $locality)
-                                                <li>
-                                                    <a href="javascript:void(0)"
-                                                        class="locality-filter {{ request('locality') == $locality->name ? 'active' : '' }}"
-                                                        onclick="submitFilter('{{ $city->name }}', '{{ $locality->name }}')"
-                                                        style="text-decoration: none; color: {{ request('locality') == $locality->name ? '#6610f2' : '#000' }}; font-weight: {{ request('locality') == $locality->name ? 'bold' : 'normal' }}; padding-left:10px;">
-                                                        {{ $locality->name }}
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div> --}}
                         <!-- Location Filter -->
                         <div class="single-widget">
                             <h3>Filter by Location</h3>
@@ -204,6 +157,9 @@
                                                                     src="{{ asset('storage/' . $ad->pictures[0]) }}"
                                                                     alt="{{ $ad->title }}">
                                                             </a>
+                                                            @if ($ad->is_featured)
+                                                                <i class="cross-badge lni lni-bolt"></i>
+                                                            @endif
                                                             <span class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
                                                         </div>
                                                         <div class="content">
@@ -221,7 +177,7 @@
                                                                     {{ $ad->city?->name ?? 'N/A' }},
                                                                     {{ $ad->locality?->name ?? 'N/A' }}</a></p>
                                                             <ul class="info">
-                                                                <li class="price">Pkr {{ number_format($ad->price, 2) }}
+                                                                <li class="price">PKR {{ number_format($ad->price, 0) }}
                                                                 </li>
                                                                 <li class="like">
                                                                     <form action="{{ route('favorites.toggle') }}"
@@ -300,6 +256,9 @@
                                                                             src="{{ asset('storage/' . $ad->pictures[0]) }}"
                                                                             alt="{{ $ad->title }}">
                                                                     </a>
+                                                                    @if ($ad->is_featured)
+                                                                        <i class="cross-badge lni lni-bolt"></i>
+                                                                    @endif
                                                                     <span
                                                                         class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
                                                                 </div>
@@ -318,7 +277,7 @@
                                                                             {{ $ad->locality?->name ?? 'N/A' }}</a></p>
                                                                     <ul class="info">
                                                                         <li class="price">
-                                                                            Pkr {{ number_format($ad->price, 2) }}
+                                                                            PKR {{ number_format($ad->price, 0) }}
                                                                         </li>
                                                                         <li class="like">
                                                                             <form action="{{ route('favorites.toggle') }}"
