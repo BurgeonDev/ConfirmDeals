@@ -7,7 +7,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">{{ $user->first_name }} {{ $user->last_name }}'s Profile</h1>
+                        {{-- <h1 class="page-title">Seller's Profile</h1> --}}
+                        <h1 class="page-title">Seller's Profile</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
@@ -19,7 +20,6 @@
             </div>
         </div>
     </div>
-
     <!-- Profile Section -->
     <section class="py-5 bg-white profile-section section">
         <div class="container">
@@ -31,7 +31,7 @@
                             <img src="{{ $user->profile_pic ? asset('storage/' . $user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                                 alt="User Image" class="mb-3 rounded-circle img-thumbnail"
                                 style="width: 150px; height: 150px;">
-                            <h2 class="h4 text-dark">{{ $user->first_name }} {{ $user->last_name }}</h2>
+                            <h2 class="h4 text-dark">Seller</h2>
                             <div class="mt-2 rating">
                                 @if ($averageRating)
                                     @for ($i = 1; $i <= 5; $i++)
@@ -51,28 +51,26 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Ads List -->
-
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="border-0 shadow-sm card">
                         <div class="card-body">
-                            <h3 class="mb-4">{{ $user->first_name }} {{ $user->last_name }}'s Ads</h3>
+                            <h3 class="mb-4">Seller's Ads</h3>
                             @forelse ($ads as $ad)
                                 <div class="pb-3 mb-4 border-bottom">
                                     <!-- Ad Details -->
                                     <a href="{{ route('ad.show', $ad->id) }}">
                                         <h4 class="h5 fw-bold" style="color: #582fe0">{{ $ad->title }}</h4>
                                     </a>
-
                                     <!-- Feedback Section -->
                                     <h5 class="mt-3 h6 text-dark">Feedbacks:</h5>
                                     <ul class="list-unstyled">
                                         @forelse ($ad->feedbacks as $feedback)
                                             <li class="mb-3">
                                                 <!-- Feedback from User -->
-                                                <strong class="text-primary">{{ $feedback->user->first_name }}
-                                                    {{ $feedback->user->last_name }}</strong>
+                                                {{-- <strong class="text-primary">{{ $feedback->user->first_name }}
+                                                    {{ $feedback->user->last_name }}</strong> --}}
+                                                <strong class="text-primary">Buyer</strong>
                                                 <span class="text-muted small">Rated:
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         <i
@@ -87,18 +85,17 @@
                                                 </p>
 
                                             </li>
-
                                             <li> <!-- Owner's response -->
                                                 @if ($feedback->response)
-                                                    <strong class="text-primary">{{ $user->first_name }}
-                                                        {{ $user->last_name }}</strong><br>
+                                                    {{-- <strong class="text-primary">{{ $user->first_name }}
+                                                        {{ $user->last_name }}</strong><br> --}}
+                                                    <strong class="text-primary">Seller</strong><br>
                                                     <span
                                                         class="text-muted"style="padding-left: 3%">{{ $feedback->response }}</span>
                                                     <!-- Response form for the owner only -->
                                                 @else
                                                     @if (auth()->id() === $ad->user_id)
                                                         <p class="mt-2">
-
                                                             <a class="reply"
                                                                 style="padding: 8px 15px; border: 1px solid #5930e0; color: #888; border-radius: 4px; margin-top: 20px; font-size: 14px; font-weight: 500;"><i
                                                                     class="lni lni-reply" style="color: #582fe0"></i>
@@ -106,8 +103,6 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#responseModal-{{ $feedback->id }}">Reply</button>
                                                             </a>
-
-
                                                         </p>
 
                                                         <!-- Modal for Response -->
