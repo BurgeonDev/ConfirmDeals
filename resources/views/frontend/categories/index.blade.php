@@ -191,9 +191,9 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade active show" id="nav-grid" role="tabpanel"
                                         aria-labelledby="nav-grid-tab">
-                                        <div class="row" id="adsContainer">
+                                        <div class="row" id="adsContaine">
                                             @foreach ($ads as $ad)
-                                                <div class="col-lg-4 col-md-6 col-12 ad-item"
+                                                <div class="col-lg-4 col-md-6 col-12 ad-ite"
                                                     data-city="{{ $ad->city?->name ?? 'N/A' }}"
                                                     data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
                                                     data-category="{{ $ad->category_id }}">
@@ -284,9 +284,9 @@
 
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
                                         aria-labelledby="nav-list-tab">
-                                        <div class="row" id="adsContainer">
+                                        <div class="row" id="adsContaine">
                                             @foreach ($ads as $ad)
-                                                <div class="col-lg-12 col-md-12 col-12 ad-item"
+                                                <div class="col-lg-12 col-md-12 col-12 ad-ite"
                                                     data-city="{{ $ad->city?->name ?? 'N/A' }}"
                                                     data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
                                                     data-category="{{ $ad->category_id }}">
