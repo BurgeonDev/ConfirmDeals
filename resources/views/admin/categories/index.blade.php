@@ -1,19 +1,16 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="mb-4 d-flex justify-content-between">
-                <h2 class="text-xl font-semibold text-gray-800">Categories</h2>
-                <a href="{{ route('categories.create') }}" class="btn btn-primary">Add Category</a>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h4>Categories</h4>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">Categories</h4>
+                    <a href="{{ route('categories.create') }}" class="btn btn-success btn-rounded btn-fw">Add Category</a>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped" id="staticDataTables">
+                 <p class="card-description">List of all Categories</p>
+                <div class="table-responsive">
+                    <table id="staticDataTables" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -30,12 +27,13 @@
                                     <td>{{ $category->description }}</td>
                                     <td>
                                         <a href="{{ route('categories.edit', $category->id) }}"
-                                            class="btn btn-warning btn-sm">Edit</a>
+                                            class="btn btn-info btn-rounded">Edit</a>
                                         <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
-                                            class="d-inline">
+                                            style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                                onclick="return confirm('Are you sure you want to delete this category?');">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
