@@ -5,9 +5,12 @@ namespace App\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\DatabaseMessage;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Bus\Queueable;  // Add this import for Queueable
 
 class BidReceivedNotification extends Notification
 {
+    use Queueable;  // Use the Queueable trait
+
     public $ad;
 
     public function __construct($ad)

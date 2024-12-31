@@ -5,9 +5,12 @@ namespace App\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\DatabaseMessage;
+use Illuminate\Bus\Queueable;  // Add this import for Queueable
 
 class BidStatusNotification extends Notification
 {
+    use Queueable;  // Use the Queueable trait
+
     protected $bid;
     protected $status;
 
@@ -32,7 +35,6 @@ class BidStatusNotification extends Notification
             'url' => route('bids.myBids', $this->bid->id), // Ensure this route exists
         ];
     }
-
 
     public function toMail($notifiable)
     {
