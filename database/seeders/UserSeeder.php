@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'is_active' => true,
                 'is_email_verified' => true,
-                'coins' => 10,
+                'coins' => 100,
                 'rating' => 0,
                 'phone_number' => '234-2342-563',
                 'profession_id' => 1,

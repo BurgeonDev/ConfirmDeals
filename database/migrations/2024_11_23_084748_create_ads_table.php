@@ -22,6 +22,7 @@ class CreateAdsTable extends Migration
             $table->unsignedInteger('coins_needed')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
 
             // Foreign keys

@@ -110,6 +110,7 @@ class AdsController extends Controller
             'city_id' => 'required|exists:cities,id',
             'locality_id' => 'required|exists:localities,id',
             'coins_needed' => 'required|integer|min:0',
+            'is_featured' => 'nullable|boolean',
             'category_id' => 'required|exists:categories,id',
         ]);
 
@@ -258,6 +259,7 @@ class AdsController extends Controller
             'city_id' => 'required|exists:cities,id',
             'locality_id' => 'required|exists:localities,id',
             'coins_needed' => 'required|integer|min:0',
+            'is_featured' => 'nullable|boolean',
             'category_id' => 'required|exists:categories,id',
         ]);
 

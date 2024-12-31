@@ -75,7 +75,7 @@
                                                 </div>
 
                                                 <!-- Category -->
-                                                <div class="col-6">
+                                                <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="category_id">{{ __('messages.category') }}</label>
                                                         <select name="category_id" id="category_id"
@@ -96,7 +96,7 @@
                                                 </div>
 
                                                 <!-- Ad Type -->
-                                                <div class="col-6">
+                                                <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="type">{{ __('messages.ad_type') }}</label>
                                                         <select name="type" id="type" class="user-chosen-select"
@@ -117,6 +117,19 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                <div class="col-4">
+                                                    <div class="form-check" style="margin-top: 15%; ">
+                                                        <label for="is_featured">{{ __('messages.featured_ad') }}</label>
+                                                        <!-- Hidden input for unchecked state -->
+                                                        <input type="hidden" name="is_featured" value="0">
+                                                        <input type="checkbox" name="is_featured" id="is_featured"
+                                                            value="1" {{ old('is_featured') ? 'checked' : '' }}>
+                                                        @error('is_featured')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
 
                                                 <!-- Price -->
                                                 <div class="col-6">
