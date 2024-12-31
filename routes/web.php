@@ -111,6 +111,7 @@ Route::group([
         Route::post('/jazzcash', [JazzCashController::class, 'processPayment'])->name('jazzcash');
         Route::get('/jazzcash/callback', [JazzCashController::class, 'handleCallback'])->name('jazzcash.callback');
         Route::post('/easypaisa', [EasypaisaController::class, 'makePayment'])->name('easypaisa');
+        Route::get('/user/transactions', [EasypayController::class, 'index'])->name('transactions.index');
         Route::post('/easypaisa/callback', [EasypaisaController::class, 'easypasahandleCallback'])->name('easypaisa.callback');
     });
 

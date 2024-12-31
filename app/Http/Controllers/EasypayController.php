@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Easypaisa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str; // Import Str facade
@@ -108,5 +108,11 @@ class EasypayController extends Controller
             'mobileNo' => $mobileNo,
             'transactionId' => $transactionId,
         ]);
+    }
+    public function index()
+    {
+        $userId = auth()->id();
+        $transactions = Easypaisa::where('user_id', $userId)->get();
+        return view('frontend.transactions.index', compact('transactions'));
     }
 }
