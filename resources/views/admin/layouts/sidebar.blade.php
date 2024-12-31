@@ -66,6 +66,7 @@
                   <span class="menu-title">Coins</span>
               </a>
           </li>
+
           <li class="nav-item nav-category">Ad Management</li>
           <li class="nav-item">
               <a class="nav-link" href="{{ route('ads.index') }}">

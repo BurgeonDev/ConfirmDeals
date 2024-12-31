@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coin;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class CoinController extends Controller
@@ -13,8 +14,10 @@ class CoinController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+        $freeCoins = Setting::getValue('free_coins');
+
         $coins = Coin::all();
-        return view('admin.coins.index', compact('coins'));
+        return view('admin.coins.index', compact('coins', 'freeCoins'));
     }
 
     public function create()
@@ -74,5 +77,15 @@ class CoinController extends Controller
     {
         $coin->delete();
         return redirect()->route('coins.index')->with('success', 'Coin deleted successfully.');
+    }
+    public function updateSettings(Request $request)
+    {
+        $validatedData = $request->validate([
+            'free_coins' => 'required|integer|min:0',
+        ]);
+
+        Setting::setValue('free_coins', $validatedData['free_coins']);
+
+        return redirect()->back()->with('success', 'Free coins value updated successfully.');
     }
 }

@@ -5,21 +5,13 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="mb-4 d-flex justify-content-between align-items-center">
                 <h2 class="text-xl font-semibold text-gray-800">Coins Management</h2>
-
             </div>
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="card">
                 <div class="card-header">
-                    <h4>Coins</h4>
+                    <h4>Coin Value</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped " id="staticDataTables">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
 
@@ -38,18 +30,30 @@
 
                                         <a href="{{ route('coins.edit', $coin->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        {{-- <form action="{{ route('coins.destroy', $coin->id) }}" method="POST"
-                                            class="d-inline"
-                                            onsubmit="return confirm('Are you sure you want to delete this coin?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form> --}}
+
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <br><br>
+            <div class="card">
+                <div class="card-header">
+                    <h4>Free Coins</h4>
+                </div>
+                <div class="card-body">
+
+                    <form action="{{ route('admin.settings.update') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="free_coins">Free Coins to register Users</label>
+                            <input type="number" id="free_coins" name="free_coins" class="form-control"
+                                value="{{ $freeCoins }}" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
                 </div>
             </div>
         </div>

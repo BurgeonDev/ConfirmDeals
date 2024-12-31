@@ -30,6 +30,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\NewsletterAdminController;
 use App\Http\Controllers\EasypaisaController;
 use App\Http\Controllers\JazzCashController;
+use App\Http\Controllers\SettingController;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -60,6 +61,9 @@ Route::group([
         Route::resource('ads', AdController::class);
         Route::resource('user/ad', AdsController::class);
         Route::resource('user/dashboard', FrontendDashboardController::class);
+        Route::get('/admin/settings', [CoinController::class, 'editSettings'])->name('admin.settings.edit');
+        Route::post('/admin/settings', [CoinController::class, 'updateSettings'])->name('admin.settings.update');
+
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
