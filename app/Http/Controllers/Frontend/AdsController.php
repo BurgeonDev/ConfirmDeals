@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class AdsController extends Controller
 {
@@ -48,9 +49,55 @@ class AdsController extends Controller
         return view('frontend.postAd.create', compact('countries', 'categories', 'cities', 'localities'));
     }
 
+    // public function store(Request $request)
+    // {
+
+    //     $validatedData = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'type' => 'required|in:service,product',
+    //         'is_verified' => 'boolean',
+    //         'pictures' => 'required|array|max:5',
+    //         'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12288',
+    //         'price' => 'required|numeric|min:0',
+    //         'country_id' => 'required|exists:countries,id',
+    //         'city_id' => 'required|exists:cities,id',
+    //         'locality_id' => 'required|exists:localities,id',
+    //         'coins_needed' => 'required|integer|min:0',
+    //         'category_id' => 'required|exists:categories,id',
+    //     ]);
+
+
+    //     $user = auth()->user();
+
+
+    //     if ($user->coins < $validatedData['coins_needed']) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->withErrors(['coins_needed' => 'You do not have enough coins to post this ad.']);
+    //     }
+
+    //     if ($request->hasFile('pictures')) {
+    //         $validatedData['pictures'] = array_map(
+    //             fn($file) => $file->store('ads', 'public'),
+    //             $request->file('pictures')
+    //         );
+    //     }
+
+
+    //     Ad::create($validatedData);
+    //     return view('frontend.postAd.success');
+    // }
+
+
+
+
+    /**
+     * Display the specified resource.
+     */
+
     public function store(Request $request)
     {
-
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -66,16 +113,16 @@ class AdsController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-
         $user = auth()->user();
 
-
+        // Check if the user has enough coins
         if ($user->coins < $validatedData['coins_needed']) {
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['coins_needed' => 'You do not have enough coins to post this ad.']);
         }
 
+        // Process pictures
         if ($request->hasFile('pictures')) {
             $validatedData['pictures'] = array_map(
                 fn($file) => $file->store('ads', 'public'),
@@ -83,18 +130,29 @@ class AdsController extends Controller
             );
         }
 
+        // Begin transaction
+        DB::beginTransaction();
 
-        Ad::create($validatedData);
-        return view('frontend.postAd.success');
+        try {
+            // Deduct coins from user
+            $user->decrement('coins', $validatedData['coins_needed']);
+
+            // Create the ad
+            Ad::create($validatedData);
+
+            // Commit transaction
+            DB::commit();
+
+            return view('frontend.postAd.success');
+        } catch (\Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'An error occurred while processing your request. Please try again.']);
+        }
     }
-
-
-
-
-    /**
-     * Display the specified resource.
-     */
-
 
 
 
@@ -137,7 +195,56 @@ class AdsController extends Controller
 
 
 
-    public function update(Request $request, Ad $ad)
+    // public function update(Request $request, Ad $ad)
+    // {
+    //     $validatedData = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'type' => 'required|in:service,product',
+    //         'is_verified' => 'boolean',
+    //         'pictures' => 'nullable|array|max:5',
+    //         'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12048',
+    //         'price' => 'required|numeric|min:0',
+    //         'country_id' => 'required|exists:countries,id',
+    //         'city_id' => 'required|exists:cities,id',
+    //         'locality_id' => 'required|exists:localities,id',
+    //         'coins_needed' => 'required|integer|min:0',
+    //         'category_id' => 'required|exists:categories,id',
+    //     ]);
+
+    //     // Get the authenticated user
+    //     $user = auth()->user();
+
+    //     // Check if the user has enough coins for the update
+    //     if ($user->coins < $validatedData['coins_needed']) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->withErrors(['coins_needed' => 'You do not have enough coins to update this ad.']);
+    //     }
+
+    //     // Handle uploaded files
+    //     if ($request->hasFile('pictures')) {
+    //         $validatedData['pictures'] = array_map(
+    //             fn($file) => $file->store('ads', 'public'),
+    //             $request->file('pictures')
+    //         );
+
+    //         // Remove old pictures if new ones are uploaded
+    //         foreach ($ad->pictures as $oldPicture) {
+    //             Storage::disk('public')->delete($oldPicture);
+    //         }
+    //     } else {
+    //         // Retain old pictures if no new ones are uploaded
+    //         $validatedData['pictures'] = $ad->pictures;
+    //     }
+
+    //     // Update the ad
+    //     $ad->update($validatedData);
+
+    //     return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
+    // }
+
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -145,7 +252,7 @@ class AdsController extends Controller
             'type' => 'required|in:service,product',
             'is_verified' => 'boolean',
             'pictures' => 'nullable|array|max:5',
-            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12048',
+            'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12288',
             'price' => 'required|numeric|min:0',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
@@ -154,39 +261,56 @@ class AdsController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        // Get the authenticated user
         $user = auth()->user();
 
-        // Check if the user has enough coins for the update
+        // Retrieve the ad
+        $ad = Ad::findOrFail($id);
+
+        // Restore previously deducted coins
+        $user->increment('coins', $ad->coins_needed);
+
+        // Check if the user has enough coins for the updated ad
         if ($user->coins < $validatedData['coins_needed']) {
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['coins_needed' => 'You do not have enough coins to update this ad.']);
         }
 
-        // Handle uploaded files
+        // Deduct new coins required
+        $user->decrement('coins', $validatedData['coins_needed']);
+
+        // Process new pictures, if uploaded
         if ($request->hasFile('pictures')) {
             $validatedData['pictures'] = array_map(
                 fn($file) => $file->store('ads', 'public'),
                 $request->file('pictures')
             );
-
-            // Remove old pictures if new ones are uploaded
-            foreach ($ad->pictures as $oldPicture) {
-                Storage::disk('public')->delete($oldPicture);
-            }
         } else {
-            // Retain old pictures if no new ones are uploaded
-            $validatedData['pictures'] = $ad->pictures;
+            unset($validatedData['pictures']); // Keep existing pictures if not updated
         }
 
-        // Update the ad
-        $ad->update($validatedData);
+        // Begin transaction
+        DB::beginTransaction();
 
-        return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
+        try {
+            // Update the ad
+            $ad->update($validatedData);
+
+            // Commit transaction
+            DB::commit();
+
+            return redirect()->route('ad.show', $ad->id)
+                ->with('success', 'Ad updated successfully.');
+        } catch (\Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+            $user->increment('coins', $validatedData['coins_needed']);
+
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'An error occurred while updating your ad. Please try again.']);
+        }
     }
-
-
     public function destroy(Ad $ad)
     {
         $ad->delete();
