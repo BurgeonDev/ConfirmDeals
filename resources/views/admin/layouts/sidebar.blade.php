@@ -66,19 +66,27 @@
                   <span class="menu-title">Coins</span>
               </a>
           </li>
+
           <li class="nav-item nav-category">Ad Management</li>
           <li class="nav-item">
-              <a class="nav-link" href="{{ route('ads.index') }}">
-                  <i class="mdi mdi-newspaper menu-icon"></i>
-                  <span class="menu-title">Ads</span>
+              <a class="nav-link" data-bs-toggle="collapse" href="#ad-management" aria-expanded="false"
+                  aria-controls="ad-management">
+                  <i class="menu-icon mdi mdi-newspaper"></i>
+                  <span class="menu-title">Ad </span>
+                  <i class="menu-arrow"></i>
               </a>
+              <div class="collapse" id="ad-management">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('ads.index') }}">Ads</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('admin.reports.index') }}">Reported Ads</a>
+                      </li>
+                  </ul>
+              </div>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.reports.index') }}">
-                  <i class="mdi mdi-newspaper menu-icon"></i>
-                  <span class="menu-title">Reported Ads</span>
-              </a>
-          </li>
+
           <li class="nav-item nav-category">Newsletter</li>
           <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.newsletters.index') }}">

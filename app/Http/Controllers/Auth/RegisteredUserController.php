@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Locality;
 use App\Models\Profession;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -48,6 +49,8 @@ class RegisteredUserController extends Controller
             'locality_id' => 'required|exists:localities,id',
             'phone_number' => 'required|string|max:15|unique:' . User::class,
         ]);
+        // Get free coins value
+        $freeCoins = Setting::getValue('free_coins') ?? 0;
 
         $user = User::create([
             'first_name' => $request->first_name,
@@ -59,6 +62,7 @@ class RegisteredUserController extends Controller
             'city_id' => $request->city_id,
             'locality_id' => $request->locality_id,
             'phone_number' => $request->phone_number,
+            'coins' => $freeCoins,
         ]);
 
         event(new Registered($user));
