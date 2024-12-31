@@ -15,7 +15,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>User</th>
-
                                 <th>Email</th>
                                 <th>Coins</th>
                                 <th>Status</th>
