@@ -118,17 +118,22 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div class="form-check" style="margin-top: 15%; ">
-                                                        <label for="is_featured">{{ __('messages.featured_ad') }}</label>
-                                                        <!-- Hidden input for unchecked state -->
+
+                                                    <!-- Featured Ad -->
+
+                                                    <div class="form-group">
+                                                        <label for="is_featured">{{ __('messages.is_featured') }}</label>
                                                         <input type="hidden" name="is_featured" value="0">
                                                         <input type="checkbox" name="is_featured" id="is_featured"
-                                                            value="1"
-                                                            {{ old('is_featured', isset($ad) && $ad->is_featured ? true : false) ? 'checked' : '' }}>
+                                                            value="1" {{ old('is_featured') ? 'checked' : '' }}>
                                                         @error('is_featured')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
+
+
+
+
                                                 </div>
 
 
