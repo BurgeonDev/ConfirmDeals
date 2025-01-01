@@ -114,7 +114,7 @@
                                         <li class="col-md-4"><span>@lang('messages.coins_required')</span> {{ $ad->coins_needed }}</li>
                                         <li class="col-md-4"><span>@lang('messages.available_coins')</span> {{ auth()->user()->coins }}
                                         </li>
-                                        <li class="col-md-4"><span>@lang('messages.no_of_bids')</span> {{ $ad->bids->count() }}</li>
+
                                     </div>
 
 
@@ -127,13 +127,17 @@
                                     <li><span>@lang('messages.category'):</span>{{ $ad->category->name }}</li>
                                     <li><span>@lang('messages.status'):</span>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}
                                     </li>
+                                    <li class="col-md-4"><span>@lang('messages.no_of_bids')</span> {{ $ad->bids->count() }}</li>
                                     <li><span>@lang('messages.created_on')</span>{{ \Carbon\Carbon::parse($ad->created_at)->format('F j, Y ') }}
                                     </li>
                                     <li><span>@lang('messages.updated_on')</span>{{ \Carbon\Carbon::parse($ad->updated_at)->format('F j, Y ') }}
+
+                                    </li>
+                                    <li>
                                         <button type="button" class="btn btn-sm"
                                             style="background-color:none; border-color:none; color:#232323;"
                                             data-bs-toggle="modal" data-bs-target="#reportModal">
-                                            <i class="lni lni-flag"></i><span>@lang('messages.report_this_ad')</span>
+                                            <i class="lni lni-flag"></i><span style="color: red">@lang('messages.report_this_ad')</span>
 
                                         </button>
                                     </li>

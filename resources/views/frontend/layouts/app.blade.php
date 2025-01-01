@@ -56,7 +56,7 @@
     @yield('content')
     <!-- End Dashboard Section -->
     <!-- Start Newsletter Area -->
-    <div class="newsletter section">
+    {{-- <div class="newsletter section">
         <div class="container">
             <div class="inner-content">
                 <div class="row align-items-center">
@@ -115,7 +115,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Newsletter Area -->
     <!-- Start Footer Area -->
     @include('frontend.layouts.footer')

@@ -168,8 +168,14 @@
                                                             @endif
                                                         </div>
                                                         <div class="content">
-                                                            <a href="javascript:void(0)"
-                                                                class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
+                                                            <div
+                                                                style="display: flex; justify-content: space-between; align-items: center;">
+                                                                <a href="javascript:void(0)"
+                                                                    class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
+                                                                <span
+                                                                    class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+                                                            </div>
+
                                                             <h3
                                                                 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; width: 100%;">
                                                                 <a href="{{ route('ad.show', $ad->id) }}"
@@ -264,7 +270,7 @@
                                                                     @if ($ad->is_featured)
                                                                         <i class="cross-badge lni lni-bolt"></i>
                                                                     @endif
-
+                                                                    {{-- <span class="flat-badge sale">{{ ucfirst($ad->type) }}</span> --}}
                                                                     @if ($ad->is_featured)
                                                                         <span class="flat-badge sale">
                                                                             Featured
@@ -274,8 +280,14 @@
                                                             </div>
                                                             <div class="col-lg-7 col-md-5 col-12">
                                                                 <div class="content">
-                                                                    <a href="javascript:void(0)"
-                                                                        class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
+                                                                    <div
+                                                                        style="display: flex; justify-content: space-between; align-items: center;">
+                                                                        <a href="javascript:void(0)"
+                                                                            class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
+                                                                        <span
+                                                                            class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+                                                                    </div>
+
                                                                     <h3 class="title">
                                                                         <a
                                                                             href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>

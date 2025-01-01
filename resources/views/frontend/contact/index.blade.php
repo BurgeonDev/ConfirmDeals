@@ -32,32 +32,32 @@
                     <div class="col-lg-5 col-12">
                         <div class="single-head">
                             <div class="contant-inner-title">
-                                <h2>@lang('messages.our_contacts_location')</h2>
+                                <h2>Our Contacts</h2>
                                 <p>@lang('messages.contact_inquiries')</p>
                             </div>
-                            <div class="single-info">
+                            {{-- <div class="single-info">
                                 <h3>@lang('messages.opening_hours')</h3>
                                 <ul>
                                     <li>@lang('messages.daily_hours')</li>
                                     <li>@lang('messages.sunday_closed')</li>
                                 </ul>
-                            </div>
+                            </div> --}}
                             <div class="single-info">
                                 <h3>@lang('messages.contact_info')</h3>
                                 <ul>
-                                    <li>@lang('messages.address')</li>
-                                    <li>@lang('messages.city_zip')</li>
+                                    <li>The Binary, Business Bay, Dubai.</li>
+                                    {{-- <li>@lang('messages.city_zip')</li> --}}
                                     <li><a href="mailto:@lang('messages.email_address')">@lang('messages.email_address')</a></li>
-                                    <li><a href="tel:@lang('messages.phone_number')">@lang('messages.phone_number')</a></li>
+                                    {{-- <li><a href="tel:@lang('messages.phone_number')">@lang('messages.phone_number')</a></li> --}}
                                 </ul>
                             </div>
                             <div class="single-info contact-social">
                                 <h3>@lang('messages.social_contact')</h3>
                                 <ul>
+                                    {{-- <li><i class="lni lni-facebook-original"></i></li> --}}
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-pinterest"></i></a></li>
+                                    {{-- <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="lni lni-pinterest"></i></a></li> --}}
                                 </ul>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         <div class="form-main">
                             <div class="form-title">
                                 <h2>@lang('messages.get_in_touch')</h2>
-                                <p>@lang('messages.contact_description')</p>
+                                {{-- <p>@lang('messages.contact_description')</p> --}}
                             </div>
                             <form class="form" action="{{ route('contact.send') }}" method="POST">
                                 @csrf
