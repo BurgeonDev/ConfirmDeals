@@ -28,6 +28,6 @@
     <!-- End Items Tab Area -->
 
     <!-- Start Pricing Table Area -->
-    {{-- @include('frontend.home.pricing') --}}
+    @include('frontend.home.pricing')
     <!--/ End Pricing Table Area -->
 @endsection

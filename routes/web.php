@@ -30,6 +30,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\NewsletterAdminController;
 use App\Http\Controllers\EasypaisaController;
 use App\Http\Controllers\JazzCashController;
+use App\Http\Controllers\PricingController;
 use App\Http\Controllers\SettingController;
 
 Route::group([
@@ -43,9 +44,11 @@ Route::group([
     Route::get('/faq', function () {
         return view('frontend.faq.index');
     })->name('faq');
-    Route::get('/pricing', function () {
-        return view('frontend.pricing.index');
-    })->name('pricing');
+    // Route::get('/pricing', function () {
+    //     return view('frontend.pricing.index');
+    // })->name('pricing');
+
+    Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::resource('/home', HomeController::class);
     Route::middleware('auth')->group(function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Coin;
 use App\Models\Country;
 use App\Models\Locality;
 use App\Models\Profession;
@@ -18,7 +19,7 @@ class HomeController extends Controller
         $countries = Country::all();
         $cities = City::all();
         $localities = Locality::all();
-
+        $coins = Coin::all();
         // Fetch service ads with 'verified' status
         $serviceAds = Ad::with('user')
             ->where('status', 'verified')->where('type', 'service')->limit(4)
@@ -74,7 +75,8 @@ class HomeController extends Controller
             'latestAds',
             'categories',
             'categoryIcons',
-            'professions'
+            'professions',
+            'coins'
         ));
     }
 
