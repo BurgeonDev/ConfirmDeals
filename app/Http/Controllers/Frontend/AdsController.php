@@ -416,8 +416,9 @@ class AdsController extends Controller
             ->whereNotNull('featured_until')
             ->where('featured_until', '>', now())
             ->get();
-
+        $featuredAdRate = DB::table('settings')->where('key', 'featured_ad_rate')->value('value');
+        $user = auth()->user();
         // Return the view with ads
-        return view('frontend.postad.featured', compact('ads'));
+        return view('frontend.postad.featured', compact('ads', 'featuredAdRate', 'user'));
     }
 }

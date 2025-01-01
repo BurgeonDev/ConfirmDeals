@@ -90,9 +90,20 @@
                                                 <p>{{ $ad->type }}</p>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-12">
-                                                <p>{{ \Carbon\Carbon::parse($ad->featured_until)->diffForHumans(now(), true) }}
-                                                    left</p>
+                                                @if ($ad->featured_until)
+                                                    @php
+                                                        $remainingTime = \Carbon\Carbon::parse(
+                                                            $ad->featured_until,
+                                                        )->diff(now());
+                                                        $hours = $remainingTime->h;
+                                                        $minutes = $remainingTime->i;
+                                                    @endphp
+                                                    <p>{{ $hours }} hours and {{ $minutes }} minutes left</p>
+                                                @else
+                                                    <p>No time left</p>
+                                                @endif
                                             </div>
+
 
 
 
@@ -124,6 +135,7 @@
                                                 </ul>
 
                                                 <!-- Modal for Editing -->
+
                                                 <div class="modal fade" id="editModal" tabindex="-1"
                                                     aria-labelledby="editModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
@@ -135,21 +147,46 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <!-- Form for updating featured ad -->
                                                                 <form action="{{ route('ad.updateFeature', $ad->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('POST')
-                                                                    <div class="mb-3">
-                                                                        <label for="featured_days" class="form-label">Number
-                                                                            of days to feature this ad:</label>
-                                                                        <p>{{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffForHumans(now(), true) . ' left' : '' }}
-                                                                        </p>
+                                                                    <div class="mb-2 row align-items-center">
+                                                                        <div class="col-auto">
+                                                                            <strong>Days left to be Unfeatured:</strong>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <p class="mb-0">
 
-                                                                        <input type="number" class="form-control"
-                                                                            name="featured_days" min="1"
-                                                                            value="{{ old('featured_days', $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : '') }}"
-                                                                            required>
+                                                                                @php
+                                                                                    $remainingTime = \Carbon\Carbon::parse(
+                                                                                        $ad->featured_until,
+                                                                                    )->diff(now());
+                                                                                    $hours = $remainingTime->h;
+                                                                                    $minutes = $remainingTime->i;
+                                                                                @endphp
+                                                                                {{ $hours }} hours and
+                                                                                {{ $minutes }} minutes left
+
+                                                                            </p>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mb-3" style="text-align: left">
+                                                                        <label for="featured_days" class="form-label">Update
+                                                                            Number
+                                                                            of days to feature this ad:</label>
+
+                                                                        <input type="number" id="featured_days"
+                                                                            class="form-control" name="featured_days"
+                                                                            min="1" value="" required>
+
+
+
+                                                                        <small id="coinMessage" class="text-muted"></small>
+                                                                        <small id="errorMessage"
+                                                                            class="text-danger"></small>
                                                                     </div>
                                                                     <button type="submit" class="btn btn-primary">Update
                                                                         Featured Ad</button>
@@ -158,6 +195,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
 
 
@@ -175,4 +213,38 @@
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const featuredDaysInput = document.getElementById('featured_days');
+            const coinMessage = document.getElementById('coinMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            const featuredAdRate = {{ $featuredAdRate }};
+            const userCoins = {{ auth()->user()->coins }};
+            const currentFeaturedDays =
+                {{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : 0 }};
+
+            featuredDaysInput.addEventListener('input', function() {
+                const enteredDays = parseInt(featuredDaysInput.value) || 0;
+                const requiredCoins = enteredDays * featuredAdRate;
+                const coinBalance = userCoins - requiredCoins;
+
+                if (coinBalance < 0) {
+                    errorMessage.textContent =
+                        `Sorry, you don't have enough coins. You need ${Math.abs(coinBalance)} more coins.`;
+                } else {
+                    errorMessage.textContent = '';
+                }
+
+                if (enteredDays > currentFeaturedDays) {
+                    coinMessage.textContent =
+                        `Additional ${requiredCoins} coins will be deducted for ${enteredDays} days.`;
+                } else if (enteredDays < currentFeaturedDays) {
+                    coinMessage.textContent = `Reducing days will adjust the feature duration accordingly.`;
+                } else {
+                    coinMessage.textContent = '';
+                }
+            });
+        });
+    </script>
 @endsection
