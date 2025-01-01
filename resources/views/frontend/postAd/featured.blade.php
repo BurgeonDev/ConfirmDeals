@@ -221,8 +221,12 @@
 
             const featuredAdRate = {{ $featuredAdRate }};
             const userCoins = {{ auth()->user()->coins }};
-            const currentFeaturedDays =
-                {{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : 0 }};
+            let currentFeaturedDays = 0;
+
+            @if (isset($ad))
+                currentFeaturedDays =
+                    {{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : 0 }};
+            @endif
 
             featuredDaysInput.addEventListener('input', function() {
                 const enteredDays = parseInt(featuredDaysInput.value) || 0;
@@ -247,4 +251,5 @@
             });
         });
     </script>
+
 @endsection
