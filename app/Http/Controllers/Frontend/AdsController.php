@@ -148,57 +148,6 @@ class AdsController extends Controller
     }
 
 
-
-
-    // public function update(Request $request, Ad $ad)
-    // {
-    //     $validatedData = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'type' => 'required|in:service,product',
-    //         'is_verified' => 'boolean',
-    //         'pictures' => 'nullable|array|max:5',
-    //         'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12048',
-    //         'price' => 'required|numeric|min:0',
-    //         'country_id' => 'required|exists:countries,id',
-    //         'city_id' => 'required|exists:cities,id',
-    //         'locality_id' => 'required|exists:localities,id',
-    //         'coins_needed' => 'required|integer|min:0',
-    //         'category_id' => 'required|exists:categories,id',
-    //     ]);
-
-    //     // Get the authenticated user
-    //     $user = auth()->user();
-
-    //     // Check if the user has enough coins for the update
-    //     if ($user->coins < $validatedData['coins_needed']) {
-    //         return redirect()->back()
-    //             ->withInput()
-    //             ->withErrors(['coins_needed' => 'You do not have enough coins to update this ad.']);
-    //     }
-
-    //     // Handle uploaded files
-    //     if ($request->hasFile('pictures')) {
-    //         $validatedData['pictures'] = array_map(
-    //             fn($file) => $file->store('ads', 'public'),
-    //             $request->file('pictures')
-    //         );
-
-    //         // Remove old pictures if new ones are uploaded
-    //         foreach ($ad->pictures as $oldPicture) {
-    //             Storage::disk('public')->delete($oldPicture);
-    //         }
-    //     } else {
-    //         // Retain old pictures if no new ones are uploaded
-    //         $validatedData['pictures'] = $ad->pictures;
-    //     }
-
-    //     // Update the ad
-    //     $ad->update($validatedData);
-
-    //     return redirect()->route('ad.index')->with('success', 'Ad updated successfully!');
-    // }
-
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
