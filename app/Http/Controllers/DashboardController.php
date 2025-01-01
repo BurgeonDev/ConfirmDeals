@@ -21,14 +21,18 @@ class DashboardController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Use status field instead of is_verified
         $countries = Country::count();
         $cities = City::count();
         $localities = Locality::count();
-        $ads = Ad::where('status', 'verified')->count(); // Count verified ads
-        $disableAds = Ad::where('status', 'pending')->count(); // Count ads with pending status
+        $ads = Ad::where('status', 'verified')->count();
+        $disableAds = Ad::where('status', 'cancel')->count();
         $categories = Category::count();
         $professions = Profession::count();
+
+        // Additional counts
+        $featuredAds = Ad::where('is_featured', true)->count(); // Count featured ads
+        $expiredAds = Ad::where('status', 'expired')->count(); // Count expired ads
+        $pendingAds = Ad::where('status', 'pending')->count(); // Count pending ads
 
         return view('admin.dashboard', compact(
             'countries',
@@ -37,56 +41,10 @@ class DashboardController extends Controller
             'ads',
             'disableAds',
             'categories',
-            'professions'
+            'professions',
+            'featuredAds',
+            'expiredAds',
+            'pendingAds'
         ));
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
