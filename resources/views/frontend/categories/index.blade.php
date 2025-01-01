@@ -91,7 +91,7 @@
                                             class="category-filter {{ request('category') == $category->id ? 'active' : '' }}"
                                             data-category="{{ $category->id }}"style="text-decoration: none; color: {{ request('category') == $category->id ? '#6610f2' : '#000' }}; font-weight: {{ request('category') == $category->id ? 'bold' : 'normal' }};">
                                             {{ $category->name }}
-                                            <span>{{ $category->ads->where('is_verified', 1)->count() }}</span>
+                                            <span>{{ $category->ads->where('status', 'verified')->count() }}</span>
                                         </a>
                                     </li>
                                 @endforeach
@@ -122,7 +122,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <h3 class="title" id="adsCount">Showing
-                                                {{ $ads->where('is_verified', 1)->count() }} ads</h3>
+                                                {{ $ads->where('status', 'verified')->count() }} ads</h3>
 
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
