@@ -94,14 +94,23 @@
 
                                          </a>
                                      </li>
-                                     <li>
+                                     {{-- <li>
                                          <a href="{{ route('dashboard.index') }}">
                                              <i class="lni lni-user"></i>
                                              {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
-
-
+                                         </a>
+                                     </li> --}}
+                                     <li>
+                                         <a href="{{ route('dashboard.index') }}">
+                                             {{-- <i class="lni lni-user"></i> --}}
+                                             <img style="max-height: 25px; max-width:25px; border-radius:50%;"
+                                                 src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
+                                                 alt="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}"
+                                                 class="user-profile-img" />
+                                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                          </a>
                                      </li>
+
                                      <li>
                                          <a href="{{ route('logout') }}"
                                              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
