@@ -140,6 +140,21 @@
                                                         <p class="mb-0"><strong>Status:</strong> <span
                                                                 class="badge bg-success">Accepted</span></p>
                                                     </div>
+                                                    <!-- Payment Button with 0.25% Discount -->
+                                                    <form action="{{ route('paymentsway') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="price"
+                                                            value="{{ number_format($bid->ad->price * 0.0025, 2) }}">
+
+                                                        {{-- <input type="hidden" name="ad_id"
+                                                            value="{{ $bid->ad->id }}"> --}}
+                                                        <input type="hidden" name="packageName"
+                                                            value="{{ $bid->ad->title }}">
+                                                        <div class="button">
+                                                            <button style="border:none" class="btn btn-success"
+                                                                type="submit">Pay </button>
+                                                        </div>
+                                                    </form>
                                                     <!-- Feedback Button -->
                                                     <button class="mt-2 btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="#feedbackModal-{{ $bid->id }}">
