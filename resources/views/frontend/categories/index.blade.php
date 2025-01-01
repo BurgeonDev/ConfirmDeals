@@ -160,7 +160,12 @@
                                                             @if ($ad->is_featured)
                                                                 <i class="cross-badge lni lni-bolt"></i>
                                                             @endif
-                                                            <span class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+
+                                                            @if ($ad->is_featured)
+                                                                <span class="flat-badge sale">
+                                                                    Featured
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="content">
                                                             <a href="javascript:void(0)"
@@ -259,8 +264,12 @@
                                                                     @if ($ad->is_featured)
                                                                         <i class="cross-badge lni lni-bolt"></i>
                                                                     @endif
-                                                                    <span
-                                                                        class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+
+                                                                    @if ($ad->is_featured)
+                                                                        <span class="flat-badge sale">
+                                                                            Featured
+                                                                        </span>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-7 col-md-5 col-12">
