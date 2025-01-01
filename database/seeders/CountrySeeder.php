@@ -13,18 +13,6 @@ class CountrySeeder extends Seeder
             ['name' => 'Pakistan'],
             ['name' => 'United States'],
             ['name' => 'India'],
-            ['name' => 'United Kingdom'],
-            ['name' => 'Canada'],
-            ['name' => 'Australia'],
-            ['name' => 'Germany'],
-            ['name' => 'France'],
-            ['name' => 'China'],
-            ['name' => 'Japan'],
-            ['name' => 'Brazil'],
-            ['name' => 'South Africa'],
-            ['name' => 'Mexico'],
-            ['name' => 'Russia'],
-            ['name' => 'Italy'],
         ];
 
         foreach ($countries as $country) {
