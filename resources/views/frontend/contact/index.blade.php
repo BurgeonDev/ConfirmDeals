@@ -50,7 +50,7 @@
                                 <ul>
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-original"></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="lni lni-instagram-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-tiktok-original"></i></a></li>
+                                    {{-- <li><a href="javascript:void(0)"><i class="lni lni-tiktok-original"></i></a></li> --}}
 
                                 </ul>
                             </div>
