@@ -351,6 +351,7 @@ class AdsController extends Controller
             $user->decrement('coins', $coinsNeeded);
 
             // Set the ad as featured and store the number of featured days
+            $ad->is_featured = true; // Set is_featured to true
             $ad->featured_until = now()->addDays(intval($validatedData['featured_days']));
 
             $ad->save();
@@ -367,6 +368,7 @@ class AdsController extends Controller
                 ->withErrors(['error' => 'An error occurred while featuring the ad. Please try again.']);
         }
     }
+
     public function updateFeatureAd(Request $request, $id)
     {
         // Validate the input
@@ -382,6 +384,17 @@ class AdsController extends Controller
 
         if (!$featuredAdRate) {
             return redirect()->back()->withErrors(['error' => 'Featured ad rate is not set.']);
+        }
+
+        // Check if the user wants to un-feature the ad
+        if ($request->has('unfeature') && $request->unfeature == '1') {
+            // Un-feature the ad
+            $ad->is_featured = false;
+            $ad->featured_until = null;
+            $ad->save();
+
+            return redirect()->route('ad.show', $ad->id)
+                ->with('success', 'Ad has been un-featured successfully.');
         }
 
         // Calculate the new coins needed
@@ -410,6 +423,7 @@ class AdsController extends Controller
 
             // Update the featured days of the ad
             $ad->featured_until = $newFeaturedUntil;
+            $ad->is_featured = true; // Mark the ad as featured
             $ad->save();
 
             // Commit transaction
@@ -424,6 +438,19 @@ class AdsController extends Controller
                 ->withErrors(['error' => 'An error occurred while updating the featured ad. Please try again.']);
         }
     }
+    public function unfeature($id)
+    {
+        $ad = Ad::findOrFail($id);
+
+        // Un-feature the ad by setting is_featured to false and removing the featured_until date
+        $ad->is_featured = false;
+        $ad->featured_until = null;
+        $ad->save();
+
+        return redirect()->route('ad.show', $ad->id)->with('success', 'Ad has been un-featured successfully.');
+    }
+
+
 
     public function showFeaturedAds()
     {

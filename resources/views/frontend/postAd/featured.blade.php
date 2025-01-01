@@ -99,59 +99,69 @@
 
 
                                             <div class="col-lg-2 col-md-2 col-12 align-right">
-                                                <ul class="action-btn">
+                                                <ul
+                                                    class="action-btn list-unstyled d-flex justify-content-start align-items-center">
+                                                    <!-- Edit Button -->
                                                     <li>
-                                                        <!-- Edit Button (This triggers the modal) -->
-                                                        <button type="button" class="btn btn-primary"
+                                                        <button type="button" class="btn btn-outline-primary btn-sm me-2"
                                                             data-bs-toggle="modal" data-bs-target="#editModal">
-                                                            Edit Featured Ad
+                                                            <i class="lni lni-pencil"></i> Edit
                                                         </button>
-
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="editModal" tabindex="-1"
-                                                            aria-labelledby="editModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="editModalLabel">Update
-                                                                            Featured Ad</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <!-- Form for updating featured ad -->
-                                                                        <form
-                                                                            action="{{ route('ad.updateFeature', $ad->id) }}"
-                                                                            method="POST">
-                                                                            @csrf
-                                                                            @method('POST')
-                                                                            <div class="mb-3">
-                                                                                <label for="featured_days"
-                                                                                    class="form-label">Number of days to
-                                                                                    feature this ad:</label>
-                                                                                <p>{{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffForHumans(now(), true) . ' left' : '' }}
-                                                                                </p>
-
-                                                                                <input type="number" class="form-control"
-                                                                                    name="featured_days" min="1"
-                                                                                    value="{{ old('featured_days', $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : '') }}"
-                                                                                    required>
-
-                                                                            </div>
-                                                                            <button type="submit"
-                                                                                class="btn btn-primary">Update Featured
-                                                                                Ad</button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                     </li>
 
+                                                    <!-- Un-feature Button -->
+                                                    <li>
+                                                        <form action="{{ route('ad.unfeature', $ad->id) }}" method="POST"
+                                                            style="display:inline;">
+                                                            @csrf
+                                                            @method('POST')
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                                title="Un-feature this ad">
+                                                                <i class="lni lni-trash"></i> Unfeature
+                                                            </button>
+                                                        </form>
+                                                    </li>
                                                 </ul>
+
+                                                <!-- Modal for Editing -->
+                                                <div class="modal fade" id="editModal" tabindex="-1"
+                                                    aria-labelledby="editModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Update Featured
+                                                                    Ad</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Form for updating featured ad -->
+                                                                <form action="{{ route('ad.updateFeature', $ad->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('POST')
+                                                                    <div class="mb-3">
+                                                                        <label for="featured_days" class="form-label">Number
+                                                                            of days to feature this ad:</label>
+                                                                        <p>{{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffForHumans(now(), true) . ' left' : '' }}
+                                                                        </p>
+
+                                                                        <input type="number" class="form-control"
+                                                                            name="featured_days" min="1"
+                                                                            value="{{ old('featured_days', $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : '') }}"
+                                                                            required>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Update
+                                                                        Featured Ad</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+
+
+
                                         </div>
                                     </div>
                                 @empty

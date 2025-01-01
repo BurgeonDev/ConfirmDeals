@@ -67,6 +67,9 @@ Route::group([
         Route::post('/ad/{id}/feature', [AdsController::class, 'featureAd'])->name('ad.feature');
         Route::post('/ad/{id}/update-feature', [AdsController::class, 'updateFeatureAd'])->name('ad.updateFeature');
         Route::get('/featured-ads', [AdsController::class, 'showFeaturedAds'])->name('ad.featured');
+        // Route for un-featuring an ad
+        Route::post('/ad/{id}/unfeature', [AdsController::class, 'unfeature'])->name('ad.unfeature');
+
 
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
