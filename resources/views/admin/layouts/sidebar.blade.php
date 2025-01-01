@@ -87,13 +87,13 @@
               </div>
           </li>
 
-          <li class="nav-item nav-category">Newsletter</li>
+          {{-- <li class="nav-item nav-category">Newsletter</li>
           <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.newsletters.index') }}">
                   <i class="mdi mdi-mail menu-icon"></i>
                   <span class="menu-title">Mail</span>
               </a>
-          </li>
+          </li> --}}
 
 
       </ul>

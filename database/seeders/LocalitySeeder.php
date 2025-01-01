@@ -16,6 +16,9 @@ class LocalitySeeder extends Seeder
             ['name' => 'Gulberg', 'city_id' => 2],
             ['name' => 'Manhattan', 'city_id' => 3],
             ['name' => 'Brooklyn', 'city_id' => 3],
+            ['name' => 'Adha', 'city_id' => 4],
+            ['name' => 'Besrha', 'city_id' => 5],
+            ['name' => 'kcety', 'city_id' => 6],
         ];
 
         foreach ($localities as $locality) {

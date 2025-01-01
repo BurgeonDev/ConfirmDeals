@@ -27,6 +27,10 @@ class Ad extends Model
                 // Set `is_featured` to 0 (unfeatured) if the `featured_until` date has passed
                 $ad->is_featured = 0;
             }
+            // Automatically set the status to 'expired' if the ad is more than 3 months old
+            if (Carbon::now()->diffInMonths($ad->updated_at) >= 3 && $ad->status !== 'expired') {
+                $ad->status = 'expired';
+            }
         });
 
         // Alternatively, you can run this check when fetching ads in a query:
