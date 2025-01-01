@@ -33,10 +33,11 @@
                             <li><strong> Visibility:</strong> Higher visibility than Free plan</li>
                             <li><strong> Promotional Tools:</strong> Basic promotional tools to attract views</li>
                         </ul>
-                        <form action="{{ route('paymentsway') }}" method="POST">
+                        <form action="{{ route('paymentsway') }}">
                             @csrf
-                            <input type="hidden" name="coins_quantity" value="50">
-                            <input type="hidden" name="price_in_pkr" value="{{ $coin->price_in_pkr }}">
+                            {{-- <input type="hidden" name="coins_quantity" value="50"> --}}
+                            <input type="hidden" name="price" value="{{ $coin->price_in_pkr * 50 }}">
+                            <input type="hidden" name="packageName" value="50 Coins Package">
                             <div class="button">
                                 <button style="border:none" class="btn" type="submit">Buy Now</button>
                             </div>
@@ -60,10 +61,11 @@
                             <li><strong> Visibility:</strong> Higher visibility than Free plan</li>
                             <li><strong> Promotional Tools:</strong> Basic promotional tools to attract views</li>
                         </ul>
-                        <form action="{{ route('paymentsway') }}" method="POST">
+                        <form action="{{ route('paymentsway') }}">
                             @csrf
-                            <input type="hidden" name="coins_quantity" value="100">
-                            <input type="hidden" name="price_in_pkr" value="{{ $coin->price_in_pkr }}">
+                            {{-- <input type="hidden" name="coins_quantity" value="100"> --}}
+                            <input type="hidden" name="price" value="{{ $coin->price_in_pkr * 100 }}">
+                            <input type="hidden" name="packageName" value="100 Coins Package">
                             <div class="button">
                                 <button style="border:none" class="btn" type="submit">Buy Now</button>
                             </div>
@@ -86,34 +88,46 @@
                             </li>
                             <li><strong> Ad Postings:</strong> Custom number of ads based on the coins</li>
                         </ul>
-                        <form action="{{ route('paymentsway') }}" method="POST">
+                        <form action="{{ route('paymentsway') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="coins_quantity">Enter the number of coins:</label>
-                                <input type="number" id="coins_quantity" name="coins_quantity" class="form-control"
-                                    value="1" min="1" required>
+                                <input type="number" id="coins_quantity" class="form-control" value="1"
+                                    min="1" required>
                             </div>
-                            <input type="hidden" name="price_in_pkr" id="price_in_pkr"
-                                value="{{ $coin->price_in_pkr }}">
+                            <input type="hidden" name="price" id="price" value="{{ $coin->price_in_pkr }}">
                             <input type="hidden" name="packageName" value="Custom Coins">
                             <div class="button">
                                 <button style="border:none" class="btn" type="submit">Buy Now</button>
                             </div>
                         </form>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const coinsQuantityInput = document.getElementById('coins_quantity');
+                                const priceInput = document.getElementById('price');
+                                const totalPriceElement = document.getElementById('total_price');
+                                const pricePerCoin = {{ $coin->price_in_pkr }};
+
+                                function updateTotalPrice() {
+                                    const coinsQuantity = parseInt(coinsQuantityInput.value) ||
+                                    1; // Default to 1 if input is empty or invalid
+                                    const totalPrice = coinsQuantity * pricePerCoin;
+                                    totalPriceElement.textContent = totalPrice.toFixed(0); // Update visible total price
+                                    priceInput.value = totalPrice.toFixed(0); // Update hidden price input
+                                }
+
+                                // Add event listener for live updates
+                                coinsQuantityInput.addEventListener('input', updateTotalPrice);
+
+                                // Initialize total price on page load
+                                updateTotalPrice();
+                            });
+                        </script>
+
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 </section>
-
-<script>
-    document.getElementById('coins_quantity').addEventListener('input', function() {
-        var coinsQuantity = parseInt(this.value);
-        var pricePerCoin = parseFloat(document.getElementById('price_in_pkr').value);
-        var totalPrice = coinsQuantity * pricePerCoin;
-
-        // Update total price dynamically
-        document.getElementById('total_price').textContent = totalPrice.toFixed(0); // Without decimals
-    });
-</script>
