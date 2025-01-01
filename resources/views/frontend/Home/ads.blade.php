@@ -42,7 +42,7 @@
                                                     src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
-                                            @if ($ad->is_featured)
+                                            @if ($ad->is_verified)
                                                 <i class="cross-badge lni lni-bolt"></i>
                                             @endif
                                             <span
@@ -62,7 +62,7 @@
                                                 </a>
                                             </p>
                                             <ul class="info">
-                                                <li class="price">PKR {{ number_format($ad->price, 0) }}</li>
+                                                <li class="price">PKR {{ number_format($ad->price, 1) }}</li>
                                                 <li class="like">
                                                     <form action="{{ route('favorites.toggle') }}" method="POST"
                                                         class="favorite-form">
@@ -95,7 +95,7 @@
                                                     src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
-                                            @if ($ad->is_featured)
+                                            @if ($ad->is_verified)
                                                 <i class="cross-badge lni lni-bolt"></i>
                                             @endif
                                             <span
@@ -115,7 +115,7 @@
                                                 </a>
                                             </p>
                                             <ul class="info">
-                                                <li class="price">PKR {{ number_format($ad->price, 0) }}</li>
+                                                <li class="price">PKR {{ number_format($ad->price) }}</li>
                                                 <li class="like">
                                                     <form action="{{ route('favorites.toggle') }}" method="POST"
                                                         class="favorite-form">
