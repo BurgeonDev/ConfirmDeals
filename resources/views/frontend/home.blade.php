@@ -3,22 +3,24 @@
     <!-- Start Hero Area -->
     @include('frontend.home.hero')
     <!-- End Hero Area -->
-
+    <!-- Start How Works Area -->
+    @include('frontend.home.howWork')
+    <!-- End How Works Area -->
     <!-- Start Categories Area -->
-    @include('frontend.home.category')
+    {{-- @include('frontend.home.category') --}}
     <!-- /End Categories Area -->
 
     <!-- Start Items Grid Area -->
-    @include('frontend.home.item')
+    {{-- @include('frontend.home.item') --}}
     <!-- /End Items Grid Area -->
 
     <!-- Start Why Choose Area -->
-    @include('frontend.home.whyUs')
+    {{-- @include('frontend.home.whyUs') --}}
     <!-- /End Why Choose Area -->
 
 
     <!-- Start Call Action Area/ post ad -->
-    @include('frontend.home.adCall')
+    {{-- @include('frontend.home.adCall') --}}
     <!-- End Call Action Area -->
 
     <!-- Start Ads Area -->
@@ -26,10 +28,6 @@
     <!-- End Items Tab Area -->
 
     <!-- Start Pricing Table Area -->
-    @include('frontend.home.pricing')
+    {{-- @include('frontend.home.pricing') --}}
     <!--/ End Pricing Table Area -->
-
-    <!-- Start How Works Area -->
-    @include('frontend.home.howWork')
-    <!-- End How Works Area -->
 @endsection

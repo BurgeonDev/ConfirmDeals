@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             CoinsTableSeeder::class,
             ProfessionsSeeder::class,
-
+            SettingSeeder::class,
             CategorySeeder::class,
             CountrySeeder::class,
             CitySeeder::class,

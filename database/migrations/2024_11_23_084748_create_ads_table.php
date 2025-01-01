@@ -21,6 +21,8 @@ class CreateAdsTable extends Migration
             $table->unsignedBigInteger('locality_id')->nullable();
             $table->unsignedInteger('coins_needed')->default(0);
             $table->unsignedBigInteger('user_id');
+            $table->boolean('is_featured')->default(false);
+            $table->integer('days_featured')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 

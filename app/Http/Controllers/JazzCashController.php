@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Easypaisa;
 use App\Models\JazzCash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class JazzCashController extends Controller
         $txnRefNo = "T" . $currentDateTime;
 
         // Save Payment Record
-        $jazzCash = JazzCash::create([
+        $jazzCash = Easypaisa::create([
             'user_id' => Auth::id(),
             'phone' => Auth::user()->phone_number,
             'package_name' => $packageName,

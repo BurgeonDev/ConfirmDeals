@@ -54,6 +54,11 @@
                                 <label for="free_coins">Free Coins to register Users</label>
                                 <input type="number" id="free_coins" name="free_coins" class="form-control"
                                     value="{{ $freeCoins }}" required>
+                                <div class="form-group">
+                                    <label for="featured_ad_rate">Featured Ad Coins Per Day</label>
+                                    <input type="number" name="featured_ad_rate" id="featured_ad_rate" class="form-control"
+                                        value="{{ old('featured_ad_rate', $featuredAdRate) }}" required>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-success btn-rounded btn-fw">Update</button>
                         </form>

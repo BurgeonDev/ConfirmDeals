@@ -39,11 +39,14 @@ class Ad extends Model
         'locality_id',
         'coins_needed',
         'user_id',
+        'is_featured',
+        'days_featured',
         'category_id',
     ];
 
     protected $casts = [
         'is_verified' => 'boolean',
+        'is_featured' => 'boolean',
         'pictures' => 'array',
     ];
 

@@ -15,9 +15,9 @@ class CoinController extends Controller
             abort(403, 'Unauthorized action.');
         }
         $freeCoins = Setting::getValue('free_coins');
-
+        $featuredAdRate = Setting::getValue('featured_ad_rate');
         $coins = Coin::all();
-        return view('admin.coins.index', compact('coins', 'freeCoins'));
+        return view('admin.coins.index', compact('coins', 'freeCoins', 'featuredAdRate'));
     }
 
     public function create()
@@ -82,10 +82,12 @@ class CoinController extends Controller
     {
         $validatedData = $request->validate([
             'free_coins' => 'required|integer|min:0',
+            'featured_ad_rate' => 'required|integer|min:1', // Coins per day for featured ads
         ]);
 
         Setting::setValue('free_coins', $validatedData['free_coins']);
+        Setting::setValue('featured_ad_rate', $validatedData['featured_ad_rate']);
 
-        return redirect()->back()->with('success', 'Free coins value updated successfully.');
+        return redirect()->back()->with('success', 'Settings updated successfully.');
     }
 }

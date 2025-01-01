@@ -25,12 +25,12 @@
                                      <a href="{{ route('categories.cat') }}"
                                          aria-label="Toggle navigation">Categories</a>
                                  </li>
-                                 <li class="nav-item">
+                                 {{-- <li class="nav-item">
                                      <a href="{{ route('about') }}" aria-label="Toggle navigation">About Us</a>
-                                 </li>
-                                 <li class="nav-item">
+                                 </li> --}}
+                                 {{-- <li class="nav-item">
                                      <a href="{{ route('faq') }}" aria-label="Toggle navigation">FAQ</a>
-                                 </li>
+                                 </li> --}}
                                  <li class="nav-item">
                                      <a href="{{ route('contact.index') }}" aria-label="Toggle navigation">Contact
                                          Us</a>
@@ -129,12 +129,10 @@
                                      </li>
                                  @endforeach
                              </ul>
-
-
-
                          </div>
-
-
+                         <div class="button header-button">
+                             <a href="{{ route('ad.create') }}" class="btn">Post Ad</a>
+                         </div>
                      </nav>
                  </div>
              </div>
