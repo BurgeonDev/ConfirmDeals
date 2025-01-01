@@ -15,26 +15,29 @@ class HomeController extends Controller
 
     public function index()
     {
-
         $countries = Country::all();
         $cities = City::all();
         $localities = Locality::all();
 
+        // Fetch service ads with 'verified' status
         $serviceAds = Ad::with('user')
-            ->where('is_verified', true)->where('type', 'service')->limit(4)
-            ->get();
-        $productAds =
-            Ad::with('user')
-            ->where('is_verified', true)->where('type', 'product')->limit(4)
+            ->where('status', 'verified')->where('type', 'service')->limit(4)
             ->get();
 
-        $latestAds = Ad::with('user')->where('type', 'product')->where('is_verified', true)
+        // Fetch product ads with 'verified' status
+        $productAds = Ad::with('user')
+            ->where('status', 'verified')->where('type', 'product')->limit(4)
+            ->get();
+
+        // Fetch latest product ads with 'verified' status
+        $latestAds = Ad::with('user')->where('type', 'product')->where('status', 'verified')
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
 
         $categories = Category::all();
         $professions = Profession::all();
+
         $categoryIcons = [
             'Electronics' => 'fas fa-tv',                   // TV for electronics
             'Furniture' => 'fas fa-couch',                 // Couch for furniture
@@ -62,9 +65,6 @@ class HomeController extends Controller
             'Other' => 'fas fa-ellipsis-h',                // Ellipsis for other categories
         ];
 
-
-
-
         return view('frontend.home', compact(
             'countries',
             'cities',
@@ -77,6 +77,7 @@ class HomeController extends Controller
             'professions'
         ));
     }
+
 
 
 

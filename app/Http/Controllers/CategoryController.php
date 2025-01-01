@@ -18,14 +18,23 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
     }
+    // public function cat()
+    // {
+    //     $categories = Category::all();
+    //     $ads = Ad::where('is_verified', true)->paginate(30);
+    //     $cities = City::all();
+    //     return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
+    // }
+
     public function cat()
     {
         $categories = Category::all();
-        $ads = Ad::where('is_verified', true)->paginate(30);
+        // Change the is_verified check to use status and check for 'verified'
+        $ads = Ad::where('status', 'verified')->paginate(30); // Use status instead of is_verified
         $cities = City::all();
+
         return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
     }
-
 
     public function create()
     {
@@ -84,7 +93,8 @@ class CategoryController extends Controller
         $categories = Category::all();
         $cities = City::all();
 
-        $ads = Ad::query()->where('is_verified', true);
+        // Use status field instead of is_verified
+        $ads = Ad::query()->where('status', 'verified'); // Filter by verified ads
 
         // Search filter
         if ($request->filled('search')) {
