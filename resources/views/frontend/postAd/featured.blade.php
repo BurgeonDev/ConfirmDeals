@@ -24,7 +24,6 @@
                 @include('frontend.dashboard.index')
                 <div class="col-lg-9 col-md-12 col-12">
                     <div class="main-content">
-
                         <div class="mt-0 dashboard-block">
                             @if (session('success'))
                                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -39,11 +38,9 @@
                                     </ul>
                                 </div>
                             @endif
-                            <h3 class="block-title">My Ads</h3>
+                            <h3 class="block-title">My Featured Ads</h3>
 
-                            <!-- Start Items Area -->
                             <div class="my-items">
-                                <!-- Start Item List Title -->
                                 <div class="item-list-title">
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-4 col-12">
@@ -64,9 +61,6 @@
                                     </div>
                                 </div>
 
-                                <!-- End List Title -->
-
-                                <!-- Start Single List -->
                                 @forelse ($ads as $ad)
                                     <div class="single-item-list">
                                         <div class="row align-items-center">
@@ -96,54 +90,58 @@
                                                 <p>{{ $ad->type }}</p>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-12">
-                                                <p>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</p>
+                                                <p>{{ \Carbon\Carbon::parse($ad->featured_until)->diffForHumans(now(), true) }}
+                                                    left</p>
                                             </div>
+
+
+
+
 
                                             <div class="col-lg-2 col-md-2 col-12 align-right">
                                                 <ul class="action-btn">
                                                     <li>
-                                                        <a href="{{ route('ad.edit', $ad->id) }}">
-                                                            <i class="lni lni-pencil" style="color: blue"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('ad.show', $ad->id) }}">
-                                                            <i class="lni lni-eye" style="color: green"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <!-- Button to open the modal -->
+                                                        <!-- Edit Button (This triggers the modal) -->
                                                         <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal" data-bs-target="#featureModal">
-                                                            Feature Ad
+                                                            data-bs-toggle="modal" data-bs-target="#editModal">
+                                                            Edit Featured Ad
                                                         </button>
+
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="featureModal" tabindex="-1"
-                                                            aria-labelledby="featureModalLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="editModal" tabindex="-1"
+                                                            aria-labelledby="editModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="featureModalLabel">
-                                                                            Feature Ad</h5>
+                                                                        <h5 class="modal-title" id="editModalLabel">Update
+                                                                            Featured Ad</h5>
                                                                         <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <!-- Form to feature the ad -->
-                                                                        <form action="{{ route('ad.feature', $ad->id) }}"
+                                                                        <!-- Form for updating featured ad -->
+                                                                        <form
+                                                                            action="{{ route('ad.updateFeature', $ad->id) }}"
                                                                             method="POST">
                                                                             @csrf
+                                                                            @method('POST')
                                                                             <div class="mb-3">
                                                                                 <label for="featured_days"
                                                                                     class="form-label">Number of days to
                                                                                     feature this ad:</label>
+                                                                                <p>{{ $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffForHumans(now(), true) . ' left' : '' }}
+                                                                                </p>
+
                                                                                 <input type="number" class="form-control"
                                                                                     name="featured_days" min="1"
+                                                                                    value="{{ old('featured_days', $ad->featured_until ? \Carbon\Carbon::parse($ad->featured_until)->diffInDays(now()) : '') }}"
                                                                                     required>
+
                                                                             </div>
                                                                             <button type="submit"
-                                                                                class="btn btn-primary">Feature Ad</button>
+                                                                                class="btn btn-primary">Update Featured
+                                                                                Ad</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -152,64 +150,19 @@
 
                                                     </li>
 
-                                                    <li>
-                                                        <a>
-                                                            <form action="{{ route('ad.destroy', $ad->id) }}"
-                                                                method="POST"
-                                                                onsubmit="return confirm('Are you sure you want to delete this ad?');">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    style="border: none; background: none; color:red">
-                                                                    <i class="lni lni-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 @empty
-                                    <p>No ads available.</p>
+                                    <p>No featured ads available.</p>
                                 @endforelse
-                                <!-- End Single List -->
-
-                                <!-- Pagination -->
-                                <div style="justify-content:center" class="pagination center">
-                                    <ul class="pagination-list">
-                                        @if ($ads->onFirstPage())
-                                            <li class="disabled"><a href="javascript:void(0)"><i
-                                                        class="lni lni-chevron-left"></i></a></li>
-                                        @else
-                                            <li><a href="{{ $ads->previousPageUrl() }}"><i
-                                                        class="lni lni-chevron-left"></i></a></li>
-                                        @endif
-
-                                        @foreach ($ads->getUrlRange(1, $ads->lastPage()) as $page => $url)
-                                            <li class="{{ $ads->currentPage() == $page ? 'active' : '' }}">
-                                                <a href="{{ $url }}">{{ $page }}</a>
-                                            </li>
-                                        @endforeach
-
-                                        @if ($ads->hasMorePages())
-                                            <li><a href="{{ $ads->nextPageUrl() }}"><i
-                                                        class="lni lni-chevron-right"></i></a></li>
-                                        @else
-                                            <li class="disabled"><a href="javascript:void(0)"><i
-                                                        class="lni lni-chevron-right"></i></a></li>
-                                        @endif
-                                    </ul>
-                                </div>
-                                <!-- End Pagination -->
-
                             </div>
-                            <!-- End Items Area -->
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
-
 @endsection

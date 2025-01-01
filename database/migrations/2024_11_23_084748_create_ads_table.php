@@ -23,6 +23,8 @@ class CreateAdsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->boolean('is_featured')->default(false);
             $table->integer('days_featured')->nullable();
+            $table->timestamp('featured_until')->nullable();
+
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 

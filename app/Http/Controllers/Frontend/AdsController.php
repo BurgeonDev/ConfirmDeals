@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Feedback;
 use App\Models\Locality;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
@@ -315,5 +316,127 @@ class AdsController extends Controller
     {
         $ad->delete();
         return redirect()->route('ad.index')->with('success', 'Ad deleted successfully!');
+    }
+
+    public function featureAd(Request $request, $id)
+    {
+        // Validate the input
+        $validatedData = $request->validate([
+            'featured_days' => 'required|integer|min:1', // Number of days the ad should be featured
+        ]);
+
+        $user = auth()->user();
+        $ad = Ad::findOrFail($id);
+
+        // Get the featured ad rate from settings
+        $featuredAdRate = Setting::getValue('featured_ad_rate');
+
+        if (!$featuredAdRate) {
+            return redirect()->back()->withErrors(['error' => 'Featured ad rate is not set.']);
+        }
+
+        $coinsNeeded = $validatedData['featured_days'] * $featuredAdRate;
+
+        // Check if the user has enough coins
+        if ($user->coins < $coinsNeeded) {
+            return redirect()->back()
+                ->withErrors(['coins_needed' => 'You do not have enough coins to feature this ad.']);
+        }
+
+        // Begin transaction
+        DB::beginTransaction();
+
+        try {
+            // Deduct the coins from the user
+            $user->decrement('coins', $coinsNeeded);
+
+            // Set the ad as featured and store the number of featured days
+            $ad->featured_until = now()->addDays(intval($validatedData['featured_days']));
+
+            $ad->save();
+
+            // Commit transaction
+            DB::commit();
+
+            return redirect()->route('ad.show', $ad->id)
+                ->with('success', "Ad has been featured for {$validatedData['featured_days']} days.");
+        } catch (\Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred while featuring the ad. Please try again.']);
+        }
+    }
+    public function updateFeatureAd(Request $request, $id)
+    {
+        // Validate the input
+        $validatedData = $request->validate([
+            'featured_days' => 'required|integer|min:1',
+        ]);
+
+        $user = auth()->user();
+        $ad = Ad::findOrFail($id);
+
+        // Get the featured ad rate from settings
+        $featuredAdRate = Setting::getValue('featured_ad_rate');
+
+        if (!$featuredAdRate) {
+            return redirect()->back()->withErrors(['error' => 'Featured ad rate is not set.']);
+        }
+
+        // Calculate the new coins needed
+        $coinsNeeded = $validatedData['featured_days'] * $featuredAdRate;
+
+        // Check if the user has enough coins for the updated duration
+        if ($user->coins < $coinsNeeded) {
+            return redirect()->back()
+                ->withErrors(['coins_needed' => 'You do not have enough coins for the updated duration.']);
+        }
+
+        // Begin transaction
+        DB::beginTransaction();
+
+        try {
+            // If the ad was previously featured, refund the old featured coins
+            $oldFeaturedDays = $ad->featured_until ? now()->diffInDays($ad->featured_until) : 0;
+            $refundAmount = $oldFeaturedDays * $featuredAdRate;
+            $user->increment('coins', $refundAmount);
+
+            // Deduct the new coins for the updated duration
+            $user->decrement('coins', $coinsNeeded);
+
+            // Ensure the value passed to addDays is an integer
+            $newFeaturedUntil = now()->addDays((int) $validatedData['featured_days']); // Casting to int
+
+            // Update the featured days of the ad
+            $ad->featured_until = $newFeaturedUntil;
+            $ad->save();
+
+            // Commit transaction
+            DB::commit();
+
+            return redirect()->route('ad.show', $ad->id)
+                ->with('success', "Ad featured days updated to {$validatedData['featured_days']} days.");
+        } catch (\Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+            return redirect()->back()
+                ->withErrors(['error' => 'An error occurred while updating the featured ad. Please try again.']);
+        }
+    }
+
+    public function showFeaturedAds()
+    {
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Fetch the featured ads of the user
+        $ads = Ad::where('user_id', $user->id)
+            ->whereNotNull('featured_until')
+            ->where('featured_until', '>', now())
+            ->get();
+
+        // Return the view with ads
+        return view('frontend.postad.featured', compact('ads'));
     }
 }
