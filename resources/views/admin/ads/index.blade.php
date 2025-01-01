@@ -47,7 +47,7 @@
                                                 id="status-form-{{ $ad->id }}">
                                                 @csrf
                                                 @method('PATCH')
-                                                <select name="status" class="form-control"
+                                                <select style="color: black" name="status" class="form-control"
                                                     onchange="document.getElementById('status-form-{{ $ad->id }}').submit()">
                                                     <option value="pending"
                                                         {{ $ad->status == 'pending' ? 'selected' : '' }}>Pending</option>
