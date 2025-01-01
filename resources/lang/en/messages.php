@@ -46,16 +46,48 @@ return [
     'my_activity_log' => 'My Activity Log',
     'no_activities_recorded' => 'No activities recorded',
     /////////////FFAQ
-    'how_to_place_ad' => 'How do I place an ad for my product or service?',
-    'who_to_contact' => 'Who should I contact if I have any questions or need assistance?',
-    'how_to_cancel_order' => 'How can I cancel or change my order?',
-    'how_to_return_product' => 'How can I return a product?',
-    'how_long_delivery' => 'How long will it take to receive my package?',
-    'faq_content_1' => 'To place an ad, log in to your account, navigate to the "Post New Listing" section, and fill in the required details about your product or service. Once your listing is submitted, it will be reviewed and published to the marketplace.',
-    'faq_content_2' => 'If you have any questions or need help, please reach out to our support team through the "Contact Us" page or email us directly at support@confirmdeals.com. We are here to assist you with any issues you may encounter.',
-    'faq_content_3' => 'To cancel or modify your order, go to "My Orders" in your account dashboard, find the order you wish to update, and select the appropriate action. Note that cancellations or changes may only be possible before a bid is finalized or an order is shipped.',
-    'faq_content_4' => 'To initiate a product return, visit "My Orders," select the order, and click on "Request a Return." Follow the instructions provided to submit your request. Make sure to review our return policy for any conditions that may apply.',
-    'faq_content_5' => 'The delivery time depends on the seller\'s location and the shipping option chosen. Generally, standard shipping takes 5-7 business days, while expedited shipping can take 2-3 days. You can track your order in real-time through the "Order Tracking" section in your account.',
+
+    'faq_title' => 'Frequently Asked Questions',
+    'faq_question_1' => 'What is this platform about?',
+    'faq_answer_1' => 'Our platform allows users to post and browse advertisements for a variety of products, services, professionals, and more. It\'s a space to connect buyers, sellers, and service providers efficiently.',
+
+    'faq_question_2' => 'How can I register an account?',
+    'faq_answer_2' => 'Click on the "Register" button at the top right of the page, fill in your details, and verify your email address. Once done, you can start posting ads or browsing the site.',
+
+    'faq_question_3' => 'Is posting ads free?',
+    'faq_answer_3' => 'Yes, posting basic ads is free initially for a few ads but there is a small fee afterward. We also offer premium features, such as featured ads, for a small fee.',
+
+    'faq_question_4' => 'How can I post an ad?',
+    'faq_answer_4' => 'Log in to your account, click the "Post Ad" button, choose a category, and fill out the required information like title, description, price, and images. Once submitted, your ad will be reviewed, verified, and published shortly.',
+
+    'faq_question_5' => 'How long do ads stay active?',
+    'faq_answer_5' => 'Ads remain active for 30 days by default. You can renew or extend the duration from your account dashboard.',
+
+    'faq_question_6' => 'How do I edit or delete my ad?',
+    'faq_answer_6' => 'Log in to your account, go to your dashboard, and select the ad you wish to edit or delete. Make the necessary changes or choose the delete option.',
+
+    'faq_question_7' => 'Can I upload images or videos to my ad?',
+    'faq_answer_7' => 'Yes, you can upload images and videos to make your ad more attractive and informative. Please ensure they meet our content guidelines.',
+
+    'faq_question_8' => 'What should I do if I see a fraudulent ad?',
+    'faq_answer_8' => 'If you come across an ad that seems fraudulent or violates our policies, click the "Report Ad" button on the listing. Our team will review it promptly.',
+
+    'faq_question_9' => 'How can I ensure safe transactions?',
+    'faq_answer_9' => 'Always meet in a public place for exchanges. Avoid sharing sensitive personal or financial information. Use secure payment methods and verify the item/service before making a payment.',
+
+    'faq_question_10' => 'How can I contact customer support?',
+    'faq_answer_10' => 'You can reach out to our support team via the "Contact Us" page or email us at support@confirmdeals.net.',
+
+    'faq_question_11' => 'Are there any restrictions on ads?',
+    'faq_answer_11' => 'Yes, certain items and services, such as illegal goods or adult content, are prohibited. Please review our terms and conditions for a complete list of restrictions.',
+
+    'faq_question_12' => 'Can I advertise my business?',
+    'faq_answer_12' => 'Absolutely! You can post ads for your business under the appropriate category. For enhanced visibility, explore our premium ad options.',
+
+    'faq_question_13' => 'What if I forget my password?',
+    'faq_answer_13' => 'Click on the "Forgot Password" link on the login page, enter your registered email, and follow the instructions to reset your password.',
+
+
     // FAV ADS
     'my_favorite_ads' => 'My Favorite Ads',
     'ad_title' => 'Ad Title',
