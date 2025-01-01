@@ -102,7 +102,7 @@
                                             </div>
 
                                             <div class="col-lg-2 col-md-2 col-12">
-                                                <p>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</p>
+                                                <p>{{ $ad->status }}</p>
                                             </div>
 
                                             <div class="col-lg-2 col-md-2 col-12">

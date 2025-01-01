@@ -22,17 +22,36 @@ class AdController extends Controller
         $ads = Ad::with(['user', 'category'])->get();
         return view('admin.ads.index', compact('ads'));
     }
-    public function toggleVerifiedStatus(Ad $ad)
+    // public function toggleVerifiedStatus(Ad $ad)
+    // {
+    //     $ad->is_verified = !$ad->is_verified;
+    //     $ad->save();
+    //     if ($ad->is_verified) {
+    //         $adOwner = $ad->user; // Retrieve the owner of the ad
+    //         $adOwner->notify(new AdApprovedNotification($ad));
+    //     }
+    //     return redirect()->back()->with('success', 'Ad verification status updated successfully!');
+    // }
+
+    public function toggleVerifiedStatus(Request $request, Ad $ad)
     {
-        $ad->is_verified = !$ad->is_verified;
+        // Validate the input status
+        $validated = $request->validate([
+            'status' => 'required|in:verified,cancel,expired,pending',
+        ]);
+
+        // Set the new status from the dropdown
+        $ad->status = $validated['status'];
         $ad->save();
-        if ($ad->is_verified) {
+
+        // If the ad is verified, notify the user
+        if ($ad->status == 'verified') {
             $adOwner = $ad->user; // Retrieve the owner of the ad
             $adOwner->notify(new AdApprovedNotification($ad));
         }
-        return redirect()->back()->with('success', 'Ad verification status updated successfully!');
-    }
 
+        return redirect()->back()->with('success', 'Ad status updated successfully!');
+    }
 
     public function destroy(Ad $ad)
     {
