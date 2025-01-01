@@ -16,5 +16,9 @@ class SettingSeeder extends Seeder
             'key' => 'free_coins',
             'value' => '50', // Default free coins value
         ]);
+        DB::table('settings')->insert([
+            'key' => 'featured_ad_rate',
+            'value' => '2', // Default free coins value
+        ]);
     }
 }

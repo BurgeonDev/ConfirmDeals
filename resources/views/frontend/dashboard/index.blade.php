@@ -66,6 +66,14 @@
 
                     </a>
                 </li>
+
+                <li>
+                    <a class="{{ request()->routeIs('transactions.index') ? 'active' : '' }}"
+                        href="{{ route('transactions.index') }}">
+                        <i class="lni lni-printer"></i> Transcations
+
+                    </a>
+                </li>
             </ul>
             <div class="button">
                 <a class="btn" href="{{ route('logout') }}"

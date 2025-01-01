@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_email_verified')->default(false);
-            $table->integer('coins')->default(10);
+            $table->integer('coins')->default(0);
             $table->float('rating')->nullable();
             $table->unsignedBigInteger('profession_id')->nullable();
             $table->string('provider_name')->nullable();

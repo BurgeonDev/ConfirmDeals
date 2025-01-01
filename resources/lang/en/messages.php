@@ -99,6 +99,7 @@ return [
     'upload_image' => 'Upload Image',
     'multiple_pictures_info' => 'Can add multiple pictures. Supported formats: JPG, PNG (Max: 5)',
     'post_ad_button' => 'Post Ad',
+    'featured_ad' => 'Featured Ad',
     /////////////Edit AD
     'edit_ad' => 'Edit Ad',
     'service' => 'Service',
