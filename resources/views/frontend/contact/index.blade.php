@@ -32,16 +32,10 @@
                     <div class="col-lg-5 col-12">
                         <div class="single-head">
                             <div class="contant-inner-title">
-                                <h2>Our Contacts</h2>
+                                <h2>@lang('messages.our_contacts_location')</h2>
                                 <p>@lang('messages.contact_inquiries')</p>
                             </div>
-                            {{-- <div class="single-info">
-                                <h3>@lang('messages.opening_hours')</h3>
-                                <ul>
-                                    <li>@lang('messages.daily_hours')</li>
-                                    <li>@lang('messages.sunday_closed')</li>
-                                </ul>
-                            </div> --}}
+
                             <div class="single-info">
                                 <h3>@lang('messages.contact_info')</h3>
                                 <ul>
@@ -54,10 +48,10 @@
                             <div class="single-info contact-social">
                                 <h3>@lang('messages.social_contact')</h3>
                                 <ul>
-                                    {{-- <li><i class="lni lni-facebook-original"></i></li> --}}
                                     <li><a href="javascript:void(0)"><i class="lni lni-facebook-original"></i></a></li>
-                                    {{-- <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="lni lni-pinterest"></i></a></li> --}}
+                                    <li><a href="javascript:void(0)"><i class="lni lni-instagram-original"></i></a></li>
+                                    <li><a href="javascript:void(0)"><i class="lni lni-tiktok-original"></i></a></li>
+
                                 </ul>
                             </div>
                         </div>

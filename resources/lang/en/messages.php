@@ -24,7 +24,7 @@ return [
     'your_message' => 'Your Message',
     'submit_message' => 'Submit Message',
     // New entries for "Our Contacts & Location"
-    'our_contacts_location' => 'Our Contacts &amp; Location',
+    'our_contacts_location' => 'Our Contacts',
     'contact_inquiries' => 'Get in touch with us for any inquiries or support.',
     'opening_hours' => 'Opening hours',
     'daily_hours' => 'Daily: 9.30 AM–6.00 PM',

@@ -24,7 +24,7 @@ return [
     'your_message' => 'آپ کا پیغام',
     'submit_message' => 'پیغام جمع کروائیں',
     // New entries for "Our Contacts & Location"
-    'our_contacts_location' => 'ہمارے رابطے اور مقام',
+    'our_contacts_location' => 'ہمارے رابطے ',
     'contact_inquiries' => 'کسی بھی انکوائری یا مدد کے لیے ہم سے رابطہ کریں۔',
     'opening_hours' => 'کھلنے کے اوقات',
     'daily_hours' => 'روزانہ: 9.30 صبح – 6.00 شام',
