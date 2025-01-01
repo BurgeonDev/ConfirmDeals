@@ -9,34 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
-    // {
-    //     $userId = auth()->id();
 
-    //     // Count of verified ads
-    //     $verifiedAdsCount = Ad::where('user_id', $userId)
-    //         ->where('is_verified', 1)
-    //         ->count();
-
-    //     // Count of unverified or other ads
-    //     $unverifiedAdsCount = Ad::where('user_id', $userId)
-    //         ->where('is_verified', '!=', 1)
-    //         ->count();
-
-    //     // Fetch all ads with the category relationship
-    //     $ads = Ad::where('user_id', $userId)
-    //         ->with('category') // Eager load the category relationship
-    //         ->get();
-
-    //     return view('frontend.dashboard.dashboard', [
-    //         'ads' => $ads,
-    //         'verifiedAdsCount' => $verifiedAdsCount,
-    //         'unverifiedAdsCount' => $unverifiedAdsCount,
-    //     ]);
-    // }
     public function index()
     {
         $userId = auth()->id();
@@ -54,18 +27,16 @@ class DashboardController extends Controller
                 ];
             });
 
-
-
         // Combine all activities
         $allActivities = $loginActivities;
 
-        // Fetch ads data
+        // Fetch ads data based on the status field
         $verifiedAdsCount = Ad::where('user_id', $userId)
-            ->where('is_verified', 1)
+            ->where('status', 'verified') // Use status instead of is_verified
             ->count();
 
         $unverifiedAdsCount = Ad::where('user_id', $userId)
-            ->where('is_verified', '!=', 1)
+            ->where('status', '!=', 'verified') // Use status for unverified ads
             ->count();
 
         $ads = Ad::where('user_id', $userId)
@@ -79,6 +50,7 @@ class DashboardController extends Controller
             'activities' => $allActivities,
         ]);
     }
+
 
 
     /**

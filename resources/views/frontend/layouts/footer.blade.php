@@ -3,7 +3,7 @@
     <div class="footer-top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-12">
+                {{-- <div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Widget -->
                     <div class="single-footer mobile-app">
                         <h3>Mobile Apps</h3>
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     <!-- End Single Widget -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
+                </div> --}}
+                {{-- <div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Widget -->
                     <div class="single-footer f-link">
                         <h3>Locations</h3>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <!-- End Single Widget -->
-                </div>
+                </div> --}}
                 <div class="col-lg-3 col-md-6 col-12">
                     <!-- Single Widget -->
                     <div class="single-footer f-link">
@@ -72,8 +72,8 @@
                     <div class="single-footer f-contact">
                         <h3>Contact</h3>
                         <ul>
-                            <li>23 New Design Str, Lorem Upsum 10<br> Hudson Yards, USA</li>
-                            <li>Tel. +(123) 1800-567-8990 <br> Mail. support@confirmdeals.com</li>
+                            <li>The Binary, Business Bay<br> Dubai</li>
+                            <li> Mail. support@confirmdeals.com</li>
                         </ul>
                     </div>
                     <!-- End Single Widget -->
@@ -83,7 +83,7 @@
     </div>
     <!--/ End Footer Middle -->
     <!-- Start Footer Bottom -->
-    <div class="footer-bottom">
+    {{-- <div class="footer-bottom">
         <div class="container">
             <div class="inner">
                 <div class="row">
@@ -111,6 +111,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Footer Middle -->
 </footer>

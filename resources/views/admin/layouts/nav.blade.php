@@ -32,13 +32,15 @@
                     <i class="menu-icon fa fa-bars"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                    {{-- <div class="text-center dropdown-header">
-                         <img class="img-md rounded-circle" src="{{ asset('admin/assets/images/faces/face8.jpg') }}"
-                             alt="Profile image">
-                         <p class="mt-3 mb-1 fw-semibold">{{ Auth::user()->name }}</p>
-                         <p class="mb-0 fw-light text-muted">{{ Auth::user()->email }}</p>
-                     </div> --}}
                     <div class="text-center dropdown-header">
+                        <img style="max-height: 25px; max-width:25px; border-radius:50%;"
+                            src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
+                            alt="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}"
+                            class="user-profile-img" />
+                        <p class="mt-3 mb-1 fw-semibold">{{ Auth::user()->name }}</p>
+                        <p class="mb-0 fw-light text-muted">{{ Auth::user()->email }}</p>
+                    </div>
+                    {{-- <div class="text-center dropdown-header">
                         <div
                             style="
             width: 40px;
@@ -59,7 +61,7 @@
                         <p class="mt-3 mb-1 fw-semibold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                         </p>
                         <p class="mb-0 fw-light text-muted">{{ Auth::user()->email }}</p>
-                    </div>
+                    </div> --}}
 
 
                     <!-- Profile Link -->

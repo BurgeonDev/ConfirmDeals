@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class Ad extends Model
@@ -20,18 +21,27 @@ class Ad extends Model
             }
         });
 
-        // Optionally, if you want to set the user_id when updating as well
-        // static::updating(function ($ad) {
-        //     if (Auth::check()) {
-        //         $ad->user_id = Auth::id(); // Update the user_id if necessary
-        //     }
-        // });
+        static::updating(function ($ad) {
+            // Check if the featured ad's `featured_until` time has expired
+            if ($ad->is_featured && Carbon::now()->greaterThan($ad->featured_until)) {
+                // Set `is_featured` to 0 (unfeatured) if the `featured_until` date has passed
+                $ad->is_featured = 0;
+            }
+        });
+
+        // Alternatively, you can run this check when fetching ads in a query:
+        static::addGlobalScope('featuredAdsScope', function ($query) {
+            $query->where(function ($q) {
+                $q->whereNull('featured_until')
+                    ->orWhere('featured_until', '>', Carbon::now());
+            });
+        });
     }
     protected $fillable = [
         'title',
         'description',
         'type',
-        'is_verified',
+        'status',
         'pictures',
         'price',
         'country_id',
@@ -45,7 +55,7 @@ class Ad extends Model
     ];
 
     protected $casts = [
-        'is_verified' => 'boolean',
+        // 'is_verified' => 'boolean',
         'is_featured' => 'boolean',
         'pictures' => 'array',
     ];

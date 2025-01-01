@@ -43,16 +43,24 @@
                                         <td>{{ $ad->price ? number_format($ad->price, 2) : 'N/A' }}</td>
                                         <td>{{ $ad->coins_needed }}</td>
                                         <td>
-                                            <form action="{{ route('ads.toggleVerifiedStatus', $ad->id) }}" method="POST">
+                                            <form action="{{ route('ads.toggleVerifiedStatus', $ad->id) }}" method="POST"
+                                                id="status-form-{{ $ad->id }}">
                                                 @csrf
                                                 @method('PATCH')
-                                                <label class="form-switch">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        onchange="this.form.submit()"
-                                                        {{ $ad->is_verified ? 'checked' : '' }}>
-                                                </label>
+                                                <select name="status" class="form-control"
+                                                    onchange="document.getElementById('status-form-{{ $ad->id }}').submit()">
+                                                    <option value="pending"
+                                                        {{ $ad->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                    <option value="verified"
+                                                        {{ $ad->status == 'verified' ? 'selected' : '' }}>Verified</option>
+                                                    <option value="cancel" {{ $ad->status == 'cancel' ? 'selected' : '' }}>
+                                                        Cancelled</option>
+                                                    <option value="expired"
+                                                        {{ $ad->status == 'expired' ? 'selected' : '' }}>Expired</option>
+                                                </select>
                                             </form>
                                         </td>
+
                                         <td>
                                             <a href="{{ route('ad.show', $ad->id) }}"
                                                 class="btn btn-info btn-rounded btn-sm">

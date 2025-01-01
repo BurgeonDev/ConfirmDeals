@@ -46,7 +46,7 @@
                                 <!-- Start Item List Title -->
                                 <div class="item-list-title">
                                     <div class="row align-items-center">
-                                        <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="col-lg-3 col-md-3 col-12">
                                             <p>@lang('messages.ad_title')</p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-12">
@@ -55,8 +55,12 @@
                                         <div class="col-lg-1 col-md-2 col-12">
                                             <p>@lang('messages.type')</p>
                                         </div>
+
                                         <div class="col-lg-2 col-md-2 col-12">
                                             <p>@lang('messages.status')</p>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-12">
+                                            <p>Featured</p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-12 align-right">
                                             <p>@lang('messages.action')</p>
@@ -70,7 +74,7 @@
                                 @forelse ($ads as $ad)
                                     <div class="single-item-list">
                                         <div class="row align-items-center">
-                                            <div class="col-lg-4 col-md-4 col-12">
+                                            <div class="col-lg-3 col-md-3 col-12">
                                                 <div class="item-image">
                                                     @if (!empty($ad->pictures) && is_array($ad->pictures))
                                                         <img src="{{ asset('storage/' . $ad->pictures[0]) }}"
@@ -79,7 +83,6 @@
                                                     @else
                                                         <span>No Picture</span>
                                                     @endif
-
                                                     <div class="content">
                                                         <h3 class="title">
                                                             <a
@@ -89,17 +92,66 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-2 col-md-2 col-12">
                                                 <p>{{ $ad->category->name }}</p>
                                             </div>
+
                                             <div class="col-lg-1 col-md-2 col-12">
                                                 <p>{{ $ad->type }}</p>
                                             </div>
+
                                             <div class="col-lg-2 col-md-2 col-12">
-                                                <p>{{ $ad->is_verified == 1 ? 'Verified' : 'Not Verified' }}</p>
+                                                <p>{{ $ad->status }}</p>
                                             </div>
 
-                                            <div class="col-lg-2 col-md-2 col-12 align-right">
+                                            <div class="col-lg-2 col-md-2 col-12">
+                                                <!-- Featured status column -->
+                                                @if ($ad->is_featured)
+                                                    <span class="badge bg-success">Featured</span>
+                                                @else
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#featureModal{{ $ad->id }}">
+                                                        Feature this Ad
+                                                    </button>
+
+                                                    <!-- Modal for featuring the ad -->
+                                                    <div class="modal fade" id="featureModal{{ $ad->id }}"
+                                                        tabindex="-1"
+                                                        aria-labelledby="featureModalLabel{{ $ad->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="featureModalLabel{{ $ad->id }}">Feature
+                                                                        Ad</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="{{ route('ad.feature', $ad->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <div class="mb-3">
+                                                                            <label for="featured_days"
+                                                                                class="form-label">Number of days to feature
+                                                                                this ad:</label>
+                                                                            <input type="number" class="form-control"
+                                                                                name="featured_days" min="1"
+                                                                                required>
+                                                                        </div>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Feature Ad</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            <div class="col-lg-2 col-md-2 col-12 text-end">
                                                 <ul class="action-btn">
                                                     <li>
                                                         <a href="{{ route('ad.edit', $ad->id) }}">
@@ -111,7 +163,6 @@
                                                             <i class="lni lni-eye" style="color: green"></i>
                                                         </a>
                                                     </li>
-
                                                     <li>
                                                         <a>
                                                             <form action="{{ route('ad.destroy', $ad->id) }}"
@@ -129,6 +180,7 @@
                                                 </ul>
                                             </div>
                                         </div>
+
                                     </div>
                                 @empty
                                     <p>No ads available.</p>

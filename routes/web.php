@@ -63,6 +63,13 @@ Route::group([
         Route::resource('user/dashboard', FrontendDashboardController::class);
         Route::get('/admin/settings', [CoinController::class, 'editSettings'])->name('admin.settings.edit');
         Route::post('/admin/settings', [CoinController::class, 'updateSettings'])->name('admin.settings.update');
+        ///////////////////////////ad featured
+        Route::post('/ad/{id}/feature', [AdsController::class, 'featureAd'])->name('ad.feature');
+        Route::post('/ad/{id}/update-feature', [AdsController::class, 'updateFeatureAd'])->name('ad.updateFeature');
+        Route::get('/featured-ads', [AdsController::class, 'showFeaturedAds'])->name('ad.featured');
+        // Route for un-featuring an ad
+        Route::post('/ad/{id}/unfeature', [AdsController::class, 'unfeature'])->name('ad.unfeature');
+
 
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');

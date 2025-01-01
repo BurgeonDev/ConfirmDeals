@@ -20,11 +20,13 @@ class DashboardController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+
+        // Use status field instead of is_verified
         $countries = Country::count();
         $cities = City::count();
         $localities = Locality::count();
-        $ads = Ad::where('is_verified', '1')->count();
-        $disableAds = Ad::where('is_verified', '0')->count();
+        $ads = Ad::where('status', 'verified')->count(); // Count verified ads
+        $disableAds = Ad::where('status', 'pending')->count(); // Count ads with pending status
         $categories = Category::count();
         $professions = Profession::count();
 
@@ -38,6 +40,7 @@ class DashboardController extends Controller
             'professions'
         ));
     }
+
 
     /**
      * Show the form for creating a new resource.

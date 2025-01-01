@@ -44,6 +44,14 @@
                     @endcan
                 </li>
                 <li>
+                    @can('Manage Ad')
+                        <a class="{{ request()->routeIs('ad.featured') ? 'active' : '' }}"
+                            href="{{ route('ad.featured') }}">
+                            <i class="lni lni-bolt-alt"></i> Featured Ads
+                        </a>
+                    @endcan
+                </li>
+                <li>
 
                     <a class="{{ request()->routeIs('favorites.index') ? 'active' : '' }}"
                         href="{{ route('favorites.index') }}">

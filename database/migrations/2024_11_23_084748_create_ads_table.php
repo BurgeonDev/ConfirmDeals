@@ -13,7 +13,8 @@ class CreateAdsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->enum('type', ['service', 'product']);
-            $table->boolean('is_verified')->default(false);
+            // $table->boolean('is_verified')->default(false);
+            $table->enum('status', ['verified', 'cancel', 'expired', 'pending'])->default('pending');
             $table->json('pictures')->nullable(); // Stores image paths as JSON
             $table->decimal('price', 10, 2)->nullable();
             $table->unsignedBigInteger('country_id');
@@ -23,6 +24,8 @@ class CreateAdsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->boolean('is_featured')->default(false);
             $table->integer('days_featured')->nullable();
+            $table->timestamp('featured_until')->nullable();
+
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
