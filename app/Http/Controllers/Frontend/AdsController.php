@@ -30,8 +30,9 @@ class AdsController extends Controller
         $ads = Ad::where('user_id', auth()->id())
             ->with('category') // Eager load the category relationship
             ->paginate(10);
-
-        return view('frontend.postAd.index', compact('ads'));
+        $featuredAdRate = DB::table('settings')->where('key', 'featured_ad_rate')->value('value');
+        $user = auth()->user();
+        return view('frontend.postAd.index', compact('ads', 'featuredAdRate', 'user'));
     }
 
 
@@ -49,53 +50,6 @@ class AdsController extends Controller
 
         return view('frontend.postAd.create', compact('countries', 'categories', 'cities', 'localities'));
     }
-
-    // public function store(Request $request)
-    // {
-
-    //     $validatedData = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'type' => 'required|in:service,product',
-    //         'is_verified' => 'boolean',
-    //         'pictures' => 'required|array|max:5',
-    //         'pictures.*' => 'file|mimes:jpg,jpeg,png|max:12288',
-    //         'price' => 'required|numeric|min:0',
-    //         'country_id' => 'required|exists:countries,id',
-    //         'city_id' => 'required|exists:cities,id',
-    //         'locality_id' => 'required|exists:localities,id',
-    //         'coins_needed' => 'required|integer|min:0',
-    //         'category_id' => 'required|exists:categories,id',
-    //     ]);
-
-
-    //     $user = auth()->user();
-
-
-    //     if ($user->coins < $validatedData['coins_needed']) {
-    //         return redirect()->back()
-    //             ->withInput()
-    //             ->withErrors(['coins_needed' => 'You do not have enough coins to post this ad.']);
-    //     }
-
-    //     if ($request->hasFile('pictures')) {
-    //         $validatedData['pictures'] = array_map(
-    //             fn($file) => $file->store('ads', 'public'),
-    //             $request->file('pictures')
-    //         );
-    //     }
-
-
-    //     Ad::create($validatedData);
-    //     return view('frontend.postAd.success');
-    // }
-
-
-
-
-    /**
-     * Display the specified resource.
-     */
 
     public function store(Request $request)
     {

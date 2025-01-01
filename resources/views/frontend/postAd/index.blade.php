@@ -138,11 +138,18 @@
                                                                                 class="form-label">Number of days to feature
                                                                                 this ad:</label>
                                                                             <input type="number" class="form-control"
+                                                                                id="featured_days{{ $ad->id }}"
                                                                                 name="featured_days" min="1"
                                                                                 required>
+                                                                            <div id="coinMessage{{ $ad->id }}"
+                                                                                class="mt-2 text-info"></div>
+                                                                            <div id="coinError{{ $ad->id }}"
+                                                                                class="mt-2 text-danger"></div>
                                                                         </div>
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Feature Ad</button>
+                                                                        <button type="submit" class="btn btn-primary"
+                                                                            id="featureButton{{ $ad->id }}" disabled>
+                                                                            Feature Ad
+                                                                        </button>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -150,6 +157,40 @@
                                                     </div>
                                                 @endif
                                             </div>
+
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function() {
+                                                    const featuredDaysInput = document.getElementById('featured_days{{ $ad->id }}');
+                                                    const coinMessage = document.getElementById('coinMessage{{ $ad->id }}');
+                                                    const coinError = document.getElementById('coinError{{ $ad->id }}');
+                                                    const featureButton = document.getElementById('featureButton{{ $ad->id }}');
+
+                                                    const featuredAdRate = {{ $featuredAdRate }};
+
+                                                    const userCoins = {{ $user->coins }}; // Replace with actual user coins variable
+
+                                                    featuredDaysInput.addEventListener('input', function() {
+                                                        const days = parseInt(featuredDaysInput.value) || 0;
+                                                        const requiredCoins = days * featuredAdRate;
+
+                                                        if (days > 0) {
+                                                            coinMessage.textContent = `Additional ${requiredCoins} coins will be deducted.`;
+                                                            coinError.textContent = '';
+                                                            if (requiredCoins > userCoins) {
+                                                                coinError.textContent = 'Sorry, you do not have enough coins.';
+                                                                featureButton.disabled = true;
+                                                            } else {
+                                                                featureButton.disabled = false;
+                                                            }
+                                                        } else {
+                                                            coinMessage.textContent = '';
+                                                            coinError.textContent = '';
+                                                            featureButton.disabled = true;
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+
 
                                             <div class="col-lg-2 col-md-2 col-12 text-end">
                                                 <ul class="action-btn">
