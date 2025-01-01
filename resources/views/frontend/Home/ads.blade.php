@@ -42,11 +42,12 @@
                                                     src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
-                                            @if ($ad->is_verified)
-                                                <i class="cross-badge lni lni-bolt"></i>
+
+                                            <i class="cross-badge lni lni-bolt"></i>
+
+                                            @if ($ad->is_featured)
+                                                <span class="flat-badge sale">Featured</span>
                                             @endif
-                                            <span
-                                                class="flat-badge sale">{{ $ad->is_verified ? 'Verified' : 'Sale' }}</span>
                                         </div>
                                         <div class="content">
                                             <a href="{{ route('ad.show', $ad->id) }}"
@@ -95,11 +96,12 @@
                                                     src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
                                                     alt="#">
                                             </a>
-                                            @if ($ad->is_verified)
-                                                <i class="cross-badge lni lni-bolt"></i>
+
+                                            <i class="cross-badge lni lni-bolt"></i>
+
+                                            @if ($ad->is_featured)
+                                                <span class="flat-badge sale">Featured</span>
                                             @endif
-                                            <span
-                                                class="flat-badge sale">{{ $ad->is_verified ? 'Verified' : 'Sale' }}</span>
                                         </div>
                                         <div class="content">
                                             <a href="{{ route('ad.show', $ad->id) }}"
