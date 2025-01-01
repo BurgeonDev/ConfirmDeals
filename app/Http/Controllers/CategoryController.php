@@ -18,20 +18,17 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
     }
-    // public function cat()
-    // {
-    //     $categories = Category::all();
-    //     $ads = Ad::where('is_verified', true)->paginate(30);
-    //     $cities = City::all();
-    //     return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
-    // }
+
 
     public function cat()
     {
         $categories = Category::all();
-        // Change the is_verified check to use status and check for 'verified'
-        $ads = Ad::where('status', 'verified')->paginate(30); // Use status instead of is_verified
         $cities = City::all();
+
+        // Get featured ads first, then other ads
+        $ads = Ad::where('status', 'verified')
+            ->orderByDesc('is_featured') // Featured ads first
+            ->paginate(30);
 
         return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
     }
@@ -93,8 +90,8 @@ class CategoryController extends Controller
         $categories = Category::all();
         $cities = City::all();
 
-        // Use status field instead of is_verified
-        $ads = Ad::query()->where('status', 'verified'); // Filter by verified ads
+        // Start query with verified ads
+        $ads = Ad::query()->where('status', 'verified');
 
         // Search filter
         if ($request->filled('search')) {
@@ -124,7 +121,8 @@ class CategoryController extends Controller
             $ads->whereBetween('price', [$request->price_min, $request->price_max]);
         }
 
-        $ads = $ads->paginate(30);
+        // Order by featured ads first, then other ads
+        $ads = $ads->orderByDesc('is_featured')->paginate(30);
 
         return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
     }
