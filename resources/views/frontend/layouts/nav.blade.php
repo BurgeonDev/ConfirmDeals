@@ -35,6 +35,23 @@
                                      <a href="{{ route('contact.index') }}" aria-label="Toggle navigation">Contact
                                          Us</a>
                                  </li>
+                                 <li class="nav-item">
+                                     <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                         data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
+                                         aria-expanded="false" aria-label="Toggle navigation">Other</a>
+                                     <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
+                                         {{-- <li class="single-block">
+                                             <ul> --}}
+
+                                         <li class="nav-item"><a href="{{ route('home') }}">How It's Works</a></li>
+                                         <li class="nav-item"><a href="{{ route('faq') }}">FAQ</a></li>
+                                         <li class="nav-item"><a href="{{ route('pricing') }}">Pricing</a></li>
+                                         <li class="nav-item"><a href="{{ route('contact.index') }}">Contact Us</a></li>
+                                         {{-- </ul>
+                                         </li> --}}
+
+                                     </ul>
+                                 </li>
                                  @can('Manage Admin Dashbaord')
                                      <li class="nav-item">
                                          <a href="{{ route('dashboard') }}" aria-label="Toggle navigation">Dashboard</a>
