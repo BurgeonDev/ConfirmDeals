@@ -268,8 +268,9 @@
                                                         class="btn">{{ __('messages.post_ad_button') }}</button>
                                                 </div>
                                             </div>
+                                        </form>
                                     </div>
-                                    </form>
+
                                 </div>
                             </div>
                         </div>
