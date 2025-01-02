@@ -255,8 +255,10 @@
                                                     <form action="{{ route('payment.pay', ['bidId' => $bid->id]) }}"
                                                         method="POST">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-primary btn-sm">Pay
-                                                            0.25%</button>
+                                                        <div class="mb-0 form-group button">
+                                                            <button type="submit" class="btnn">Pay
+                                                                0.25%</button>
+                                                        </div>
                                                     </form>
                                                 @else
                                                     <span class="badge bg-success">Paid</span>
