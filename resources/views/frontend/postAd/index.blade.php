@@ -112,10 +112,13 @@
                                                             style="color: gold"></i>
                                                         Featured</span>
                                                 @else
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#featureModal{{ $ad->id }}">
-                                                        Feature this Ad
-                                                    </button>
+                                                    <div class="mb-0 form-group button">
+                                                        <button type="button" class="btnn" data-bs-toggle="modal"
+                                                            data-bs-target="#featureModal{{ $ad->id }}">
+                                                            Feature this Ad
+                                                        </button>
+                                                    </div>
+
 
                                                     <!-- Modal for featuring the ad -->
                                                     <div class="modal fade" id="featureModal{{ $ad->id }}"
@@ -148,10 +151,14 @@
                                                                             <div id="coinError{{ $ad->id }}"
                                                                                 class="mt-2 text-danger"></div>
                                                                         </div>
-                                                                        <button type="submit" class="btn btn-primary"
-                                                                            id="featureButton{{ $ad->id }}" disabled>
-                                                                            Feature Ad
-                                                                        </button>
+                                                                        <div class="mb-0 form-group button">
+                                                                            <button type="submit" class="btn"
+                                                                                id="featureButton{{ $ad->id }}"
+                                                                                disabled>
+                                                                                Feature Ad
+                                                                            </button>
+                                                                        </div>
+
                                                                     </form>
                                                                 </div>
                                                             </div>
