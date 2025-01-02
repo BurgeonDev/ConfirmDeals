@@ -3,12 +3,12 @@
 return [
 
     ///////////////////about
-    'about' => 'About',
-    'about_our_company' => 'About Our Company',
-    'welcome' => 'Welcome',
+    'about' => 'About Us',
+    'about_us' => 'About Us',
+    'about_us_content' => 'We understand that finding reliable products and services can be challenging. That’s why we’ve built a community where trust and quality come first. Every ad and professional on our platform undergoes a thorough verification process, ensuring you get access to genuine opportunities and skilled experts you can rely on.',
     'what_we_do' => 'What We Do',
-    'about_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius mod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat.',
-    'what_we_do_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius mod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+    'what_we_do_content' => 'Our mission is simple: to make your search for products and services seamless, efficient, and worry-free. Whether you’re looking for skilled tradespeople, creative talent, or specialized services, we bridge the gap between your needs and the right professionals.',
+
 
     ////////////////bids
     'congratulations' => 'Congratulations!',

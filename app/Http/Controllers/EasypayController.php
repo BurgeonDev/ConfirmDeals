@@ -115,4 +115,17 @@ class EasypayController extends Controller
         $transactions = Easypaisa::where('user_id', $userId)->get();
         return view('frontend.transactions.index', compact('transactions'));
     }
+    public function destroy($id)
+    {
+        $userId = auth()->id();
+        $transaction = Easypaisa::where('id', $id)->where('user_id', $userId)->first();
+
+        if (!$transaction) {
+            return redirect()->route('transactions.index')->with('error', 'Transaction not found or you do not have permission to delete it.');
+        }
+
+        $transaction->delete();
+
+        return redirect()->route('transactions.index')->with('success', 'Transaction deleted successfully.');
+    }
 }
