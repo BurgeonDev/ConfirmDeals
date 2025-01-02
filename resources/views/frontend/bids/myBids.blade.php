@@ -140,25 +140,30 @@
                                                         <p class="mb-0"><strong>Status:</strong> <span
                                                                 class="badge bg-success">Accepted</span></p>
                                                     </div>
-                                                    <!-- Feedback Button -->
+                                                    {{-- <!-- Feedback Button -->
                                                     <button class="mt-2 btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="#feedbackModal-{{ $bid->id }}">
                                                         Give Feedback
-                                                    </button>
-                                                    <!-- Payment Button with 0.25% Discount -->
-                                                    <form action="{{ route('paymentsway') }}">
-                                                        @csrf
-                                                        <input type="hidden" name="price"
-                                                            value="{{ number_format($bid->offer * 0.0025, 2) }}">
-                                                        <input type="hidden" name="packageName"
-                                                            value="{{ $bid->ad->title }}">
-                                                        <span>To see Seller Deatails, please pay 0.25% of Bid offer to
-                                                            ConfirmDeals</span>
+                                                    </button> --}}
 
-                                                        <button style="width:100%;" class="mt-2 btn btn-primary"
-                                                            type="submit">Pay </button>
+                                                    <div class="row">
+                                                        <!-- Feedback Button -->
+                                                        <div class="col-6">
+                                                            <button class="mt-2 btn btn-primary w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#feedbackModal-{{ $bid->id }}">
+                                                                Give Feedback
+                                                            </button>
+                                                        </div>
 
-                                                    </form>
+                                                        <!-- Deals Button -->
+                                                        <div class="col-6">
+                                                            <a href="{{ route('deal.page') }}"
+                                                                class="mt-2 btn btn-secondary w-100">
+                                                                View Deal
+                                                            </a>
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>

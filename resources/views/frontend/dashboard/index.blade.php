@@ -74,6 +74,12 @@
 
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->routeIs('deal.page') ? 'active' : '' }}" href="{{ route('deal.page') }}">
+                        <i class="lni lni-bookmark"></i> Deals
+
+                    </a>
+                </li>
 
                 <li>
                     <a class="{{ request()->routeIs('transactions.index') ? 'active' : '' }}"

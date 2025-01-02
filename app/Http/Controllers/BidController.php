@@ -115,4 +115,21 @@ class BidController extends Controller
 
         return view('frontend.bids.myBids', compact('pendingBids', 'acceptedBids', 'rejectedBids'));
     }
+    public function dealPage()
+    {
+        $user = Auth::user();
+
+        // Fetch accepted bids where the user is either the bidder or the ad owner (seller)
+        $bids = Bid::where('status', 'accepted')
+            ->where(function ($query) use ($user) {
+                $query->where('user_id', $user->id) // Buyer
+                    ->orWhereHas('ad', function ($query) use ($user) {
+                        $query->where('user_id', $user->id); // Seller
+                    });
+            })
+            ->with(['ad.user', 'user']) // Load ad (seller) and bid user (buyer)
+            ->get();
+
+        return view('frontend.bids.dealPage', compact('bids'));
+    }
 }

@@ -3,56 +3,35 @@
 namespace App\Http\Controllers;
 
 use AKCybex\JazzCash\Facades\JazzCash;
+use App\Models\Bid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
 
-    public function initiatePayment(Request $request)
+    // PaymentController.php
+    public function pay(Request $request, $bidId)
     {
-        $i = $request->all();
-        Log::info('Payment Data:', $i); // Log request data for debugging
-        $data = JazzCash::request()->setAmount($i['amount'])->toArray($i);
+        $bid = Bid::findOrFail($bidId);
+        $user = Auth::user();
 
-        Log::info('Payment Data to JazzCash:', $data); // Log data before sending to gateway
-
-        return view('payment.jazzcash.redirect-to-jazzcash', ['data' => $data]);
-    }
-
-    public function handleResponse(Request $request)
-    {
-        // Validate response hash
-        $isValid = $this->validateResponseHash($request->all());
-
-        if (!$isValid) {
-            return response()->json(['message' => 'Invalid secure hash'], 400);
+        // Check if the user is either the buyer or the seller
+        if ($user->id === $bid->user_id) {
+            $bid->user_paid = true;
+        } elseif ($user->id === $bid->ad->user_id) {
+            $bid->seller_paid = true;
         }
 
-        // Update transaction with response details
-        JazzCash::where('txn_ref_no', $request->pp_TxnRefNo)->update([
-            'response_code' => $request->pp_ResponseCode,
-            'response_message' => $request->pp_ResponseMessage,
-            'response_payload' => $request->all(),
-        ]);
+        // // If both buyer and seller have paid, update the status to 'completed'
+        // if ($bid->user_paid && $bid->seller_paid) {
+        //     $bid->status = 'completed';
+        // }
 
-        return response()->json([
-            'message' => 'Response processed successfully',
-            'response' => $request->all(),
-        ]);
-    }
+        // Save the updated bid model
+        $bid->save();
 
-
-    private function validateResponseHash($data)
-    {
-        $hashKey = $data['pp_HashKey'];
-        $providedHash = $data['pp_SecureHash'];
-        unset($data['pp_SecureHash'], $data['pp_HashKey']);
-
-        ksort($data);
-        $hashString = $hashKey . '&' . implode('&', array_filter($data));
-        $generatedHash = hash_hmac('sha256', $hashString, $hashKey);
-
-        return hash_equals($providedHash, $generatedHash);
+        return redirect()->back()->with('success', 'Payment successful!');
     }
 }

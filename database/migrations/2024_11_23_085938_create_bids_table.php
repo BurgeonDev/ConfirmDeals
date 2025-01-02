@@ -14,6 +14,8 @@ class CreateBidsTable extends Migration
             $table->foreignId('ad_id')->constrained()->onDelete('cascade');   // Ad that the bid is placed on
             $table->decimal('offer', 10, 2); // Amount offered by the user
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->boolean('user_paid')->default(false);
+            $table->boolean('seller_paid')->default(false);
             $table->timestamps();
         });
     }
