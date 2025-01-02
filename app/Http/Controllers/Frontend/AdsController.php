@@ -368,6 +368,6 @@ class AdsController extends Controller
         $featuredAdRate = DB::table('settings')->where('key', 'featured_ad_rate')->value('value');
         $user = auth()->user();
         // Return the view with ads
-        return view('frontend.postad.featured', compact('ads', 'featuredAdRate', 'user'));
+        return view('frontend.postAd.featured', compact('ads', 'featuredAdRate', 'user'));
     }
 }
