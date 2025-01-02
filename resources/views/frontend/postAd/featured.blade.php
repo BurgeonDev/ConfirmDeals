@@ -188,18 +188,17 @@
                                                                         <small id="errorMessage"
                                                                             class="text-danger"></small>
                                                                     </div>
-                                                                    <button type="submit" class="btn btn-primary">Update
-                                                                        Featured Ad</button>
+                                                                    <div class="mb-0 form-group button">
+                                                                        <button type="submit" class="btn">Update
+                                                                            Featured Ad</button>
+                                                                    </div>
+
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
-
                                         </div>
                                     </div>
                                 @empty
