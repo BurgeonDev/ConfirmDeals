@@ -108,7 +108,9 @@
                                             <div class="col-lg-2 col-md-2 col-12">
                                                 <!-- Featured status column -->
                                                 @if ($ad->is_featured)
-                                                    <span class="badge bg-success">Featured</span>
+                                                    <span class="badge bg-success"><i class="lni lni-diamond-alt"
+                                                            style="color: gold"></i>
+                                                        Featured</span>
                                                 @else
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="#featureModal{{ $ad->id }}">
@@ -142,7 +144,7 @@
                                                                                 name="featured_days" min="1"
                                                                                 required>
                                                                             <div id="coinMessage{{ $ad->id }}"
-                                                                                class="mt-2 text-info"></div>
+                                                                                class="mt-2" style="color: #5830e0"></div>
                                                                             <div id="coinError{{ $ad->id }}"
                                                                                 class="mt-2 text-danger"></div>
                                                                         </div>
