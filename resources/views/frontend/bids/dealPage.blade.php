@@ -130,7 +130,7 @@
                 <div class="col-lg-9">
                     <div class="main-content">
                         <div class="p-4 bg-white rounded shadow-sm dashboard-block">
-                            <h2 class="section-title">Deal Page</h2>
+                            <h3 class="block-title">Deal Page</h3>
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
                                     <thead class="table-dark">
