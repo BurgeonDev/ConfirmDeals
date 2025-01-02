@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -63,7 +64,8 @@ class SocialiteController extends Controller
             $nameParts = explode(' ', $fullName, 2);
             $firstName = $nameParts[0] ?? null;
             $lastName = $nameParts[1] ?? null;
-
+            // Get free coins value
+            $freeCoins = Setting::getValue('free_coins') ?? 0;
             // Find or Create User
             $user = User::updateOrCreate(
                 ['email' => $socialUser->getEmail()],
@@ -74,6 +76,7 @@ class SocialiteController extends Controller
                     'provider_id' => $socialUser->getId(),
                     'provider_name' => $provider,
                     'profile_pic' => $socialUser->getAvatar(),
+                    'coins' => $freeCoins,
                 ]
             );
 
@@ -81,9 +84,9 @@ class SocialiteController extends Controller
             Auth::login($user);
 
             // Check if the user's profile is incomplete and send notification
-            if (!$user->first_name || !$user->last_name) {
-                $user->notify(new CompleteProfileNotification());
-            }
+
+            $user->notify(new CompleteProfileNotification());
+
 
             return redirect()->intended('home');
         } catch (\Exception $e) {

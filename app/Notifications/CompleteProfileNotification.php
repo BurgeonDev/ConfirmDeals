@@ -33,7 +33,7 @@ class CompleteProfileNotification extends Notification
     {
         return [
             'message' => 'Your profile is incomplete. Please complete your profile.',
-            'action_url' => url('/user/profile/edit'),
+            'action_url' => route('userProfile.edit'), // Using named route here
         ];
     }
 }
