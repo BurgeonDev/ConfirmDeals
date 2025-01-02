@@ -105,16 +105,18 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <div class="py-3 breadcrumbs bg-light">
+    <div class="breadcrumbs">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h1 class="mb-0 page-title">Bids on Your Ads</h1>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Deals</h1>
+                    </div>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <ul class="mb-0 breadcrumb-nav list-inline">
-                        <li class="list-inline-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="list-inline-item active">Bids on Your Ads</li>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="{{ route('home') }}">Home</a></li>
+                        <li>Deals</li>
                     </ul>
                 </div>
             </div>
