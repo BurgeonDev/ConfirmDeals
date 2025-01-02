@@ -22,10 +22,15 @@ class BidController extends Controller
             return redirect()->back()
                 ->withErrors(['You do not have enough coins to bid on this ad.']);
         }
+
         // Validate the bid
         $request->validate([
-            'offer' => 'required|numeric', // Removed the dynamic minimum offer condition
+            'offer' => 'required|numeric',
         ]);
+
+        // Deduct coins from the user
+        $user->coins -= $ad->coins_needed;
+        $user->save();
 
         // Create the bid
         $bid = new Bid();
@@ -34,15 +39,14 @@ class BidController extends Controller
         $bid->offer = $request->offer;
         $bid->status = 'pending'; // Default status
         $bid->save();
-        // Assume $bid is the bid object
-        $ad = $bid->ad; // Retrieve the ad associated with the bid
-        $adOwner = $ad->user; // Assuming the ad has a user relation
 
         // Notify the ad owner
+        $adOwner = $ad->user; // Assuming the ad has a user relation
         $adOwner->notify(new BidReceivedNotification($ad));
-        // return redirect()->route('ad.show', $adId)->with('success', 'Bid placed successfully!');
+
         return view('frontend.bids.success');
     }
+
 
 
     public function acceptBid($bidId)
