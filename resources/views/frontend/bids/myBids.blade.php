@@ -140,11 +140,6 @@
                                                         <p class="mb-0"><strong>Status:</strong> <span
                                                                 class="badge bg-success">Accepted</span></p>
                                                     </div>
-                                                    {{-- <!-- Feedback Button -->
-                                                    <button class="mt-2 btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#feedbackModal-{{ $bid->id }}">
-                                                        Give Feedback
-                                                    </button> --}}
 
                                                     <div class="row">
                                                         <!-- Feedback Button -->
