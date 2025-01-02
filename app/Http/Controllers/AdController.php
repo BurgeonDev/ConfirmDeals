@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Locality;
 use Illuminate\Http\Request;
 use App\Notifications\AdApprovedNotification;
+use App\Notifications\AdCancelledNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,16 +23,7 @@ class AdController extends Controller
         $ads = Ad::with(['user', 'category'])->get();
         return view('admin.ads.index', compact('ads'));
     }
-    // public function toggleVerifiedStatus(Ad $ad)
-    // {
-    //     $ad->is_verified = !$ad->is_verified;
-    //     $ad->save();
-    //     if ($ad->is_verified) {
-    //         $adOwner = $ad->user; // Retrieve the owner of the ad
-    //         $adOwner->notify(new AdApprovedNotification($ad));
-    //     }
-    //     return redirect()->back()->with('success', 'Ad verification status updated successfully!');
-    // }
+
 
     public function toggleVerifiedStatus(Request $request, Ad $ad)
     {
@@ -44,14 +36,23 @@ class AdController extends Controller
         $ad->status = $validated['status'];
         $ad->save();
 
-        // If the ad is verified, notify the user
-        if ($ad->status == 'verified') {
-            $adOwner = $ad->user; // Retrieve the owner of the ad
-            $adOwner->notify(new AdApprovedNotification($ad));
+        // Notify the user based on the new status
+        $adOwner = $ad->user; // Retrieve the owner of the ad
+        switch ($ad->status) {
+            case 'verified':
+                $adOwner->notify(new AdApprovedNotification($ad));
+                break;
+
+            case 'cancel':
+                $adOwner->notify(new AdCancelledNotification($ad));
+                break;
+
+                // Add cases for other statuses if needed
         }
 
         return redirect()->back()->with('success', 'Ad status updated successfully!');
     }
+
 
     public function destroy(Ad $ad)
     {
