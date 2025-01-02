@@ -70,7 +70,7 @@
                 <li>
                     <a class="{{ request()->routeIs('bids.index') ? 'active' : '' }}"
                         href="{{ route('bids.index') }}">
-                        <i class="lni lni-bookmark"></i> Ad Bids
+                        <i class="lni lni-bullhorn"></i> Ad Bids
 
                     </a>
                 </li>
