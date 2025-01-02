@@ -1,5 +1,6 @@
  <header class="header navbar-area">
      <div class="container">
+
          <div class="row align-items-center">
              <div class="col-lg-12">
                  <div class="nav-inner">
@@ -163,5 +164,20 @@
                  </div>
              </div>
          </div>
+         @if (Auth::check() &&
+                 (is_null(Auth::user()->phone_number) ||
+                     is_null(Auth::user()->profession_id) ||
+                     is_null(Auth::user()->country_id) ||
+                     is_null(Auth::user()->city_id) ||
+                     is_null(Auth::user()->locality_id)))
+             <div
+                 style="display: block; color: #856404; background-color: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                 <strong>Notice:</strong> Your profile is incomplete. Please
+                 <a href="{{ route('userProfile.edit') }}" style="color: #004085; text-decoration: underline;">update
+                     your
+                     profile</a>
+                 to improve your experience.
+             </div>
+         @endif
      </div>
  </header>
