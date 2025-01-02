@@ -73,6 +73,9 @@ Route::group([
         // Route for un-featuring an ad
         Route::post('/ad/{id}/unfeature', [AdsController::class, 'unfeature'])->name('ad.unfeature');
 
+        //////////////biding
+        Route::get('/deal-page', [BidController::class, 'dealPage'])->name('deal.page');
+        Route::post('/bids/{bidId}/pay', [PaymentController::class, 'pay'])->name('payment.pay');
 
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');

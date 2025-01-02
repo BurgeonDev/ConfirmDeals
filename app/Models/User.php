@@ -83,4 +83,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bid::class)->where('status', 'pending');
     }
+    // User Model
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function locality()
+    {
+        return $this->belongsTo(Locality::class);
+    }
 }
