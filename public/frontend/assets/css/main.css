@@ -4838,6 +4838,37 @@ blockquote .shape {
     -webkit-background-clip: text;
     background-image: linear-gradient(45deg, #de6dd5, #ff5eb3);
 }
+/* Fourth (Golden) */
+.dashboard .main-content .details-lists .single-list.four .list-icon {
+    border-color: #ffd700; /* Golden border */
+}
+
+.dashboard .main-content .details-lists .single-list.four .list-icon i {
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(
+        45deg,
+        #ffc107,
+        #ffd700
+    ); /* Golden gradient */
+}
+
+/* Fifth (Purple) */
+.dashboard .main-content .details-lists .single-list.five .list-icon {
+    border-color: #800080; /* Purple border */
+}
+
+.dashboard .main-content .details-lists .single-list.five .list-icon i {
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(
+        45deg,
+        #6a0dad,
+        #9400d3
+    ); /* Purple gradient */
+}
 
 .dashboard .main-content .details-lists .single-list h3 {
     font-size: 23px;
