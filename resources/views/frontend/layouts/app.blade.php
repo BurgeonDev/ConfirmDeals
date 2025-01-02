@@ -8,9 +8,6 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/assets/images/favicon.svg') }}" />
-    <!-- Place favicon.ico in the root directory -->
-
-    <!-- Web Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -37,6 +34,10 @@
 
 <body>
 
+
+
+
+
     <!-- Preloader -->
     <div class="preloader" style="opacity: 0; display: none;">
         <div class="preloader-inner">
@@ -46,6 +47,7 @@
             </div>
         </div>
     </div>
+
     <!-- /End Preloader -->
 
     <!-- Start Header Area -->
