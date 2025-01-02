@@ -47,7 +47,7 @@
                     @can('Manage Ad')
                         <a class="{{ request()->routeIs('ad.featured') ? 'active' : '' }}"
                             href="{{ route('ad.featured') }}">
-                            <i class="lni lni-bolt-alt"></i> Featured Ads
+                            <i class="lni lni-diamond-alt"></i> Featured Ads
                         </a>
                     @endcan
                 </li>
@@ -63,7 +63,7 @@
 
                     <a class="{{ request()->routeIs('bids.myBids') ? 'active' : '' }}"
                         href="{{ route('bids.myBids') }}">
-                        <i class="lni lni-heart"></i> My Bids
+                        <i class="lni lni-home"></i> My Bids
                     </a>
 
                 </li>
