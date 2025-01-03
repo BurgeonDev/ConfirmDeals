@@ -32,7 +32,6 @@ return new class extends Migration
             'reports',
             'roles',
             'role_has_permissions',
-            'settings',
             'users'
         ];
 

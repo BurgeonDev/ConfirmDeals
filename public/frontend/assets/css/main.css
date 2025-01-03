@@ -2051,7 +2051,7 @@ ol {
 
 /* Hero Search Form */
 .search-form {
-    margin-top: 60px;
+    /* margin-top: 60px; */
     background: #fff3;
     border-radius: 6px;
     padding: 30px;
@@ -6893,16 +6893,26 @@ blockquote .shape {
 .how-works {
     background-color: #f9f9f9;
 }
+.how-worked {
+    background-color: none;
+}
 
-.how-works .single-work {
+.how-worked .single-work {
     text-align: center;
     padding: 40px;
     background-color: #fff;
     border: 1px solid #eee;
     border-radius: 6px;
 }
+.how-worked .single-work {
+    text-align: center;
+    padding: 40px;
+    background-color: #fff3;
+    border: 1px solid #fff3;
+    border-radius: 6px;
+}
 
-.how-works .single-work .serial {
+.how-worked .single-work .serial {
     height: 80px;
     width: 80px;
     line-height: 68px;
@@ -6919,19 +6929,19 @@ blockquote .shape {
     transition: all 0.4s ease;
 }
 
-.how-works .single-work:hover .serial {
+.how-worked .single-work:hover .serial {
     color: #5830e0;
     background-color: transparent;
     border-color: #5830e0;
 }
 
-.how-works .single-work h3 {
+.how-worked .single-work h3 {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-.how-works .single-work p {
+.how-worked .single-work p {
     font-size: 16px;
     line-height: 24px;
 }
@@ -7254,11 +7264,11 @@ blockquote .shape {
     .testimonials .tns-nav {
         bottom: 50px;
     }
-    .how-works .single-work {
+    .how-worked .single-work {
         padding: 25px 15px;
         margin-top: 30px;
     }
-    .how-works .single-work .serial {
+    .how-worked .single-work .serial {
         height: 70px;
         width: 70px;
         line-height: 60px;
@@ -7266,11 +7276,11 @@ blockquote .shape {
         margin-bottom: 25px;
         font-size: 22px;
     }
-    .how-works .single-work h3 {
+    .how-worked .single-work h3 {
         font-size: 20px;
         margin-bottom: 8px;
     }
-    .how-works .single-work p {
+    .how-worked .single-work p {
         font-size: 15px;
     }
     .item-details .product-info {
@@ -7634,11 +7644,11 @@ blockquote .shape {
     .testimonials .tns-nav {
         bottom: 45px;
     }
-    .how-works .single-work {
+    .how-worked .single-work {
         padding: 25px 15px;
         margin-top: 30px;
     }
-    .how-works .single-work .serial {
+    .how-worked .single-work .serial {
         height: 70px;
         width: 70px;
         line-height: 60px;
@@ -7646,11 +7656,11 @@ blockquote .shape {
         margin-bottom: 25px;
         font-size: 22px;
     }
-    .how-works .single-work h3 {
+    .how-worked .single-work h3 {
         font-size: 20px;
         margin-bottom: 8px;
     }
-    .how-works .single-work p {
+    .how-worked .single-work p {
         font-size: 15px;
     }
     .newsletter .title {

@@ -30,7 +30,7 @@ class ContactUs extends Mailable
     {
         return new Envelope(
             subject: 'Contact Us',
-            from: new Address('naju2961@gmail.com', 'ConfrimDeals'),
+            from: new Address('no-reply@confirmdeals.net', 'ConfrimDeals'),
         );
     }
 
