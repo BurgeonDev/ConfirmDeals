@@ -6897,13 +6897,13 @@ blockquote .shape {
     background-color: none;
 }
 
-.how-worked .single-work {
+/* .how-worked .single-work {
     text-align: center;
     padding: 40px;
     background-color: #fff;
     border: 1px solid #eee;
     border-radius: 6px;
-}
+} */
 .how-worked .single-work {
     text-align: center;
     padding: 40px;
@@ -6938,6 +6938,7 @@ blockquote .shape {
 .how-worked .single-work h3 {
     font-size: 24px;
     font-weight: 600;
+    color: #fff;
     margin-bottom: 10px;
 }
 
@@ -8649,7 +8650,7 @@ blockquote .shape {
 }
 
 .footer .footer-top {
-    padding: 100px 0;
+    padding: 20px 0;
     padding-top: 70px;
     border-bottom: 1px solid #ebebeb s;
 }
