@@ -12,13 +12,13 @@ class CreateCoinsTable extends Migration
             $table->id();
             $table->decimal('price_in_pkr', 10, 2);
             $table->integer('equivalence')->default(1); // Default is 1 coin
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
+            // $table->unsignedBigInteger('created_by')->nullable();
+            // $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
+            // $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            // $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

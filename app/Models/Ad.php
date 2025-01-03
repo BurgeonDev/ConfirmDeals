@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class Ad extends Model
+class Ad extends BaseModel
 {
     use HasFactory;
     protected static function boot()
