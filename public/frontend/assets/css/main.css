@@ -7115,6 +7115,25 @@ blockquote .shape {
     .hero-area.style2 .hero-text h2 {
         font-size: 42px;
     }
+    .how-worked .single-work {
+        padding: 25px 15px;
+        margin-top: 30px;
+    }
+    .how-worked .single-work .serial {
+        height: 70px;
+        width: 70px;
+        line-height: 60px;
+        border: 4px solid #b29cfb;
+        margin-bottom: 25px;
+        font-size: 22px;
+    }
+    .how-worked .single-work h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    .how-worked .single-work p {
+        font-size: 15px;
+    }
 }
 
 /* Tablet Screen */
