@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -20,8 +21,20 @@ class User extends Authenticatable
      */
     protected static function booted()
     {
+        parent::boot();
         static::created(function ($user) {
             $user->assignRole('user');
+        });
+        static::creating(function ($model) {
+            if (Auth::check()) {
+                $model->created_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+            }
+        });
+
+        static::updating(function ($model) {
+            if (Auth::check()) {
+                $model->updated_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+            }
         });
     }
     protected $fillable = [

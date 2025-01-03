@@ -60,7 +60,7 @@
                 <div class="text-white card bg-danger">
                     <div class="text-center card-header">
                         <i class="mdi mdi-card mdi-36px"></i>
-                        <h6>Cancel Ads</h6>
+                        <h6>Cancelled Ads</h6>
                     </div>
                     <div class="text-center card-body">
                         <h4>{{ $disableAds }}</h4>

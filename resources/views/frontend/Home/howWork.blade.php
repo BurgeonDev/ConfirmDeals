@@ -7,11 +7,11 @@
                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                         How It Works
                     </h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s"
+                    {{-- <p class="wow fadeInUp" data-wow-delay=".6s"
                         style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                         Discover how our platform simplifies the process for both buyers and sellers, ensuring seamless
                         transactions.
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
