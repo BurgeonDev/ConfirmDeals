@@ -4,7 +4,7 @@
     @include('frontend.home.hero')
     <!-- End Hero Area -->
     <!-- Start How Works Area -->
-    @include('frontend.home.howWork')
+    {{-- @include('frontend.home.howWork') --}}
     <!-- End How Works Area -->
     <!-- Start Categories Area -->
     {{-- @include('frontend.home.category') --}}
