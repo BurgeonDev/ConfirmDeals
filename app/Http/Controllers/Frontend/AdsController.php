@@ -9,7 +9,6 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Feedback;
 use App\Models\Locality;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
@@ -26,14 +25,24 @@ class AdsController extends Controller
         if (!auth()->user()->can('Manage Ad')) {
             abort(403, 'Unauthorized action.');
         }
+
         // Load the category relationship with ads
         $ads = Ad::where('user_id', auth()->id())
             ->with('category') // Eager load the category relationship
             ->paginate(10);
-        $featuredAdRate = DB::table('settings')->where('key', 'featured_ad_rate')->value('value');
+
+        // Get the featured ad rate from the coins table
+        $featuredAdRate = DB::table('coins')->value('featured_ad_rate');
+
+        if (!$featuredAdRate) {
+            // Optionally handle the case when featured_ad_rate is not found
+            $featuredAdRate = 0; // Default value or you can display an error message
+        }
+
         $user = auth()->user();
         return view('frontend.postAd.index', compact('ads', 'featuredAdRate', 'user'));
     }
+
 
 
     /**
@@ -231,13 +240,14 @@ class AdsController extends Controller
         $user = auth()->user();
         $ad = Ad::findOrFail($id);
 
-        // Get the featured ad rate from settings
-        $featuredAdRate = Setting::getValue('featured_ad_rate');
+        // Get the featured ad rate from the coins table
+        $featuredAdRate = DB::table('coins')->value('featured_ad_rate');
 
         if (!$featuredAdRate) {
             return redirect()->back()->withErrors(['error' => 'Featured ad rate is not set.']);
         }
 
+        // Calculate the coins needed for the featured duration
         $coinsNeeded = $validatedData['featured_days'] * $featuredAdRate;
 
         // Check if the user has enough coins
@@ -272,6 +282,7 @@ class AdsController extends Controller
         }
     }
 
+
     public function updateFeatureAd(Request $request, $id)
     {
         // Validate the input
@@ -282,8 +293,8 @@ class AdsController extends Controller
         $user = auth()->user();
         $ad = Ad::findOrFail($id);
 
-        // Get the featured ad rate from settings
-        $featuredAdRate = Setting::getValue('featured_ad_rate');
+        // Get the featured ad rate from the coins table
+        $featuredAdRate = DB::table('coins')->value('featured_ad_rate');
 
         if (!$featuredAdRate) {
             return redirect()->back()->withErrors(['error' => 'Featured ad rate is not set.']);
@@ -341,11 +352,10 @@ class AdsController extends Controller
                 ->withErrors(['error' => 'An error occurred while updating the featured ad. Please try again.']);
         }
     }
+
     public function unfeature($id)
     {
         $ad = Ad::findOrFail($id);
-
-        // Un-feature the ad by setting is_featured to false and removing the featured_until date
         $ad->is_featured = false;
         $ad->featured_until = null;
         $ad->save();
@@ -365,9 +375,11 @@ class AdsController extends Controller
             ->whereNotNull('featured_until')
             ->where('featured_until', '>', now())
             ->get();
-        $featuredAdRate = DB::table('settings')->where('key', 'featured_ad_rate')->value('value');
-        $user = auth()->user();
-        // Return the view with ads
+
+        // Fetch the featured ad rate from the 'coins' table
+        $featuredAdRate = DB::table('coins')->value('featured_ad_rate');
+
+        // Return the view with ads and featured ad rate
         return view('frontend.postAd.featured', compact('ads', 'featuredAdRate', 'user'));
     }
 }

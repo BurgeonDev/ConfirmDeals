@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Coin;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class CoinController extends Controller
@@ -14,9 +12,12 @@ class CoinController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
-        $freeCoins = Setting::getValue('free_coins');
-        $featuredAdRate = Setting::getValue('featured_ad_rate');
+
         $coins = Coin::all();
+        $coin = $coins->first();
+        $freeCoins = $coin ? $coin->free_coins : 0;
+        $featuredAdRate = $coin ? $coin->featured_ad_rate : 0;
+
         return view('admin.coins.index', compact('coins', 'freeCoins', 'featuredAdRate'));
     }
 
@@ -33,12 +34,16 @@ class CoinController extends Controller
         $validated = $request->validate([
             'price_in_pkr' => 'required|numeric|min:0',
             'equivalence' => 'required|integer|min:1',
+            'free_coins' => 'required|integer|min:0',
+            'featured_ad_rate' => 'required|integer|min:1',
         ]);
 
         Coin::create([
             'price_in_pkr' => $validated['price_in_pkr'],
             'equivalence' => $validated['equivalence'],
-            'created_by' => auth()->id(),
+            'free_coins' => $validated['free_coins'],
+            'featured_ad_rate' => $validated['featured_ad_rate'],
+
         ]);
 
         return redirect()->route('coins.index')->with('success', 'Coin added successfully.');
@@ -62,12 +67,16 @@ class CoinController extends Controller
         $validated = $request->validate([
             'price_in_pkr' => 'required|numeric|min:0',
             'equivalence' => 'required|integer|min:1',
+            'free_coins' => 'required|integer|min:0',
+            'featured_ad_rate' => 'required|integer|min:1',
         ]);
 
         $coin->update([
             'price_in_pkr' => $validated['price_in_pkr'],
             'equivalence' => $validated['equivalence'],
-            'updated_by' => auth()->id(),
+            'free_coins' => $validated['free_coins'],
+            'featured_ad_rate' => $validated['featured_ad_rate'],
+
         ]);
 
         return redirect()->route('coins.index')->with('success', 'Coin updated successfully.');
@@ -77,17 +86,5 @@ class CoinController extends Controller
     {
         $coin->delete();
         return redirect()->route('coins.index')->with('success', 'Coin deleted successfully.');
-    }
-    public function updateSettings(Request $request)
-    {
-        $validatedData = $request->validate([
-            'free_coins' => 'required|integer|min:0',
-            'featured_ad_rate' => 'required|integer|min:1', // Coins per day for featured ads
-        ]);
-
-        Setting::setValue('free_coins', $validatedData['free_coins']);
-        Setting::setValue('featured_ad_rate', $validatedData['featured_ad_rate']);
-
-        return redirect()->back()->with('success', 'Settings updated successfully.');
     }
 }

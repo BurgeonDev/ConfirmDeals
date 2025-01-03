@@ -12,6 +12,8 @@ class Coin extends BaseModel
     protected $fillable = [
         'price_in_pkr',
         'equivalence',
+        'free_coins',
+        'featured_ad_rate',
         'created_by',
         'updated_by',
     ];

@@ -31,7 +31,6 @@ use App\Http\Controllers\Admin\NewsletterAdminController;
 use App\Http\Controllers\EasypaisaController;
 use App\Http\Controllers\JazzCashController;
 use App\Http\Controllers\PricingController;
-use App\Http\Controllers\SettingController;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),

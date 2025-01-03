@@ -11,14 +11,10 @@ class CreateCoinsTable extends Migration
         Schema::create('coins', function (Blueprint $table) {
             $table->id();
             $table->decimal('price_in_pkr', 10, 2);
-            $table->integer('equivalence')->default(1); // Default is 1 coin
-            // $table->unsignedBigInteger('created_by')->nullable();
-            // $table->unsignedBigInteger('updated_by')->nullable();
+            $table->integer('equivalence')->default(1);
+            $table->integer('free_coins')->default(5);
+            $table->integer('featured_ad_rate')->default(5);
             $table->timestamps();
-
-            // Foreign key constraints
-            // $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
-            // $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 
