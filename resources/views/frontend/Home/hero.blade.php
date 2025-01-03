@@ -9,52 +9,10 @@
                              style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">Welcome
                              to ConfirmDeals</h2>
                          <p class="wow fadeInUp" data-wow-delay=".5s"
-                             style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">Buy And
-                             Sell Everything From Used Cars To Mobile Phones And <br>Computers,
-                             Or Search For Property, Jobs And More.</p>
+                             style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">You will find
+                             confirm deals here which are verified by us.</p>
                      </div>
 
-
-                     <!-- Updated Search Form -->
-                     {{-- <div class="search-form wow fadeInUp" data-wow-delay=".7s"
-                         style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
-                         <div class="row">
-                             <div class="p-0 col-lg-4 col-md-4 col-12">
-                                 <div class="search-input">
-                                     <label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
-                                     <input type="text" name="keyword" id="keyword" placeholder="Product keyword">
-                                 </div>
-                             </div>
-                             <div class="p-0 col-lg-3 col-md-3 col-12">
-                                 <div class="search-input">
-                                     <label for="category"><i class="lni lni-grid-alt theme-color"></i></label>
-                                     <select name="category" id="category">
-                                         <option value="none" selected="" disabled="">Categories</option>
-                                         <?php foreach ($categories as $category): ?>
-                                         <option value="<?php echo htmlspecialchars($category->id); ?>"><?php echo htmlspecialchars($category->name); ?></option>
-                                         <?php endforeach; ?>
-                                     </select>
-                                 </div>
-                             </div>
-                             <div class="p-0 col-lg-3 col-md-3 col-12">
-                                 <div class="search-input">
-                                     <label for="city"><i class="lni lni-map-marker theme-color"></i></label>
-                                     <select name="city" id="city">
-                                         <option value="none" selected="" disabled="">Locations</option>
-                                         <?php foreach ($cities as $city): ?>
-                                         <option value="<?php echo htmlspecialchars($city->name); ?>"><?php echo htmlspecialchars($city->name); ?></option>
-                                         <?php endforeach; ?>
-                                     </select>
-                                 </div>
-                             </div>
-                             <div class="p-0 col-lg-2 col-md-2 col-12">
-                                 <div class="search-btn button">
-                                     <button id="searchButton" class="btn"><i class="lni lni-search-alt"></i>
-                                         Search</button>
-                                 </div>
-                             </div>
-                         </div>
-                     </div> --}}
                      <!-- Updated Search Form -->
                      <div class="search-form wow fadeInUp" data-wow-delay=".7s"
                          style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
