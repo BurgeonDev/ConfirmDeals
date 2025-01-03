@@ -115,8 +115,7 @@
                                                                     <tbody>
                                                                         @foreach ($ad->bids as $bid)
                                                                             <tr>
-                                                                                <td>{{ $bid->user->first_name }}
-                                                                                    {{ $bid->user->last_name }}</td>
+                                                                                <td>Buyer</td>
                                                                                 <td>{{ $bid->offer }}
                                                                                 </td>
                                                                                 <td>
