@@ -41,7 +41,9 @@
                                 <ul>
                                     <li>The Binary, Business Bay, Dubai.</li>
                                     {{-- <li>@lang('messages.city_zip')</li> --}}
-                                    <li><a href="mailto:@lang('messages.email_address')">@lang('messages.email_address')</a></li>
+                                    <li><a href="mailto:no-reply@confirmdeals.net
+">no-reply@confirmdeals.net
+                                        </a></li>
                                     {{-- <li><a href="tel:@lang('messages.phone_number')">@lang('messages.phone_number')</a></li> --}}
                                 </ul>
                             </div>
