@@ -1,39 +1,3 @@
-{{-- <footer class="footer">
-    <!-- Start Footer Top -->
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Widget -->
-                    <div class="single-footer f-link">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="{{ route('about') }}">About Us</a></li>
-                            <li><a href="{{ route('home') }}">How It's Works</a></li>
-                            <li><a href="{{ route('faq') }}">FAQ</a></li>
-                            <li><a href="{{ route('pricing') }}">Pricing</a></li>
-                            <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- End Single Widget -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Single Widget -->
-                    <div class="single-footer f-contact">
-                        <h3>Contact</h3>
-                        <ul>
-                            <li>The Binary, Business Bay<br> Dubai</li>
-                            <li> Mail. support@confirmdeals.com</li>
-                        </ul>
-                    </div>
-                    <!-- End Single Widget -->
-                </div>
-            </div>
-        </div>
-    </div>
-</footer> --}}
 <footer class="footer">
     <!-- Start Footer Top -->
     <div class="footer-top">
@@ -44,10 +8,10 @@
                     <div class="single-footer f-link">
                         <h3>Quick Links</h3>
                         <ul>
-                            <li><a href="{{ route('about') }}">About Us</a></li>
-                            <li><a href="{{ route('home') }}">How It's Works</a></li>
+                            <li><a href="{{ route('about') }}">About</a></li>
+                            {{-- <li><a href="{{ route('home') }}">How It's Works</a></li> --}}
                             <li><a href="{{ route('faq') }}">FAQ</a></li>
-                            <li><a href="{{ route('pricing') }}">Pricing</a></li>
+                            {{-- <li><a href="{{ route('pricing') }}">Pricing</a></li> --}}
                             <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                         </ul>
                     </div>
@@ -59,7 +23,7 @@
                         <h3>Contact</h3>
                         <ul>
                             <li>The Binary, Business Bay<br> Dubai</li>
-                            <li>Mail: support@confirmdeals.com</li>
+                            <li>Mail: info@confirmdeals.com</li>
                         </ul>
                     </div>
                 </div>

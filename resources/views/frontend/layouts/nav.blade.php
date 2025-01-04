@@ -25,9 +25,9 @@
                                  <li class="nav-item">
                                      <a href="{{ route('categories.cat') }}" aria-label="Toggle navigation">All Ads</a>
                                  </li>
-                                 {{-- <li class="nav-item">
+                                 <li class="nav-item">
                                      <a href="{{ route('about') }}" aria-label="Toggle navigation">About Us</a>
-                                 </li> --}}
+                                 </li>
                                  {{-- <li class="nav-item">
                                      <a href="{{ route('faq') }}" aria-label="Toggle navigation">FAQ</a>
                                  </li> --}}
@@ -35,23 +35,17 @@
                                      <a href="{{ route('contact.index') }}" aria-label="Toggle navigation">Contact
                                          Us</a>
                                  </li>
-                                 <li class="nav-item">
+                                 {{-- <li class="nav-item">
                                      <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
                                          data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
                                          aria-expanded="false" aria-label="Toggle navigation">Other</a>
                                      <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                         {{-- <li class="single-block">
-                                             <ul> --}}
-
                                          <li class="nav-item"><a href="{{ route('home') }}">How It's Works</a></li>
                                          <li class="nav-item"><a href="{{ route('faq') }}">FAQ</a></li>
                                          <li class="nav-item"><a href="{{ route('pricing') }}">Pricing</a></li>
                                          <li class="nav-item"><a href="{{ route('contact.index') }}">Contact Us</a></li>
-                                         {{-- </ul>
-                                         </li> --}}
-
                                      </ul>
-                                 </li>
+                                 </li> --}}
                                  @can('Manage Admin Dashbaord')
                                      <li class="nav-item">
                                          <a href="{{ route('dashboard') }}" aria-label="Toggle navigation">Dashboard</a>
@@ -111,20 +105,14 @@
 
                                          </a>
                                      </li>
-                                     {{-- <li>
-                                         <a href="{{ route('dashboard.index') }}">
-                                             <i class="lni lni-user"></i>
-                                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
-                                         </a>
-                                     </li> --}}
+
                                      <li>
                                          <a href="{{ route('dashboard.index') }}">
                                              {{-- <i class="lni lni-user"></i> --}}
                                              <img style="max-height: 30px; max-width:35px; border-radius:50%; object-fit: cover;"
                                                  src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
-                                                 alt="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}"
-                                                 class="user-profile-img" />
-                                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                                                 alt="{{ auth()->user()->first_name }}" class="user-profile-img" />
+                                             {{ auth()->user()->first_name }}
                                          </a>
                                      </li>
 
