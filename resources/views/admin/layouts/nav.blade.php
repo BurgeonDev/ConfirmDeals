@@ -8,8 +8,7 @@
         <div>
             <a class="navbar-brand brand-logo" href="{{ route('dashboard') }}">
 
-                <h3 style="display: inline; color: #582fe0;">Confirm</h3>
-                <h4 style="display: inline;">Deals</h4>
+                <img src="{{ asset('frontend/assets/images/logo/Logo1.svg') }}" alt="Logo">
 
             </a>
             <a class="navbar-brand brand-logo-mini" href="{{ route('dashboard') }}">

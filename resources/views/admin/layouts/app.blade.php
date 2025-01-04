@@ -32,7 +32,7 @@
     <!-- endinject -->
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('frontend/assets/images/favicon.svg') }}" />
     <style>
 
     </style>
@@ -119,8 +119,8 @@
     <!-- Toastr JS for notifications -->
 
     <script src="
-                                            https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js
-                                            "></script>
+                                                https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js
+                                                "></script>
     <!-- Toastr Configuration Script -->
     <script>
         toastr.options = {

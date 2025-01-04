@@ -6,9 +6,12 @@
                  <div class="nav-inner">
                      <nav class="navbar navbar-expand-lg">
                          <a class="navbar-brand" href="{{ route('home') }}">
+                             <img src="{{ asset('frontend/assets/images/logo/Logo1.svg') }}" alt="Logo">
+                         </a>
+                         {{-- <a class="navbar-brand" href="{{ route('home') }}">
                              <h2 style="display: inline; color: #582fe0;">Confirm</h2>
                              <h3 style="display: inline;">Deals</h3>
-                         </a>
+                         </a> --}}
 
                          <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
