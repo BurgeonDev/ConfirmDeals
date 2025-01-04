@@ -16,7 +16,7 @@
                                 <tr>
                                     <th>Picture</th>
                                     <th>Title</th>
-                                    <th>Description</th>
+                                    {{-- <th>Description</th> --}}
                                     <th>Type</th>
                                     <th>Category</th>
                                     <th>Price</th>
@@ -37,7 +37,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $ad->title }}</td>
-                                        <td>{{ Str::limit($ad->description, 50) }}</td>
+                                        {{-- <td>{{ Str::limit($ad->description, 50) }}</td> --}}
                                         <td>{{ ucfirst($ad->type) }}</td>
                                         <td>{{ ucfirst($ad->category->name) }}</td>
                                         <td>{{ $ad->price ? number_format($ad->price, 2) : 'N/A' }}</td>
@@ -62,20 +62,25 @@
                                         </td>
 
                                         <td>
+                                            <!-- Show Button with Icon -->
                                             <a href="{{ route('ad.show', $ad->id) }}"
-                                                class="btn btn-info btn-rounded btn-sm">
-                                                Show
+                                                class="btn btn-info btn-rounded btn-sm" title="Show">
+                                                <i class="fa fa-eye"></i> <!-- Eye icon for Show -->
                                             </a>
+
+                                            <!-- Delete Button with Icon -->
                                             <form action="{{ route('ads.destroy', $ad->id) }}" method="POST"
-                                                class="d-inline">
+                                                class="d-inline"
+                                                onsubmit="return confirm('Are you sure you want to delete this ad?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-rounded btn-sm"
-                                                    onclick="return confirm('Are you sure you want to delete this ad?');">
-                                                    Delete
+                                                    title="Delete">
+                                                    <i class="fa fa-trash"></i> <!-- Trash icon for Delete -->
                                                 </button>
                                             </form>
                                         </td>
+
                                     </tr>
                                 @empty
                                     <tr>
