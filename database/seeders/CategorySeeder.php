@@ -28,6 +28,7 @@ class CategorySeeder extends Seeder
             ['name' => 'Garden', 'description' => 'Outdoor furniture, plants, and garden tools'],
             ['name' => 'Office Supplies', 'description' => 'Stationery and office equipment'],
             ['name' => 'Pet Supplies', 'description' => 'Products for pets like food, toys, and accessories'],
+            ['name' => 'Others', 'description' => 'Other accessories'],
         ];
 
 
