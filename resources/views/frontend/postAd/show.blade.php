@@ -27,22 +27,28 @@
 
                             <main id="gallery">
                                 <div class="main-img">
-                                    @if (!empty($ad->pictures) && is_array($ad->pictures))
+                                    @if (!empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0)
                                         <img src="{{ asset('storage/' . $ad->pictures[0]) }}" id="current"
                                             alt="Main Picture" class="img-thumbnail" style="width: 750px; height: 500px;">
                                     @else
-                                        <span>@lang('messages.no_picture')</span>
+                                        <img src="{{ asset('assets/images/default-image.jpg') }}" id="current"
+                                            alt="Default Picture" class="img-thumbnail"
+                                            style="width: 750px; height: 500px;">
                                     @endif
                                 </div>
                                 <div class="images">
-                                    @if (!empty($ad->pictures) && is_array($ad->pictures))
+                                    @if (!empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0)
                                         @foreach ($ad->pictures as $picture)
                                             <img src="{{ asset('storage/' . $picture) }}" class="img"
                                                 style="max-height: 100px; max-width:120px;" alt="Thumbnail Picture">
                                         @endforeach
+                                    @else
+                                        <img src="{{ asset('assets/images/default-image.jpg') }}" class="img"
+                                            style="max-height: 100px; max-width:120px;" alt="Default Thumbnail">
                                     @endif
                                 </div>
                             </main>
+
 
                         </div>
 
@@ -167,7 +173,8 @@
                                                     <select name="reason" id="reason" class="form-select" required>
                                                         <option value="">Select a reason</option>
                                                         <option value="Spam">Spam</option>
-                                                        <option value="Inappropriate Content">Inappropriate Content</option>
+                                                        <option value="Inappropriate Content">Inappropriate Content
+                                                        </option>
                                                         <option value="Fraud or Scam">Fraud or Scam</option>
                                                         <option value="Others">Others</option>
                                                     </select>
