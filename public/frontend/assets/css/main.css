@@ -5092,6 +5092,11 @@ blockquote .shape {
     padding-left: 100px;
     padding-bottom: 40px;
 }
+.dashboard-sidebar .user-imager {
+    position: relative;
+    padding: 10px 65px; /* Equal padding on top and bottom, 65px on left and right */
+    border-bottom: 1px solid #eee;
+}
 
 .dashboard-sidebar .user-image img {
     height: 75px;
