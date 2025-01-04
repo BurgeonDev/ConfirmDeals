@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Locality;
 use App\Models\Profession;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -28,7 +29,7 @@ class DashboardController extends Controller
         $disableAds = Ad::where('status', 'cancel')->count();
         $categories = Category::count();
         $professions = Profession::count();
-
+        $users = User::where('is_active', true)->count();
         // Additional counts
         $featuredAds = Ad::where('is_featured', true)->count(); // Count featured ads
         $expiredAds = Ad::where('status', 'expired')->count(); // Count expired ads
@@ -39,6 +40,7 @@ class DashboardController extends Controller
             'cities',
             'localities',
             'ads',
+            'users',
             'disableAds',
             'categories',
             'professions',
