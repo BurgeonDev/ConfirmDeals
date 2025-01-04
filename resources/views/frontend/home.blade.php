@@ -26,6 +26,9 @@
     <!-- Start Ads Area -->
     @include('frontend.home.ads')
     <!-- End Items Tab Area -->
+    <!-- Start faq -->
+    @include('frontend.home.faq')
+    <!-- End faq Area -->
 
     <!-- Start Pricing Table Area -->
     {{-- @include('frontend.home.pricing') --}}

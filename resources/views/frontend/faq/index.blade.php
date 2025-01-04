@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <section class="faq section">
+    {{-- <section class="faq section">
         <div class="container">
             <div class="accordion" id="accordionExample">
                 @for ($i = 1; $i <= 13; $i++)
@@ -40,5 +40,6 @@
                 @endfor
             </div>
         </div>
-    </section>
+    </section> --}}
+    @include('frontend.home.faq')
 @endsection
