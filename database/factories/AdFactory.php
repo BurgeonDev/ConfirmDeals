@@ -22,7 +22,7 @@ class AdFactory extends Factory
             'city_id' => $this->faker->numberBetween(1, 5),
             'locality_id' => $this->faker->numberBetween(1, 5),
             'coins_needed' => $this->faker->numberBetween(1, 10),
-            'category_id' => $this->faker->numberBetween(1, 10),
+            'category_id' => $this->faker->numberBetween(1, 15),
             'user_id' => $this->faker->numberBetween(1, 3),
             'is_featured' => $this->faker->boolean, // Generate a random boolean (0 or 1)
             'days_featured' => $this->faker->optional()->numberBetween(1, 30), // Optional field, can be null
