@@ -26,7 +26,7 @@
                                      <a href="{{ route('categories.cat') }}" aria-label="Toggle navigation">All Ads</a>
                                  </li>
                                  <li class="nav-item">
-                                     <a href="{{ route('about') }}" aria-label="Toggle navigation">About Us</a>
+                                     <a href="{{ route('about') }}" aria-label="Toggle navigation">About</a>
                                  </li>
                                  {{-- <li class="nav-item">
                                      <a href="{{ route('faq') }}" aria-label="Toggle navigation">FAQ</a>
