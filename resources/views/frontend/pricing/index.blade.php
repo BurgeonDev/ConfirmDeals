@@ -18,5 +18,5 @@
             </div>
         </div>
     </div>
-    @include('frontend.Home.pricing')
+    @include('frontend.home.pricing')
 @endsection
