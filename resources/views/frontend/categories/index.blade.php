@@ -154,9 +154,10 @@
                                                         <div class="image">
                                                             <a href="{{ route('ad.show', $ad->id) }}">
                                                                 <img style="width: 100%; height: 250px; object-fit: cover;"
-                                                                    src="{{ asset('storage/' . $ad->pictures[0]) }}"
+                                                                    src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
                                                                     alt="{{ $ad->title }}">
                                                             </a>
+
                                                             @if ($ad->is_featured)
                                                                 <i class="cross-badge lni lni-bolt"></i>
                                                             @endif
@@ -234,9 +235,10 @@
                                                                 <div class="image">
                                                                     <a href="{{ route('ad.show', $ad->id) }}">
                                                                         <img style="width: 100%; height: 250px; object-fit: cover;"
-                                                                            src="{{ asset('storage/' . $ad->pictures[0]) }}"
+                                                                            src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
                                                                             alt="{{ $ad->title }}">
                                                                     </a>
+
                                                                     @if ($ad->is_featured)
                                                                         <i class="cross-badge lni lni-bolt"></i>
                                                                     @endif
