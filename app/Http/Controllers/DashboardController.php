@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $expiredAds = Ad::where('status', 'expired')->count(); // Count expired ads
         $pendingAds = Ad::where('status', 'pending')->count(); // Count pending ads
 
-        return view('admin.dashboard', compact(
+        return view('admin.Dashboard', compact(
             'countries',
             'cities',
             'localities',
