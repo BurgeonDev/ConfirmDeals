@@ -1,6 +1,17 @@
  <section class="faq section">
      <div class="container">
+         <div class="row">
+             <div class="col-12">
+                 <div class="section-title">
+                     <h2 class="wow fadeInUp" data-wow-delay=".4s"
+                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                         FAQ's </h2>
+                     {{-- <p class="wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                        Discover the Power of Trending Ads – Stay Ahead of the Curve with the Latest, Most Engaging Ads that Capture Attention and Drive Results!                    </p> --}}
+                 </div>
 
+             </div>
+         </div>
          <div class="accordion" id="accordionExample">
              @for ($i = 1; $i <= 13; $i++)
                  <div class="accordion-item">
