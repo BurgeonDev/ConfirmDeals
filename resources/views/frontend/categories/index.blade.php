@@ -154,9 +154,10 @@
                                                         <div class="image">
                                                             <a href="{{ route('ad.show', $ad->id) }}">
                                                                 <img style="width: 100%; height: 250px; object-fit: cover;"
-                                                                    src="{{ asset('storage/' . $ad->pictures[0]) }}"
+                                                                    src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
                                                                     alt="{{ $ad->title }}">
                                                             </a>
+
                                                             @if ($ad->is_featured)
                                                                 <i class="cross-badge lni lni-bolt"></i>
                                                             @endif
@@ -210,43 +211,13 @@
                                         </div>
 
                                         <!-- Custom Pagination -->
-                                        <div style="justify-content: center" class="pagination center">
-                                            <ul class="pagination-list">
-                                                @if ($ads->onFirstPage())
-                                                    <li class="disabled">
-                                                        <a href="javascript:void(0)">
-                                                            <i class="lni lni-chevron-left"></i>
-                                                        </a>
-                                                    </li>
-                                                @else
-                                                    <li>
-                                                        <a href="{{ $ads->previousPageUrl() }}">
-                                                            <i class="lni lni-chevron-left"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-
-                                                @foreach ($ads->getUrlRange(1, $ads->lastPage()) as $page => $url)
-                                                    <li class="{{ $ads->currentPage() == $page ? 'active' : '' }}">
-                                                        <a href="{{ $url }}">{{ $page }}</a>
-                                                    </li>
-                                                @endforeach
-
-                                                @if ($ads->hasMorePages())
-                                                    <li>
-                                                        <a href="{{ $ads->nextPageUrl() }}">
-                                                            <i class="lni lni-chevron-right"></i>
-                                                        </a>
-                                                    </li>
-                                                @else
-                                                    <li class="disabled">
-                                                        <a href="javascript:void(0)">
-                                                            <i class="lni lni-chevron-right"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                            </ul>
+                                        <!-- Custom Pagination -->
+                                        <!-- Custom Pagination -->
+                                        <div class="pagination center" style="justify-content: center;">
+                                            {!! $remainingAds->links('vendor.pagination.custom-pagination') !!}
                                         </div>
+
+
                                     </div>
 
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
@@ -264,9 +235,10 @@
                                                                 <div class="image">
                                                                     <a href="{{ route('ad.show', $ad->id) }}">
                                                                         <img style="width: 100%; height: 250px; object-fit: cover;"
-                                                                            src="{{ asset('storage/' . $ad->pictures[0]) }}"
+                                                                            src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
                                                                             alt="{{ $ad->title }}">
                                                                     </a>
+
                                                                     @if ($ad->is_featured)
                                                                         <i class="cross-badge lni lni-bolt"></i>
                                                                     @endif
@@ -323,43 +295,13 @@
                                             @endforeach
                                         </div>
                                         <!-- Pagination -->
-                                        <div style="justify-content: center" class="pagination center">
-                                            <ul class="pagination-list">
-                                                @if ($ads->onFirstPage())
-                                                    <li class="disabled">
-                                                        <a href="javascript:void(0)">
-                                                            <i class="lni lni-chevron-left"></i>
-                                                        </a>
-                                                    </li>
-                                                @else
-                                                    <li>
-                                                        <a href="{{ $ads->previousPageUrl() }}">
-                                                            <i class="lni lni-chevron-left"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-
-                                                @foreach ($ads->getUrlRange(1, $ads->lastPage()) as $page => $url)
-                                                    <li class="{{ $ads->currentPage() == $page ? 'active' : '' }}">
-                                                        <a href="{{ $url }}">{{ $page }}</a>
-                                                    </li>
-                                                @endforeach
-
-                                                @if ($ads->hasMorePages())
-                                                    <li>
-                                                        <a href="{{ $ads->nextPageUrl() }}">
-                                                            <i class="lni lni-chevron-right"></i>
-                                                        </a>
-                                                    </li>
-                                                @else
-                                                    <li class="disabled">
-                                                        <a href="javascript:void(0)">
-                                                            <i class="lni lni-chevron-right"></i>
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                            </ul>
+                                        <!-- Custom Pagination -->
+                                        <!-- Custom Pagination -->
+                                        <div class="pagination center" style="justify-content: center;">
+                                            {!! $remainingAds->links('vendor.pagination.custom-pagination') !!}
                                         </div>
+
+
                                     </div>
 
                                 </div>

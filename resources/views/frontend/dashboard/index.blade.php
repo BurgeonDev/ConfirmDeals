@@ -14,6 +14,13 @@
             <h6>
                 Coins: <i style="color: goldenrod" class="fas fa-coins"></i> {{ auth()->user()->coins }}
             </h6>
+
+        </div>
+        <div class="user-imager">
+            <div class="mb-0 form-group button">
+                <a href="{{ route('pricing') }}" <button type="submit" class="btn btn-primary">Buy Coins <i
+                        style="color: goldenrod" class="fas fa-coins"></i></button></a>
+            </div>
         </div>
         <div class="dashboard-menu">
             <ul>

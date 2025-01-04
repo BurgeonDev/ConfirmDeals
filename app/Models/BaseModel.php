@@ -13,13 +13,13 @@ class BaseModel extends Model
 
         static::creating(function ($model) {
             if (Auth::check()) {
-                $model->created_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+                $model->created_by = Auth::id(); // Store user ID
             }
         });
 
         static::updating(function ($model) {
             if (Auth::check()) {
-                $model->updated_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+                $model->updated_by = Auth::id(); // Store user ID
             }
         });
     }

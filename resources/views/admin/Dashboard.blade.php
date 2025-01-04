@@ -4,131 +4,165 @@
     <div class="container">
         <div class="row">
             <!-- Total Countries Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-primary">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-city mdi-36px"></i>
-                        <h6>Total Countries</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $countries }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Total Countries</p>
+                            <h3 class="rate-percentage">{{ $countries }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-city mdi-36px text-primary"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Total Cities Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-primary">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-city mdi-36px"></i>
-                        <h6>Total Cities</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $cities }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Total Cities</p>
+                            <h3 class="rate-percentage">{{ $cities }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-city mdi-36px text-danger"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Total Localities Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-success">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-home-city mdi-36px"></i>
-                        <h6>Total Localities</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $localities }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Total Localities</p>
+                            <h3 class="rate-percentage">{{ $localities }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-home-city mdi-36px text-success"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Active Ads Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-info">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-newspaper mdi-36px"></i>
-                        <h6>Active Ads</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $ads }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Active Ads</p>
+                            <h3 class="rate-percentage">{{ $ads }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-newspaper mdi-36px text-info"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Disabled Ads Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-danger">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-card mdi-36px"></i>
-                        <h6>Cancelled Ads</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $disableAds }}</h4>
+            <!-- Cancelled Ads Count Card -->
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Cancelled Ads</p>
+                            <h3 class="rate-percentage">{{ $disableAds }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-card mdi-36px text-danger"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Featured Ads Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-warning">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-star mdi-36px"></i>
-                        <h6>Featured Ads</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $featuredAds }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Featured Ads</p>
+                            <h3 class="rate-percentage">{{ $featuredAds }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-star mdi-36px text-warning"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Expired Ads Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-dark">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-calendar-clock mdi-36px"></i>
-                        <h6>Expired Ads</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $expiredAds }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Expired Ads</p>
+                            <h3 class="rate-percentage">{{ $expiredAds }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-calendar-clock mdi-36px text-dark"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Pending Ads Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-secondary">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-timer-sand mdi-36px"></i>
-                        <h6>Pending Ads</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $pendingAds }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Pending Ads</p>
+                            <h3 class="rate-percentage">{{ $pendingAds }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-timer-sand mdi-36px text-secondary"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Total Categories Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-warning">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-view-list mdi-36px"></i>
-                        <h6>Total Categories</h6>
+            <!-- Total Active Users -->
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Total Active Users</p>
+                            <h3 class="rate-percentage">{{ $users }}</h3>
+                        </div>
+                        <div>
+                            <i class="fa fa-users fa-3x text-info"></i>
+                        </div>
                     </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $categories }}</h4>
+                </div>
+            </div>
+            <!-- Total Categories Count Card -->
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Total Categories</p>
+                            <h3 class="rate-percentage">{{ $categories }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-view-list mdi-36px text-warning"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Total Professions Count Card -->
-            <div class="mb-3 col-md-3">
-                <div class="text-white card bg-secondary">
-                    <div class="text-center card-header">
-                        <i class="mdi mdi-briefcase-check mdi-36px"></i>
-                        <h6>Total Professions</h6>
-                    </div>
-                    <div class="text-center card-body">
-                        <h4>{{ $professions }}</h4>
+            <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+                <div class="card card-statistics">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="statistics-title">Total Professions</p>
+                            <h3 class="rate-percentage">{{ $professions }}</h3>
+                        </div>
+                        <div>
+                            <i class="mdi mdi-briefcase-check mdi-36px text-secondary"></i>
+                        </div>
                     </div>
                 </div>
             </div>

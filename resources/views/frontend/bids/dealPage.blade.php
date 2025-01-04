@@ -274,9 +274,9 @@
                                                                 {{ $bid->ad->user->last_name }}</p>
                                                             <p class="mb-1">Email: {{ $bid->ad->user->email }}</p>
                                                             <p class="mb-1">Phone: {{ $bid->ad->user->phone_number }}</p>
-                                                            <p class="mb-1">Address: {{ $bid->ad->user->country->name }},
+                                                            {{-- <p class="mb-1">Address: {{ $bid->ad->user->country->name }},
                                                                 {{ $bid->ad->user->city->name }},
-                                                                {{ $bid->ad->user->locality->name }}</p>
+                                                                {{ $bid->ad->user->locality->name }}</p> --}}
                                                         </div>
                                                     @elseif (Auth::id() == $bid->ad->user_id)
                                                         <!-- Show Buyer Details to Seller -->
@@ -286,9 +286,9 @@
                                                                 {{ $bid->user->last_name }}</p>
                                                             <p class="mb-1">Email: {{ $bid->user->email }}</p>
                                                             <p class="mb-1">Phone: {{ $bid->user->phone_number }}</p>
-                                                            <p class="mb-1">Address: {{ $bid->user->country->name }},
+                                                            {{-- <p class="mb-1">Address: {{ $bid->user->country->name }},
                                                                 {{ $bid->user->city->name }},
-                                                                {{ $bid->user->locality->name }}</p>
+                                                                {{ $bid->user->locality->name }}</p> --}}
                                                         </div>
                                                     @endif
                                                 @else

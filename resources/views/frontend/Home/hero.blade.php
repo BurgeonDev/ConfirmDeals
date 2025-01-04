@@ -12,7 +12,7 @@
                              style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">You will find
                              confirm deals here which are verified by us.</p>
                      </div>
-                     <section class="how-worked section">
+                     <section class="how-worked sections">
                          <div class="container">
                              {{-- <div class="row">
                                  <div class="col-12">

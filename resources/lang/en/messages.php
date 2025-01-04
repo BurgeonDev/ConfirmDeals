@@ -152,7 +152,7 @@ return [
     'post_ad_description' => 'Post your ad on Confirm Deals',
     'post_ad_btn' => 'Post an ad now',
     ////////////////trending ad
-    'trending_ads_title' => 'Trending Ads',
+    'trending_ads_title' => 'Latest Ads',
     'trending_ads_description' => 'Discover the Power of Trending Ads – Stay Ahead of the Curve with the Latest, Most Engaging Ads that Capture Attention and Drive Results!',
     //////////////////show ad
     'no_picture' => 'No Picture',
