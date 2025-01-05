@@ -246,7 +246,8 @@
                                     <span>
                                         {{ $ad->createdBy->created_at ? 'Member since ' . \Carbon\Carbon::parse($ad->createdBy->created_at)->format('F Y') : 'Unknown' }}
                                     </span>
-                                    <a href="javascript:void(0)" class="see-all">See All Ads</a>
+                                    <a href="{{ route('profile.public', $ad->createdBy->id) }}" class="see-all">See All
+                                        Ads</a>
                                 </div>
                             </div>
 
