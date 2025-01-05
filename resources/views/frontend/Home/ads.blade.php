@@ -37,11 +37,10 @@
                                     <!-- Start Single Item -->
                                     <div class="single-item-grid">
                                         <div class="image">
-                                            <a href="{{ route('ad.show', $ad->id) }}">
-                                                <img style="width: 100%; height: 250px; object-fit: cover;"
-                                                    src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
-                                                    alt="#">
-                                            </a>
+                                            <img style="width: 100%; height: 250px; object-fit: cover;"
+                                                src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
+                                                alt="{{ $ad->title }}">
+
 
                                             <i class="cross-badge lni lni-bolt"></i>
 
@@ -93,8 +92,12 @@
                                         <div class="image">
                                             <a href="{{ route('ad.show', $ad->id) }}">
                                                 <img style="width: 100%; height: 250px; object-fit: cover;"
-                                                    src="{{ asset('storage/' . $ad->pictures[0] ?? 'default.jpg') }}"
-                                                    alt="#">
+                                                    src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
+                                                    alt="{{ $ad->title }}">
+                                                {{-- <img style="width: 100%; height: 250px; object-fit: cover;"
+                                                    src="{{ isset($ad->pictures[0]) ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
+                                                    alt="{{ $ad->title }}"> --}}
+
                                             </a>
 
                                             <i class="cross-badge lni lni-bolt"></i>

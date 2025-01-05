@@ -224,7 +224,8 @@
                                     <a href="{{ route('profile.public', $ad->createdBy->id) }}">
                                         {{-- <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
                                             {{ $ad->createdBy->last_name }}</h4> --}}
-                                        <h4>Seller</h4>
+                                        <h3 style="color: #5830e0">Seller</h3>
+
                                     </a>
                                     <div class="user-rating">
 
@@ -245,6 +246,8 @@
                                     <span>
                                         {{ $ad->createdBy->created_at ? 'Member since ' . \Carbon\Carbon::parse($ad->createdBy->created_at)->format('F Y') : 'Unknown' }}
                                     </span>
+                                    <a href="{{ route('profile.public', $ad->createdBy->id) }}" class="see-all">See All
+                                        Ads</a>
                                 </div>
                             </div>
 
