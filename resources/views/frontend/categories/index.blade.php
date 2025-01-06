@@ -314,6 +314,27 @@
                                                                         <a
                                                                             href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
                                                                     </h3>
+                                                                    <div class="user-rating">
+                                                                        <div class="rating">
+                                                                            @php
+                                                                                $averageRating =
+                                                                                    $ad->user->feedbacks_avg_rating ??
+                                                                                    0; // Default to 0 if no rating
+                                                                            @endphp
+
+                                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                                @if ($averageRating >= $i)
+                                                                                    <i class="fa fa-star text-warning"></i>
+                                                                                @elseif ($averageRating >= $i - 0.5)
+                                                                                    <i
+                                                                                        class="fa fa-star-half-alt text-warning"></i>
+                                                                                @else
+                                                                                    <i class="fa fa-star text-muted"></i>
+                                                                                @endif
+                                                                            @endfor
+                                                                            <span>({{ number_format($averageRating, 1) }})</span>
+                                                                        </div>
+                                                                    </div>
                                                                     <p class="location"><a><i
                                                                                 class="lni lni-map-marker"></i>
                                                                             {{ $ad->city?->name ?? 'N/A' }},
