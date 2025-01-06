@@ -7,10 +7,10 @@
                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                         @lang('messages.trending_ads_title')
                     </h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s"
+                    {{-- <p class="wow fadeInUp" data-wow-delay=".6s"
                         style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                         @lang('messages.trending_ads_description')
-                    </p>
+                    </p> --}}
                 </div>
 
             </div>
