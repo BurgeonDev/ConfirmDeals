@@ -8,55 +8,96 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\BidReceivedNotification;
 use App\Notifications\BidStatusNotification;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BidController extends Controller
 {
     public function placeBid(Request $request, $adId)
     {
+        // Validate the bid input
+        $validatedData = $request->validate([
+            'offer' => 'required|numeric',
+            'notes' => 'nullable|string',
+            'time_slots' => 'nullable|string',
+        ]);
+
+        // Get the ad and user
         $ad = Ad::findOrFail($adId);
         $user = auth()->user();
 
         // Check if the user has enough coins
         if ($user->coins < $ad->coins_needed) {
             return redirect()->back()
-                ->withErrors(['You do not have enough coins to bid on this ad.']);
+                ->withInput()
+                ->withErrors(['coins_needed' => 'You do not have enough coins to place a bid on this ad.']);
         }
 
-        // Validate the bid
-        $request->validate([
-            'offer' => 'required|numeric',
-        ]);
+        // Begin transaction
+        DB::beginTransaction();
 
-        // Deduct coins from the user
-        $user->coins -= $ad->coins_needed;
-        $user->save();
+        try {
+            // Deduct coins from user
+            $user->decrement('coins', $ad->coins_needed);
 
-        // Create the bid
-        $bid = new Bid();
-        $bid->user_id = $user->id;
-        $bid->ad_id = $adId;
-        $bid->offer = $request->offer;
-        $bid->status = 'pending'; // Default status
-        $bid->save();
+            // Create the bid
+            $bid = new Bid();
+            $bid->user_id = $user->id;
+            $bid->ad_id = $adId;
+            $bid->offer = $validatedData['offer'];
+            $bid->status = 'pending';
+            $bid->notes = $validatedData['notes'] ?? null;
+            $bid->time_slots = $validatedData['time_slots'] ?? null;
+            $bid->save();
 
-        // Notify the ad owner
-        $adOwner = $ad->user; // Assuming the ad has a user relation
-        $adOwner->notify(new BidReceivedNotification($ad));
+            // Commit transaction
+            DB::commit();
 
-        return view('frontend.bids.success');
+            // Notify the ad owner
+            $adOwner = $ad->user; // Assuming the ad has a user relation
+            $adOwner->notify(new BidReceivedNotification($ad));
+
+            // Return success view
+            return view('frontend.bids.success');
+        } catch (\Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+
+            // Log the error for debugging
+            Log::error('Error placing bid: ', ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'An error occurred while processing your bid. Please try again.']);
+        }
     }
 
 
 
+
+    // public function acceptBid($bidId)
+    // {
+    //     $bid = Bid::findOrFail($bidId);
+    //     $adOwner = $bid->ad->user; // User B (ad owner)
+    //     $bidder = $bid->user; // User A (the bidder)
+
+    //     // Reject all other bids for the ad
+    //     Bid::where('ad_id', $bid->ad_id)->where('id', '!=', $bid->id)->update(['status' => 'rejected']);
+
+    //     // Accept the selected bid
+    //     $bid->status = 'accepted';
+    //     $bid->save();
+
+    //     // Notify User A (the bidder) about the accepted bid
+    //     $bidder->notify(new BidStatusNotification($bid, 'accepted'));
+
+    //     return redirect()->back()->with('success', 'Bid accepted successfully!');
+    // }
     public function acceptBid($bidId)
     {
         $bid = Bid::findOrFail($bidId);
         $adOwner = $bid->ad->user; // User B (ad owner)
         $bidder = $bid->user; // User A (the bidder)
-
-        // Reject all other bids for the ad
-        Bid::where('ad_id', $bid->ad_id)->where('id', '!=', $bid->id)->update(['status' => 'rejected']);
 
         // Accept the selected bid
         $bid->status = 'accepted';
@@ -67,6 +108,7 @@ class BidController extends Controller
 
         return redirect()->back()->with('success', 'Bid accepted successfully!');
     }
+
 
     public function rejectBid($bidId)
     {

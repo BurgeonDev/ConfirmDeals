@@ -148,6 +148,7 @@ return [
     'go_home' => 'ہوم پر جائیں',
     ///////////////////////home
     /////////ad call
+    'hire_me' => 'مجھے نوکری دیں',
     'sell_question' => 'کیا آپ کے پاس کچھ بیچنے کے لئے ہے؟',
     'post_ad_description' => 'پراپنا اشتہار پوسٹکریں   Confirm Deals   ',
     'post_ad_btn' => 'ابھی اشتہار پوسٹ کریں',

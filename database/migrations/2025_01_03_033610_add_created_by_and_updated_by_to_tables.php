@@ -53,8 +53,37 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tables', function (Blueprint $table) {
-            //
-        });
+        // Define the tables to be updated, excluding Laravel's default tables
+        $tables = [
+            'ads',
+            'bids',
+            'categories',
+            'cities',
+            'coins',
+            'countries',
+            'easypaisas',
+            'favorites',
+            'feedbacks',
+            'jazz_cashes',
+            'localities',
+            'model_has_permissions',
+            'model_has_roles',
+            'newsletters',
+            'permissions',
+            'professions',
+            'reports',
+            'roles',
+            'role_has_permissions',
+            'users'
+        ];
+
+        // Loop through each table and drop the columns
+        foreach ($tables as $table) {
+            Schema::table($table, function (Blueprint $table) {
+                $table->dropForeign([$table->getTable() . '_created_by_foreign']);
+                $table->dropForeign([$table->getTable() . '_updated_by_foreign']);
+                $table->dropColumn(['created_by', 'updated_by']);
+            });
+        }
     }
 };
