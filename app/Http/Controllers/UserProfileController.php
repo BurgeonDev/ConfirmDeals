@@ -97,6 +97,24 @@ class UserProfileController extends Controller
 
         return redirect('/')->with('success', 'Your account has been deleted.');
     }
+    // public function publicProfile(User $user)
+    // {
+    //     // Fetch the user's average rating
+    //     $averageRating = $user->ads()
+    //         ->join('feedbacks', 'ads.id', '=', 'feedbacks.ad_id')
+    //         ->avg('feedbacks.rating');
+
+    //     // Fetch the user's ads with feedback details
+    //     $ads = $user->ads()->with(['feedbacks.user'])->get();
+
+    //     return view('frontend.profile.public', [
+    //         'user' => $user,
+    //         'averageRating' => $averageRating,
+    //         'ads' => $ads,
+    //     ]);
+    // }
+
+
     public function publicProfile(User $user)
     {
         // Fetch the user's average rating
@@ -104,8 +122,16 @@ class UserProfileController extends Controller
             ->join('feedbacks', 'ads.id', '=', 'feedbacks.ad_id')
             ->avg('feedbacks.rating');
 
-        // Fetch the user's ads with feedback details
-        $ads = $user->ads()->with(['feedbacks.user'])->get();
+        // Fetch the user's ads, ordered by the latest feedback date (subquery)
+        $ads = $user->ads()
+            ->select('ads.*')
+            ->leftJoin('feedbacks', 'ads.id', '=', 'feedbacks.ad_id')
+            ->orderByDesc(\DB::raw('(SELECT MAX(created_at) FROM feedbacks WHERE feedbacks.ad_id = ads.id)')) // Order by the latest feedback date
+            ->distinct() // Ensures that only distinct ads are selected
+            ->with(['feedbacks' => function ($query) {
+                $query->orderByDesc('created_at'); // Order feedback by latest first
+            }])
+            ->get();
 
         return view('frontend.profile.public', [
             'user' => $user,
