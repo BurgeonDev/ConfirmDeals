@@ -16,8 +16,10 @@ class CategoryController extends Controller
             abort(403, 'Unauthorized action.');
         }
         $categories = Category::all();
+
         return view('admin.categories.index', compact('categories'));
     }
+
 
 
     // public function cat()
@@ -25,29 +27,44 @@ class CategoryController extends Controller
     //     $categories = Category::all();
     //     $cities = City::all();
 
-    //     // Get featured ads first, then other ads
-    //     $ads = Ad::where('status', 'verified')
-    //         ->orderByDesc('is_featured') // Featured ads first
-    //         ->paginate(30);
+    //     // Retrieve ads with first 6 featured ads in random order
+    //     $featuredAds = Ad::where('status', 'verified')
+    //         ->where('is_featured', true)
+    //         ->inRandomOrder()
+    //         ->take(6)
+    //         ->get();
 
-    //     return view('frontend.categories.index', compact('categories', 'ads', 'cities'));
+    //     $remainingAds = Ad::where('status', 'verified')
+    //         ->where('is_featured', false)
+    //         ->paginate(30);  // This is a paginated result
+
+    //     // Merge featured ads and remaining ads into a single collection
+    //     $ads = $featuredAds->merge($remainingAds->items());
+
+    //     return view('frontend.categories.index', compact('categories', 'ads', 'cities', 'remainingAds'));
     // }
-
     public function cat()
     {
         $categories = Category::all();
         $cities = City::all();
 
-        // Retrieve ads with first 6 featured ads in random order
+        // Retrieve featured ads
         $featuredAds = Ad::where('status', 'verified')
             ->where('is_featured', true)
             ->inRandomOrder()
             ->take(6)
+            ->with(['user' => function ($query) {
+                $query->withAvg('feedbacks', 'rating'); // Get average ratings for each user
+            }])
             ->get();
 
+        // Retrieve remaining ads with pagination
         $remainingAds = Ad::where('status', 'verified')
             ->where('is_featured', false)
-            ->paginate(30);  // This is a paginated result
+            ->with(['user' => function ($query) {
+                $query->withAvg('feedbacks', 'rating');
+            }])
+            ->paginate(30);
 
         // Merge featured ads and remaining ads into a single collection
         $ads = $featuredAds->merge($remainingAds->items());
