@@ -110,6 +110,7 @@
                                     value="{{ request('price_max') }}" placeholder="Max" onchange="updatePriceRange()">
                             </div>
                         </div>
+                        <!-- Type Filter -->
                         <div class="single-widget type-filter">
                             <h3>Type</h3>
                             <div class="form-check">
@@ -137,8 +138,6 @@
                                 </label>
                             </div>
                         </div>
-
-
                         {{-- <button type="submit" style="display:none;">Submit</button> --}}
                         </form>
                     </div>
@@ -171,6 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content" id="nav-tabContent">
+                                    <!-- Grid view -->
                                     <div class="tab-pane fade active show" id="nav-grid" role="tabpanel"
                                         aria-labelledby="nav-grid-tab">
                                         <div class="row" id="adsContaine">
@@ -248,7 +248,7 @@
 
 
                                     </div>
-
+                                    <!-- List View-->
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
                                         aria-labelledby="nav-list-tab">
                                         <div class="row" id="adsContaine">
