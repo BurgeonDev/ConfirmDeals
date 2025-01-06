@@ -110,6 +110,35 @@
                                     value="{{ request('price_max') }}" placeholder="Max" onchange="updatePriceRange()">
                             </div>
                         </div>
+                        <div class="single-widget type-filter">
+                            <h3>Type</h3>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type[]" value="all" id="typeAll"
+                                    onchange="document.getElementById('filter-form').submit();"
+                                    {{ in_array('all', request('type', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="typeAll">
+                                    All
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type[]" value="product"
+                                    id="typeProduct" onchange="document.getElementById('filter-form').submit();"
+                                    {{ in_array('product', request('type', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="typeProduct">
+                                    Product
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type[]" value="service"
+                                    id="typeService" onchange="document.getElementById('filter-form').submit();"
+                                    {{ in_array('service', request('type', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="typeService">
+                                    Service
+                                </label>
+                            </div>
+                        </div>
+
+
                         {{-- <button type="submit" style="display:none;">Submit</button> --}}
                         </form>
                     </div>
@@ -128,9 +157,9 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                    <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#nav-grid" type="button" role="tab"
-                                                        aria-controls="nav-grid" aria-selected="true"><i
+                                                    <button class="nav-link active" id="nav-grid-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#nav-grid" type="button"
+                                                        role="tab" aria-controls="nav-grid" aria-selected="true"><i
                                                             class="lni lni-grid-alt"></i></button>
                                                     <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
                                                         data-bs-target="#nav-list" type="button" role="tab"
