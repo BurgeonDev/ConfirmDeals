@@ -20,32 +20,55 @@ class AppConfigController extends Controller
     // Update configuration values
     public function update(Request $request)
     {
-        // Validate the incoming request to ensure the commission values are between 0 and 100
+        // Validate the incoming request to ensure values are not null or empty
         $request->validate([
             'featured_ads' => 'required|numeric',
             'pagination_value' => 'required|numeric',
-            'product_ads_commission' => 'required|numeric|min:0|max:100', // Ensure commission is between 0 and 100
-            'service_ads_commission' => 'required|numeric|min:0|max:100', // Ensure commission is between 0 and 100
+            'product_ads_commission' => 'nullable|numeric|min:0|max:100', // Commission between 0 and 100
+            'service_ads_commission' => 'nullable|numeric|min:0|max:100', // Commission between 0 and 100
         ]);
 
-        // Update the configuration values in the app_config table
-        DB::table('app_config')->updateOrInsert(
-            ['key' => 'featured_ads'],
-            ['value' => $request->featured_ads]
-        );
-        DB::table('app_config')->updateOrInsert(
-            ['key' => 'pagination_value'],
-            ['value' => $request->pagination_value]
-        );
-        DB::table('app_config')->updateOrInsert(
-            ['key' => 'product_ads_commission'],
-            ['value' => $request->product_ads_commission] // Store as entered (no conversion to decimal)
-        );
-        DB::table('app_config')->updateOrInsert(
-            ['key' => 'service_ads_commission'],
-            ['value' => $request->service_ads_commission] // Store as entered (no conversion to decimal)
-        );
+        // Get the current user ID
+        $userId = auth()->id();
+
+        // Use default values if a field is empty
+        $commission = $request->product_ads_commission ?? 0;
+        $serviceCommission = $request->service_ads_commission ?? 0;
+
+        // Update or insert configuration values
+        $this->updateOrInsertConfig('featured_ads', $request->featured_ads, $userId);
+        $this->updateOrInsertConfig('pagination_value', $request->pagination_value, $userId);
+        $this->updateOrInsertConfig('product_ads_commission', $commission, $userId);
+        $this->updateOrInsertConfig('service_ads_commission', $serviceCommission, $userId);
 
         return redirect()->back()->with('success', 'Configurations updated successfully');
+    }
+
+    // Helper method for updating or inserting configuration values
+    private function updateOrInsertConfig($key, $value, $userId)
+    {
+        // Check if the record exists
+        $config = DB::table('app_config')->where('key', $key)->first();
+
+        if ($config) {
+            // Record exists, so we just update it
+            DB::table('app_config')
+                ->where('key', $key)
+                ->update([
+                    'value' => $value,
+                    'updated_by' => $userId, // Update the 'updated_by' field
+                    'updated_at' => now(),
+                ]);
+        } else {
+            // Record does not exist, so we insert a new record
+            DB::table('app_config')->insert([
+                'key' => $key,
+                'value' => $value,
+                'created_by' => $userId, // Set 'created_by' on insertion
+                'updated_by' => $userId, // Set 'updated_by' on insertion
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

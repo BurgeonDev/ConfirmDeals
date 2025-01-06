@@ -32,7 +32,8 @@ return new class extends Migration
             'reports',
             'roles',
             'role_has_permissions',
-            'users'
+            'users',
+
         ];
 
         // Loop through each table and add the columns
