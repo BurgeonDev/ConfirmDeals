@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\Admin\AppConfigController;
 use App\Http\Controllers\Frontend\AdsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -63,8 +64,9 @@ Route::group([
         Route::resource('ads', AdController::class);
         Route::resource('user/ad', AdsController::class);
         Route::resource('user/dashboard', FrontendDashboardController::class);
-        Route::get('/admin/settings', [CoinController::class, 'editSettings'])->name('admin.settings.edit');
-        Route::post('/admin/settings', [CoinController::class, 'updateSettings'])->name('admin.settings.update');
+        Route::get('config', [AppConfigController::class, 'index'])->name('admin.config.index');
+        Route::post('config', [AppConfigController::class, 'update'])->name('admin.config.update');
+
         ///////////////////////////ad featured
         Route::post('/ad/{id}/feature', [AdsController::class, 'featureAd'])->name('ad.feature');
         Route::post('/ad/{id}/update-feature', [AdsController::class, 'updateFeatureAd'])->name('ad.updateFeature');
