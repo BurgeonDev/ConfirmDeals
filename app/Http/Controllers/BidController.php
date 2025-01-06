@@ -125,15 +125,35 @@ class BidController extends Controller
         return redirect()->back()->with('success', 'Bid rejected successfully!');
     }
 
+    // public function showAllBids()
+    // {
+    //     $user = Auth::user();
+
+    //     // Retrieve all ads with their bids
+    //     $ads = $user->ads()->with('bids.user')->get();
+
+    //     return view('frontend.bids.index', compact('ads'));
+    // }
     public function showAllBids()
     {
         $user = Auth::user();
 
-        // Retrieve all ads with their bids
-        $ads = $user->ads()->with('bids.user')->get();
+        // Retrieve all ads with their bids, ensuring the ad has at least one bid, ordered by the latest bid date
+        $ads = $user->ads()
+            ->select('ads.id', 'ads.title', 'ads.user_id', 'ads.featured_until') // Select specific columns to avoid GROUP BY error
+            ->leftJoin('bids', 'ads.id', '=', 'bids.ad_id')
+            ->groupBy('ads.id', 'ads.title', 'ads.user_id', 'ads.featured_until') // Group by all selected columns
+            ->havingRaw('COUNT(bids.id) > 0') // Ensure there is at least one bid for the ad
+            ->orderByDesc(\DB::raw('(SELECT MAX(created_at) FROM bids WHERE bids.ad_id = ads.id)')) // Order by the latest bid date
+            ->with(['bids.user' => function ($query) {
+                $query->orderByDesc('created_at'); // Order bids by latest first
+            }])
+            ->get();
 
         return view('frontend.bids.index', compact('ads'));
     }
+
+
 
     public function showMyBids()
     {
