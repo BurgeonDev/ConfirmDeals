@@ -14,6 +14,7 @@ class AppConfigSeeder extends Seeder
             ['key' => 'pagination_value', 'value' => '20'], // Number of ads to show per page
             ['key' => 'product_ads_commission', 'value' => '0.25'], // Commission for buyer-seller
             ['key' => 'service_ads_commission', 'value' => '0.25'], // Commission for service ads
+
         ]);
     }
 }
