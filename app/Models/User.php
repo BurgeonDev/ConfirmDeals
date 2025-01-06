@@ -25,17 +25,17 @@ class User extends Authenticatable
         static::created(function ($user) {
             $user->assignRole('user');
         });
-        static::creating(function ($model) {
-            if (Auth::check()) {
-                $model->created_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-            }
-        });
+        // static::creating(function ($model) {
+        //     if (Auth::check()) {
+        //         $model->created_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        //     }
+        // });
 
-        static::updating(function ($model) {
-            if (Auth::check()) {
-                $model->updated_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-            }
-        });
+        // static::updating(function ($model) {
+        //     if (Auth::check()) {
+        //         $model->updated_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        //     }
+        // });
     }
     protected $fillable = [
         'first_name',
@@ -110,5 +110,9 @@ class User extends Authenticatable
     public function locality()
     {
         return $this->belongsTo(Locality::class);
+    }
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'user_id');
     }
 }

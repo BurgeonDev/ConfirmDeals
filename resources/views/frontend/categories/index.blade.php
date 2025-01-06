@@ -110,6 +110,34 @@
                                     value="{{ request('price_max') }}" placeholder="Max" onchange="updatePriceRange()">
                             </div>
                         </div>
+                        <!-- Type Filter -->
+                        <div class="single-widget type-filter">
+                            <h3>Type</h3>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type[]" value="all" id="typeAll"
+                                    onchange="document.getElementById('filter-form').submit();"
+                                    {{ in_array('all', request('type', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="typeAll">
+                                    All
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type[]" value="product"
+                                    id="typeProduct" onchange="document.getElementById('filter-form').submit();"
+                                    {{ in_array('product', request('type', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="typeProduct">
+                                    Product
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type[]" value="service"
+                                    id="typeService" onchange="document.getElementById('filter-form').submit();"
+                                    {{ in_array('service', request('type', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="typeService">
+                                    Service
+                                </label>
+                            </div>
+                        </div>
                         {{-- <button type="submit" style="display:none;">Submit</button> --}}
                         </form>
                     </div>
@@ -128,9 +156,9 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                    <button class="nav-link active" id="nav-grid-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#nav-grid" type="button" role="tab"
-                                                        aria-controls="nav-grid" aria-selected="true"><i
+                                                    <button class="nav-link active" id="nav-grid-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#nav-grid" type="button"
+                                                        role="tab" aria-controls="nav-grid" aria-selected="true"><i
                                                             class="lni lni-grid-alt"></i></button>
                                                     <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
                                                         data-bs-target="#nav-list" type="button" role="tab"
@@ -142,6 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content" id="nav-tabContent">
+                                    <!-- Grid view -->
                                     <div class="tab-pane fade active show" id="nav-grid" role="tabpanel"
                                         aria-labelledby="nav-grid-tab">
                                         <div class="row" id="adsContaine">
@@ -183,8 +212,29 @@
                                                                     style="text-decoration: none; color: inherit;">
                                                                     {{ $ad->title }}
                                                                 </a>
-                                                            </h3>
 
+
+                                                            </h3>
+                                                            <div class="user-rating">
+                                                                <div class="rating">
+                                                                    @php
+                                                                        $averageRating =
+                                                                            $ad->user->feedbacks_avg_rating ?? 0; // Default to 0 if no rating
+                                                                    @endphp
+
+                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                        @if ($averageRating >= $i)
+                                                                            <i class="fa fa-star text-warning"></i>
+                                                                        @elseif ($averageRating >= $i - 0.5)
+                                                                            <i
+                                                                                class="fa fa-star-half-alt text-warning"></i>
+                                                                        @else
+                                                                            <i class="fa fa-star text-muted"></i>
+                                                                        @endif
+                                                                    @endfor
+                                                                    <span>({{ number_format($averageRating, 1) }})</span>
+                                                                </div>
+                                                            </div>
                                                             <p class="location"><a><i class="lni lni-map-marker"></i>
                                                                     {{ $ad->city?->name ?? 'N/A' }},
                                                                     {{ $ad->locality?->name ?? 'N/A' }}</a></p>
@@ -219,7 +269,7 @@
 
 
                                     </div>
-
+                                    <!-- List View-->
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
                                         aria-labelledby="nav-list-tab">
                                         <div class="row" id="adsContaine">
@@ -264,6 +314,27 @@
                                                                         <a
                                                                             href="{{ route('ad.show', $ad->id) }}">{{ $ad->title }}</a>
                                                                     </h3>
+                                                                    <div class="user-rating">
+                                                                        <div class="rating">
+                                                                            @php
+                                                                                $averageRating =
+                                                                                    $ad->user->feedbacks_avg_rating ??
+                                                                                    0; // Default to 0 if no rating
+                                                                            @endphp
+
+                                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                                @if ($averageRating >= $i)
+                                                                                    <i class="fa fa-star text-warning"></i>
+                                                                                @elseif ($averageRating >= $i - 0.5)
+                                                                                    <i
+                                                                                        class="fa fa-star-half-alt text-warning"></i>
+                                                                                @else
+                                                                                    <i class="fa fa-star text-muted"></i>
+                                                                                @endif
+                                                                            @endfor
+                                                                            <span>({{ number_format($averageRating, 1) }})</span>
+                                                                        </div>
+                                                                    </div>
                                                                     <p class="location"><a><i
                                                                                 class="lni lni-map-marker"></i>
                                                                             {{ $ad->city?->name ?? 'N/A' }},
@@ -303,7 +374,6 @@
 
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>

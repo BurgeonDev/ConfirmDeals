@@ -146,7 +146,7 @@ return [
     'thank_you_message' => 'Thank you for posting your ad. Please wait for ConfirmDeals approval and publicity confirmation. We will notify you soon.',
     'go_home' => 'Go To Home',
     ////////////Home/////////////////////////////////
-
+    'hire_me' => 'Hire Me',
     ////////////ad call
     'sell_question' => 'Do you have something to sell?',
     'post_ad_description' => 'Post your ad on Confirm Deals',
