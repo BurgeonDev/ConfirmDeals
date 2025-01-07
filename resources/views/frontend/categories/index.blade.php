@@ -153,7 +153,28 @@
                                                 {{ $ads->where('status', 'verified')->count() }} ads</h3>
 
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-12">
+                                        {{-- <div class="col-lg-6 col-md-6 col-12">
+                                            <nav>
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                    <button class="nav-link active" id="nav-grid-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#nav-grid" type="button"
+                                                        role="tab" aria-controls="nav-grid" aria-selected="true"><i
+                                                            class="lni lni-grid-alt"></i></button>
+                                                    <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#nav-list" type="button" role="tab"
+                                                        aria-controls="nav-list" aria-selected="false"><i
+                                                            class="lni lni-list"></i></button>
+                                                </div>
+                                            </nav>
+                                        </div> --}}
+                                        <div
+                                            class="col-lg-6 col-md-6 col-12 d-flex justify-content-end align-items-center">
+                                            <select id="sortDropdown" class="form-select"
+                                                style="width: auto; margin-right: 10px;">
+                                                <option value="">Sort By</option>
+                                                <option value="lowToHigh">Price: Low to High</option>
+                                                <option value="highToLow">Price: High to Low</option>
+                                            </select>
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                                     <button class="nav-link active" id="nav-grid-tab"
@@ -167,6 +188,7 @@
                                                 </div>
                                             </nav>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="tab-content" id="nav-tabContent">
@@ -208,15 +230,12 @@
                                                                 </span>
 
                                                             </div>
-
                                                             <h3
                                                                 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.2rem; width: 100%;">
                                                                 <a href="{{ route('ad.show', $ad->id) }}"
                                                                     style="text-decoration: none; color: inherit;">
                                                                     {{ $ad->title }}
                                                                 </a>
-
-
                                                             </h3>
                                                             <div class="user-rating">
                                                                 <div class="rating">
@@ -262,15 +281,9 @@
                                                 </div>
                                             @endforeach
                                         </div>
-
-                                        <!-- Custom Pagination -->
-                                        <!-- Custom Pagination -->
-                                        <!-- Custom Pagination -->
                                         <div class="pagination center" style="justify-content: center;">
                                             {!! $remainingAds->links('vendor.pagination.custom-pagination') !!}
                                         </div>
-
-
                                     </div>
                                     <!-- List View-->
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
@@ -281,7 +294,6 @@
                                                     data-city="{{ $ad->city?->name ?? 'N/A' }}"
                                                     data-locality="{{ $ad->locality?->name ?? 'N/A' }}"
                                                     data-category="{{ $ad->category_id }}">
-                                                    <!-- Start Single Item -->
                                                     <div class="single-item-grid">
                                                         <div class="row align-items-center">
                                                             <div class="col-lg-5 col-md-7 col-12">
@@ -291,11 +303,9 @@
                                                                             src="{{ !empty($ad->pictures) && is_array($ad->pictures) && count($ad->pictures) > 0 ? asset('storage/' . $ad->pictures[0]) : asset('assets/images/default-image.jpg') }}"
                                                                             alt="{{ $ad->title }}">
                                                                     </a>
-
                                                                     @if ($ad->is_featured)
                                                                         <i class="cross-badge lni lni-bolt"></i>
                                                                     @endif
-                                                                    {{-- <span class="flat-badge sale">{{ ucfirst($ad->type) }}</span> --}}
                                                                     @if ($ad->is_featured)
                                                                         <span class="flat-badge sale">
                                                                             Featured
@@ -367,18 +377,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End Single Item -->
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <!-- Pagination -->
-                                        <!-- Custom Pagination -->
-                                        <!-- Custom Pagination -->
                                         <div class="pagination center" style="justify-content: center;">
                                             {!! $remainingAds->links('vendor.pagination.custom-pagination') !!}
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -419,5 +423,31 @@
             document.getElementById('locality-input').value = locality === 'all' ? '' : locality;
             document.getElementById('filter-form').submit();
         }
+    </script>
+    <script>
+        document.getElementById('sortDropdown').addEventListener('change', function() {
+            const sortValue = this.value;
+            const adsContainer = document.getElementById('adsContaine');
+            const ads = Array.from(adsContainer.querySelectorAll('.ad-ite'));
+
+            ads.sort((a, b) => {
+                const priceA = parseFloat(a.querySelector('.price').textContent.replace('PKR', '').replace(
+                    ',', '').trim());
+                const priceB = parseFloat(b.querySelector('.price').textContent.replace('PKR', '').replace(
+                    ',', '').trim());
+
+                if (sortValue === 'lowToHigh') {
+                    return priceA - priceB; // Ascending order
+                } else if (sortValue === 'highToLow') {
+                    return priceB - priceA; // Descending order
+                } else {
+                    return 0; // Default order
+                }
+            });
+
+            // Clear the container and append sorted ads
+            adsContainer.innerHTML = '';
+            ads.forEach(ad => adsContainer.appendChild(ad));
+        });
     </script>
 @endsection
