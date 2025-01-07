@@ -54,7 +54,7 @@
                             <div class="form-group col-md-12">
                                 <input id="phone_number" name="phone_number" type="text"
                                     value="{{ old('phone_number') }}" required autofocus autocomplete="phone_number"
-                                    class="form-control" placeholder="Phone Number">
+                                    class="form-control" placeholder="Phone Number 03XX-XXXXXXX">
                                 @if ($errors->has('phone_number'))
                                     <span class="text-danger">{{ $errors->first('phone_number') }}</span>
                                 @endif
@@ -68,6 +68,7 @@
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
+
 
                             <!-- Profession -->
                             <div class="form-group">

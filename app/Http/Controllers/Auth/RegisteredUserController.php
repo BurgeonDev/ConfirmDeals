@@ -41,13 +41,19 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => 'required|email|lowercase|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'profession' => 'required|exists:professions,id',
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
             'locality_id' => 'required|exists:localities,id',
-            'phone_number' => 'required|string|max:15|unique:' . User::class,
+            'phone_number' => [
+                'required',
+                'string',
+                'max:15',
+                'unique:' . User::class,
+                'regex:/^03[0-9]{2}-[0-9]{7}$/',  // Phone format validation
+            ],
         ]);
 
         // Get free coins value from the coins table
