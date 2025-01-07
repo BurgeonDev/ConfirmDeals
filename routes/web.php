@@ -80,7 +80,7 @@ Route::group([
 
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/report', [ReportController::class, 'store'])->name('report.store');
         Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
         Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
@@ -88,7 +88,7 @@ Route::group([
         Route::post('/bids/{bidId}/accept', [BidController::class, 'acceptBid'])->name('bids.accept');
         Route::post('/bids/{bidId}/reject', [BidController::class, 'rejectBid'])->name('bids.reject');
         Route::get('/bids', [BidController::class, 'showAllBids'])->name('bids.index');
-        Route::get('/my-bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
+        Route::get('/user/bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
         Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
         Route::post('/feedback/{feedback}/response', [FeedbackController::class, 'storeResponse'])->name('feedback.response');
         Route::get('/admin/users', [UserController::class, 'index'])->name('admin.userManagement');
@@ -100,7 +100,7 @@ Route::group([
         Route::patch('/admin/roles/{id}', [UserController::class, 'updateRole'])->name('admin.roles.update');
         Route::delete('/admin/roles/{id}', [UserController::class, 'destroyRole'])->name('admin.roles.destroy');
         Route::patch('/admin/users/{id}/toggle', [UserController::class, 'toggleUserStatus'])->name('admin.toggleUserStatus');
-        Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
+
         Route::patch('/ads/{ad}/toggle-verified', [AdController::class, 'toggleVerifiedStatus'])->name('ads.toggleVerifiedStatus');
         Route::get('/get-coin-price-and-balance', [AdController::class, 'getCoinPriceAndBalance']);
         Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
@@ -135,8 +135,8 @@ Route::group([
     Route::get('/get-localities/{cityId}', [UserProfileController::class, 'getLocalities'])->name('getLocalities');
 
 
-    Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
-    Route::get('/categoriess', [CategoryController::class, 'catt'])->name('categoriess');
+    Route::get('/all-ad', [CategoryController::class, 'cat'])->name('categories.cat');
+    Route::get('/all-ads', [CategoryController::class, 'catt'])->name('categoriess');
 
     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
