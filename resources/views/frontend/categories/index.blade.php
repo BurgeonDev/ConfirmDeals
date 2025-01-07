@@ -202,8 +202,11 @@
                                                                 style="display: flex; justify-content: space-between; align-items: center;">
                                                                 <a href="javascript:void(0)"
                                                                     class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
-                                                                <span
-                                                                    class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+                                                                <span class="flat-badge"
+                                                                    style="color: {{ $ad->type === 'service' ? 'green' : 'red' }};">
+                                                                    {{ ucfirst($ad->type) }}
+                                                                </span>
+
                                                             </div>
 
                                                             <h3
@@ -306,8 +309,11 @@
                                                                         style="display: flex; justify-content: space-between; align-items: center;">
                                                                         <a href="javascript:void(0)"
                                                                             class="tag">{{ $ad->category?->name ?? 'N/A' }}</a>
-                                                                        <span
-                                                                            class="flat-badge sale">{{ ucfirst($ad->type) }}</span>
+                                                                        <span class="flat-badge"
+                                                                            style="color: {{ $ad->type === 'service' ? 'green' : 'red' }};">
+                                                                            {{ ucfirst($ad->type) }}
+                                                                        </span>
+
                                                                     </div>
 
                                                                     <h3 class="title">
