@@ -32,6 +32,9 @@ use App\Http\Controllers\Admin\NewsletterAdminController;
 use App\Http\Controllers\EasypaisaController;
 use App\Http\Controllers\JazzCashController;
 use App\Http\Controllers\PricingController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -50,11 +53,20 @@ Route::group([
     Route::get('/policies', function () {
         return view('frontend.terms.policy');
     })->name('policies');
-
+    Route::get('/email/verify', function () {
+        if (auth()->check() && !auth()->user()->hasVerifiedEmail()) {
+            return view('auth.verify-email');
+        }
+        return redirect()->route('home');
+    })->middleware('auth')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/home');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
     Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::resource('/home', HomeController::class);
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

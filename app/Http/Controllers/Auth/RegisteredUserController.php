@@ -36,6 +36,49 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    // public function store(Request $request): RedirectResponse
+    // {
+    //     $request->validate([
+    //         'first_name' => 'required|string|max:255',
+    //         'last_name' => 'required|string|max:255',
+    //         'email' => 'required|email|lowercase|max:255|unique:' . User::class,
+    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    //         'profession' => 'required|exists:professions,id',
+    //         'country_id' => 'required|exists:countries,id',
+    //         'city_id' => 'required|exists:cities,id',
+    //         'locality_id' => 'required|exists:localities,id',
+    //         'phone_number' => [
+    //             'required',
+    //             'string',
+    //             'max:15',
+    //             'unique:' . User::class,
+    //             'regex:/^03[0-9]{2}-[0-9]{7}$/',  // Phone format validation
+    //         ],
+    //     ]);
+
+    //     // Get free coins value from the coins table
+    //     $freeCoins = DB::table('coins')->value('free_coins') ?? 0;
+
+    //     // Create the user
+    //     $user = User::create([
+    //         'first_name' => $request->first_name,
+    //         'last_name' => $request->last_name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'profession_id' => $request->profession,
+    //         'country_id' => $request->country_id,
+    //         'city_id' => $request->city_id,
+    //         'locality_id' => $request->locality_id,
+    //         'phone_number' => $request->phone_number,
+    //         'coins' => $freeCoins,  // Set the free coins value
+    //     ]);
+
+    //     event(new Registered($user));
+
+    //     Auth::login($user);
+
+    //     return redirect(route('home', absolute: false));
+    // }
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -71,12 +114,14 @@ class RegisteredUserController extends Controller
             'locality_id' => $request->locality_id,
             'phone_number' => $request->phone_number,
             'coins' => $freeCoins,  // Set the free coins value
+            'is_email_verified' => false, // Ensure email verification is required
         ]);
 
+        // Send the email verification notification
+        $user->sendEmailVerificationNotification();
         event(new Registered($user));
-
         Auth::login($user);
-
-        return redirect(route('home', absolute: false));
+        // Redirect to the verification notice page
+        return redirect()->route('verification.notice');
     }
 }
