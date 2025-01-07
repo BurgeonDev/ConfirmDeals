@@ -24,20 +24,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function booted()
     {
         parent::boot();
+        static::saving(function ($user) {
+            if (!is_null($user->is_email_verified)) {
+                $user->is_email_verified = 1;
+            }
+        });
         static::created(function ($user) {
             $user->assignRole('user');
         });
-        // static::creating(function ($model) {
-        //     if (Auth::check()) {
-        //         $model->created_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        //     }
-        // });
-
-        // static::updating(function ($model) {
-        //     if (Auth::check()) {
-        //         $model->updated_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        //     }
-        // });
     }
     protected $fillable = [
         'first_name',
