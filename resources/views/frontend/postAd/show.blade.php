@@ -65,176 +65,117 @@
                                 </a>
                             </p>
                             <h3 class="price">Pkr {{ number_format($ad->price) }}</h3>
-
-
-                            {{-- <div class="single-block comments">
-                                <!-- Alerts Section -->
-                                @if (session('success'))
-                                    <div class="alert alert-success">{{ session('success') }}</div>
-                                @endif
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                @php
-                                    $user = auth()->user();
-                                @endphp
-
-                                @if ($user->coins >= $ad->coins_needed)
-                                    <!-- Bid Form -->
-                                    <form action="{{ route('bids.place', $ad->id) }}" method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-8 d-flex align-items-center">
-                                                <div class="me-2 button">
-                                                    <button type="submit" class="btn">@lang('messages.bid')</button>
-                                                </div>
-                                                <div class="button me-2" style="flex-grow: 1;">
-                                                    <input style="height: 52px;" type="number" name="offer"
-                                                        class="form-control form-control-custom"
-                                                        placeholder="@lang('messages.enter_bid_amount')" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                @else
-                                    <!-- Not Enough Coins Message -->
-                                    <div class="mt-3 alert alert-danger">
-                                        You don't have enough coins to bid on this ad.
-                                    </div>
-                                @endif
-
-                            </div> --}}
-                            <div class="single-block comments">
-                                <!-- Alerts Section -->
-                                @if (session('success'))
-                                    <div class="alert alert-success">{{ session('success') }}</div>
-                                @endif
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                @php
-                                    $user = auth()->user();
-                                @endphp
-
-                                @if ($ad->type === 'product')
-                                    @if ($user->coins >= $ad->coins_needed)
-                                        <!-- Bid Form for Products -->
-                                        <form action="{{ route('bids.place', $ad->id) }}" method="POST">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-md-8 d-flex align-items-center">
-                                                    <div class="me-2 button">
-                                                        <button type="submit" class="btn">@lang('messages.bid')</button>
-                                                    </div>
-                                                    <div class="button me-2" style="flex-grow: 1;">
-                                                        <input style="height: 52px;" type="number" name="offer"
-                                                            class="form-control form-control-custom"
-                                                            placeholder="@lang('messages.enter_bid_amount')" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    @else
-                                        <!-- Not Enough Coins Message -->
-                                        <div class="mt-3 alert alert-danger">
-                                            You don't have enough coins to bid on this ad.
+                            @if (auth()->id() !== $ad->user_id)
+                                <div class="single-block comments">
+                                    @if (session('success'))
+                                        <div class="alert alert-success">{{ session('success') }}</div>
+                                    @endif
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     @endif
-                                @elseif ($ad->type === 'service')
-                                    @if ($user->coins >= $ad->coins_needed)
-                                        <!-- Hire Me Button for Services -->
-                                        <div class="me-2 button">
-                                            {{-- <button type="submit" class="btn">@lang('messages.bid')</button> --}}
-                                            <button type="button" class="btn" data-bs-toggle="modal"
-                                                data-bs-target="#hireMeModal">
-                                                @lang('messages.hire_me')
-                                            </button>
-                                        </div>
-
-
-                                        <!-- Hire Me Modal -->
-                                        <div class="modal fade" id="hireMeModal" tabindex="-1"
-                                            aria-labelledby="hireMeModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="hireMeModalLabel">Hire Service</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                    @php
+                                        $user = auth()->user();
+                                    @endphp
+                                    @if ($ad->type === 'product')
+                                        @if ($user->coins >= $ad->coins_needed)
+                                            <form action="{{ route('bids.place', $ad->id) }}" method="POST">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-8 d-flex align-items-center">
+                                                        <div class="me-2 button">
+                                                            <button type="submit" class="btn">@lang('messages.bid')</button>
+                                                        </div>
+                                                        <div class="button me-2" style="flex-grow: 1;">
+                                                            <input style="height: 52px;" type="number" name="offer"
+                                                                class="form-control form-control-custom"
+                                                                placeholder="@lang('messages.enter_bid_amount')" required>
+                                                        </div>
                                                     </div>
-                                                    <form action="{{ route('bids.place', $ad->id) }}" method="POST">
-                                                        @csrf
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label for="offer" class="form-label">Proposed
-                                                                    Offer</label>
-                                                                <input type="number" class="form-control" id="offer"
-                                                                    name="offer" placeholder="Enter your offer" required>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="notes" class="form-label">Additional
-                                                                    Notes</label>
-                                                                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Write any additional details"></textarea>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="time_slots" class="form-label">Available Time
-                                                                    Slots</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="time_slots" name="time_slots"
-                                                                    placeholder="Enter available time slots (e.g., 9am-11am)">
-                                                            </div>
+                                                </div>
+                                            </form>
+                                        @else
+                                            <div class="mt-3 alert alert-danger">
+                                                You don't have enough coins to bid on this ad.
+                                            </div>
+                                        @endif
+                                    @elseif ($ad->type === 'service')
+                                        @if ($user->coins >= $ad->coins_needed)
+                                            <div class="me-2 button">
 
-
-
-
-
+                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                                    data-bs-target="#hireMeModal">
+                                                    @lang('messages.hire_me')
+                                                </button>
+                                            </div>
+                                            <div class="modal fade" id="hireMeModal" tabindex="-1"
+                                                aria-labelledby="hireMeModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="hireMeModalLabel">Hire Service</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-footer button">
-                                                            <button type="submit" class="btn">Submit
-                                                                Proposal</button>
-                                                        </div>
-                                                    </form>
+                                                        <form action="{{ route('bids.place', $ad->id) }}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="offer" class="form-label">Proposed
+                                                                        Offer</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="offer" name="offer"
+                                                                        placeholder="Enter your offer" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="notes" class="form-label">Additional
+                                                                        Notes</label>
+                                                                    <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Write any additional details"></textarea>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="time_slots" class="form-label">Available
+                                                                        Time
+                                                                        Slots</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="time_slots" name="time_slots"
+                                                                        placeholder="Enter available time slots (e.g., 9am-11am)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer button">
+                                                                <button type="submit" class="btn">Submit
+                                                                    Proposal</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @else
-                                        <!-- Not Enough Coins Message -->
-                                        <div class="mt-3 alert alert-danger">
-                                            You don't have enough coins to hire this service.
-                                        </div>
+                                        @else
+                                            <div class="mt-3 alert alert-danger">
+                                                You don't have enough coins to hire this service.
+                                            </div>
+                                        @endif
                                     @endif
-                                @endif
-                            </div>
+                                </div>
+                            @endif
 
                             <div class="list-info">
                                 <h4>Coins</h4>
-                                <ul>
-                                    <div class="row">
-                                        <li class="col-md-4"><span>@lang('messages.coins_required')</span> {{ $ad->coins_needed }}</li>
-                                        <li class="col-md-4"><span>@lang('messages.available_coins')</span> {{ auth()->user()->coins }}
-                                        </li>
+                                @if (auth()->id() !== $ad->user_id)
+                                    <ul>
+                                        <div class="row">
+                                            <li class="col-md-4"><span>@lang('messages.coins_required')</span> {{ $ad->coins_needed }}
+                                            </li>
+                                            <li class="col-md-4"><span>@lang('messages.available_coins')</span>
+                                                {{ auth()->user()->coins }}</li>
+                                        </div>
+                                    </ul>
+                                @endif
 
-                                    </div>
-
-
-
-                                </ul>
                                 <h4>Informations</h4>
                                 <ul>
 
