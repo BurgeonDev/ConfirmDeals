@@ -139,4 +139,15 @@ class UserProfileController extends Controller
             'ads' => $ads,
         ]);
     }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed', // Validate the password and confirmation
+        ]);
+
+        $user = auth()->user();
+        $user->update(['password' => bcrypt($request->password)]); // Update the user's password
+
+        return redirect()->back()->with('success', __('Password updated successfully.'));
+    }
 }

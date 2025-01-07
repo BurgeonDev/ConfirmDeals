@@ -106,6 +106,7 @@ Route::group([
         Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
         Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
         Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
+        Route::post('/user/profile/update-password', [UserProfileController::class, 'updatePassword'])->name('userProfile.updatePassword');
         Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
         Route::get('/profile/{user}', [UserProfileController::class, 'publicProfile'])->name('profile.public');
         Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
