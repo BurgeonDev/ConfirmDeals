@@ -44,9 +44,12 @@ Route::group([
     Route::get('/faq', function () {
         return view('frontend.faq.index');
     })->name('faq');
-    // Route::get('/pricing', function () {
-    //     return view('frontend.pricing.index');
-    // })->name('pricing');
+    Route::get('/terms&conditions', function () {
+        return view('frontend.terms.terms');
+    })->name('terms');
+    Route::get('/policies', function () {
+        return view('frontend.terms.policy');
+    })->name('policies');
 
     Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');

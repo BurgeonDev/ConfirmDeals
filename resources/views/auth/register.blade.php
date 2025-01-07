@@ -168,7 +168,7 @@
                                     <input id="terms" name="terms" type="checkbox" class="form-check-input"
                                         required>
                                     <label for="terms" class="form-check-label">
-                                        Agree to our <a href="javascript:void(0)">Terms and Conditions</a>
+                                        Agree to our <a href="{{ route('terms') }}">Terms and Conditions</a>
                                     </label>
                                 </div>
                             </div>
