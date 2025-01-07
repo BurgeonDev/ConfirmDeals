@@ -209,11 +209,15 @@ class AdsController extends Controller
             // Update the ad
             $ad->update($validatedData);
 
+            // Set the ad status to "pending"
+            $ad->status = 'pending';
+            $ad->save();
+
             // Commit transaction
             DB::commit();
 
             return redirect()->route('ad.show', $ad->id)
-                ->with('success', 'Ad updated successfully.');
+                ->with('success', 'Ad updated successfully and status set to "pending".');
         } catch (\Exception $e) {
             // Rollback transaction on error
             DB::rollBack();
@@ -224,6 +228,7 @@ class AdsController extends Controller
                 ->withErrors(['error' => 'An error occurred while updating your ad. Please try again.']);
         }
     }
+
     public function destroy(Ad $ad)
     {
         $ad->delete();
