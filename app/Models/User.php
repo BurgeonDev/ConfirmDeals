@@ -8,13 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         parent::boot();
         static::saving(function ($user) {
-            if (!is_null($user->is_email_verified)) {
+            if (!is_null($user->email_verified_at)) {
                 $user->is_email_verified = 1;
             }
         });
