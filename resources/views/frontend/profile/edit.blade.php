@@ -114,7 +114,7 @@
                                                             <label for="phone_number">@lang('messages.phone_no')</label>
                                                             <input name="phone_number" type="tel" class="form-control"
                                                                 value="{{ old('phone_number', $user->phone_number ?? '') }}"
-                                                                required>
+                                                                required placeholder="Phone No 0312-3456789">
                                                             @error('phone_number')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
