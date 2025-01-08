@@ -293,7 +293,7 @@
             });
         });
     </script>
-    <script>
+    {{-- <script>
         document.getElementById('price').addEventListener('input', function() {
             const price = parseFloat(this.value);
             const coinsNeededInput = document.getElementById('coins_needed');
@@ -324,6 +324,54 @@
                                 `You do not have enough coins. You need ${coinsNeeded} coins, but only have ${data.user_balance}.`;
                         } else {
                             liveError.textContent = '';
+                        }
+                    }
+                })
+                .catch(() => {
+                    liveError.textContent = 'Error fetching coin price or user balance. Please try again.';
+                });
+        });
+    </script> --}}
+    <script>
+        document.getElementById('price').addEventListener('input', function() {
+            const price = parseFloat(this.value);
+            const coinsNeededInput = document.getElementById('coins_needed');
+            const liveError = document.getElementById('liveError');
+
+            if (!price || price <= 0) {
+                coinsNeededInput.value = '';
+                liveError.textContent = 'Enter a valid price.';
+                return;
+            }
+
+            // Fetch the PKR price of 1 coin and user's coin balance
+            fetch('/get-coin-price-and-balance')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        liveError.textContent = data.error;
+                        coinsNeededInput.value = '';
+                    } else {
+                        liveError.textContent = '';
+                        // Calculate coins needed
+                        const coinsNeeded = Math.ceil(price / data.price_in_pkr);
+                        const previousCoinsNeeded = parseInt(coinsNeededInput.value) || 0;
+                        coinsNeededInput.value = coinsNeeded;
+
+                        // Show live feedback for coin return or additional coins needed
+                        if (coinsNeeded > previousCoinsNeeded) {
+                            liveError.textContent = `You need ${coinsNeeded - previousCoinsNeeded} more coins.`;
+                        } else if (coinsNeeded < previousCoinsNeeded) {
+                            liveError.textContent =
+                                `You will receive ${previousCoinsNeeded - coinsNeeded} coins back.`;
+                        }
+
+                        // Check if the user has enough coins
+                        if (data.user_balance < coinsNeeded) {
+                            liveError.textContent +=
+                                ` You do not have enough coins. You need ${coinsNeeded} coins, but only have ${data.user_balance}.`;
+                        } else {
+                            liveError.textContent = liveError.textContent || ''; // Clear any previous message
                         }
                     }
                 })
