@@ -13,7 +13,10 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'Post Ad',
             'Manage Ad',
-            'Manage Admin Dashboard',
+            'Manage Admin Dashbaord',
+            'Edit Ad Status',
+            'Edit App Setting',
+            'Edit Coins Setting',
 
         ];
 

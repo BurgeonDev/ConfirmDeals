@@ -59,42 +59,45 @@
                   <span class="menu-title">Categories</span>
               </a>
           </li>
-          <li class="nav-item nav-category">Coin Management</li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('coins.index') }}">
-                  <i class="mdi mdi-currency-usd menu-icon"></i>
-                  <span class="menu-title">Coins</span>
-              </a>
-          </li>
-
-          <li class="nav-item nav-category">Ad Management</li>
-          <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ad-management" aria-expanded="false"
-                  aria-controls="ad-management">
-                  <i class="menu-icon mdi mdi-newspaper"></i>
-                  <span class="menu-title">Ad </span>
-                  <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="ad-management">
-                  <ul class="nav flex-column sub-menu">
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('ads.index') }}">Ads</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('admin.reports.index') }}">Reported Ads</a>
-                      </li>
-                  </ul>
-              </div>
-          </li>
-
-          <li class="nav-item nav-category">App Settings</li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.config.index') }}">
-                  <i class="mdi mdi-mail menu-icon"></i>
-                  <span class="menu-title">Setting</span>
-              </a>
-          </li>
-
+          @can('Edit Coins Setting')
+              <li class="nav-item nav-category">Coin Management</li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('coins.index') }}">
+                      <i class="mdi mdi-currency-usd menu-icon"></i>
+                      <span class="menu-title">Coins</span>
+                  </a>
+              </li>
+          @endcan
+          @can('Edit Ad Status')
+              <li class="nav-item nav-category">Ad Management</li>
+              <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#ad-management" aria-expanded="false"
+                      aria-controls="ad-management">
+                      <i class="menu-icon mdi mdi-newspaper"></i>
+                      <span class="menu-title">Ad </span>
+                      <i class="menu-arrow"></i>
+                  </a>
+                  <div class="collapse" id="ad-management">
+                      <ul class="nav flex-column sub-menu">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('ads.index') }}">Ads</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('admin.reports.index') }}">Reported Ads</a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+          @endcan
+          @can('Edit App Setting')
+              <li class="nav-item nav-category">App Settings</li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.config.index') }}">
+                      <i class="mdi mdi-mail menu-icon"></i>
+                      <span class="menu-title">Setting</span>
+                  </a>
+              </li>
+          @endcan
 
       </ul>
   </nav>

@@ -11,15 +11,19 @@ class RoleSeeder extends Seeder
     public function run()
     {
         // Create roles
-        $adminRole = Role::create(['name' => 'SuperAdmin']);
+        $superAdminRole = Role::create(['name' => 'SuperAdmin']);
+        $AdminRole = Role::create(['name' => 'Admin']);
         $userRole = Role::create(['name' => 'User']);
 
 
         // Define all permissions
         $permissions = [
             'Post Ad',
-            'Manage Admin Dashbaord',
             'Manage Ad',
+            'Manage Admin Dashbaord',
+            'Edit Ad Status',
+            'Edit App Setting',
+            'Edit Coins Setting',
 
         ];
 
@@ -29,12 +33,19 @@ class RoleSeeder extends Seeder
         }
 
         // Assign all permissions to the Admin role
-        $adminRole->givePermissionTo($permissions);
+        $superAdminRole->givePermissionTo($permissions);
 
         // Assign specific permissions to the User role
         $userRole->givePermissionTo([
             'Post Ad',
             'Manage Ad',
+        ]);
+        $AdminRole->givePermissionTo([
+            'Post Ad',
+            'Manage Ad',
+            'Manage Admin Dashbaord',
+            'Edit Ad Status',
+
         ]);
     }
 }
