@@ -34,19 +34,21 @@
                   </ul>
               </div>
           </li>
-          <li class="nav-item nav-category">User Management</li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.userManagement') }}">
-                  <i class="mdi mdi-account menu-icon"></i>
-                  <span class="menu-title">Users</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.roles.index') }}">
-                  <i class="mdi mdi-shield-key-outline menu-icon"></i>
-                  <span class="menu-title">Roles</span>
-              </a>
-          </li>
+          @can('Manage User and Roles')
+              <li class="nav-item nav-category">User Management</li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.userManagement') }}">
+                      <i class="mdi mdi-account menu-icon"></i>
+                      <span class="menu-title">Users</span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.roles.index') }}">
+                      <i class="mdi mdi-shield-key-outline menu-icon"></i>
+                      <span class="menu-title">Roles</span>
+                  </a>
+              </li>
+          @endcan
           <li class="nav-item">
               <a class="nav-link" href="{{ route('professions.index') }}">
                   <i class="menu-icon mdi mdi-briefcase"></i>

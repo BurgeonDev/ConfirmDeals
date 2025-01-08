@@ -24,7 +24,7 @@ class RoleSeeder extends Seeder
             'Edit Ad Status',
             'Edit App Setting',
             'Edit Coins Setting',
-
+            'Manage User and Roles',
         ];
 
         // Create and assign permissions

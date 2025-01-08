@@ -103,23 +103,6 @@ class UserProfileController extends Controller
 
         return redirect('/')->with('success', 'Your account has been deleted.');
     }
-    // public function publicProfile(User $user)
-    // {
-    //     // Fetch the user's average rating
-    //     $averageRating = $user->ads()
-    //         ->join('feedbacks', 'ads.id', '=', 'feedbacks.ad_id')
-    //         ->avg('feedbacks.rating');
-
-    //     // Fetch the user's ads with feedback details
-    //     $ads = $user->ads()->with(['feedbacks.user'])->get();
-
-    //     return view('frontend.profile.public', [
-    //         'user' => $user,
-    //         'averageRating' => $averageRating,
-    //         'ads' => $ads,
-    //     ]);
-    // }
-
 
     public function publicProfile(User $user)
     {
@@ -148,11 +131,11 @@ class UserProfileController extends Controller
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'password' => 'required|string|min:8|confirmed', // Validate the password and confirmation
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = auth()->user();
-        $user->update(['password' => bcrypt($request->password)]); // Update the user's password
+        $user->update(['password' => bcrypt($request->password)]);
 
         return redirect()->back()->with('success', __('Password updated successfully.'));
     }

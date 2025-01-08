@@ -17,6 +17,7 @@ class PermissionSeeder extends Seeder
             'Edit Ad Status',
             'Edit App Setting',
             'Edit Coins Setting',
+            'Manage User and Roles',
 
         ];
 
