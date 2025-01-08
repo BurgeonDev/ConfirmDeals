@@ -199,8 +199,8 @@
                                              <i class="lni lni-chevron-down" onclick="toggleDropdown()"></i>
                                              <!-- Dropdown icon -->
                                          </a>
-                                         <ul class="dropdown-menu" id="userDropdownMenu"
-                                             style="display: none; width:330px;">
+                                         <ul class="dropdown-menu center-align" id="userDropdownMenu" style="top: 60px;">
+                                             <!-- Add 'center-align' or 'left-align' -->
                                              <li>
                                                  <a href="{{ route('dashboard.index') }}"><i
                                                          class="lni lni-user"></i>Profile</a>

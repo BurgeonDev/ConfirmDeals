@@ -6320,6 +6320,59 @@ blockquote .shape {
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
+@media (max-width: 768px) {
+    #userDropdownMenu {
+        width: auto; /* Adjust width to fit smaller screens */
+        max-width: 100%; /* Prevent overflow */
+        text-align: center; /* Center the text for better alignment */
+    }
+
+    #userDropdownMenu li {
+        padding: 10px; /* Add spacing for touch-friendly buttons */
+    }
+
+    #userDropdownMenu a {
+        display: block; /* Ensure links take full width for easier tapping */
+        padding: 10px 15px; /* Add padding for touch devices */
+    }
+}
+/* General Styles for Dropdown */
+#userDropdownMenu {
+    position: absolute; /* Ensure it's positioned relative to the parent container */
+    display: none; /* Hide by default */
+    width: 330px; /* Fixed width */
+
+    background: #fff; /* Dropdown background color */
+    border: 1px solid #ddd; /* Optional: border for the dropdown */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for better visibility */
+    z-index: 1000; /* Ensure it appears on top */
+}
+
+/* Center Alignment */
+.user-dropdown {
+    position: relative; /* Set relative positioning for the parent */
+}
+
+#userDropdownMenu.center-align {
+    left: 50%; /* Start from the center */
+    transform: translateX(
+        -50%
+    ); /* Shift back by half the width to truly center */
+}
+
+/* Left Alignment */
+#userDropdownMenu.left-align {
+    right: 0; /* Align dropdown to the left of the parent */
+    transform: none; /* No need for transformation */
+}
+
+/* Responsive Styles (Optional) */
+@media (max-width: 768px) {
+    #userDropdownMenu {
+        width: auto; /* Fit dropdown to screen size */
+        max-width: 100%; /* Prevent overflow */
+    }
+}
 
 /*======================================
     Why Choose CSS
