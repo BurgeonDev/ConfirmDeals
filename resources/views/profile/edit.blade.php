@@ -57,7 +57,7 @@
                                             <label for="phone_number">{{ __('Phone No') }}</label>
                                             <input type="text" class="form-control" id="phone_number" name="phone_number"
                                                 value="{{ old('phone_number', $user->phone_number) }}" required
-                                                placeholder="Enter your last name">
+                                                placeholder="Phone No 0312-3456789">
                                             <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
                                         </div>
 
@@ -110,6 +110,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">

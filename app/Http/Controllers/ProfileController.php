@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,13 @@ class ProfileController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'phone_number' => ['required', 'regex:/^[0-9\-\(\)\/\+\s]*$/', 'max:15'],
+            'phone_number' => [
+                'required',
+                'string',
+                'max:15',
+                'unique:' . User::class,
+                'regex:/^03[0-9]{2}-[0-9]{7}$/',  // Phone format validation
+            ],
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8048',
         ]);
 

@@ -9,10 +9,12 @@
                         <h3>Quick Links</h3>
                         <ul>
                             <li><a href="{{ route('about') }}">About</a></li>
-                            {{-- <li><a href="{{ route('home') }}">How It's Works</a></li> --}}
-                            <li><a href="{{ route('faq') }}">FAQ</a></li>
-                            {{-- <li><a href="{{ route('pricing') }}">Pricing</a></li> --}}
+
+                            {{-- <li><a href="{{ route('faq') }}">FAQ</a></li> --}}
+
                             <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
+                            <li><a href="{{ route('terms') }}">Terms & Condtions</a></li>
+                            <li><a href="{{ route('policies') }}">Privacy & Policy</a></li>
                         </ul>
                     </div>
                 </div>

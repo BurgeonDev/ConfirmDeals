@@ -15,6 +15,9 @@ class UserController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+        if (!auth()->user()->can('Manage User and Roles')) {
+            abort(403, 'Unauthorized action.');
+        }
         $users = User::all();
         $roles = Role::all();
         return view('admin.users.index', compact('users', 'roles'));
@@ -23,6 +26,9 @@ class UserController extends Controller
     public function assignRole(Request $request, $userId)
     {
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
+        if (!auth()->user()->can('Manage User and Roles')) {
             abort(403, 'Unauthorized action.');
         }
         $user = User::find($userId);
@@ -34,6 +40,9 @@ class UserController extends Controller
     public function createRole()
     {
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
+        if (!auth()->user()->can('Manage User and Roles')) {
             abort(403, 'Unauthorized action.');
         }
         $permissions = Permission::all();
@@ -65,6 +74,9 @@ class UserController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+        if (!auth()->user()->can('Manage User and Roles')) {
+            abort(403, 'Unauthorized action.');
+        }
         $roles = Role::all();
         return view('admin.roles.index', compact('roles'));
     }
@@ -73,6 +85,9 @@ class UserController extends Controller
     public function editRole($id)
     {
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
+            abort(403, 'Unauthorized action.');
+        }
+        if (!auth()->user()->can('Manage User and Roles')) {
             abort(403, 'Unauthorized action.');
         }
         $role = Role::findOrFail($id);
@@ -104,12 +119,18 @@ class UserController extends Controller
     // Delete the role
     public function destroyRole($id)
     {
+        if (!auth()->user()->can('Manage User and Roles')) {
+            abort(403, 'Unauthorized action.');
+        }
         $role = Role::findOrFail($id);
         $role->delete();
         return redirect()->route('admin.roles.index')->with('success', 'Role deleted successfully.');
     }
     public function toggleUserStatus($id)
     {
+        if (!auth()->user()->can('Manage User and Roles')) {
+            abort(403, 'Unauthorized action.');
+        }
         $user = User::findOrFail($id);
         $user->is_active = !$user->is_active;
         $user->save();

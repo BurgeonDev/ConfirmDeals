@@ -228,6 +228,8 @@ class CategoryController extends Controller
     //     // Return to view with the variables
     //     return view('frontend.categories.index', compact('categories', 'ads', 'cities', 'remainingAds'));
     // }
+
+
     public function catt(Request $request)
     {
         $categories = Category::all();
@@ -264,10 +266,11 @@ class CategoryController extends Controller
             $adsQuery->where('category_id', $request->category);
         }
 
-        // Price range filter
-        if ($request->filled('price_min') && $request->filled('price_max')) {
-            $adsQuery->whereBetween('price', [$request->price_min, $request->price_max]);
-        }
+        // Price range filter with default values if not provided
+        $priceMin = $request->filled('price_min') ? $request->price_min : 0;
+        $priceMax = $request->filled('price_max') ? $request->price_max : 1000000;
+
+        $adsQuery->whereBetween('price', [$priceMin, $priceMax]);
 
         // Type filter
         if ($request->filled('type')) {
@@ -280,7 +283,7 @@ class CategoryController extends Controller
         // Retrieve featured ads dynamically based on the value in app_config (max $featuredAdsCount)
         $featuredAds = Ad::where('status', 'verified')
             ->where('is_featured', true)
-            ->where(function ($query) use ($request) {
+            ->where(function ($query) use ($request, $priceMin, $priceMax) {
                 if ($request->filled('search')) {
                     $query->where('title', 'like', '%' . $request->search . '%');
                 }
@@ -297,9 +300,7 @@ class CategoryController extends Controller
                 if ($request->filled('category')) {
                     $query->where('category_id', $request->category);
                 }
-                if ($request->filled('price_min') && $request->filled('price_max')) {
-                    $query->whereBetween('price', [$request->price_min, $request->price_max]);
-                }
+                $query->whereBetween('price', [$priceMin, $priceMax]); // Apply price range
                 if ($request->filled('type')) {
                     $types = $request->input('type');
                     if (!in_array('all', $types)) {

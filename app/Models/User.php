@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,20 +24,14 @@ class User extends Authenticatable
     protected static function booted()
     {
         parent::boot();
+        static::saving(function ($user) {
+            if (!is_null($user->email_verified_at)) {
+                $user->is_email_verified = 1;
+            }
+        });
         static::created(function ($user) {
             $user->assignRole('user');
         });
-        // static::creating(function ($model) {
-        //     if (Auth::check()) {
-        //         $model->created_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        //     }
-        // });
-
-        // static::updating(function ($model) {
-        //     if (Auth::check()) {
-        //         $model->updated_by = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        //     }
-        // });
     }
     protected $fillable = [
         'first_name',

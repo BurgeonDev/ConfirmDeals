@@ -164,6 +164,7 @@
     <script src="{{ asset('frontend/assets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/filter-and-sort.js') }}"></script>
     <script type="text/javascript">
         //========= Category Slider
         tns({

@@ -179,9 +179,6 @@ class AdsController extends Controller
         // Retrieve the ad
         $ad = Ad::findOrFail($id);
 
-        // Restore previously deducted coins
-        $user->increment('coins', $ad->coins_needed);
-
         // Check if the user has enough coins for the updated ad
         if ($user->coins < $validatedData['coins_needed']) {
             return redirect()->back()
@@ -189,34 +186,43 @@ class AdsController extends Controller
                 ->withErrors(['coins_needed' => 'You do not have enough coins to update this ad.']);
         }
 
-        // Deduct new coins required
-        $user->decrement('coins', $validatedData['coins_needed']);
-
-        // Process new pictures, if uploaded
-        if ($request->hasFile('pictures')) {
-            $validatedData['pictures'] = array_map(
-                fn($file) => $file->store('ads', 'public'),
-                $request->file('pictures')
-            );
-        } else {
-            unset($validatedData['pictures']); // Keep existing pictures if not updated
-        }
-
-        // Begin transaction
+        // Start the transaction
         DB::beginTransaction();
 
         try {
+            // Restore previously deducted coins (in case of an update)
+            $user->increment('coins', $ad->coins_needed);
+
+            // Process new pictures, if uploaded
+            if ($request->hasFile('pictures')) {
+                $validatedData['pictures'] = array_map(
+                    fn($file) => $file->store('ads', 'public'),
+                    $request->file('pictures')
+                );
+            } else {
+                unset($validatedData['pictures']); // Keep existing pictures if not updated
+            }
+
             // Update the ad
             $ad->update($validatedData);
 
-            // Commit transaction
+            // Deduct the new coins required
+            $user->decrement('coins', $validatedData['coins_needed']);
+
+            // Set the ad status to "pending"
+            $ad->status = 'pending';
+            $ad->save();
+
+            // Commit the transaction
             DB::commit();
 
             return redirect()->route('ad.show', $ad->id)
-                ->with('success', 'Ad updated successfully.');
+                ->with('success', 'Ad updated successfully and status set to "pending".');
         } catch (\Exception $e) {
-            // Rollback transaction on error
+            // Rollback transaction if an error occurs
             DB::rollBack();
+
+            // Restore the coins only if the update failed
             $user->increment('coins', $validatedData['coins_needed']);
 
             return redirect()->back()
@@ -224,6 +230,8 @@ class AdsController extends Controller
                 ->withErrors(['error' => 'An error occurred while updating your ad. Please try again.']);
         }
     }
+
+
     public function destroy(Ad $ad)
     {
         $ad->delete();

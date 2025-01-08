@@ -143,7 +143,7 @@ return [
     ////ad success
 
     'ad_posted_success' => 'Your Ad Has Been Posted Successfully',
-    'thank_you_message' => 'Thank you for posting your ad. Please wait for ConfirmDeals approval and publicity confirmation. We will notify you soon.',
+    'thank_you_message' => 'Thank you for posting your ad. Your ad will be reviewed by our team. We will notify you soon.',
     'go_home' => 'Go To Home',
     ////////////Home/////////////////////////////////
     'hire_me' => 'Hire Me',

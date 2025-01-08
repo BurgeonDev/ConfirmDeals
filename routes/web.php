@@ -32,6 +32,9 @@ use App\Http\Controllers\Admin\NewsletterAdminController;
 use App\Http\Controllers\EasypaisaController;
 use App\Http\Controllers\JazzCashController;
 use App\Http\Controllers\PricingController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -44,14 +47,26 @@ Route::group([
     Route::get('/faq', function () {
         return view('frontend.faq.index');
     })->name('faq');
-    // Route::get('/pricing', function () {
-    //     return view('frontend.pricing.index');
-    // })->name('pricing');
-
+    Route::get('/terms&conditions', function () {
+        return view('frontend.terms.terms');
+    })->name('terms');
+    Route::get('/policies', function () {
+        return view('frontend.terms.policy');
+    })->name('policies');
+    Route::get('/email/verify', function () {
+        if (auth()->check() && !auth()->user()->hasVerifiedEmail()) {
+            return view('auth.verify-email');
+        }
+        return redirect()->route('home');
+    })->middleware('auth')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/home');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
     Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::resource('/home', HomeController::class);
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -80,7 +95,7 @@ Route::group([
 
         Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
         Route::get('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/report', [ReportController::class, 'store'])->name('report.store');
         Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports.index');
         Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
@@ -88,7 +103,7 @@ Route::group([
         Route::post('/bids/{bidId}/accept', [BidController::class, 'acceptBid'])->name('bids.accept');
         Route::post('/bids/{bidId}/reject', [BidController::class, 'rejectBid'])->name('bids.reject');
         Route::get('/bids', [BidController::class, 'showAllBids'])->name('bids.index');
-        Route::get('/my-bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
+        Route::get('/user/bids', [BidController::class, 'showMyBids'])->name('bids.myBids');
         Route::post('/ads/{ad}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
         Route::post('/feedback/{feedback}/response', [FeedbackController::class, 'storeResponse'])->name('feedback.response');
         Route::get('/admin/users', [UserController::class, 'index'])->name('admin.userManagement');
@@ -100,12 +115,13 @@ Route::group([
         Route::patch('/admin/roles/{id}', [UserController::class, 'updateRole'])->name('admin.roles.update');
         Route::delete('/admin/roles/{id}', [UserController::class, 'destroyRole'])->name('admin.roles.destroy');
         Route::patch('/admin/users/{id}/toggle', [UserController::class, 'toggleUserStatus'])->name('admin.toggleUserStatus');
-        Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
+
         Route::patch('/ads/{ad}/toggle-verified', [AdController::class, 'toggleVerifiedStatus'])->name('ads.toggleVerifiedStatus');
         Route::get('/get-coin-price-and-balance', [AdController::class, 'getCoinPriceAndBalance']);
         Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
         Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('userProfile.edit');
         Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('userProfile.update');
+        Route::post('/user/profile/update-password', [UserProfileController::class, 'updatePassword'])->name('userProfile.updatePassword');
         Route::delete('user/profile/delete', [UserProfileController::class, 'destroy'])->name('userProfile.delete');
         Route::get('/profile/{user}', [UserProfileController::class, 'publicProfile'])->name('profile.public');
         Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
@@ -134,8 +150,8 @@ Route::group([
     Route::get('/get-localities/{cityId}', [UserProfileController::class, 'getLocalities'])->name('getLocalities');
 
 
-    Route::get('/category', [CategoryController::class, 'cat'])->name('categories.cat');
-    Route::get('/categoriess', [CategoryController::class, 'catt'])->name('categoriess');
+    Route::get('/all-ad', [CategoryController::class, 'cat'])->name('categories.cat');
+    Route::get('/all-ads', [CategoryController::class, 'catt'])->name('categoriess');
 
     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');

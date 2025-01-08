@@ -20,6 +20,7 @@ class AdController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+
         $ads = Ad::with(['user', 'category'])->get();
         return view('admin.ads.index', compact('ads'));
     }
@@ -27,6 +28,9 @@ class AdController extends Controller
 
     public function toggleVerifiedStatus(Request $request, Ad $ad)
     {
+        if (!auth()->user()->can('Edit Ad Status')) {
+            abort(403, 'Unauthorized action.');
+        }
         // Validate the input status
         $validated = $request->validate([
             'status' => 'required|in:verified,cancel,expired,pending',

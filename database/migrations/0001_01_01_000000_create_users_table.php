@@ -29,7 +29,8 @@ return new class extends Migration
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('locality_id')->nullable();
-
+            $table->timestamp('email_verified_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 

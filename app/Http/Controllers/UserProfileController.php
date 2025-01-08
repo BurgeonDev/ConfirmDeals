@@ -51,7 +51,13 @@ class UserProfileController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'phone_number' => ['required', 'regex:/^[0-9\-\(\)\/\+\s]*$/', 'max:15'],
+            'phone_number' => [
+                'required',
+                'string',
+                'max:15',
+                'unique:' . User::class,
+                'regex:/^03[0-9]{2}-[0-9]{7}$/',  // Phone format validation
+            ],
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8048',
             'profession_id' => 'required|exists:professions,id',
             'locality_id' => 'required|exists:localities,id',
@@ -97,23 +103,6 @@ class UserProfileController extends Controller
 
         return redirect('/')->with('success', 'Your account has been deleted.');
     }
-    // public function publicProfile(User $user)
-    // {
-    //     // Fetch the user's average rating
-    //     $averageRating = $user->ads()
-    //         ->join('feedbacks', 'ads.id', '=', 'feedbacks.ad_id')
-    //         ->avg('feedbacks.rating');
-
-    //     // Fetch the user's ads with feedback details
-    //     $ads = $user->ads()->with(['feedbacks.user'])->get();
-
-    //     return view('frontend.profile.public', [
-    //         'user' => $user,
-    //         'averageRating' => $averageRating,
-    //         'ads' => $ads,
-    //     ]);
-    // }
-
 
     public function publicProfile(User $user)
     {
@@ -138,5 +127,16 @@ class UserProfileController extends Controller
             'averageRating' => $averageRating,
             'ads' => $ads,
         ]);
+    }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = auth()->user();
+        $user->update(['password' => bcrypt($request->password)]);
+
+        return redirect()->back()->with('success', __('Password updated successfully.'));
     }
 }

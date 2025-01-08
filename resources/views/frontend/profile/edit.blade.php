@@ -114,7 +114,7 @@
                                                             <label for="phone_number">@lang('messages.phone_no')</label>
                                                             <input name="phone_number" type="tel" class="form-control"
                                                                 value="{{ old('phone_number', $user->phone_number ?? '') }}"
-                                                                required>
+                                                                required placeholder="Phone No 0312-3456789">
                                                             @error('phone_number')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -143,53 +143,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- <!-- Country -->
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="country_id">@lang('messages.country')</label>
-                                                        <select name="country_id" id="country_id" class="user-chosen-select"
-                                                            required>
-                                                            <option value="">Select Country</option>
-                                                            @foreach ($countries as $country)
-                                                                <option value="{{ $country->id }}"
-                                                                    {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                                                    {{ $country->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('country_id')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
 
-                                                <!-- City -->
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="city_id">@lang('messages.city')</label>
-                                                        <select name="city_id" id="city_id" class="user-chosen-select"
-                                                            required>
-                                                            <option value="">Select City</option>
-                                                        </select>
-                                                        @error('city_id')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <!-- Locality -->
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="locality_id">@lang('messages.locality')</label>
-                                                        <select name="locality_id" id="locality_id"
-                                                            class="user-chosen-select">
-                                                            <option value="">Select Locality</option>
-                                                        </select>
-                                                        @error('locality_id')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div> --}}
                                                 <!-- Country -->
                                                 <div class="col-4">
                                                     <div class="form-group">
@@ -250,6 +204,56 @@
                                                     </div>
                                                 </div>
 
+                                                {{-- <!-- Password -->
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="password">@lang('messages.password')</label>
+                                                        <input name="password" type="password" class="form-control"
+                                                            placeholder="Enter new password (leave empty to keep current)">
+                                                        @error('password')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <!-- Confirm Password -->
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="password_confirmation">@lang('messages.confirm_password')</label>
+                                                        <input name="password_confirmation" type="password"
+                                                            class="form-control" placeholder="Confirm new password">
+                                                    </div>
+                                                </div> --}}
+
+                                                <!-- Submit Button -->
+                                                <div class="col-12">
+                                                    <div class="mb-0 form-group button">
+                                                        <button type="submit"
+                                                            class="btn btn-primary">@lang('messages.update_profile')</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-content">
+
+                        <div class="mt-3 dashboard-block">
+
+                            <h3 class="block-title">Update Password</h3>
+                            <div class="inner-block">
+                                <div class="post-ad-tab">
+                                    <div class="step-one-content">
+                                        <form method="post" action="{{ route('userProfile.updatePassword') }}"
+                                            enctype="multipart/form-data" class="default-form-style">
+                                            @csrf
+                                            @method('post')
+                                            <div class="row">
+
+
                                                 <!-- Password -->
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -283,7 +287,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="main-content">

@@ -16,7 +16,7 @@
                                     <th style="text-align: left;">Price (PKR)</th>
                                     <th style="text-align: left;">Equivalence</th>
                                     <th style="text-align: left;">Free Coins</th>
-                                    <th style="text-align: left;">Featured Ad Rate</th>
+                                    <th style="text-align: left;">Featured ad Coins</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>

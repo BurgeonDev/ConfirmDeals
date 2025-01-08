@@ -12,6 +12,9 @@ class CoinController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $coins = Coin::all();
         $coin = $coins->first();
@@ -26,11 +29,17 @@ class CoinController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.coins.create');
     }
 
     public function store(Request $request)
     {
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         $validated = $request->validate([
             'price_in_pkr' => 'required|numeric|min:0',
             'equivalence' => 'required|integer|min:1',
@@ -51,6 +60,9 @@ class CoinController extends Controller
 
     public function show(Coin $coin)
     {
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.coins.show', compact('coin'));
     }
 
@@ -59,11 +71,17 @@ class CoinController extends Controller
         if (!auth()->user()->can('Manage Admin Dashbaord')) {
             abort(403, 'Unauthorized action.');
         }
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admin.coins.edit', compact('coin'));
     }
 
     public function update(Request $request, Coin $coin)
     {
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         $validated = $request->validate([
             'price_in_pkr' => 'required|numeric|min:0',
             'equivalence' => 'required|integer|min:1',
@@ -84,6 +102,9 @@ class CoinController extends Controller
 
     public function destroy(Coin $coin)
     {
+        if (!auth()->user()->can('Edit Coins Setting')) {
+            abort(403, 'Unauthorized action.');
+        }
         $coin->delete();
         return redirect()->route('coins.index')->with('success', 'Coin deleted successfully.');
     }
