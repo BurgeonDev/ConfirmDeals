@@ -164,8 +164,9 @@
                             @endif
 
                             <div class="list-info">
-                                <h4>Coins</h4>
                                 @if (auth()->id() !== $ad->user_id)
+                                    <h4>Coins</h4>
+
                                     <ul>
                                         <div class="row">
                                             <li class="col-md-4"><span>@lang('messages.coins_required')</span> {{ $ad->coins_needed }}
