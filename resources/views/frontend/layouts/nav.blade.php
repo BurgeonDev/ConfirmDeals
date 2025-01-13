@@ -92,16 +92,37 @@
                                      </li>
 
                                      <li class="user-dropdown">
-                                         <a href="javascript:void(0)" onclick="toggleDropdown()">
-                                             <img style="height: 50px; width:50px; border-radius:50%; object-fit: cover;"
-                                                 src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
-                                                 alt="{{ auth()->user()->first_name }}" class="user-profile-img"
-                                                 onclick="toggleDropdown()" />
-
-                                             {{ auth()->user()->first_name }}
-                                             <i class="lni lni-chevron-down" onclick="toggleDropdown()"></i>
-
-                                         </a>
+                                         {{-- <a href="javascript:void(0)" onclick="toggleDropdown()" id="s"> --}}
+                                         <img style="height: 50px; width:50px; border-radius:50%; object-fit: cover;"
+                                             src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
+                                             alt="{{ auth()->user()->first_name }}" class="user-profile-img"
+                                             id="profileImg" />
+                                         <a id="s">
+                                             {{ auth()->user()->first_name }}</a>
+                                         {{-- </a> --}}
+                                         <i class="lni lni-chevron-down" id="dropdownIcon"></i>
+                                         <script>
+                                             function toggleDropdown() {
+                                                 var dropdownMenu = document.getElementById("userDropdownMenu");
+                                                 if (dropdownMenu.style.display === "none" || dropdownMenu.style.display === "") {
+                                                     dropdownMenu.style.display = "block";
+                                                 } else {
+                                                     dropdownMenu.style.display = "none";
+                                                 }
+                                             }
+                                             document.getElementById("profileImg").addEventListener("click", toggleDropdown);
+                                             document.getElementById("dropdownIcon").addEventListener("click", toggleDropdown);
+                                             document.getElementById("s").addEventListener("click", toggleDropdown);
+                                             window.onclick = function(event) {
+                                                 var dropdown = document.getElementById("userDropdownMenu");
+                                                 if (!event.target.matches('#s') && !event.target.matches('#dropdownIcon') && !event.target.matches(
+                                                         '#profileImg')) {
+                                                     if (dropdown.style.display === "block") {
+                                                         dropdown.style.display = "none";
+                                                     }
+                                                 }
+                                             };
+                                         </script>
                                          <ul class="dropdown-menu center-align" id="userDropdownMenu" style="top: 60px;">
 
                                              <li>
@@ -140,27 +161,7 @@
                          </div>
 
 
-                         <script>
-                             function toggleDropdown() {
-                                 var dropdownMenu = document.getElementById("userDropdownMenu");
-                                 // Toggle the display of the dropdown menu
-                                 if (dropdownMenu.style.display === "none" || dropdownMenu.style.display === "") {
-                                     dropdownMenu.style.display = "block";
-                                 } else {
-                                     dropdownMenu.style.display = "none";
-                                 }
-                             }
 
-                             // Close the dropdown if the user clicks anywhere outside
-                             window.onclick = function(event) {
-                                 var dropdown = document.getElementById("userDropdownMenu");
-                                 if (!event.target.matches('.user-dropdown a')) {
-                                     if (dropdown.style.display === "block") {
-                                         dropdown.style.display = "none";
-                                     }
-                                 }
-                             }
-                         </script>
 
 
                          <div class="button header-button">
