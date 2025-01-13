@@ -160,10 +160,6 @@
                              </ul>
                          </div>
 
-
-
-
-
                          <div class="button header-button">
                              <a href="{{ route('ad.create') }}" class="btn">Post Ad</a>
                          </div>
