@@ -1,6 +1,5 @@
  <header class="header navbar-area">
      <div class="container">
-
          <div class="row align-items-center">
              <div class="col-lg-12">
                  <div class="nav-inner">
@@ -26,9 +25,6 @@
                                  <li class="nav-item">
                                      <a href="{{ route('about') }}" aria-label="Toggle navigation">About</a>
                                  </li>
-                                 {{-- <li class="nav-item">
-                                     <a href="{{ route('faq') }}" aria-label="Toggle navigation">FAQ</a>
-                                 </li> --}}
                                  <li class="nav-item">
                                      <a href="{{ route('contact.index') }}" aria-label="Toggle navigation">Contact
                                          Us</a>
@@ -53,8 +49,9 @@
                                                  @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
                                                      <span class="notification-count"
                                                          style="height: 15px; width: 15px; font-size: 10px; text-align: left;">
-                                                         {{ auth()->user()->unreadNotifications->count() }}
+                                                         {{ auth()->user()->unreadNotifications->count() > 9 ? '9' : auth()->user()->unreadNotifications->count() }}
                                                      </span>
+
                                                      <div class="notification-dropdown" id="notificationDropdown"
                                                          style="display: none;">
                                                          <div class="notification-content">
