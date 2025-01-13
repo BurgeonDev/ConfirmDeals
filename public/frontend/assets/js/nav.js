@@ -1,7 +1,14 @@
 let lastScrollTop = 0;
 const loginButton = document.querySelector('.header .login-button');
 
+// Function to check if the screen is mobile-sized
+const isMobileScreen = () => window.innerWidth <= 768;
+
 window.addEventListener('scroll', () => {
+    if (!isMobileScreen()) {
+        return; // Exit if not on a mobile screen
+    }
+
     const currentScroll = window.scrollY;
 
     if (currentScroll > lastScrollTop) {
