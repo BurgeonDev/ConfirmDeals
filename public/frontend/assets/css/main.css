@@ -1325,6 +1325,7 @@ ol {
     background: #fff;
 }
 
+/* Existing styles */
 .header .login-button {
     margin-left: 40px;
 }
@@ -1363,6 +1364,62 @@ ol {
     color: #5830e0;
     margin-right: 4px;
     font-size: 15px;
+}
+
+/* New styles for mobile screens */
+@media (max-width: 768px) {
+    /* Position the login-button at the bottom center */
+    .header .login-button {
+        position: fixed;
+        top: 75px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+        padding: 10px 20px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        transform: translateY(0); /* Default position */
+        transition: transform 0.3s ease-in-out; /* Smooth transition */
+    }
+
+    /* Adjust padding and alignment of the list */
+    .header .login-button ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        border-radius: 0;
+    }
+
+    .header .login-button ul li {
+        display: block;
+        margin: 5px 0;
+        padding: 0;
+        border: none;
+        text-align: center;
+    }
+
+    .header .login-button ul li a {
+        font-size: 16px;
+        padding: 5px;
+    }
+
+    .header .login-button ul li a i {
+        font-size: 18px;
+    }
+
+    /* Ensure dropdown menu fits mobile screens */
+    .header .login-button ul li .dropdown-menu {
+        position: static;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 10px;
+        text-align: center;
+    }
 }
 
 .sticky {
@@ -7545,7 +7602,7 @@ blockquote .shape {
         display: none;
     }
     .header .login-button {
-        display: none;
+        /* display: none; */
     }
     .header .navbar-collapse {
         top: 59px !important;
