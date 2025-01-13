@@ -7637,6 +7637,29 @@ blockquote .shape {
     .hero-area .hero-text .button .btn {
         padding: 12px 10px;
     }
+    @media (max-width: 768px) {
+        .notification-dropdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; /* Take up 90% of the screen width */
+            max-height: 70%; /* Limit the height to 70% of the screen */
+            overflow-y: auto; /* Enable scrolling if content exceeds height */
+            border: 1px solid #ccc;
+            border-radius: 8px; /* Slightly larger radius for better look on mobile */
+            z-index: 1050;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* More prominent shadow for mobile */
+        }
+
+        .notification-dropdown a {
+            font-size: 16px; /* Increase readability on smaller screens */
+        }
+
+        .notification-content {
+            gap: 15px; /* Add more spacing for better readability */
+        }
+    }
     .hero-area .search-form {
         margin-top: 30px;
         background: #fff3;
