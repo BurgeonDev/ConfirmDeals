@@ -192,12 +192,13 @@
 
                                      <li class="user-dropdown">
                                          <a href="javascript:void(0)" onclick="toggleDropdown()">
-                                             <img style="height: 55px; width:55px; border-radius:50%; object-fit: cover;"
+                                             <img style="height: 50px; width:50px; border-radius:50%; object-fit: cover;"
                                                  src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
-                                                 alt="{{ auth()->user()->first_name }}" class="user-profile-img" />
+                                                 alt="{{ auth()->user()->first_name }}" class="user-profile-img"
+                                                 onclick="toggleDropdown()" />
 
                                              {{ auth()->user()->first_name }}
-                                             <i class="lni lni-chevron-down"></i>
+                                             <i class="lni lni-chevron-down" onclick="toggleDropdown()"></i>
 
                                          </a>
                                          <ul class="dropdown-menu center-align" id="userDropdownMenu" style="top: 60px;">
