@@ -55,8 +55,8 @@ class UserProfileController extends Controller
                 'required',
                 'string',
                 'max:15',
-                'unique:' . User::class,
-                'regex:/^03[0-9]{2}-[0-9]{7}$/',  // Phone format validation
+                'unique:users,phone_number,' . $user->id, // Exclude the current user's phone number
+                'regex:/^03[0-9]{2}-[0-9]{7}$/', // Phone format validation
             ],
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8048',
             'profession_id' => 'required|exists:professions,id',
@@ -92,6 +92,7 @@ class UserProfileController extends Controller
 
         return redirect()->route('userProfile.edit')->with('success', 'Profile updated successfully.');
     }
+
 
     public function destroy()
     {

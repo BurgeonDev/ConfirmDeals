@@ -258,54 +258,51 @@
                     <div class="col-lg-8 col-md-7 col-12">
                         <!-- Start Single Block -->
                         <div class="single-block description">
-                            <h3>@lang('messages.description')</h3>
+                            <h3>Description</h3>
                             <p>{{ $ad->description }}</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-5 col-12">
                         <div class="item-details-sidebar">
-                            <!-- Start Single Block -->
+
                             <div class="single-block author">
                                 <h3>@lang('messages.seller')</h3>
                                 <div class="content">
                                     <img src="{{ $ad->user->profile_pic ? asset('storage/' . $ad->user->profile_pic) : asset('frontend/assets/images/user/user.png') }}"
                                         alt="Seller">
-
-
                                     <a href="{{ route('profile.public', $ad->createdBy->id) }}">
-                                        {{-- <h4>{{ $ad->createdBy->first_name ?? 'Unknown' }}
-                                            {{ $ad->createdBy->last_name }}</h4> --}}
                                         <h3 style="color: #5830e0">Seller</h3>
-
                                     </a>
                                     <div class="user-rating">
-
-                                        <div class="rating">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                @if ($averageRating >= $i)
-                                                    <i class="fa fa-star text-warning"></i>
-                                                @elseif ($averageRating >= $i - 0.5)
-                                                    <i class="fa fa-star-half-alt text-warning"></i>
-                                                @else
-                                                    <i class="fa fa-star text-muted"></i>
-                                                @endif
-                                            @endfor
-                                            <span>({{ number_format($averageRating, 1) }})</span>
-                                        </div>
+                                        @if ($averageRating)
+                                            <div class="stars">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= floor($averageRating))
+                                                        <i class="fas fa-star" style="color: gold;"></i>
+                                                        <!-- Filled star -->
+                                                    @elseif ($i <= ceil($averageRating))
+                                                        <i class="fas fa-star-half-alt" style="color: gold;"></i>
+                                                        <!-- Half star -->
+                                                    @else
+                                                        <i class="far fa-star" style="color: gold;"></i>
+                                                        <!-- Empty star -->
+                                                    @endif
+                                                @endfor
+                                                <span>({{ number_format($averageRating, 1) }} / 5)</span>
+                                            </div>
+                                        @else
+                                            <span>No ratings yet</span>
+                                        @endif
                                     </div>
-
                                     <span>
                                         {{ $ad->createdBy->created_at ? 'Member since ' . \Carbon\Carbon::parse($ad->createdBy->created_at)->format('F Y') : 'Unknown' }}
                                     </span>
+
                                     <a href="{{ route('profile.public', $ad->createdBy->id) }}" class="see-all">See All
                                         Ads</a>
                                 </div>
+
                             </div>
-
-
-
-                            <!-- End Single Block -->
-
                         </div>
                     </div>
                 </div>
