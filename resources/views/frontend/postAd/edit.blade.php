@@ -293,46 +293,8 @@
             });
         });
     </script>
+
     {{-- <script>
-        document.getElementById('price').addEventListener('input', function() {
-            const price = parseFloat(this.value);
-            const coinsNeededInput = document.getElementById('coins_needed');
-            const liveError = document.getElementById('liveError');
-
-            if (!price || price <= 0) {
-                coinsNeededInput.value = '';
-                liveError.textContent = 'Enter a valid price.';
-                return;
-            }
-
-            // Fetch the PKR price of 1 coin and user's coin balance
-            fetch('/get-coin-price-and-balance')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        liveError.textContent = data.error;
-                        coinsNeededInput.value = '';
-                    } else {
-                        liveError.textContent = '';
-                        // Calculate coins needed
-                        const coinsNeeded = Math.ceil(price / data.price_in_pkr);
-                        coinsNeededInput.value = coinsNeeded;
-
-                        // Check if the user has enough coins
-                        if (data.user_balance < coinsNeeded) {
-                            liveError.textContent =
-                                `You do not have enough coins. You need ${coinsNeeded} coins, but only have ${data.user_balance}.`;
-                        } else {
-                            liveError.textContent = '';
-                        }
-                    }
-                })
-                .catch(() => {
-                    liveError.textContent = 'Error fetching coin price or user balance. Please try again.';
-                });
-        });
-    </script> --}}
-    <script>
         document.getElementById('price').addEventListener('input', function() {
             const price = parseFloat(this.value);
             const coinsNeededInput = document.getElementById('coins_needed');
@@ -379,5 +341,97 @@
                     liveError.textContent = 'Error fetching coin price or user balance. Please try again.';
                 });
         });
+    </script> --}}
+    <script>
+        // Initialize variables to store the original price and original coins used
+        let originalPrice = 0;
+        let originalCoinsUsed = 0;
+
+        // Fetch the original price and calculate the original coins used on page load
+        window.addEventListener('load', () => {
+            const priceInput = document.getElementById('price');
+            const coinsNeededInput = document.getElementById('coins_needed');
+
+            originalPrice = parseFloat(priceInput.value) || 0; // Parse and store the original price
+            fetch('/get-coin-price-and-balance')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        originalCoinsUsed = Math.ceil(originalPrice / data.price_in_pkr);
+                        coinsNeededInput.value = originalCoinsUsed; // Populate initial coins needed
+                    }
+                })
+                .catch(() => {
+                    console.error('Error fetching initial coin data.');
+                });
+        });
+
+        document.getElementById('price').addEventListener('input', function() {
+            const price = parseFloat(this.value);
+            const coinsNeededInput = document.getElementById('coins_needed');
+            const liveError = document.getElementById('liveError');
+
+            if (!price || price <= 0) {
+                coinsNeededInput.value = '';
+                liveError.textContent = 'Enter a valid price.';
+                return;
+            }
+
+            // Fetch the PKR price of 1 coin and user's coin balance
+            fetch('/get-coin-price-and-balance')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        liveError.textContent = data.error;
+                        coinsNeededInput.value = '';
+                    } else {
+                        liveError.textContent = '';
+                        const coinPriceInPKR = data.price_in_pkr;
+                        const userBalance = data.user_balance;
+
+                        // Calculate new coins needed based on the updated price
+                        const newCoinsNeeded = Math.ceil(price / coinPriceInPKR);
+
+                        // Calculate the total effective coins (current balance + original coins used)
+                        const totalEffectiveCoins = userBalance + originalCoinsUsed;
+
+                        // Update the coins needed input field
+                        coinsNeededInput.value = newCoinsNeeded;
+
+                        // Generate feedback messages
+                        let feedbackMessage = `Original coins needed: ${originalCoinsUsed}. `;
+                        feedbackMessage += `New coins needed: ${newCoinsNeeded}. `;
+
+                        // Compare new coins with original coins and calculate differences
+                        if (newCoinsNeeded > originalCoinsUsed) {
+                            const additionalCoinsNeeded = newCoinsNeeded - originalCoinsUsed;
+                            feedbackMessage += `You need ${additionalCoinsNeeded} more coins. `;
+                        } else if (newCoinsNeeded < originalCoinsUsed) {
+                            const coinsReturned = originalCoinsUsed - newCoinsNeeded;
+                            feedbackMessage += `You will receive ${coinsReturned} coins back. `;
+                        } else {
+                            feedbackMessage += `No change in coin requirement. `;
+                        }
+
+                        // Check if the user has enough effective coins
+                        if (totalEffectiveCoins < newCoinsNeeded) {
+                            feedbackMessage +=
+                                `You do not have enough coins. Total effective coins: ${totalEffectiveCoins}, but you need ${newCoinsNeeded}.`;
+                        } else {
+                            feedbackMessage += `You have enough coins.`;
+                        }
+
+                        liveError.textContent = feedbackMessage;
+                    }
+                })
+                .catch(() => {
+                    liveError.textContent = 'Error fetching coin price or user balance. Please try again.';
+                });
+        });
     </script>
+
+
+
 @endsection
