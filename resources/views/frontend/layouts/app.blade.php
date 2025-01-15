@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}" />
+    <style>
+
+    </style>
 
 </head>
 
@@ -165,6 +168,7 @@
     <script src="{{ asset('frontend/assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/filter-and-sort.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/nav.js') }}"></script>
     <script type="text/javascript">
         //========= Category Slider
         tns({
