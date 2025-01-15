@@ -3830,81 +3830,190 @@ blockquote .shape {
 .category-sidebar .single-widget.search form {
     position: relative;
 }
-.notification-icon {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+header .wrapper {
+    /* position: relative; */
 }
 
-.notification-count {
+header .notification {
+    float: right;
+    cursor: pointer;
+    position: relative;
+}
+
+header .notification:hover i {
+    color: #6f7e87;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.common-count {
+    background: #5830e0;
+    color: #ffffff;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+header i {
+    color: #9fb6c3;
+    font-size: 18px !important;
+    line-height: 24px !important;
+}
+
+.count1 {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: #582fe0;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 5px;
+    top: 0;
+    left: 10px;
+    width: 18px;
+    height: 18px;
     font-size: 12px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #ffffff;
+    margin-left: 113px;
 }
 
 .notification-dropdown {
+    display: none;
     position: absolute;
     top: 100%;
-    right: 0;
-    width: 350px;
+
+    left: 800px;
+    width: 300px;
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 10px;
     border-radius: 5px;
-    display: none;
-    /* Hidden by default */
-}
-
-.notification-dropdown a {
-    display: block;
-
-    color: #333;
-    text-decoration: none;
-}
-
-.notification-dropdown a:hover {
-    background-color: #f5f5f5;
-}
-
-.notification-dropdown {
-    position: absolute;
-    /* Adjust based on your layout */
-    top: 100%;
-    /* Position below the triggering element */
-    right: 0;
-    /* Align to the right */
-    width: 300px;
-    /* Set a fixed width */
-    max-height: 200px;
-    /* Limit the height of the dropdown */
+    max-height: 400px;
     overflow-y: auto;
-    /* Enable vertical scrolling */
-    background-color: #fff;
-    /* Background color */
-    border: 1px solid #ccc;
-    /* Border for visibility */
-    border-radius: 4px;
-    /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    /* Subtle shadow */
-    z-index: 1000;
-    /* Ensure it appears above other elements */
+}
+
+.notification-dropdown .items {
+    background: #e9eff2c8;
+    width: 100%;
+    overflow-y: auto;
     padding: 10px;
-    /* Add padding */
+    border-radius: 5px;
+}
+
+.notification-dropdown .items .list-item {
+    padding: 14px;
+    font-size: 13px;
+    line-height: 18px;
+    border-bottom: 1px solid #d5dfe4;
+    height: 35px;
+    cursor: pointer;
+}
+
+.notification-dropdown .items .list-item:last-child {
+    border-bottom: 0;
+}
+
+.notification-dropdown .header {
+    background: #ffffff;
+    width: 100%;
+    height: 44px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #d5dfe4;
+    font-size: 14px;
+    line-height: 18px;
 }
 
 .notification-content {
     display: flex;
     flex-direction: column;
-    /* Arrange notifications vertically */
     gap: 10px;
-    /* Add spacing between notifications */
+}
+
+.notification-dropdown .header {
+    background: #ffffff;
+    width: 100%;
+    height: 44px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #d5dfe4;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.notification-dropdown .header .container {
+    width: 115px;
+    margin: 0px auto;
+    padding-top: 12px;
+}
+
+.notification-dropdown .items {
+    background: #e9eff2;
+    width: 100%;
+    max-height: 256px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow-y: auto;
+}
+
+.notification-dropdown .items .list-item {
+    padding: 14px;
+    font-size: 13px;
+    line-height: 18px;
+    border-bottom: 1px solid #d5dfe4;
+    height: 35px;
+    cursor: pointer;
+}
+
+.notification-dropdown .items .list-item:hover {
+    background: #ddecf3;
+}
+
+.new-item {
+    background: #ddecf3;
+}
+
+.notification-dropdown .items .list-item:last-child {
+    border-bottom: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.notification-dropdown .items .list-item .image {
+    margin-right: 12px;
+}
+
+.notification-dropdown .items .list-item img {
+    width: 35px;
+    height: auto;
+    border-radius: 30px;
+}
+
+.notification-dropdown .items .list-item .text {
+    color: #a0b6c3;
+    width: 178px;
+    position: relative;
+    top: -1px;
+}
+
+.notification-dropdown .items .list-item .text b {
+    margin-right: 4px;
+    color: #6f7a87;
 }
 .category-sidebar .single-widget.search form input {
     height: 50px;

@@ -44,7 +44,7 @@
                                  @auth
                                      <li>
                                          <a>
-                                             <div class="notification-icon">
+                                             {{-- <div class="notification-icon">
                                                  <i class="lni lni-alarm" id="notificationIcon"></i>
                                                  @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
                                                      <span class="notification-count"
@@ -84,7 +84,86 @@
                                                          <p>No new notifications</p>
                                                      </div>
                                                  @endif
+                                             </div> --}}
+                                             <div class="wrapper">
+                                                 <div class="notification" onclick="toggleNotificationDropdown()">
+                                                     <i class="lni lni-alarm"></i>
+                                                     @if (auth()->check() && auth()->user()->unreadNotifications->count() > 0)
+                                                         <div class="notify-count count1 common-count"
+                                                             count="{{ auth()->user()->unreadNotifications->count() }}">
+                                                             <div class="value">
+                                                                 {{ auth()->user()->unreadNotifications->count() > 9 ? '9+' : auth()->user()->unreadNotifications->count() }}
+                                                             </div>
+                                                         </div>
+                                                     @endif
+                                                 </div>
+
+                                                 <div class="notification-dropdown dd" id="notificationDropdown"
+                                                     style="display: none;">
+                                                     <div class="arrow-up"></div>
+                                                     <div class="header">
+                                                         <div class="container">
+                                                             <div class="text">Notifications
+                                                             </div>
+
+                                                         </div>
+                                                     </div>
+                                                     <div class="items">
+                                                         @if (auth()->user()->unreadNotifications->isNotEmpty())
+                                                             <button
+                                                                 style="display: block; margin: 10px auto; padding: 5px 10px; background: #282570; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                                                                 onclick="location.href='{{ route('notifications.markAllRead') }}'">
+                                                                 Mark All as Read
+                                                             </button>
+                                                             @foreach (auth()->user()->unreadNotifications as $notification)
+                                                                 <div
+                                                                     style="padding: 10px; border-bottom: 1px solid #D5DFE4; cursor: pointer;">
+                                                                     @if (isset($notification->data['url']))
+                                                                         <a href="{{ $notification->data['url'] }}"><span
+                                                                                 style="color: #2336AB; text-decoration: none;">
+                                                                                 {{ $notification->data['message'] }}
+                                                                             </span>
+
+                                                                         </a>
+                                                                     @else
+                                                                         <span> {{ $notification->data['message'] }}
+                                                                         </span>
+                                                                     @endif
+                                                                     <span
+                                                                         style="font-size: 12px; color: #888;">{{ $notification->created_at->diffForHumans() }}</span>
+                                                                 </div>
+                                                             @endforeach
+                                                         @else
+                                                             <p style="padding: 10px; text-align: center; color: #888;">No
+                                                                 new
+                                                                 notifications</p>
+                                                         @endif
+                                                     </div>
+                                                 </div>
                                              </div>
+
+                                             <script>
+                                                 function toggleNotificationDropdown() {
+                                                     const dropdown = document.getElementById('notificationDropdown');
+                                                     if (dropdown.style.display === 'none') {
+                                                         dropdown.style.display = 'block';
+                                                     } else {
+                                                         dropdown.style.display = 'none';
+                                                     }
+                                                 }
+
+                                                 // Close dropdown if clicked outside
+                                                 document.addEventListener('click', function(event) {
+                                                     const dropdown = document.getElementById('notificationDropdown');
+                                                     const notification = document.querySelector('.notification');
+                                                     if (!notification.contains(event.target)) {
+                                                         dropdown.style.display = 'none';
+                                                     }
+                                                 });
+                                             </script>
+
+
+
                                          </a>
                                      </li>
 
